@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class animationMW; }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -20,6 +20,6 @@ public slots:
     void slot_show(const QString &message);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::animationMW *ui;
 };
 #endif // MAINWINDOW_H

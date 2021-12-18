@@ -1,11 +1,11 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "ui_animationMW.h"
 
 #include "./../QtSingleApplication/QtSingleApplication"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::animationMW)
 {
     ui->setupUi(this);
 
