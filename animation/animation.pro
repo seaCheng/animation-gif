@@ -10,7 +10,8 @@ include  (./../QtSingleApplication/qtsingleapplication.pri);
 INCLUDEPATH += $$PWD/../AMLogger
 INCLUDEPATH += $$PWD/../QtSingleApplication
 INCLUDEPATH += \
-$$PWD/graphicsComponent
+$$PWD/graphicsComponent \
+$$PWD/viewComponent
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -19,11 +20,17 @@ $$PWD/graphicsComponent
 SOURCES += \
     graphicsComponent/graphicsViewComp.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    viewComponent/aspectRatioPixmapLabel.cpp \
+    viewComponent/picScaleComp.cpp \
+    viewComponent/picScaleViewComp.cpp
 
 HEADERS += \
     graphicsComponent/graphicsViewComp.h \
-    mainwindow.h
+    mainwindow.h \
+    viewComponent/aspectRatioPixmapLabel.h \
+    viewComponent/picScaleComp.h \
+    viewComponent/picScaleViewComp.h
 
 FORMS += \
     ui/animationMW.ui
@@ -34,3 +41,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES +=
+
+RC_ICONS = $$PWD/resource/app.ico

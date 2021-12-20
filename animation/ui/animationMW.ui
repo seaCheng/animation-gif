@@ -41,7 +41,7 @@
       <property name="lineWidth">
        <number>0</number>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -58,17 +58,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QFrame" name="leftView">
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>0</number>
-         </property>
-        </widget>
+        <widget class="GraphicsViewComp" name="leftView"/>
        </item>
        <item>
         <widget class="QFrame" name="rightView">
@@ -99,7 +89,13 @@
      </widget>
     </item>
     <item>
-     <widget class="GraphicsViewComp" name="bottomView">
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -112,6 +108,46 @@
         <height>180</height>
        </size>
       </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="PicScaleViewComp" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>800</width>
+         <height>180</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>180</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>180</height>
+        </size>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -122,6 +158,12 @@
    <class>GraphicsViewComp</class>
    <extends>QGraphicsView</extends>
    <header>graphicsViewComp.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PicScaleViewComp</class>
+   <extends>QWidget</extends>
+   <header location="global">picScaleViewComp.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

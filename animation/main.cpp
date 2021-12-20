@@ -5,6 +5,9 @@
 #include "AWLoggerFactory.h"
 
 #include <QApplication>
+#include <QResource>
+#include <QFile>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -15,9 +18,27 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    QFont font;
+    font.setPointSize(12);
+    #if defined (_WIN32) || defined (WIN32)
+        //font.setFamily("微软雅黑");
+        //font.setFamily("PingFangSC-Regular");
+    #else
+        font.setFamily("PingFangSC-Regular");
+    #endif
+    app.setFont(font);
+
+    bool bReg = QResource::registerResource("./resource/instance.rcc");
+    QFile file(":/resource/wndcss.qss");
+    bool bRst = file.open(QFile::ReadOnly);
+    qDebug()<<"bReg"<<bReg<<"bRst:"<<bRst;
+    app.setStyleSheet(file.readAll());
+    file.close();
+
+
     std::shared_ptr<AMLog::AMLogger> logger = AMLog::AWLoggerFactory::instace()->CreateLogger("outputMessage1");
     logger->info("app launch...");
-
+    logger->info("bReg:{}, bRst:{}", bReg, bRst);
     MainWindow w;
     w.show();
 

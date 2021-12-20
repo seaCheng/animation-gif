@@ -6,6 +6,10 @@ class GraphicsViewComp :public QGraphicsView
 public:
 
     GraphicsViewComp(QWidget *parent = nullptr);
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
 private:
 
+    QGraphicsWidget * m_GraWid = nullptr;
 };
