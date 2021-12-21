@@ -7,10 +7,10 @@ CONFIG += c++11
 include  (./../AMLogger/AMLogger.pri);
 include  (./../QtSingleApplication/qtsingleapplication.pri);
 
-INCLUDEPATH += $$PWD/../AMLogger
-INCLUDEPATH += $$PWD/../QtSingleApplication
 INCLUDEPATH += \
 $$PWD/graphicsComponent \
+$$PWD/../AMLogger \
+$$PWD/../QtSingleApplication \
 $$PWD/viewComponent
 
 # You can make your code fail to compile if it uses deprecated APIs.

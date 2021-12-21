@@ -54,7 +54,7 @@ void PicScaleViewComp::initial()
         picScale->setFixedSize(180,180);
         picScale->setPicIndexInterval(QString("%1").arg(i), QString("%1ms").arg(600));
 
-        int iIndex = QRandomGenerator::global()->bounded(8) + 1;
+        int iIndex = QRandomGenerator::global()->bounded(11) + 1;
         picScale->setPic(QPixmap(QString(":/images/%1.bmp").arg(iIndex)));
         m_layout->addWidget(picScale);
     }

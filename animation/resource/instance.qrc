@@ -1,5 +1,5 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
+<RCC>
+    <qresource prefix="/">
      <file>../images/app.ico</file>
      <file>../images/self.ico</file>
      <file>../resource/wndcss.qss</file>
@@ -11,7 +11,8 @@
      <file>../images/6.bmp</file>
      <file>../images/7.bmp</file>
      <file>../images/8.bmp</file>
-     <file>../images/9.bmp</file>
-	 
-</qresource>
+     <file>../images/9.bmp</file> 
+	 <file>../images/10.bmp</file> 
+	 <file>../images/11.bmp</file> 
+    </qresource>
 </RCC>
