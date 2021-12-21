@@ -18,17 +18,19 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    QCoreApplication::addLibraryPath("./");
+    app.setApplicationName("Animation");
+
     QFont font;
     font.setPointSize(12);
     #if defined (_WIN32) || defined (WIN32)
-        //font.setFamily("微软雅黑");
-        //font.setFamily("PingFangSC-Regular");
+        font.setFamily("微软雅黑");
     #else
         font.setFamily("PingFangSC-Regular");
     #endif
     app.setFont(font);
 
-    bool bReg = QResource::registerResource("./resource/instance.rcc");
+    bool bReg = QResource::registerResource(QCoreApplication::applicationDirPath() + "/resource/instance.rcc");
     QFile file(":/resource/wndcss.qss");
     bool bRst = file.open(QFile::ReadOnly);
     qDebug()<<"bReg"<<bReg<<"bRst:"<<bRst;

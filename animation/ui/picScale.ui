@@ -13,11 +13,15 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QFrame" name="frame">
+  <property name="styleSheet">
+   <string notr="true">
+background-color: rgb(95, 95, 95);</string>
+  </property>
+  <widget class="QFrame" name="frameMain">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>110</y>
+     <x>120</x>
+     <y>100</y>
      <width>180</width>
      <height>180</height>
     </rect>
@@ -35,8 +39,15 @@
     </size>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(185, 185, 185);
-border-color: rgb(255, 255, 0);</string>
+    <string notr="true">#frameMain
+{
+background-color: rgba(255, 255, 255, 0);
+}
+
+#frameMain:hover{
+   background-color: rgba(255, 255, 255, 100);
+   border:1px solid rgb(0,255,0)；
+} </string>
    </property>
    <property name="frameShape">
     <enum>QFrame::NoFrame</enum>
@@ -113,6 +124,9 @@ border-image: url(:/images/2.bmp);
         <height>40</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -140,6 +154,9 @@ border-image: url(:/images/2.bmp);
        </property>
        <item>
         <widget class="QLabel" name="labelLeft">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>100</string>
          </property>
@@ -150,6 +167,9 @@ border-image: url(:/images/2.bmp);
        </item>
        <item>
         <widget class="QLabel" name="labelRight">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+         </property>
          <property name="text">
           <string>66ms</string>
          </property>

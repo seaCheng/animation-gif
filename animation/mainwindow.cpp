@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setObjectName("MainWindow");
     ui->setupUi(this);
+    ui->scrollAreaPicScal->setObjectName("scrollAreaPicScal");
+    ui->scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
 
 }
 

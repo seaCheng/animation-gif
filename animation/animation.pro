@@ -40,6 +40,15 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
 
 RC_ICONS = $$PWD/resource/app.ico
+
+macx {
+DEFINES += PLUGIN_LIBRARY
+QMAKE_INFO_PLIST = macos/Info.plist
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
+
+QMAKE_POST_LINK = \
+        rm -rf animation.app/Contents/MacOS/resource && \
+        cp -avf resource animation.app/Contents/MacOS/resource
+}

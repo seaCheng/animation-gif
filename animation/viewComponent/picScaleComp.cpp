@@ -15,6 +15,12 @@ void PicScaleComp::paintEvent(QPaintEvent *event)
     QFrame::paintEvent(event);
 }
 
+void PicScaleComp::mouseReleaseEvent(QMouseEvent *ev)
+{
+    QFrame::mouseReleaseEvent(ev);
+    emit s_clicked();
+}
+
 void PicScaleComp::setPicIndexInterval(QString index, QString interval)
 {
     m_labelLeft->setText(index);
@@ -28,6 +34,7 @@ void PicScaleComp::setPic(QPixmap pic)
 
 void PicScaleComp::initial()
 {
+    setObjectName("PicScaleComp");
     m_frameBottom = new QFrame();
     m_frameBottom->setFrameShape(NoFrame);
     m_frameBottom->setLineWidth(0);

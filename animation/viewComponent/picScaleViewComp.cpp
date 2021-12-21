@@ -2,17 +2,47 @@
 
 #include <QHBoxLayout>
 #include<QRandomGenerator>
+#include <QStyle>
+#include <QVariant>
+#include <QDebug>
 
 #include "picScaleComp.h"
 
 PicScaleViewComp::PicScaleViewComp(QWidget *parent)
-    :QWidget(parent)
+    :QFrame(parent)
 {
     initial();
+    setConnect();
+}
+
+void PicScaleViewComp::setConnect()
+{
+    //connect()
+}
+
+void PicScaleViewComp::refreashState()
+{
+    if(m_picScaleCli != nullptr)
+    {
+        QString state = "false";
+        m_picScaleCli->setProperty("sel", state);
+        style()->unpolish(m_picScaleCli);
+        style()->polish(m_picScaleCli);
+    }
+
+    PicScaleComp * picScaleCli = (PicScaleComp *)sender();
+    m_picScaleCli = picScaleCli;
+    QString state = "true";
+    picScaleCli->setProperty("sel", state);
+    style()->unpolish(picScaleCli);
+    style()->polish(picScaleCli);
+
+    //qDebug()<<"refreashState";
 }
 
 void PicScaleViewComp::initial()
 {
+    setObjectName("PicScaleViewComp");
     m_layout = new QHBoxLayout(this);
     m_layout->setContentsMargins(0,0,0,0);
     m_layout->setSpacing(0);
@@ -20,6 +50,7 @@ void PicScaleViewComp::initial()
     for(int i = 0; i < 1000; i++)
     {
         PicScaleComp * picScale = new PicScaleComp();
+        connect(picScale, &PicScaleComp::s_clicked, this, &PicScaleViewComp::refreashState);
         picScale->setFixedSize(180,180);
         picScale->setPicIndexInterval(QString("%1").arg(i), QString("%1ms").arg(600));
 
@@ -33,7 +64,3 @@ void PicScaleViewComp::initial()
 
 }
 
-void PicScaleViewComp::paintEvent(QPaintEvent *event)
-{
-    QWidget::paintEvent(event);
-}
