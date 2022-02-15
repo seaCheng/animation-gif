@@ -1,0 +1,20 @@
+
+PicScaleViewComp
+{
+  background-color: rgb(95, 95, 95);
+}
+
+
+#PicScaleComp{
+   background-color: rgba(255, 255, 255, 0);
+} 
+
+#PicScaleComp:hover{
+   background-color: rgba(255, 255, 255, 40);
+   border:0px solid rgb(0,255,0)£»
+}
+
+#PicScaleComp[sel="true"]{
+   background-color: rgba(255, 255, 255, 100);
+   border:1px solid rgb(0,255,0)£»
+}
