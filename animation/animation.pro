@@ -2,10 +2,27 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 include  (./../AMLogger/AMLogger.pri);
 include  (./../QtSingleApplication/qtsingleapplication.pri);
+
+DEFINES += MVVM_MODEL_STATIC_DEFINE \
+    MVVM_VIEW_STATIC_DEFINE \
+    MVVM_VIEWMODEL_STATIC_DEFINE
+
+INCLUDEPATH += \
+$$PWD/../qt-mvvm/source/libmvvm_model \
+$$PWD/../qt-mvvm/source/libmvvm_view \
+$$PWD/../qt-mvvm/source/libmvvm_viewmodel \
+$$PWD/../qt-mvvm/autogen/mvvm
+
+CONFIG(debug, debug|release) {
+    LIBS+= -L"$$PWD/../lib/debug" -lqtMvvm
+}
+else {
+    LIBS+= -L"$$PWD/../lib/release" -lqtMvvm
+}
 
 INCLUDEPATH += \
 $$PWD/graphicsComponent \
@@ -18,16 +35,24 @@ $$PWD/viewComponent
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    connectableitem.cpp \
+    connectableitemcontroller.cpp \
     graphicsComponent/graphicsViewComp.cpp \
+    graphicsscenecontroller.cpp \
     main.cpp \
     mainwindow.cpp \
+    samplemodel.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
     viewComponent/picScaleComp.cpp \
     viewComponent/picScaleViewComp.cpp
 
 HEADERS += \
+    connectableitem.h \
+    connectableitemcontroller.h \
     graphicsComponent/graphicsViewComp.h \
+    graphicsscenecontroller.h \
     mainwindow.h \
+    samplemodel.h \
     viewComponent/aspectRatioPixmapLabel.h \
     viewComponent/picScaleComp.h \
     viewComponent/picScaleViewComp.h

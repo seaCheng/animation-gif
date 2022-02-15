@@ -4,10 +4,22 @@
 #include "AWLogger.h"
 #include "AWLoggerFactory.h"
 
+#include <iostream>
+
+#define STB_IMAGE_IMPLEMENTATION
+
 #include <QApplication>
 #include <QResource>
 #include <QFile>
 #include <QDebug>
+
+long long currentTimeMs() {
+    std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> tp = std::chrono::time_point_cast<std::chrono::milliseconds>(
+            std::chrono::system_clock::now());
+    auto tmp = std::chrono::duration_cast<std::chrono::milliseconds>(tp.time_since_epoch());
+    auto timestamp = tmp.count();
+    return timestamp;
+}
 
 int main(int argc, char *argv[])
 {

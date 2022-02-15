@@ -3,9 +3,12 @@
 #include <QHBoxLayout>
 
 #include "aspectRatioPixmapLabel.h"
+#include "connectableitem.h"
+#include "connectableitemcontroller.h"
 
-PicScaleComp::PicScaleComp(QWidget *parent)
-    :QFrame(parent)
+PicScaleComp::PicScaleComp(ConnectableItem* item, QWidget *parent)
+    :QFrame(parent),
+    m_item(item), m_controller(std::make_unique<ConnectableItemController>(item, this))
 {
    initial();
 }
@@ -64,4 +67,9 @@ void PicScaleComp::initial()
     m_lPic->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_layout->addWidget(m_lPic);
     m_layout->addWidget(m_frameBottom);
+}
+
+ConnectableItem* PicScaleComp::connectableItem()
+{
+    return m_item;
 }

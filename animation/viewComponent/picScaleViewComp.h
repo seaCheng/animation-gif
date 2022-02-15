@@ -1,5 +1,6 @@
 #pragma once
 #include <QFrame>
+#include "connectableitem.h"
 
 class QHBoxLayout;
 class QScrollArea;
@@ -13,6 +14,9 @@ public:
     PicScaleViewComp(QWidget *parent = nullptr);
     void initial();
     void setConnect();
+
+    void insertItem(ModelView::SessionItem * item, ModelView::TagRow row);
+    void eraseItem(ModelView::SessionItem * item, ModelView::TagRow row);
 public slots:
      void refreashState();
 protected:
@@ -22,4 +26,6 @@ private:
     QScrollArea * m_scroll = nullptr;
 
     PicScaleComp * m_picScaleCli = nullptr;
+    std::map<ConnectableItem*, PicScaleComp*> m_itemToView;
+
 };

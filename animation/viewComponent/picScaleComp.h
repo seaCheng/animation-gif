@@ -1,19 +1,24 @@
 #pragma once
 #include <QFrame>
+#include "connectableitemcontroller.h"
 
 class QLabel;
 class AspectRatioPixmapLabel;
 class QVBoxLayout;
+class ConnectableItem;
+
 class PicScaleComp :public QFrame
 {
     Q_OBJECT
 public:
 
-    PicScaleComp(QWidget *parent = nullptr);
+    PicScaleComp(ConnectableItem* item, QWidget *parent = nullptr);
     void initial();
 
     void setPicIndexInterval(QString index, QString interval);
     void setPic(QPixmap pic);
+
+    ConnectableItem* connectableItem();
 
 signals:
     void s_clicked();
@@ -27,4 +32,7 @@ private:
 
     AspectRatioPixmapLabel *m_lPic = nullptr;
     QVBoxLayout * m_layout = nullptr;
+
+    ConnectableItem * m_item{nullptr};
+    std::unique_ptr<ConnectableItemController> m_controller;
 };
