@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 5.0.3, 2022-02-10T14:15:40. -->
+<!-- Written by QtCreator 5.0.3, 2022-02-17T12:07:20. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -67,59 +67,7 @@
     <value type="bool" key="AutoTest.Framework.QtQuickTest">true</value>
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:LinkTest">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestActionMacro">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestActionP2Macro">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestActionPMacro">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestAssign">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestDoAll">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestDoDefault">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestIgnoreResult">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestInvoke">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestInvokeArgument">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestInvokeWithoutArgs">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherA">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherAllOf">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherAnyOf">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherAnything">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherCast">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherContainerEq">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherContainsRegex">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherElementsAre">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherElementsAreArray">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherField">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherIsNull">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherIsSubsetOf">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherIsSupersetOf">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherMatchesRegex">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherNot">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherNotNull">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherPointee">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherProperty">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherRef">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherResultOf">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherTruly">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatcherTypedEq">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatchersEq">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatchersFloatingPoint">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatchersRelations">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatchersStringEquality">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestMatchersSubstrings">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestReturn">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestReturnNull">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestReturnRef">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestReturnVoid">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestSetArgPointee">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestSetArrayArgument">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestSetErrnoAndReturn">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestWithArg">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestWithArgs">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googlemock/test/gmock_link_test.h:TestWithoutArgs">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googletest/test/gtest-typed-test_test.h:CanBeDefaultConstructed">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googletest/test/gtest-typed-test_test.h:ContainerTest">Checked</value>
-    <value type="Qt::CheckState" key="1@/Users/sea/animation/qt-mvvm/thirdparty/gtest/googletest/googletest/test/gtest-typed-test_test.h:InitialSizeIsZero">Checked</value>
-   </valuemap>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey"/>

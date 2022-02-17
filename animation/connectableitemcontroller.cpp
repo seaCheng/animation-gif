@@ -81,7 +81,7 @@ ConnectableItemController::~ConnectableItemController() = default;
 
 void ConnectableItemController::subscribe()
 {
-    qDebug()<<"on_property_change subscribe....";
+    //qDebug()<<"on_property_change subscribe....";
 
     auto on_property_change = [this](auto, auto) {
 

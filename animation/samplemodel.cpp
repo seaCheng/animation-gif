@@ -13,6 +13,7 @@
 #include "mvvm/model/modelutils.h"
 #include "mvvm/factories/modeldocumentfactory.h"
 
+
 #include <QDebug>
 #include<QRandomGenerator>
 #include <QPixmap>
@@ -21,27 +22,21 @@ using namespace ModelView;
 
 SampleModel::SampleModel() : SessionModel("SampleModel")
 {
-
     registerItem<ConnectableItem>();
-
-
     populateModel();
-
     setUndoRedoEnabled(true);
 }
 
 //! Inserts new item of given type at given position.
 
-ConnectableItem * SampleModel::insertConnectableItem(const std::string& itemType, double xpos, double ypos)
+ConnectableItem * SampleModel::insertConnectableItem(const std::string& itemType, double xpos, double ypos, const QPixmap & pix)
 {
     ConnectableItem * item;
     Utils::BeginMacros(this, "insertConnectableItem");
 
-    if ( item = dynamic_cast<ConnectableItem*>(insertNewItem(itemType, rootItem())); item) {
+    if ( item = dynamic_cast<ConnectableItem*>(insertItem<ConnectableItem>()); item) {
 
-        int iIndex = QRandomGenerator::global()->bounded(11) + 1;
-        item->setQpixmap(QPixmap(QString(":/images/%1.bmp").arg(iIndex)));
-
+        item->setQpixmap(pix);
         item->setX(xpos);
         item->setY(ypos);
 
@@ -54,6 +49,11 @@ ConnectableItem * SampleModel::insertConnectableItem(const std::string& itemType
     Utils::EndMacros(this);
 
     return item;
+}
+
+void SampleModel::eraseConnectItem(ModelView::SessionItem * item)
+{
+    Utils::DeleteItemFromModel(item);
 }
 
 void SampleModel::loadFromFile(const std::string& name)
@@ -77,8 +77,6 @@ void SampleModel::saveToFile(const std::string& name)
 
 void SampleModel::populateModel()
 {
-    //insertItem<ConnectableItem>();
-    //auto layout = insertItem<ConnectableItem>();
-    //layout->setPos(490, 30);
+    //
 }
 

@@ -17,6 +17,11 @@ public:
 
     void insertItem(ModelView::SessionItem * item, ModelView::TagRow row);
     void eraseItem(ModelView::SessionItem * item, ModelView::TagRow row);
+
+    void refreashIndex();
+
+    PicScaleComp * getSelItem();
+
 public slots:
      void refreashState();
 protected:

@@ -25,6 +25,7 @@ const std::string double_type_name = "double";
 const std::string vector_double_type_name = "std::vector<double>";
 const std::string comboproperty_type_name = "ModelView::ComboProperty";
 const std::string qcolor_type_name = "QColor";
+const std::string qpixmap_type_name = "QPixmap";
 const std::string extproperty_type_name = "ModelView::ExternalProperty";
 const std::string reallimits_type_name = "ModelView::RealLimits";
 

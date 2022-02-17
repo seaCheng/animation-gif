@@ -2749,7 +2749,11 @@ jsonvariantconverter.o: source/libmvvm_model/mvvm/serialization/jsonvariantconve
 		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/QJsonArray \
 		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qjsonarray.h \
 		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/QJsonObject \
-		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h
+		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		../../Qt/5.15.2/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../Qt/5.15.2/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/QBuffer \
+		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qbuffer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jsonvariantconverter.o source/libmvvm_model/mvvm/serialization/jsonvariantconverter.cpp
 
 itemlistenerbase.o: source/libmvvm_model/mvvm/signals/itemlistenerbase.cpp source/libmvvm_model/mvvm/signals/itemlistenerbase.h \

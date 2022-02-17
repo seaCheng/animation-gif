@@ -11,16 +11,20 @@
 #define NODEEDITORCORE_SAMPLEMODEL_H
 
 #include "mvvm/model/sessionmodel.h"
+#include "mvvm/model/sessionitem.h"
 #include <string>
 
 
 //! Main application model.
 class ConnectableItem;
+
 class SampleModel : public ModelView::SessionModel {
 public:
     SampleModel();
 
-    ConnectableItem * insertConnectableItem(const std::string& itemType, double xpos, double ypos);
+    ConnectableItem * insertConnectableItem(const std::string& itemType, double xpos, double ypos, const QPixmap & pix);
+
+    void eraseConnectItem(ModelView::SessionItem * item);
 
     void loadFromFile(const std::string& name);
 

@@ -17,6 +17,9 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <stdexcept>
+#include <QPixmap>
+#include <QBuffer>
+#include <QDir>
 
 using namespace ModelView;
 
@@ -40,6 +43,9 @@ Variant to_invalid(const QJsonObject& object);
 
 QJsonObject from_bool(const Variant& variant);
 Variant to_bool(const QJsonObject& object);
+
+QJsonObject from_pixmap(const Variant& variant);
+Variant to_pixmap(const QJsonObject& object);
 
 QJsonObject from_int(const Variant& variant);
 Variant to_int(const QJsonObject& object);
@@ -77,6 +83,7 @@ JsonVariantConverter::JsonVariantConverter()
     m_converters[Constants::vector_double_type_name] = {from_vector_double, to_vector_double};
     m_converters[Constants::comboproperty_type_name] = {from_comboproperty, to_comboproperty};
     m_converters[Constants::qcolor_type_name] = {from_qcolor, to_qcolor};
+    m_converters[Constants::qpixmap_type_name] = {from_pixmap, to_pixmap};
     m_converters[Constants::extproperty_type_name] = {from_extproperty, to_extproperty};
     m_converters[Constants::reallimits_type_name] = {from_reallimits, to_reallimits};
 }
@@ -115,6 +122,34 @@ bool JsonVariantConverter::isVariant(const QJsonObject& object) const
 
 namespace {
 
+QJsonValue jsonValFromPixmap(const QPixmap &p)
+{
+
+QBuffer buffer;
+
+buffer.open(QIODevice::WriteOnly);
+
+p.save(&buffer,"bmp");
+
+auto const encoded = buffer.data().toBase64();
+
+return {QLatin1String(encoded)};
+
+}
+
+QPixmap pixmapFrom(const QJsonValue &val) {
+
+auto const encoded = val.toString().toLatin1();
+
+QPixmap p;
+
+p.loadFromData(QByteArray::fromBase64(encoded),"bmp");
+
+return p;
+
+}
+
+
 QStringList expected_variant_keys()
 {
     QStringList result = QStringList() << variantTypeKey << variantValueKey;
@@ -148,6 +183,35 @@ QJsonObject from_bool(const Variant& variant)
 Variant to_bool(const QJsonObject& object)
 {
     return object[variantValueKey].toVariant();
+}
+
+QJsonObject from_pixmap(const Variant& variant)
+{
+    QJsonObject result;
+    result[variantTypeKey] = QString::fromStdString(Constants::qpixmap_type_name);
+
+    QPixmap pix = variant.value<QPixmap>();
+
+    //bool brtn = pix.save(QDir::homePath() + "/Desktop/11.bmp");
+    //qDebug()<<"loadFromData11:"<<brtn;
+
+    QByteArray byteArray = QByteArray();
+    QBuffer buffer(&byteArray);
+    buffer.open(QIODevice::WriteOnly);
+    pix.save(&buffer,"png");
+    result[variantValueKey] = QLatin1String(byteArray.toBase64());
+    return result;
+}
+
+Variant to_pixmap(const QJsonObject& object)
+{
+
+    QString str2 = object[variantValueKey].toString();
+    QByteArray byteArray = QByteArray::fromBase64(str2.toLatin1());
+
+    QPixmap pix;
+    pix.loadFromData(byteArray, "png");
+    return Variant::fromValue(pix);
 }
 
 QJsonObject from_int(const Variant& variant)

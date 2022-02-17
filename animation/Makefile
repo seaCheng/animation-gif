@@ -1259,6 +1259,28 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		ui_animationMW.h \
+		viewComponent/picScaleViewComp.h \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QFrame \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
+		connectableitem.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/model/compounditem.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/model/customvariants.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/core/variant.h \
+		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/QVariant \
+		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../qt-mvvm/autogen/mvvm/mvvm/model_export.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/utils/reallimits.h \
+		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/QMetaType \
+		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qmetatype.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/model/propertyitem.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/model/sessionitem.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/model/mvvm_types.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/core/types.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/model/tagrow.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/model/taginfo.h \
+		graphicsComponent/graphicsViewComp.h \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QGraphicsView \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/qgraphicsview.h \
 		../QtSingleApplication/QtSingleApplication \
 		../QtSingleApplication/qtsingleapplication.h \
 		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
@@ -1268,23 +1290,33 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../qt-mvvm/source/libmvvm_model/mvvm/signals/modellistenerbase.h \
 		../qt-mvvm/source/libmvvm_model/mvvm/interfaces/modellistenerinterface.h \
 		../qt-mvvm/source/libmvvm_model/mvvm/signals/callback_types.h \
-		../qt-mvvm/source/libmvvm_model/mvvm/model/tagrow.h \
-		../qt-mvvm/autogen/mvvm/mvvm/model_export.h \
 		samplemodel.h \
 		../qt-mvvm/source/libmvvm_model/mvvm/model/sessionmodel.h \
-		../qt-mvvm/source/libmvvm_model/mvvm/core/types.h \
-		../qt-mvvm/source/libmvvm_model/mvvm/core/variant.h \
-		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/QVariant \
-		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qvariant.h \
 		../qt-mvvm/source/libmvvm_model/mvvm/model/function_types.h \
-		../qt-mvvm/source/libmvvm_model/mvvm/model/sessionitem.h \
-		../qt-mvvm/source/libmvvm_model/mvvm/model/customvariants.h \
-		../qt-mvvm/source/libmvvm_model/mvvm/utils/reallimits.h \
-		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/QMetaType \
-		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qmetatype.h \
-		../qt-mvvm/source/libmvvm_model/mvvm/model/mvvm_types.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/commands/undostack.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/interfaces/undostackinterface.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/model/modelutils.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/factories/modelconverterfactory.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/serialization/jsonmodelconverterinterface.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/model/itemutils.h \
+		viewComponent/picScaleComp.h \
+		connectableitemcontroller.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/signals/itemlistener.h \
+		../qt-mvvm/source/libmvvm_model/mvvm/signals/itemlistenerbase.h \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QAction \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QSplitter \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/qsplitter.h \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QUndoStack \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/qundostack.h \
 		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/QRandomGenerator \
-		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qrandom.h
+		../../Qt/5.15.2/clang_64/lib/QtCore.framework/Headers/qrandom.h \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/QToolBar \
+		../../Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers/qtoolbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 samplemodel.o: samplemodel.cpp samplemodel.h \

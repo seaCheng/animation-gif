@@ -27,13 +27,7 @@ ConnectableItem::ConnectableItem(): ModelView::CompoundItem("ConnectableItem")
     addProperty(P_XPOS, 0.0)->setDisplayName("X");
     addProperty(P_YPOS, 0.0)->setDisplayName("Y");
     addProperty(P_COLOR, QColor(Qt::gray))->setDisplayName("Color");
-
     qRegisterMetaType<QPixmap >("QPixmap");
-
-    //registerTag(TagInfo::universalTag("ConnectableItem", {}), /*set_default*/ true);
-    //setData<QPixmap>(QPixmap());
-
-
 }
 
 QColor ConnectableItem::color() const
@@ -75,19 +69,11 @@ void ConnectableItem::setPos(double x, double y)
 
 QPixmap ConnectableItem::pic()
 {
-    //return property<QPixmap>(P_PIXMAP);
-    qDebug()<<"pic qpixmap...."<<hasData();
-
     return data<QPixmap>();
 }
 
 void ConnectableItem::setQpixmap( QPixmap pix)
 {
-    //setProperty(P_PIXMAP, QPixmap(pix));
-    //m_pic = pix;
-
-    bool rtn = setData<QPixmap>(pix);
-    qDebug()<<"setdata qpixmap...."<<rtn;
-    qDebug()<<"setdata hasData...."<<hasData();
+    setData<QPixmap>(pix);
 }
 
