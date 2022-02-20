@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent)
         m_model->insertConnectableItem("ConnectableItem", 50,50, QPixmap(QString(":/images/%1.bmp").arg(iIndex)));
     }
 
+    setConnect();
+
 }
 
 void MainWindow::slot_show(const QString &message)
@@ -69,6 +71,29 @@ void MainWindow::slot_load()
     }
 }
 
+void MainWindow::slot_import(type_import type)
+{
+    switch (type) {
+
+    case import_pic:
+        {
+            slot_add();
+            break;
+        }
+
+     case import_gif:
+        {
+            break;
+        }
+
+    default:
+        {
+
+        }
+
+    }
+}
+
 void MainWindow::slot_add()
 {
     QStringList files = QFileDialog::getOpenFileNames(
@@ -87,6 +112,11 @@ void MainWindow::slot_add()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setConnect()
+{
+    connect(ui->leftView, &GraphicsViewComp::s_clicked, this, &MainWindow::slot_import);
 }
 
 void MainWindow::setupUndoRedoActions()
