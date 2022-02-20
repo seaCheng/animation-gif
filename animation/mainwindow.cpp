@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     for(int i = 0; i < 5; i++)
     {
         int iIndex = QRandomGenerator::global()->bounded(11) + 1;
-        //m_model->insertConnectableItem("ConnectableItem", 50,50, QPixmap(QString(":/images/%1.bmp").arg(iIndex)));
+        m_model->insertConnectableItem("ConnectableItem", 50,50, QPixmap(QString(":/images/%1.bmp").arg(iIndex)));
     }
 
 }
@@ -48,7 +48,6 @@ void MainWindow::slot_show(const QString &message)
 
 void MainWindow::slot_save()
 {
-          //保存名称为path + image（？） + 日期年y月M日d时h分m秒s
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
                                 QDir::homePath() + "/untitled.json",
                                 tr("Save ( *.json)"));
@@ -64,7 +63,6 @@ void MainWindow::slot_load()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                      QDir::homePath(),
                                                      tr("Json (*.json)"));
-
     if(!fileName.isNull())
     {
         m_model->loadFromFile(fileName.toStdString());
@@ -73,17 +71,16 @@ void MainWindow::slot_load()
 
 void MainWindow::slot_add()
 {
-    QString fileName = QFileDialog::getOpenFileName(
-                    this, tr("open image file"),
-                    "./", tr("Image files(*.bmp *.jpg *.png );;All files (*.*)"));
+    QStringList files = QFileDialog::getOpenFileNames(
+                             this,
+                             "Select one or more files to open",
+                             QDir::homePath(),
+                             "Images (*.bmp *.jpg *.png )");
 
-        if(fileName.isEmpty())
-        {
-            return;
-
-        }
-
-     m_model->insertConnectableItem("ConnectableItem", 50,50, QPixmap(fileName));
+    for(auto filename : files)
+    {
+        m_model->insertConnectableItem("ConnectableItem", 50,50, QPixmap(filename));
+    }
 
 }
 
@@ -123,7 +120,6 @@ void MainWindow::setupUndoRedoActions()
         }
     });
     m_toolBar->addAction(deleteAction);
-
 
     // undo action
     auto undoAction = new QAction("Undo", this);
