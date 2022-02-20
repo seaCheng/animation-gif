@@ -83,6 +83,8 @@ void PicScaleViewComp::insertItem(ModelView::SessionItem * item, ModelView::TagR
 
     m_itemToView[pItem] = picScale;
 
+    picScale->s_clicked();
+
     if(row.row != m_itemToView.size() - 1)
     {
         refreashIndex();
