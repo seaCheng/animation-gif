@@ -76,6 +76,6 @@ QMAKE_INFO_PLIST = macos/Info.plist
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
 
 QMAKE_POST_LINK = \
-        rm -rf animation.app/Contents/MacOS/resource && \
-        cp -avf resource animation.app/Contents/MacOS/resource
+        rm -rf ./../bin/animation.app/Contents/MacOS/resource && \
+        cp -avf ./resource ./../bin/animation.app/Contents/MacOS/resource
 }
