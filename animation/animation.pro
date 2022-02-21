@@ -7,6 +7,9 @@ DESTDIR = $$PWD/../bin
 CONFIG += c++17
 
 include  (./../AMLogger/AMLogger.pri);
+include  (./../gifdec/gifdec.pri);
+
+include  (./../BurstLinker/BurstLinker.pri);
 include  (./../QtSingleApplication/qtsingleapplication.pri);
 
 DEFINES += MVVM_MODEL_STATIC_DEFINE \
@@ -26,9 +29,14 @@ else {
     LIBS+= -L"$$PWD/../lib/release" -lqtMvvm
 }
 
+win32{
+    LIBS+= -L"$$PWD/../lib/SDL/lib/x64" -lSDL2
+}
 INCLUDEPATH += \
 $$PWD/graphicsComponent \
 $$PWD/../AMLogger \
+$$PWD/../gifdec \
+$$PWD/../lib/SDL/include \
 $$PWD/../QtSingleApplication \
 $$PWD/viewComponent
 
@@ -79,3 +87,4 @@ QMAKE_POST_LINK = \
         rm -rf ./../bin/animation.app/Contents/MacOS/resource && \
         cp -avf ./resource ./../bin/animation.app/Contents/MacOS/resource
 }
+
