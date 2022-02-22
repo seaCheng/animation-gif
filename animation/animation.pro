@@ -32,6 +32,10 @@ else {
 win32{
     LIBS+= -L"$$PWD/../lib/SDL/lib/x64" -lSDL2
 }
+
+macx {
+   LIBS += -F"$$PWD/../lib/SDL/lib" -framework SDL2
+}
 INCLUDEPATH += \
 $$PWD/graphicsComponent \
 $$PWD/../AMLogger \
@@ -85,6 +89,9 @@ QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
 
 QMAKE_POST_LINK = \
         rm -rf ./../bin/animation.app/Contents/MacOS/resource && \
-        cp -avf ./resource ./../bin/animation.app/Contents/MacOS/resource
+        cp -avf ./resource ./../bin/animation.app/Contents/MacOS/resource && \
+        mkdir -p ./../bin/animation.app/Contents/Frameworks && \
+        rm -rf ./../bin/animation.app/Contents/Frameworks/SDL2.framework && \
+        cp -avf ./../lib/SDL/lib/SDL2.framework  ./../bin/animation.app/Contents/Frameworks
 }
 

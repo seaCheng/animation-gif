@@ -8,8 +8,10 @@ $$PWD/src \
 $$PWD/include
 
 HEADERS += \
+    $$PWD/gifLoad.h \
     $$PWD/gifdec.h
 
 SOURCES += \
+    $$PWD/gifLoad.cpp \
     $$PWD/gifdec.c
 
