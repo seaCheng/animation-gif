@@ -8,6 +8,7 @@
 #include "mvvm/commands/undostack.h"
 #include "mvvm/model/modelutils.h"
 #include "picScaleComp.h"
+#include "gifLoad.h"
 
 #include <QAction>
 #include <QFileDialog>
@@ -83,6 +84,7 @@ void MainWindow::slot_import(type_import type)
 
      case import_gif:
         {
+            slot_importGif();
             break;
         }
 
@@ -94,6 +96,23 @@ void MainWindow::slot_import(type_import type)
     }
 }
 
+void MainWindow::slot_FinimportGif()
+{
+    std::vector<QPixmap> lstPix = GifLoad::instace()->getPixmaps();
+    m_model->insertConnectItems(lstPix);
+}
+
+void MainWindow::slot_importGif()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                     QDir::homePath(),
+                                                     tr("Gif (*.gif)"));
+    if(!fileName.isNull())
+    {
+        GifLoad::instace()->startGifLoad(fileName);
+    }
+}
+
 void MainWindow::slot_add()
 {
     QStringList files = QFileDialog::getOpenFileNames(
@@ -102,11 +121,7 @@ void MainWindow::slot_add()
                              QDir::homePath(),
                              "Images (*.bmp *.jpg *.png )");
 
-    for(auto filename : files)
-    {
-        m_model->insertConnectableItem("ConnectableItem", 50,50, QPixmap(filename));
-    }
-
+    m_model->insertConnectItems(files);
 }
 
 MainWindow::~MainWindow()
@@ -117,24 +132,27 @@ MainWindow::~MainWindow()
 void MainWindow::setConnect()
 {
     connect(ui->leftView, &GraphicsViewComp::s_clicked, this, &MainWindow::slot_import);
+
+    connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);
+
 }
 
 void MainWindow::setupUndoRedoActions()
 {
 
     //load file
-    auto loadAction = new QAction("Load", this);
+    auto loadAction = new QAction("Load project", this);
     connect(loadAction, &QAction::triggered, this, &MainWindow::slot_load
             );
     m_toolBar->addAction(loadAction);
 
     //save file
-    auto saveAction = new QAction("Save", this);
+    auto saveAction = new QAction("Save project", this);
     connect(saveAction, &QAction::triggered, this, &MainWindow::slot_save);
     m_toolBar->addAction(saveAction);
 
     //add pic
-    auto addAction = new QAction("Add", this);
+    auto addAction = new QAction("Add picture", this);
     connect(addAction, &QAction::triggered, this, &MainWindow::slot_add);
     m_toolBar->addAction(addAction);
 

@@ -51,6 +51,46 @@ ConnectableItem * SampleModel::insertConnectableItem(const std::string& itemType
     return item;
 }
 
+void SampleModel::insertConnectItems(QStringList lst)
+{
+    Utils::BeginMacros(this, "insertConnectableItem");
+    for(auto file : lst)
+    {
+        ConnectableItem * item;
+        if ( item = dynamic_cast<ConnectableItem*>(insertItem<ConnectableItem>()); item) {
+
+            item->setQpixmap(QPixmap(file));
+
+        }else
+        {
+            qDebug()<<"insert failed....";
+        }
+
+    }
+
+    Utils::EndMacros(this);
+}
+
+void SampleModel::insertConnectItems(const std::vector<QPixmap> lst)
+{
+    Utils::BeginMacros(this, "insertConnectableItem");
+    for(auto file : lst)
+    {
+        ConnectableItem * item;
+        if ( item = dynamic_cast<ConnectableItem*>(insertItem<ConnectableItem>()); item) {
+
+            item->setQpixmap(file);
+
+        }else
+        {
+            qDebug()<<"insert failed....";
+        }
+
+    }
+
+    Utils::EndMacros(this);
+}
+
 void SampleModel::eraseConnectItem(ModelView::SessionItem * item)
 {
     Utils::DeleteItemFromModel(item);

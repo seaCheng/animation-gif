@@ -13,6 +13,8 @@
 #include "mvvm/model/sessionmodel.h"
 #include "mvvm/model/sessionitem.h"
 #include <string>
+#include <vector>
+#include <QPixmap>
 
 
 //! Main application model.
@@ -24,6 +26,8 @@ public:
 
     ConnectableItem * insertConnectableItem(const std::string& itemType, double xpos, double ypos, const QPixmap & pix);
 
+    void insertConnectItems(QStringList lst);
+    void insertConnectItems(const std::vector<QPixmap> lst);
     void eraseConnectItem(ModelView::SessionItem * item);
 
     void loadFromFile(const std::string& name);

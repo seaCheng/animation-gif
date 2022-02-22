@@ -15,19 +15,23 @@ GifLoad::GifLoad(QObject *parent)
 
     setconnect();
     initial();
+}
+
+void GifLoad::startGifLoad(QString file)
+{
+    emit s_GifLoad(file);
+}
+
+void GifLoad::slot_GifLoad(QString file)
+{
     int sum = 0 ;
-    Uint8 *color, *frame;
+    Uint8 *color, *frame, *bgColor;
     SDL_Surface *surface;
     Uint32 pixel;
     void *addr;
-    QString strPath = QCoreApplication::applicationDirPath()  + "/test.gif";
+    //QString strPath = QCoreApplication::applicationDirPath()  + "/test.gif";
 
-    /*
-    color = &gif->gct.colors[gif->bgindex * 3];
-    SDL_SetRenderDrawColor(renderer, color[0], color[1], color[2], 0x00);
-    */
-
-    gd_GIF *gif = gd_open_gif(strPath.toStdString().c_str());
+    gd_GIF *gif = gd_open_gif(file.toStdString().c_str());
     if (!gif) {
             fprintf(stderr, "Could not open %s\n", "");
             return;
@@ -38,6 +42,9 @@ GifLoad::GifLoad(QObject *parent)
             SDL_Log("SDL_CreateRGBSurface() failed: %s", SDL_GetError());
             return;
         }
+
+        bgColor = &gif->gct.colors[gif->bgindex * 3];
+
     frame = (uint8_t *)malloc(gif->width * gif->height * 3);
     while (gd_get_frame(gif))
     {
@@ -52,12 +59,12 @@ GifLoad::GifLoad(QObject *parent)
                 if (!gd_is_bgcolor(gif, color))
                     pixel = SDL_MapRGB(surface->format, color[0], color[1], color[2]);
                 else if (((i >> 2) + (j >> 2)) & 1)
-                    pixel = SDL_MapRGB(surface->format, 0x7F, 0x7F, 0x7F);
+                    pixel = SDL_MapRGB(surface->format, bgColor[0], bgColor[1], bgColor[2]);
                 else
-                    pixel = SDL_MapRGB(surface->format, 0x00, 0x00, 0x00);
+                    pixel = SDL_MapRGB(surface->format, bgColor[0], bgColor[1], bgColor[2]);
 
                 //addr = (Uint32 *)surface->pixels + (i * surface->pitch + j * sizeof(pixel));
-                memcpy(color, &pixel, sizeof(pixel));
+                //memcpy(color, &pixel, sizeof(pixel));
                 color += 3;
             }
         }
@@ -65,14 +72,14 @@ GifLoad::GifLoad(QObject *parent)
         SDL_UnlockSurface(surface);
 
         QImage img((unsigned char*)frame, gif->width, gif->height, gif->width * 3, QImage::Format_RGB888);
-        img.save(QString("%1.png").arg(sum));
+        m_lstPixmap.emplace_back(QPixmap::fromImage(img));
 
     }
 
     free(frame);
     gd_close_gif(gif);
 
-
+    emit s_FinGifLoad();
 }
 
 GifLoad::~GifLoad()
@@ -88,6 +95,6 @@ void GifLoad::initial()
 
 void GifLoad::setconnect()
 {
-    //
+    connect(this, &GifLoad::s_GifLoad, this, &GifLoad::slot_GifLoad);
 }
 

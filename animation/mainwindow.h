@@ -26,6 +26,9 @@ public slots:
 
     void slot_show(const QString &message);
     void slot_add();
+    void slot_importGif();
+    void slot_FinimportGif();
+
     void slot_save();
     void slot_load();
 
