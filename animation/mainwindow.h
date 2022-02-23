@@ -33,6 +33,7 @@ public slots:
     void slot_load();
 
     void slot_import(type_import type);
+    void slot_export();
 
 private:
     Ui::animationMW *ui;

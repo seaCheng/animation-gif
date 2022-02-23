@@ -27,6 +27,7 @@ HEADERS += \
     $$PWD/include/NoDitherer.h \
     $$PWD/include/OctreeQuantizer.h \
     $$PWD/include/RandomQuantizer.h \
+    $$PWD/include/gifExport.h \
     $$PWD/include/stb_image.h \
     $$PWD/include/ThreadPool.h \
     $$PWD/include/UniformQuantizer.h
@@ -49,4 +50,5 @@ SOURCES += \
     $$PWD/src/NoDitherer.cpp \
     $$PWD/src/OctreeQuantizer.cpp \
     $$PWD/src/RandomQuantizer.cpp \
-    $$PWD/src/UniformQuantizer.cpp
+    $$PWD/src/UniformQuantizer.cpp \
+    $$PWD/src/gifExport.cpp

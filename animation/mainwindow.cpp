@@ -9,6 +9,9 @@
 #include "mvvm/model/modelutils.h"
 #include "picScaleComp.h"
 #include "gifLoad.h"
+#include "mvvm/model/sessionitem.h"
+
+#include "gifExport.h"
 
 #include <QAction>
 #include <QFileDialog>
@@ -18,6 +21,8 @@
 #include <QRandomGenerator>
 #include <QToolBar>
 #include <QFileDialog>
+
+#include <vector>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -70,6 +75,30 @@ void MainWindow::slot_load()
     {
         m_model->loadFromFile(fileName.toStdString());
     }
+}
+
+void MainWindow::slot_export()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Export gif"),
+                                QDir::homePath() + "/untitled.gif",
+                                tr("Save ( *.gif)"));
+
+        if(fileName.isNull())
+        {
+            return;
+        }
+
+    std::vector<ModelView::SessionItem*> vecSession = m_model->rootItem()->children();
+    std::vector<QPixmap> vecPix;
+    for (auto item : vecSession) {
+
+        vecPix.emplace_back(((ConnectableItem *)item)->pic());
+    }
+
+    GifExport::instace()->setGifSize(250, 250);
+    GifExport::instace()->setGifPictures(vecPix);
+    GifExport::instace()->startGifExport(fileName);
+
 }
 
 void MainWindow::slot_import(type_import type)
@@ -151,13 +180,15 @@ void MainWindow::setupUndoRedoActions()
     connect(saveAction, &QAction::triggered, this, &MainWindow::slot_save);
     m_toolBar->addAction(saveAction);
 
+    m_toolBar->addSeparator();
+
     //add pic
     auto addAction = new QAction("Add picture", this);
     connect(addAction, &QAction::triggered, this, &MainWindow::slot_add);
     m_toolBar->addAction(addAction);
 
     // delete action
-    auto deleteAction = new QAction("Remove selected", this);
+    auto deleteAction = new QAction("Remove picture", this);
     connect(deleteAction, &QAction::triggered,
             [this]()
     {
@@ -168,6 +199,7 @@ void MainWindow::setupUndoRedoActions()
         }
     });
     m_toolBar->addAction(deleteAction);
+    m_toolBar->addSeparator();
 
     // undo action
     auto undoAction = new QAction("Undo", this);
@@ -180,6 +212,15 @@ void MainWindow::setupUndoRedoActions()
     connect(redoAction, &QAction::triggered, [this]() { ModelView::Utils::Redo(*m_model); });
     redoAction->setDisabled(true);
     m_toolBar->addAction(redoAction);
+
+    m_toolBar->addSeparator();
+
+    //export gif
+    auto exportAction = new QAction("Export gif", this);
+    connect(exportAction, &QAction::triggered, this, &MainWindow::slot_export);
+    m_toolBar->addAction(exportAction);
+
+    m_toolBar->addSeparator();
 
     // enable/disable undo/redo actions when there is something to undo
     if (m_model && m_model->undoStack()) {
