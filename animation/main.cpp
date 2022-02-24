@@ -58,7 +58,6 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    GifLoad::instace();
     app.setActivationWindow(&w,1);
 
     return app.exec();
