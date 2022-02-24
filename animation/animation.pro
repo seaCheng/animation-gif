@@ -49,24 +49,24 @@ $$PWD/viewComponent
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    connectableitem.cpp \
-    connectableitemcontroller.cpp \
     graphicsComponent/graphicsViewComp.cpp \
-    graphicsscenecontroller.cpp \
     main.cpp \
     mainwindow.cpp \
-    samplemodel.cpp \
+    modelController.cpp \
+    pictureItem.cpp \
+    pictureItemcontroller.cpp \
+    pictureModel.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
     viewComponent/picScaleComp.cpp \
     viewComponent/picScaleViewComp.cpp
 
 HEADERS += \
-    connectableitem.h \
-    connectableitemcontroller.h \
     graphicsComponent/graphicsViewComp.h \
-    graphicsscenecontroller.h \
     mainwindow.h \
-    samplemodel.h \
+    modelController.h \
+    pictureItem.h \
+    pictureItemcontroller.h \
+    pictureModel.h \
     viewComponent/aspectRatioPixmapLabel.h \
     viewComponent/picScaleComp.h \
     viewComponent/picScaleViewComp.h

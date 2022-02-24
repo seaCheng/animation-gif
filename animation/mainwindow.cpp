@@ -2,8 +2,8 @@
 #include "ui_animationMW.h"
 
 #include "QtSingleApplication"
-#include "graphicsscenecontroller.h"
-#include "samplemodel.h"
+#include "modelController.h"
+#include "pictureModel.h"
 
 #include "mvvm/commands/undostack.h"
 #include "mvvm/model/modelutils.h"
@@ -34,15 +34,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->scrollAreaPicScal->setObjectName("scrollAreaPicScal");
     ui->scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
 
-    m_model = new SampleModel();
-    GraphicsSceneController * ctl = new GraphicsSceneController(m_model, ui->scrollAreaWidgetContents);
+    m_model = new PictureModel();
+    ModelController * ctl = new ModelController(m_model, ui->scrollAreaWidgetContents);
 
     setupUndoRedoActions();
 
     for(int i = 0; i < 5; i++)
     {
         int iIndex = QRandomGenerator::global()->bounded(11) + 1;
-        m_model->insertConnectableItem("ConnectableItem", 50,50, QPixmap(QString(":/images/%1.bmp").arg(iIndex)));
+        m_model->insertConnectableItem("PictureItem", 50,50, QPixmap(QString(":/images/%1.bmp").arg(iIndex)));
     }
 
     setConnect();
@@ -73,6 +73,7 @@ void MainWindow::slot_load()
                                                      tr("Json (*.json)"));
     if(!fileName.isNull())
     {
+        slot_clear();
         m_model->loadFromFile(fileName.toStdString());
     }
 }
@@ -92,7 +93,7 @@ void MainWindow::slot_export()
     std::vector<QPixmap> vecPix;
     for (auto item : vecSession) {
 
-        vecPix.emplace_back(((ConnectableItem *)item)->pic());
+        vecPix.emplace_back(((PictureItem *)item)->pic());
     }
 
     GifExport::instace()->setGifSize(250, 250);
@@ -140,6 +141,11 @@ void MainWindow::slot_importGif()
     {
         GifLoad::instace()->startGifLoad(fileName);
     }
+}
+
+void MainWindow::slot_clear()
+{
+    m_model->eraseConnectItems(m_model->rootItem()->children());
 }
 
 void MainWindow::slot_add()
@@ -195,10 +201,15 @@ void MainWindow::setupUndoRedoActions()
         PicScaleComp * pic =  ui->scrollAreaWidgetContents->getSelItem();
         if(pic)
         {
-            m_model->eraseConnectItem(pic->connectableItem());
+            m_model->eraseConnectItem(pic->getPictureItem());
         }
     });
     m_toolBar->addAction(deleteAction);
+
+    auto clearAction = new QAction("Clear picture", this);
+    connect(clearAction, &QAction::triggered, this, &MainWindow::slot_clear);
+    m_toolBar->addAction(clearAction);
+
     m_toolBar->addSeparator();
 
     // undo action

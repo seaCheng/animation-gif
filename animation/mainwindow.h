@@ -9,7 +9,7 @@ namespace Ui { class animationMW; }
 QT_END_NAMESPACE
 
 class QToolBar;
-class SampleModel;
+class PictureModel;
 
 class MainWindow : public QMainWindow
 {
@@ -26,6 +26,7 @@ public slots:
 
     void slot_show(const QString &message);
     void slot_add();
+    void slot_clear();
     void slot_importGif();
     void slot_FinimportGif();
 
@@ -38,6 +39,6 @@ public slots:
 private:
     Ui::animationMW *ui;
     QToolBar* m_toolBar{nullptr};
-    SampleModel * m_model = nullptr;
+    PictureModel * m_model = nullptr;
 };
 #endif // MAINWINDOW_H

@@ -1,6 +1,6 @@
 #pragma once
 #include <QFrame>
-#include "connectableitem.h"
+#include "pictureItem.h"
 
 class QHBoxLayout;
 class QScrollArea;
@@ -31,6 +31,6 @@ private:
     QScrollArea * m_scroll = nullptr;
 
     PicScaleComp * m_picScaleCli = nullptr;
-    std::map<ConnectableItem*, PicScaleComp*> m_itemToView;
+    std::map<PictureItem*, PicScaleComp*> m_itemToView;
 
 };

@@ -3,12 +3,12 @@
 #include <QHBoxLayout>
 
 #include "aspectRatioPixmapLabel.h"
-#include "connectableitem.h"
-#include "connectableitemcontroller.h"
+#include "pictureItem.h"
+#include "pictureItemcontroller.h"
 
-PicScaleComp::PicScaleComp(ConnectableItem* item, QWidget *parent)
+PicScaleComp::PicScaleComp(PictureItem* item, QWidget *parent)
     :QFrame(parent),
-    m_item(item), m_controller(std::make_unique<ConnectableItemController>(item, this))
+    m_item(item), m_controller(std::make_unique<PictureItemController>(item, this))
 {
    initial();
 }
@@ -69,7 +69,7 @@ void PicScaleComp::initial()
     m_layout->addWidget(m_frameBottom);
 }
 
-ConnectableItem* PicScaleComp::connectableItem()
+PictureItem* PicScaleComp::getPictureItem()
 {
     return m_item;
 }

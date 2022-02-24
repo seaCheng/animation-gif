@@ -7,7 +7,7 @@
 #include <QDebug>
 
 #include "picScaleComp.h"
-#include "connectableitem.h"
+#include "pictureItem.h"
 
 PicScaleViewComp::PicScaleViewComp(QWidget *parent)
     :QFrame(parent)
@@ -55,9 +55,9 @@ void PicScaleViewComp::refreashIndex()
 void PicScaleViewComp::eraseItem(ModelView::SessionItem * item, ModelView::TagRow row)
 {
 
-    auto it = m_itemToView.find((ConnectableItem *) item);
+    auto it = m_itemToView.find((PictureItem *) item);
     if (it != m_itemToView.end()) {
-        m_layout->removeWidget(m_itemToView[(ConnectableItem *) item]);
+        m_layout->removeWidget(m_itemToView[(PictureItem *) item]);
 
         if(m_picScaleCli == it->second)
         {
@@ -73,8 +73,8 @@ void PicScaleViewComp::eraseItem(ModelView::SessionItem * item, ModelView::TagRo
 
 void PicScaleViewComp::insertItem(ModelView::SessionItem * item, ModelView::TagRow row)
 {
-    ConnectableItem * pItem = (ConnectableItem *)item;
-    PicScaleComp * picScale = new PicScaleComp((ConnectableItem *)item);
+    PictureItem * pItem = (PictureItem *)item;
+    PicScaleComp * picScale = new PicScaleComp((PictureItem *)item);
     connect(picScale, &PicScaleComp::s_clicked, this, &PicScaleViewComp::refreashState);
     picScale->setFixedSize(180,180);
     picScale->setPicIndexInterval(QString("%1").arg(row.row), QString("%1ms").arg(600));
