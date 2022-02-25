@@ -6,6 +6,7 @@
 #include <QVariant>
 #include <QDebug>
 
+#include "mvvm/model/sessionmodel.h"
 #include "picScaleComp.h"
 #include "pictureItem.h"
 
@@ -39,6 +40,22 @@ void PicScaleViewComp::refreashState()
     style()->polish(picScaleCli);
 }
 
+PicScaleComp * PicScaleViewComp::getSelPicByItem(PictureItem * pic)
+{
+    PicScaleComp * comp = nullptr;
+    for (auto ite : m_itemToView )
+    {
+
+        if(ite.first == pic)
+        {
+            comp = ite.second;
+            break;
+        }
+    }
+
+    return comp;
+}
+
 PicScaleComp * PicScaleViewComp::getSelItem()
 {
     return m_picScaleCli;
@@ -52,11 +69,33 @@ void PicScaleViewComp::refreashIndex()
     }
 }
 
-void PicScaleViewComp::eraseItem(ModelView::SessionItem * item, ModelView::TagRow row)
+void PicScaleViewComp::refreashSelPic(ModelView::SessionItem * parentItem, ModelView::TagRow row)
 {
+    PictureItem * pItem = (PictureItem *)parentItem->getItem(row.tag, row.row);
+    if(pItem == nullptr)
+    {
+         pItem = (PictureItem *)parentItem->getItem(row.tag, row.row - 1);
+         if(pItem == nullptr)
+         {
+             pItem = (PictureItem *)parentItem->getItem(row.tag, 0);
+         }
+    }
 
+    if(pItem)
+    {
+        PicScaleComp *comp = getSelPicByItem(pItem);
+        if(comp)
+        {
+           comp->s_clicked();
+        }
+    }
+}
+
+void PicScaleViewComp::aboutEraseItem(ModelView::SessionItem * item, ModelView::TagRow row)
+{
     auto it = m_itemToView.find((PictureItem *) item);
-    if (it != m_itemToView.end()) {
+    if (it != m_itemToView.end())
+    {
         m_layout->removeWidget(m_itemToView[(PictureItem *) item]);
 
         if(m_picScaleCli == it->second)
@@ -66,9 +105,14 @@ void PicScaleViewComp::eraseItem(ModelView::SessionItem * item, ModelView::TagRo
 
         delete it->second;
         m_itemToView.erase(it);
-
-        refreashIndex();
     }
+}
+
+void PicScaleViewComp::eraseItem(ModelView::SessionItem * parentItem, ModelView::TagRow row)
+{
+    refreashIndex();
+
+    refreashSelPic(parentItem, row);
 }
 
 void PicScaleViewComp::insertItem(ModelView::SessionItem * item, ModelView::TagRow row)

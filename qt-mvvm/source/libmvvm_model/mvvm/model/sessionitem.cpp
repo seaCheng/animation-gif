@@ -242,7 +242,7 @@ SessionItem* SessionItem::insertItem(std::unique_ptr<SessionItem> item, const Ta
     if (p_impl->m_model) {
         // FIXME think of actual_tagrow removal if input tag,row will be always valid
         auto actual_tagrow = tagRowOfItem(result);
-        p_impl->m_model->mapper()->callOnItemInserted(result, actual_tagrow);
+        p_impl->m_model->mapper()->callOnItemInserted(this, actual_tagrow);
     }
 
     return result;
@@ -265,7 +265,7 @@ std::unique_ptr<SessionItem> SessionItem::takeItem(const TagRow& tagrow)
     result->setModel(nullptr);
     // FIXME remaining problem is that ItemMapper still looking to the model
     if (p_impl->m_model)
-        p_impl->m_model->mapper()->callOnItemRemoved(result, tagrow);
+        p_impl->m_model->mapper()->callOnItemRemoved(this, tagrow);
 
     return std::unique_ptr<SessionItem>(result);
 }

@@ -16,11 +16,15 @@ public:
     void setConnect();
 
     void insertItem(ModelView::SessionItem * item, ModelView::TagRow row);
-    void eraseItem(ModelView::SessionItem * item, ModelView::TagRow row);
+    void aboutEraseItem(ModelView::SessionItem * item, ModelView::TagRow row);
+    void eraseItem(ModelView::SessionItem * parentItem, ModelView::TagRow row);
 
+    //更新选中的图片
+    void refreashSelPic(ModelView::SessionItem * parentItem, ModelView::TagRow row);
     void refreashIndex();
 
     PicScaleComp * getSelItem();
+    PicScaleComp * getSelPicByItem(PictureItem *);
 
 public slots:
      void refreashState();
