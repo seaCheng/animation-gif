@@ -14,7 +14,7 @@ GraphicsViewComp::GraphicsViewComp(QWidget *parent)
     QGraphicsScene * scene = new QGraphicsScene();
     QToolButton *toolPicWid =  new QToolButton();
     connect(toolPicWid, &QToolButton::clicked, this, [=](){
-        emit s_clicked(import_pic);
+        emit s_clicked(type_import::import_pic);
     });
     toolPicWid->setObjectName("toolPicWid");
     toolPicWid->setText(tr("pic add"));
@@ -22,7 +22,7 @@ GraphicsViewComp::GraphicsViewComp(QWidget *parent)
 
     QToolButton *toolGifWid =  new QToolButton();
     connect(toolGifWid, &QToolButton::clicked, this, [=](){
-        emit s_clicked(import_gif);
+        emit s_clicked(type_import::import_gif);
     });
 
     toolGifWid->setObjectName("toolGifWid");

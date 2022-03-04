@@ -106,13 +106,13 @@ void MainWindow::slot_import(type_import type)
 {
     switch (type) {
 
-    case import_pic:
+    case type_import::import_pic:
         {
             slot_add();
             break;
         }
 
-     case import_gif:
+     case type_import::import_gif:
         {
             slot_importGif();
             break;
@@ -128,6 +128,7 @@ void MainWindow::slot_import(type_import type)
 
 void MainWindow::slot_FinimportGif()
 {
+
     std::vector<QPixmap> lstPix = GifLoad::instace()->getPixmaps();
     m_model->insertConnectItems(lstPix);
 }
