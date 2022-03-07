@@ -13,8 +13,5 @@ To build, you can just run these shell commands:
     cd animation-gif/animation 
     open animation.pro
     
-    cd qt-mvvm
-    open qt-mvvms.pro
-    
 
 Happy hacking!
