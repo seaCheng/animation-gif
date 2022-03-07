@@ -9,12 +9,11 @@ CONFIG += c++17
 include  (./../AMLogger/AMLogger.pri);
 include  (./../gifdec/gifdec.pri);
 
+include  (./../qt-mvvm/qt-mvvms.pri);
+
 include  (./../BurstLinker/BurstLinker.pri);
 include  (./../QtSingleApplication/qtsingleapplication.pri);
 
-DEFINES += MVVM_MODEL_STATIC_DEFINE \
-    MVVM_VIEW_STATIC_DEFINE \
-    MVVM_VIEWMODEL_STATIC_DEFINE
 
 INCLUDEPATH += \
 $$PWD/../qt-mvvm/source/libmvvm_model \
@@ -23,10 +22,10 @@ $$PWD/../qt-mvvm/source/libmvvm_viewmodel \
 $$PWD/../qt-mvvm/autogen/mvvm
 
 CONFIG(debug, debug|release) {
-    LIBS+= -L"$$PWD/../lib/debug" -lqtMvvm
+    #LIBS+= -L"$$PWD/../lib/debug" -lqtMvvm
 }
 else {
-    LIBS+= -L"$$PWD/../lib/release" -lqtMvvm
+    #LIBS+= -L"$$PWD/../lib/release" -lqtMvvm
 }
 
 win32{
