@@ -4,11 +4,7 @@
 #include "AWLogger.h"
 #include "AWLoggerFactory.h"
 
-#include "gifLoad.h"
-
 #include <iostream>
-
-#define STB_IMAGE_IMPLEMENTATION
 
 #include <QApplication>
 #include <QResource>
@@ -23,9 +19,9 @@ long long currentTimeMs() {
     return timestamp;
 }
 
-
 int main(int argc, char *argv[])
 {
+    qDebug()<<"app launch...";
     QtSingleApplication app(QLatin1String("D9CF0D0E-7784-4181-9D91-EBE77E2F1C39-animation++"),argc, argv);
     if(app.isRunning())
     {
