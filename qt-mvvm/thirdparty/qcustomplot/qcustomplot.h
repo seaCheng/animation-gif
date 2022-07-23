@@ -140,9 +140,9 @@ class QCPBars;
   
   It provides QMetaObject-based reflection of its enums and flags via \a QCP::staticMetaObject.
 */
-#ifndef Q_MOC_RUN
-namespace QCP {
-#else
+//#ifndef Q_MOC_RUN
+//namespace QCP {
+//#else
 class QCP { // when in moc-run, make it look like a class, so we get Q_GADGET, Q_ENUMS/Q_FLAGS features in namespace
   Q_GADGET
   Q_ENUMS(ExportPen)
@@ -327,7 +327,7 @@ inline bool isInvalidData(double value1, double value2)
   
   \see getMarginValue
 */
-inline void setMarginValue(QMargins &margins, QCP::MarginSide side, int value)
+static void setMarginValue(QMargins &margins, QCP::MarginSide side, int value)
 {
   switch (side)
   {
@@ -347,7 +347,7 @@ inline void setMarginValue(QMargins &margins, QCP::MarginSide side, int value)
   
   \see setMarginValue
 */
-inline int getMarginValue(const QMargins &margins, QCP::MarginSide side)
+static int getMarginValue(const QMargins &margins, QCP::MarginSide side)
 {
   switch (side)
   {
@@ -361,9 +361,10 @@ inline int getMarginValue(const QMargins &margins, QCP::MarginSide side)
 }
 
 
-extern const QMetaObject staticMetaObject; // in moc-run we create a static meta object for QCP "fake" object. This line is the link to it via QCP::staticMetaObject in normal operation as namespace
+//extern const QMetaObject staticMetaObject; // in moc-run we create a static meta object for QCP "fake" object. This line is the link to it via QCP::staticMetaObject in normal operation as namespace
 
-} // end of namespace QCP
+};
+// end of namespace QCP
 Q_DECLARE_OPERATORS_FOR_FLAGS(QCP::AntialiasedElements)
 Q_DECLARE_OPERATORS_FOR_FLAGS(QCP::PlottingHints)
 Q_DECLARE_OPERATORS_FOR_FLAGS(QCP::MarginSides)
@@ -1741,18 +1742,18 @@ public:
   QCPAxisTickerText();
   
   // getters:
-  QMap<double, QString> &ticks() { return mTicks; }
+  QMultiMap<double, QString> &ticks() { return mTicks; }
   int subTickCount() const { return mSubTickCount; }
   
   // setters:
-  void setTicks(const QMap<double, QString> &ticks);
+  void setTicks(const QMultiMap<double, QString> &ticks);
   void setTicks(const QVector<double> &positions, const QVector<QString> &labels);
   void setSubTickCount(int subTicks);
   
   // non-virtual methods:
   void clear();
   void addTick(double position, const QString &label);
-  void addTicks(const QMap<double, QString> &ticks);
+  void addTicks(const QMultiMap<double, QString> &ticks);
   void addTicks(const QVector<double> &positions, const QVector<QString> &labels);
   
 protected:
@@ -6669,5 +6670,5 @@ Q_DECLARE_METATYPE(QCPItemBracket::BracketStyle)
 /* end of 'src/items/item-bracket.h' */
 
 
-#endif // QCUSTOMPLOT_H
+//#endif // QCUSTOMPLOT_H
 

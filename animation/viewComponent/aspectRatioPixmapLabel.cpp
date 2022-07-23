@@ -1,5 +1,6 @@
 #include "aspectRatioPixmapLabel.h"
-#include<QPainter> 
+#include<QPainter>
+#include<QDebug>
 
 AspectRatioPixmapLabel::AspectRatioPixmapLabel(QWidget *parent) 
     : QLabel(parent)
@@ -15,9 +16,10 @@ void AspectRatioPixmapLabel::paintEvent(QPaintEvent *env)
     if (!m_pix.isNull())
     {
         QPainter painter(this);
-        QSize labelsize = this->size();
+
         m_pix = m_pix.scaled(this->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        QSize pixsize = m_pix.size(); //根据图片的宽高和QLabel的宽高计算绘图的矩形区域和坐标
+
+
         QRect rectPic(0, 0, m_pix.size().width(), m_pix.size().height());
         if (m_pix.width() < this->width())
         {
@@ -33,7 +35,7 @@ void AspectRatioPixmapLabel::paintEvent(QPaintEvent *env)
             rectPic.setWidth(m_pix.size().width());
             rectPic.setHeight(m_pix.size().height());
         }
-        QSize pimageszie = m_pix.toImage().size();
+
         painter.drawImage(rectPic, m_pix.toImage());
     }
 

@@ -12,6 +12,8 @@
 #include <QLineEdit>
 #include <cmath>
 #include <limits>
+#include <QRegExp>
+#include <QString>
 
 namespace {
 const double upper_switch = 1000;
@@ -123,7 +125,8 @@ QString ScientificSpinBox::toString(double val, int decimal_points)
     QString result = useExponentialNotation(val) ? QString::number(val, 'e', decimal_points)
                                                  : QString::number(val, 'f', decimal_points);
 
-    return result.replace(QRegExp("(\\.?0+)?((e{1}[\\+|-]{1})(0+)?([1-9]{1}.*))?$"), "\\3\\5");
+    QRegularExpression rx("(\\.?0+)?((e{1}[\\+|-]{1})(0+)?([1-9]{1}.*))?$");
+    return result.replace(rx, "\\3\\5");
 }
 
 double ScientificSpinBox::toDouble(QString text, const QDoubleValidator& validator, double min,

@@ -35,6 +35,7 @@ public:
     }
     void startGifExport(QString file);
     void slot_GifExport(QString file);
+    void slot_GifExportMagick(QString file);
 
 
 signals:

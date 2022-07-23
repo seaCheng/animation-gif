@@ -42,7 +42,7 @@ GraphicsViewComp::GraphicsViewComp(QWidget *parent)
 
     m_GraWid = new QGraphicsWidget;
     QPalette pa = m_GraWid->palette();
-    pa.setBrush(QPalette::Background, Qt::red);
+    //pa.setBrush(QPalette::Background, Qt::red);
     m_GraWid->setPalette(pa);
     m_GraWid->setLayout(layout);
 

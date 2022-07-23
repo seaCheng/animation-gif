@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui core5compat
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,6 +35,14 @@ win32{
 macx {
    LIBS += -F"$$PWD/../lib/SDL/lib" -framework SDL2
 }
+
+macx {
+   LIBS += -L$$PWD/../lib/ImageMaick/lib -lMagick++-7.Q16HDRI -lMagickCore-7.Q16HDRI
+
+   INCLUDEPATH += \
+   $$PWD//../lib/ImageMaick/include/ImageMagick-7
+}
+
 INCLUDEPATH += \
 $$PWD/graphicsComponent \
 $$PWD/../AMLogger \
@@ -93,4 +101,3 @@ QMAKE_POST_LINK = \
         rm -rf ./../bin/animation.app/Contents/Frameworks/SDL2.framework && \
         cp -avf ./../lib/SDL/lib/SDL2.framework  ./../bin/animation.app/Contents/Frameworks
 }
-
