@@ -96,7 +96,7 @@ void MainWindow::slot_export()
         vecPix.emplace_back(((PictureItem *)item)->pic());
     }
 
-    GifExport::instace()->setGifSize(250, 250);
+    GifExport::instace()->setGifSize(250, 150);
     GifExport::instace()->setGifPictures(vecPix);
     GifExport::instace()->startGifExport(fileName);
 

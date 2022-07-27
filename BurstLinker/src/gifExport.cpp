@@ -6,6 +6,7 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QBuffer>
+#include <QPainter>
 
 #include <iostream>
 
@@ -50,11 +51,32 @@ void GifExport::slot_GifExportMagick(QString file)
         QImage img = pix.toImage();
         QImage scalImage = img.scaled(QSize(iWidth, iHeigth),
                                       Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        //QPixmap pixmap;
-                 QByteArray bytes;
+        QImage desImage(iWidth, iHeigth, QImage::Format_ARGB32);
+        desImage.fill(qRgb(255,255,255));
+
+        QRect rectPic(0, 0, scalImage.width(), scalImage.height());
+        if (scalImage.width() < iWidth)
+        {
+            rectPic.setX((iWidth - scalImage.width()) / 2);
+            rectPic.setY(0);
+            rectPic.setWidth(scalImage.width());
+            rectPic.setHeight(scalImage.height());
+        }
+
+        if (scalImage.height() < iHeigth)
+        {
+            rectPic.setX(0); rectPic.setY((iHeigth - scalImage.height()) / 2);
+            rectPic.setWidth(scalImage.width());
+            rectPic.setHeight(scalImage.height());
+        }
+
+        QPainter painter(&desImage);
+        painter.drawImage(rectPic, scalImage);
+
+        QByteArray bytes;
                  QBuffer buffer(&bytes);
                  buffer.open(QIODevice::WriteOnly);
-                 scalImage.save(&buffer, "PNG");
+                 desImage.save(&buffer, "PNG");
 
         Magick::Image imgMagick;
         Blob bi(bytes.data(), bytes.size());

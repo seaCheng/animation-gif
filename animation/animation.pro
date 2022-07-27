@@ -57,7 +57,7 @@ $$PWD/viewComponent
 
 SOURCES += \
     graphicsComponent/graphicsViewComp.cpp \
-    mainLainch.cpp \
+    mainLaunch.cpp \
     mainwindow.cpp \
     modelController.cpp \
     pictureItem.cpp \
