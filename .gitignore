@@ -5,3 +5,8 @@ build-qt-mvvms-Desktop_Qt_5_15_2_MSVC2019_64bit-Debug/
 bin/
 qt-mvvm/qt-mvvms.pro.user
 animation/debug/
+build-animation-Desktop_Qt_6_2_4_MSVC2019_64bit-Release/
+build-animation-Desktop_Qt_6_2_4_MSVC2019_64bit-Debug/
+animation/.qtc_clangd/
+animation/release/
+animation/.vs/

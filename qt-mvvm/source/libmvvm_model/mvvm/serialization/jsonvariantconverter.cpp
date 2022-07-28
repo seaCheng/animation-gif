@@ -21,6 +21,8 @@
 #include <QBuffer>
 #include <QDir>
 
+
+
 using namespace ModelView;
 
 namespace {
@@ -74,11 +76,13 @@ Variant to_reallimits(const QJsonObject& object);
 } // namespace
 
 JsonVariantConverter::JsonVariantConverter()
-{
+{   
+    
     m_converters[Constants::invalid_type_name] = {from_invalid, to_invalid};
     m_converters[Constants::bool_type_name] = {from_bool, to_bool};
     m_converters[Constants::int_type_name] = {from_int, to_int};
     m_converters[Constants::string_type_name] = {from_string, to_string};
+    m_converters[Constants::string_type_name_full] = { from_string, to_string };
     m_converters[Constants::double_type_name] = {from_double, to_double};
     m_converters[Constants::vector_double_type_name] = {from_vector_double, to_vector_double};
     m_converters[Constants::comboproperty_type_name] = {from_comboproperty, to_comboproperty};
@@ -233,6 +237,7 @@ QJsonObject from_string(const Variant& variant)
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::string_type_name);
     result[variantValueKey] = QString::fromStdString(variant.value<std::string>());
+    
     return result;
 }
 

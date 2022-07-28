@@ -6,6 +6,9 @@
 #include <vector>
 #include <QPixmap>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 class GifLoad : public QObject
 {
@@ -42,5 +45,9 @@ private:
 
     std::vector<QPixmap> m_lstPixmap;
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // TASKSUBMITLOG_H

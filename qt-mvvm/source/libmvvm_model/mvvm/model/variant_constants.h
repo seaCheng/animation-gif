@@ -20,6 +20,7 @@ namespace ModelView::Constants {
 const std::string invalid_type_name = "invalid";
 const std::string bool_type_name = "bool";
 const std::string int_type_name = "int";
+const std::string string_type_name_full = "std::basic_string<char,std::char_traits<char>,std::allocator<char>>";//"std::string";
 const std::string string_type_name = "std::string";
 const std::string double_type_name = "double";
 const std::string vector_double_type_name = "std::vector<double>";

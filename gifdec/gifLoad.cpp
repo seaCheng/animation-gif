@@ -24,12 +24,12 @@ void GifLoad::startGifLoad(QString file)
 
 void GifLoad::slot_GifLoad(QString file)
 {
+
     int sum = 0 ;
     Uint8 *color, *frame, *bgColor;
     SDL_Surface *surface;
     Uint32 pixel;
     void *addr;
-    //QString strPath = QCoreApplication::applicationDirPath()  + "/test.gif";
 
     gd_GIF *gif = gd_open_gif(file.toStdString().c_str());
     if (!gif) {
@@ -63,8 +63,6 @@ void GifLoad::slot_GifLoad(QString file)
                 else
                     pixel = SDL_MapRGB(surface->format, bgColor[0], bgColor[1], bgColor[2]);
 
-                //addr = (Uint32 *)surface->pixels + (i * surface->pitch + j * sizeof(pixel));
-                //memcpy(color, &pixel, sizeof(pixel));
                 color += 3;
             }
         }

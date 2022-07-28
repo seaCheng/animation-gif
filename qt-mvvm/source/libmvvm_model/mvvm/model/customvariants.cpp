@@ -59,7 +59,7 @@ Variant Utils::toQtVariant(const Variant& custom)
         return custom;
 
     // converts variant based on std::string to variant based on QString
-    if (custom.typeName() == Constants::string_type_name) {
+    if (custom.typeName() == Constants::string_type_name || custom.typeName() == Constants::string_type_name_full) {
         return Variant(QString::fromStdString(custom.value<std::string>()));
     }
     else if (IsDoubleVectorVariant(custom)) {
@@ -78,7 +78,7 @@ Variant Utils::toCustomVariant(const Variant& standard)
         return standard;
 
     // converts variant based on std::string to variant based on QString
-    if (standard.typeName() == qstring_name)
+    if (standard.typeName() == qstring_name )
         return Variant::fromValue(standard.toString().toStdString());
 
     // in other cases returns unchanged variant

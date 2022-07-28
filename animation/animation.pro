@@ -37,10 +37,19 @@ macx {
 }
 
 macx {
-   LIBS += -L$$PWD/../lib/ImageMaick/lib -lMagick++-7.Q16HDRI -lMagickCore-7.Q16HDRI
+   LIBS += -L$$PWD/../lib/ImageMaick/Mac/lib -lMagick++-7.Q16HDRI -lMagickCore-7.Q16HDRI
 
    INCLUDEPATH += \
-   $$PWD//../lib/ImageMaick/include/ImageMagick-7
+   $$PWD/../lib/ImageMaick/Mac/include/ImageMagick-7
+}
+
+
+win32{
+
+LIBS += -L$$PWD/../lib/ImageMaick/Win/lib -lCORE_RL_Magick++_ -lCORE_RL_MagickCore_
+
+INCLUDEPATH += \
+$$PWD/../lib/ImageMaick/Win/include
 }
 
 INCLUDEPATH += \

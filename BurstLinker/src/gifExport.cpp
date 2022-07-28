@@ -41,11 +41,13 @@ GifExport::GifExport(QObject *parent)
 void GifExport::startGifExport(QString file)
 {
     emit s_GifExport(file);
+
 }
 
 void GifExport::slot_GifExportMagick(QString file)
 {
     std::vector<Magick::Image> lstImages;
+
     for(auto pix : lstPixmap)
     {
         QImage img = pix.toImage();
@@ -77,6 +79,7 @@ void GifExport::slot_GifExportMagick(QString file)
                  QBuffer buffer(&bytes);
                  buffer.open(QIODevice::WriteOnly);
                  desImage.save(&buffer, "PNG");
+
 
         Magick::Image imgMagick;
         Blob bi(bytes.data(), bytes.size());
@@ -201,7 +204,7 @@ GifExport::~GifExport()
 
 void GifExport::initial()
 {
-
+    Magick::InitializeMagick(NULL);
 }
 
 void GifExport::setconnect()
