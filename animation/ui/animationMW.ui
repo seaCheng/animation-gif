@@ -58,7 +58,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="GraphicsViewComp" name="leftView"/>
+        <widget class="QWidget" name="leftView" native="true"/>
        </item>
        <item>
         <widget class="QFrame" name="rightView">
@@ -158,14 +158,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>GraphicsViewComp</class>
-   <extends>QGraphicsView</extends>
-   <header>graphicsViewComp.h</header>
-  </customwidget>
-  <customwidget>
    <class>PicScaleViewComp</class>
    <extends>QWidget</extends>
-   <header location="global">picScaleViewComp.h</header>
+   <header>picScaleViewComp.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

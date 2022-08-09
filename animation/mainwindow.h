@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "graphicsViewComp.h"
+#include "emptyAreaView.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class animationMW; }
@@ -10,6 +10,7 @@ QT_END_NAMESPACE
 
 class QToolBar;
 class PictureModel;
+class MainAreaView;
 
 class MainWindow : public QMainWindow
 {
@@ -40,5 +41,6 @@ private:
     Ui::animationMW *ui;
     QToolBar* m_toolBar{nullptr};
     PictureModel * m_model = nullptr;
+    MainAreaView * mainArea = nullptr;
 };
 #endif // MAINWINDOW_H

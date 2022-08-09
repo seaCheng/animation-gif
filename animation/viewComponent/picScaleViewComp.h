@@ -28,6 +28,9 @@ public:
 
 public slots:
      void refreashState();
+
+signals:
+     void s_selPicItem(PictureItem *);
 protected:
     //void paintEvent(QPaintEvent *event) override;
 private:

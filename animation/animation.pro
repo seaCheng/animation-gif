@@ -3,6 +3,9 @@ QT       += core gui core5compat
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 DESTDIR = $$PWD/../bin
+UI_DIR = $$PWD/../bin/temp/ui
+MOC_DIR = $$PWD/../bin/temp/moc
+OBJECTS_DIR = $$PWD/../bin/temp/obj
 
 CONFIG += c++17
 
@@ -53,7 +56,7 @@ $$PWD/../lib/ImageMaick/Win/include
 }
 
 INCLUDEPATH += \
-$$PWD/graphicsComponent \
+$$PWD/mainAreaComponent \
 $$PWD/../AMLogger \
 $$PWD/../gifdec \
 $$PWD/../lib/SDL/include \
@@ -65,7 +68,9 @@ $$PWD/viewComponent
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    graphicsComponent/graphicsViewComp.cpp \
+    mainAreaComponent/emptyAreaView.cpp \
+    mainAreaComponent/graphicsViewComp.cpp \
+    mainAreaComponent/mainAreaView.cpp \
     mainLaunch.cpp \
     mainwindow.cpp \
     modelController.cpp \
@@ -77,7 +82,9 @@ SOURCES += \
     viewComponent/picScaleViewComp.cpp
 
 HEADERS += \
-    graphicsComponent/graphicsViewComp.h \
+    mainAreaComponent/emptyAreaView.h \
+    mainAreaComponent/graphicsViewComp.h \
+    mainAreaComponent/mainAreaView.h \
     mainwindow.h \
     modelController.h \
     pictureItem.h \

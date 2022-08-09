@@ -8,6 +8,7 @@
 #include "mvvm/commands/undostack.h"
 #include "mvvm/model/modelutils.h"
 #include "picScaleComp.h"
+#include "mainAreaView.h"
 #include "gifLoad.h"
 #include "mvvm/model/sessionitem.h"
 
@@ -33,6 +34,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->scrollAreaPicScal->setObjectName("scrollAreaPicScal");
     ui->scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
+
+    //添加页面显示
+    mainArea = new MainAreaView;
+    QHBoxLayout *layout = new QHBoxLayout();
+    layout->setContentsMargins(0,0,0,0);
+    layout->addWidget(mainArea);
+    ui->leftView->setLayout(layout);
 
     m_model = new PictureModel();
     ModelController * ctl = new ModelController(m_model, ui->scrollAreaWidgetContents);
@@ -167,8 +175,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::setConnect()
 {
-    connect(ui->leftView, &GraphicsViewComp::s_clicked, this, &MainWindow::slot_import);
-
+    connect(mainArea, &MainAreaView::s_clicked, this, &MainWindow::slot_import);
+    connect(ui->scrollAreaWidgetContents, &PicScaleViewComp::s_selPicItem, mainArea, &MainAreaView::slot_selPicItem);
     connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);
 
 }

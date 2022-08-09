@@ -13,6 +13,7 @@
 PicScaleViewComp::PicScaleViewComp(QWidget *parent)
     :QFrame(parent)
 {
+    qRegisterMetaType<PictureItem>("PictureItem");
     initial();
     setConnect();
 }
@@ -38,6 +39,8 @@ void PicScaleViewComp::refreashState()
     picScaleCli->setProperty("sel", state);
     style()->unpolish(picScaleCli);
     style()->polish(picScaleCli);
+
+    emit s_selPicItem(picScaleCli->getPictureItem());
 }
 
 PicScaleComp * PicScaleViewComp::getSelPicByItem(PictureItem * pic)
