@@ -53,7 +53,7 @@ PictureItem * PictureModel::insertConnectableItem(const std::string& itemType, d
 
 void PictureModel::insertConnectItems(QStringList lst)
 {
-    Utils::BeginMacros(this, "insertConnectableItem");
+    Utils::BeginMacros(this, "insertConnectableItems");
     for(auto file : lst)
     {
         PictureItem * item;
@@ -73,7 +73,7 @@ void PictureModel::insertConnectItems(QStringList lst)
 
 void PictureModel::insertConnectItems(const std::vector<QPixmap> lst)
 {
-    Utils::BeginMacros(this, "insertConnectableItem");
+    Utils::BeginMacros(this, "insertConnectableItemVec");
     for(auto file : lst)
     {
         PictureItem * item;

@@ -1,7 +1,11 @@
 #pragma once
 #include <QGraphicsView>
+#include <QGraphicsScene>
+
+#include <memory>
 
 class PictureItem;
+class PicGraphicsScene;
 class GraphicsViewComp :public QGraphicsView
 {
     Q_OBJECT
@@ -12,6 +16,20 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
 private:
+    PicGraphicsScene * mscene = nullptr;
+};
 
-    QGraphicsWidget * m_GraWid = nullptr;
+class PicGraphicsScene : public QGraphicsScene
+{
+    Q_OBJECT
+public:
+    PicGraphicsScene();
+    void setPicItem(PictureItem * pItem)
+    {
+        mpItem = pItem;
+    }
+protected:
+    void drawBackground(QPainter *painter, const QRectF &rect);
+private:
+    PictureItem * mpItem = nullptr;
 };
