@@ -19,14 +19,14 @@ PictureItem::PictureItem(const std::string& modelType) : ModelView::CompoundItem
 {
     addProperty(P_XPOS, 0.0)->setDisplayName("X");
     addProperty(P_YPOS, 0.0)->setDisplayName("Y");
-    addProperty(P_COLOR, QColor(Qt::gray))->setDisplayName("Color");
+    //addProperty(P_COLOR, QColor(Qt::gray))->setDisplayName("Color");
 }
 
 PictureItem::PictureItem(): ModelView::CompoundItem("PictureItem")
 {
     addProperty(P_XPOS, 0.0)->setDisplayName("X");
     addProperty(P_YPOS, 0.0)->setDisplayName("Y");
-    addProperty(P_COLOR, QColor(Qt::gray))->setDisplayName("Color");
+    //addProperty(P_COLOR, QColor(Qt::gray))->setDisplayName("Color");
     qRegisterMetaType<QPixmap >("QPixmap");
 }
 

@@ -41,7 +41,9 @@ struct PictureItemController::PictureItemControllerImpl {
     {
         //m_view->setX(m_item->x());
         //m_view->setY(m_item->y());
-        m_view->update();
+
+        qDebug()<<"updateViewFromItem x:"<<m_item->x()<<" updateViewFromItem y:"<<m_item->y();
+        //m_view->update();
 
     }
 

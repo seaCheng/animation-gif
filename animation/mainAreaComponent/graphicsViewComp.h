@@ -15,9 +15,12 @@ public:
     void setPicItem(PictureItem * pItem);
 protected:
     void paintEvent(QPaintEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 private:
     PicGraphicsScene * mscene = nullptr;
+    PictureItem * pPicItem = nullptr;
 };
+
 
 class PicGraphicsScene : public QGraphicsScene
 {

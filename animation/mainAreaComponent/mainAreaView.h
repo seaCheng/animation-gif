@@ -24,4 +24,5 @@ protected:
 private:
     EmptyAreaView * emptyView = nullptr;
     GraphicsViewComp * graphicView = nullptr;
+    QWidget * graWid = nullptr;
 };

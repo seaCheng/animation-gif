@@ -59,7 +59,15 @@ void PictureModel::insertConnectItems(QStringList lst)
         PictureItem * item;
         if ( item = dynamic_cast<PictureItem*>(insertItem<PictureItem>()); item) {
 
-            item->setQpixmap(QPixmap(file));
+            QImage pix = QImage(file);
+
+            //qDebug()<<"pix x:"<<pix.width()<<" pix y"<<pix.height();
+            QPixmap pi;
+            pi.convertFromImage(pix);
+            item->setX(pix.width());
+            item->setY(pix.height());
+            item->setQpixmap(pi);
+
 
         }else
         {
@@ -79,6 +87,8 @@ void PictureModel::insertConnectItems(const std::vector<QPixmap> lst)
         PictureItem * item;
         if ( item = dynamic_cast<PictureItem*>(insertItem<PictureItem>()); item) {
 
+            item->setX(file.toImage().width());
+            item->setY(file.toImage().height());
             item->setQpixmap(file);
 
         }else

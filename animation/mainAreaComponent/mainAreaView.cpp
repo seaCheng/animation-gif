@@ -3,14 +3,23 @@
 #include "graphicsViewComp.h"
 #include<QPainter>
 #include<QDebug>
+#include<QHBoxLayout>
 
 MainAreaView::MainAreaView(QWidget *parent)
     : QStackedWidget(parent)
 {
+
     emptyView = new EmptyAreaView;
     addWidget(emptyView);
-    graphicView = new GraphicsViewComp;
-    addWidget(graphicView);
+
+    graWid = new QWidget;
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->setContentsMargins(0,0,0,0);
+    graWid->setLayout(layout);
+
+    graphicView = new GraphicsViewComp(graWid);
+    layout->addWidget(graphicView);
+    addWidget(graWid);
 
     setCurrentWidget(emptyView);
 
@@ -24,6 +33,14 @@ void MainAreaView::setConnect()
 
 void MainAreaView::slot_selPicItem(PictureItem * pItem)
 {
-    graphicView->setPicItem(pItem);
-    setCurrentWidget(graphicView);
+    if(pItem == nullptr)
+    {
+        graphicView->setPicItem(pItem);
+        setCurrentWidget(emptyView);
+    }else
+    {
+        graphicView->setPicItem(pItem);
+        setCurrentWidget(graWid);
+    }
+
 }

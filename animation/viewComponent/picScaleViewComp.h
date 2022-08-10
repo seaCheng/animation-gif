@@ -27,7 +27,7 @@ public:
     PicScaleComp * getSelPicByItem(PictureItem *);
 
 public slots:
-     void refreashState();
+     void refreashState(bool bShow);
 
 signals:
      void s_selPicItem(PictureItem *);

@@ -50,7 +50,8 @@ MainWindow::MainWindow(QWidget *parent)
     for(int i = 0; i < 5; i++)
     {
         int iIndex = QRandomGenerator::global()->bounded(11) + 1;
-        m_model->insertConnectableItem("PictureItem", 50,50, QPixmap(QString(":/images/%1.bmp").arg(iIndex)));
+        QPixmap img = QPixmap(QString(":/images/%1.bmp").arg(iIndex));
+        m_model->insertConnectableItem("PictureItem", img.width(),img.height(), img);
     }
 
     setConnect();

@@ -23,7 +23,7 @@ void PicScaleViewComp::setConnect()
     //connect()
 }
 
-void PicScaleViewComp::refreashState()
+void PicScaleViewComp::refreashState(bool bShow)
 {
     if(m_picScaleCli != nullptr)
     {
@@ -40,7 +40,11 @@ void PicScaleViewComp::refreashState()
     style()->unpolish(picScaleCli);
     style()->polish(picScaleCli);
 
-    emit s_selPicItem(picScaleCli->getPictureItem());
+    if(bShow)
+    {
+        emit s_selPicItem(picScaleCli->getPictureItem());
+    }
+
 }
 
 PicScaleComp * PicScaleViewComp::getSelPicByItem(PictureItem * pic)
@@ -89,7 +93,7 @@ void PicScaleViewComp::refreashSelPic(ModelView::SessionItem * parentItem, Model
         PicScaleComp *comp = getSelPicByItem(pItem);
         if(comp)
         {
-           comp->s_clicked();
+           comp->s_clicked(false);
         }
     }
 }
@@ -116,6 +120,12 @@ void PicScaleViewComp::eraseItem(ModelView::SessionItem * parentItem, ModelView:
     refreashIndex();
 
     refreashSelPic(parentItem, row);
+
+    //判断图片列表为空
+    if(parentItem->childrenCount() == 0)
+    {
+        emit s_selPicItem(nullptr);
+    }
 }
 
 void PicScaleViewComp::insertItem(ModelView::SessionItem * item, ModelView::TagRow row)
@@ -130,7 +140,7 @@ void PicScaleViewComp::insertItem(ModelView::SessionItem * item, ModelView::TagR
 
     m_itemToView[pItem] = picScale;
 
-    picScale->s_clicked();
+    picScale->s_clicked(false);
 
     if(row.row != m_itemToView.size() - 1)
     {

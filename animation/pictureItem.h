@@ -19,8 +19,8 @@ class QColor;
 
 class PictureItem : public ModelView::CompoundItem {
 public:
-    static inline const std::string P_XPOS = "P_XPOS";
-    static inline const std::string P_YPOS = "P_YPOS";
+    static inline const std::string P_XPOS = "P_Width";
+    static inline const std::string P_YPOS = "P_Heigth";
     static inline const std::string P_COLOR = "P_COLOR";
 
     explicit PictureItem(const std::string& modelType);
