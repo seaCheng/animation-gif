@@ -1,22 +1,22 @@
 
 PicScaleViewComp
 {
-  background-color: rgb(95, 95, 95);
+background-color: rgb(95, 95, 95);
 }
 
 
 #PicScaleComp{
-   background-color: rgba(255, 255, 255, 0);
+background-color: rgba(255, 255, 255, 0);
 } 
 
 #PicScaleComp:hover{
-   background-color: rgba(255, 255, 255, 40);
-   border:0px solid rgb(0,255,0)£»
+background-color: rgba(255, 255, 255, 40);
+border:0px solid rgb(0,255,0)ï¼›
 }
 
 #PicScaleComp[sel="true"]{
-   background-color: rgba(255, 255, 255, 100);
-   border:1px solid rgb(0,255,0)£»
+background-color: rgba(255, 255, 255, 100);
+border:1px solid rgb(0,255,0)ï¼›
 }
 
 /*-------------toolPicWid, toolGifWid-------------------------*/
@@ -27,8 +27,8 @@ border-style:solid;
 border-top-left-radius:8px;
 border-top-right-radius:8px;
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(226,236,241), 
-                            stop: 0.3 rgb(160,160,160),
-                              stop: 1 rgb(140,140,140));
+stop: 0.3 rgb(160,160,160),
+stop: 1 rgb(140,140,140));
 border:1px;
 border-radius:5px;padding:2px 4px;/*border-radius??????*/
 }
@@ -38,8 +38,8 @@ border-style:solid;
 border-top-left-radius:8px;
 border-top-right-radius:8px;
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(226,236,241), 
-                            stop: 0.3 rgb(160,160,160),
-                              stop: 1 rgb(120,120,120));
+stop: 0.3 rgb(160,160,160),
+stop: 1 rgb(120,120,120));
 border:1px;
 border-radius:5px;padding:2px 4px;
 }
@@ -49,8 +49,8 @@ border-style:solid;
 border-top-left-radius:8px;
 border-top-right-radius:8px;
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(226,236,241), 
-                            stop: 0.3 rgb(190,190,190),
-                              stop: 1 rgb(160,160,160));
+stop: 0.3 rgb(190,190,190),
+stop: 1 rgb(160,160,160));
 border:1px;
 border-radius:5px;padding:2px 4px;
 }
@@ -60,10 +60,162 @@ border-style:solid;
 border-top-left-radius:8px;
 border-top-right-radius:8px;
 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop:0 rgb(226,236,241), 
-                            stop: 0.3 rgb(190,190,190),
-                              stop: 1 rgb(160,160,160));
+stop: 0.3 rgb(190,190,190),
+stop: 1 rgb(160,160,160));
 border:1px;
 border-radius:5px;padding:2px 4px;
 }
 
 /*-------------toolPicWid, toolGifWid-------------------------*/
+
+/*-------------QTabWidget #PropertyAreaView-------------------------*/
+/*??QTabWidget???*/
+
+
+QTabBar::tab {
+
+border-bottom-left-radius:2px;
+border-bottom-right-radius:2px;
+border:0px;
+min-width:64px;
+min-height: 25px;
+padding:1px;
+background:transparent;
+font:10px "Microsoft YaHei";
+}
+
+QTabWidget::tab-bar {
+alignment:left;
+heigth:35px;
+}
+
+
+/* ???????????? */
+QTabBar::tab:hover {
+border:4px solid transparent;
+border-bottom-color:rgba(32,32,32,0.4);
+background:transparent;
+border-bottom-left-radius:2px;
+border-bottom-right-radius:2px;
+}
+
+/* ?????? */
+QTabBar::tab:selected {
+
+border:4px solid transparent;
+border-bottom-color:rgba(32,32,32,0.8);
+background:transparent;
+border-bottom-left-radius:2px;
+border-bottom-right-radius:2px;
+}
+
+/* ??????? */
+QTabBar::tab:!selected {
+margin-top:2px;
+}
+/*-------------QTabWidget #PropertyAreaView-------------------------*/
+
+#topSplitter::handle{background:#FFFFFF}
+
+
+/*-------------QScrollBar -------------------------*/
+QScrollBar:vertical{
+
+margin:0px 0px 0px 0px;
+background-color:rgb(226,236,241);
+border:0px;
+width:14px;
+}
+
+QScrollBar::handle:vertical{
+background-color:rgba(32,32,32,0.4);
+border-radius:7px;
+width:13px;
+}
+
+QScrollBar::handle:vertical:hover{
+background-color:rgba(32,32,32,0.8);
+}
+
+QScrollBar::sub-line:vertical{
+
+subcontrol-position:top;
+subcontrol-origin:margin;
+background-color:rgb(226,236,241);
+border:1px solid rgb(226,236,241);
+height:16px;
+}
+
+QScrollBar::add-line:vertical{
+subcontrol-position:bottom;
+subcontrol-origin:margin;
+background-color:rgb(226,236,241);
+border:1px solid rgb(226,236,241);
+height:0px;
+}
+
+QScrollBar::up-arrow:vertical{
+width:12px;
+height:0px;
+}
+
+QScrollBar::down-arrow:vertical{
+width:12px;
+height:0px;
+}
+
+QScrollBar::sub-page:vertical,QScrollBar::add-page:vertical{
+background-color:rgb(226,236,241);
+}
+
+QScrollBar:horizontal{
+margin:0px 0px 0px 0px;
+background-color:rgb(226,236,241);
+border:none;
+height:14px;
+}
+
+QScrollBar::handle:horizontal{
+background-color:rgba(32,32,32,0.4);
+border-radius:7px;
+height:14px;
+}
+
+QScrollBar::handle:horizontal:hover{
+background-color:rgba(32,32,32,0.8);
+}
+
+QScrollBar::add-line:horizontal{
+subcontrol-position: right;
+subcontrol-origin:margin;
+background-color:rgb(226,236,241);
+border:1px solid rgb(226,236,241);
+height:12px;
+width:6px;
+}
+
+QScrollBar::sub-line:horizontal{
+subcontrol-position: left;
+subcontrol-origin:margin;
+background-color:rgb(226,236,241);
+border:1px solid rgb(226,236,241);
+height:12px;
+width:6px;
+}
+
+QScrollBar::left-arrow:horizontal{
+width:6px;
+height:12px;
+}
+
+QScrollBar::right-arrow:horizontal
+{
+width:6px;
+height:12px;
+}
+
+QScrollBar::sub-page:horizontal,QScrollBar::add-page:horizontal
+{
+background-color:rgb(226,236,241);
+}
+/*-------------QScrollBar -------------------------*/

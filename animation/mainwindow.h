@@ -11,6 +11,8 @@ QT_END_NAMESPACE
 class QToolBar;
 class PictureModel;
 class MainAreaView;
+class PropertyAreaView;
+class QSplitter;
 
 class MainWindow : public QMainWindow
 {
@@ -42,5 +44,7 @@ private:
     QToolBar* m_toolBar{nullptr};
     PictureModel * m_model = nullptr;
     MainAreaView * mainArea = nullptr;
+    PropertyAreaView * propertyArea = nullptr;
+    QSplitter * splitter = nullptr;
 };
 #endif // MAINWINDOW_H

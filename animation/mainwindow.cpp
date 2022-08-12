@@ -9,6 +9,7 @@
 #include "mvvm/model/modelutils.h"
 #include "picScaleComp.h"
 #include "mainAreaView.h"
+#include "propertyAreaView.h"
 #include "gifLoad.h"
 #include "mvvm/model/sessionitem.h"
 
@@ -22,6 +23,8 @@
 #include <QRandomGenerator>
 #include <QToolBar>
 #include <QFileDialog>
+#include <QScrollArea>
+#include <QSplitter>
 
 #include <vector>
 
@@ -41,6 +44,31 @@ MainWindow::MainWindow(QWidget *parent)
     layout->setContentsMargins(0,0,0,0);
     layout->addWidget(mainArea);
     ui->leftView->setLayout(layout);
+
+    //添加tab 属性页
+    propertyArea = new PropertyAreaView;
+
+    QScrollArea *scrollArea = new QScrollArea;
+    scrollArea->setBackgroundRole(QPalette::Dark);
+    scrollArea->setWidget(propertyArea);
+
+    QHBoxLayout *prolayout = new QHBoxLayout();
+    prolayout->setContentsMargins(0,0,0,0);
+    prolayout->addWidget(scrollArea);
+    ui->rightView->setLayout(prolayout);
+
+    //添加 spiltter
+    splitter = new QSplitter;
+    splitter->setObjectName("topSplitter");
+    splitter->setHandleWidth(1);
+    ui->topView->layout()->removeWidget(ui->leftView);
+    ui->topView->layout()->removeWidget(ui->rightView);
+
+    splitter->addWidget(ui->leftView);
+    ui->leftView->setMinimumWidth(450);
+    splitter->addWidget(ui->rightView);
+    ui->rightView->setMaximumWidth(360);
+    ui->topView->layout()->addWidget(splitter);
 
     m_model = new PictureModel();
     ModelController * ctl = new ModelController(m_model, ui->scrollAreaWidgetContents);

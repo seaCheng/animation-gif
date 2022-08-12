@@ -61,6 +61,7 @@ $$PWD/../AMLogger \
 $$PWD/../gifdec \
 $$PWD/../lib/SDL/include \
 $$PWD/../QtSingleApplication \
+$$PWD/tabPropertyTable \
 $$PWD/viewComponent
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -77,6 +78,7 @@ SOURCES += \
     pictureItem.cpp \
     pictureItemcontroller.cpp \
     pictureModel.cpp \
+    tabPropertyTable/propertyAreaView.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
     viewComponent/picScaleComp.cpp \
     viewComponent/picScaleViewComp.cpp
@@ -90,6 +92,7 @@ HEADERS += \
     pictureItem.h \
     pictureItemcontroller.h \
     pictureModel.h \
+    tabPropertyTable/propertyAreaView.h \
     viewComponent/aspectRatioPixmapLabel.h \
     viewComponent/picScaleComp.h \
     viewComponent/picScaleViewComp.h
