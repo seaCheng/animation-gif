@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
     //添加 spiltter
     splitter = new QSplitter;
     splitter->setObjectName("topSplitter");
-    splitter->setHandleWidth(1);
+    splitter->setHandleWidth(2);
     ui->topView->layout()->removeWidget(ui->leftView);
     ui->topView->layout()->removeWidget(ui->rightView);
 
