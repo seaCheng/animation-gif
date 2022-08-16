@@ -1,14 +1,12 @@
 #pragma once
-#include <QLabel> 
-#include<QPaintEvent>
-#include <QTabWidget>
+#include <QFrame>
 
-class CommonPropertyView;
-class PropertyAreaView : public QTabWidget
+class QComboBox;
+class CommonPropertyView : public QFrame
 { 
     Q_OBJECT
 public:
-    PropertyAreaView(QWidget *parent = 0);
+    CommonPropertyView(QWidget *parent = 0);
     void setConnect();
 
     void initial();
@@ -22,5 +20,6 @@ public slots:
 protected:
     //void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;//重写重绘函数
 private:
-    CommonPropertyView * commView;
+    QComboBox * comSize = nullptr;
+
 };

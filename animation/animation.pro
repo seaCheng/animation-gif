@@ -78,6 +78,7 @@ SOURCES += \
     pictureItem.cpp \
     pictureItemcontroller.cpp \
     pictureModel.cpp \
+    tabPropertyTable/commonPropertyView.cpp \
     tabPropertyTable/propertyAreaView.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
     viewComponent/picScaleComp.cpp \
@@ -92,6 +93,7 @@ HEADERS += \
     pictureItem.h \
     pictureItemcontroller.h \
     pictureModel.h \
+    tabPropertyTable/commonPropertyView.h \
     tabPropertyTable/propertyAreaView.h \
     viewComponent/aspectRatioPixmapLabel.h \
     viewComponent/picScaleComp.h \

@@ -1,4 +1,6 @@
 #include "propertyAreaView.h"
+#include "commonPropertyView.h"
+
 #include<QDebug>
 #include<QHBoxLayout>
 #include <QTabBar>
@@ -29,7 +31,9 @@ void PropertyAreaView::paintEvent(QPaintEvent *e)
 void PropertyAreaView::initial()
 {
     setObjectName("PropertyAreaView");
-    addTab(new QWidget(), QStringLiteral("Common"));
+
+    commView = new CommonPropertyView;
+    addTab(commView, QStringLiteral("Common"));
     addTab(new QWidget(), QStringLiteral("specific"));
     addTab(new QWidget(), QStringLiteral("whiteboard"));
     addTab(new QWidget(), QStringLiteral("effects"));
