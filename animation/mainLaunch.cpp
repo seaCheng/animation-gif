@@ -11,13 +11,6 @@
 #include <QFile>
 #include <QDebug>
 
-long long currentTimeMs() {
-    std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> tp = std::chrono::time_point_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now());
-    auto tmp = std::chrono::duration_cast<std::chrono::milliseconds>(tp.time_since_epoch());
-    auto timestamp = tmp.count();
-    return timestamp;
-}
 
 int main(int argc, char *argv[])
 {

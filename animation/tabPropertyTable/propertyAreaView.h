@@ -23,4 +23,5 @@ protected:
     //void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;//重写重绘函数
 private:
     CommonPropertyView * commView;
+
 };

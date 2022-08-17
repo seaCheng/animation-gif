@@ -62,6 +62,7 @@ $$PWD/../gifdec \
 $$PWD/../lib/SDL/include \
 $$PWD/../QtSingleApplication \
 $$PWD/tabPropertyTable \
+$$PWD/tabPropertyTable/commonProperty \
 $$PWD/viewComponent
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -78,7 +79,8 @@ SOURCES += \
     pictureItem.cpp \
     pictureItemcontroller.cpp \
     pictureModel.cpp \
-    tabPropertyTable/commonPropertyView.cpp \
+    tabPropertyTable/commonProperty/commonPropertyView.cpp \
+    tabPropertyTable/commonProperty/gifSizeOp.cpp \
     tabPropertyTable/propertyAreaView.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
     viewComponent/picScaleComp.cpp \
@@ -93,7 +95,8 @@ HEADERS += \
     pictureItem.h \
     pictureItemcontroller.h \
     pictureModel.h \
-    tabPropertyTable/commonPropertyView.h \
+    tabPropertyTable/commonProperty/commonPropertyView.h \
+    tabPropertyTable/commonProperty/gifSizeOp.h \
     tabPropertyTable/propertyAreaView.h \
     viewComponent/aspectRatioPixmapLabel.h \
     viewComponent/picScaleComp.h \

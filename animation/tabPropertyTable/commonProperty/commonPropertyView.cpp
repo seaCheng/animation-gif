@@ -6,6 +6,9 @@
 #include <QListWidget>
 #include <QLineEdit>
 
+#include <QUuid>
+#include <QStyledItemDelegate>
+
 CommonPropertyView::CommonPropertyView(QWidget *parent)
     : QFrame(parent)
 {
@@ -20,7 +23,6 @@ void CommonPropertyView::setConnect()
 
 void CommonPropertyView::paintEvent(QPaintEvent *e)
 {
-
     QFrame::paintEvent(e);
 }
 
@@ -28,29 +30,34 @@ void CommonPropertyView::initial()
 {
     setObjectName("CommonPropertyView");
 
-
     comSize = new QComboBox;
     comSize->setMinimumWidth(200);
-    //comSize->setView(new  QListView());
 
-    comSize->addItem(QStringLiteral("88 * 31 pix"));
-    comSize->addItem(QStringLiteral("230 * 33 pix"));
-    comSize->addItem(QStringLiteral("234 * 60 pix"));
-    comSize->addItem(QStringLiteral("336 * 280 pix"));
-    comSize->addItem(QStringLiteral("468 * 60 pix"));
-    comSize->addItem(QStringLiteral("60 * 60 pix"));
-    comSize->addItem(QStringLiteral("75 * 75 pix"));
-    comSize->addItem(QStringLiteral("120 * 120 pix"));
-    comSize->addItem(QStringLiteral("120 * 240 pix"));
-    comSize->addItem(QStringLiteral("360 * 240 pix"));
-    comSize->addItem(QStringLiteral("640 * 960 pix"));
-    comSize->addItem(QStringLiteral("360 * 480 pix"));
-    comSize->addItem(QStringLiteral("120 * 90 pix"));
-    comSize->addItem(QStringLiteral("640 * 480 pix"));
-    comSize->addItem(QStringLiteral("180 * 150 pix"));
-    comSize->addItem(QStringLiteral("300 * 250 pix"));
-    comSize->addItem(QStringLiteral("640 * 400 pix"));
+    pSizeOp = std::make_unique<GifSizeOp>();
 
+    connect(pSizeOp.get(), &GifSizeOp::s_insertItem, this, [&](QString name, QString uuid){
+        comSize->addItem(name, uuid.toStdString().c_str());
+    });
+    pSizeOp->readData();
+    prIndex = comSize->currentIndex();
+    comSize->insertSeparator(comSize->count());
+
+    uuid = QUuid::createUuid().toByteArray().data();
+
+    comSize->addItem(QStringLiteral("管理自定义尺寸"), uuid.toStdString().c_str());
+    connect(comSize, &QComboBox::currentIndexChanged, this, [&](int index){
+
+        if(index == comSize->count() - 1)
+        {
+            comSize->blockSignals(true);
+            comSize->setCurrentIndex(prIndex);
+            comSize->blockSignals(false);
+        }else
+        {
+            prIndex = index;
+        }
+
+    });
 
 
     comSize->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
