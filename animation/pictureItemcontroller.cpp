@@ -42,7 +42,7 @@ struct PictureItemController::PictureItemControllerImpl {
         //m_view->setX(m_item->x());
         //m_view->setY(m_item->y());
 
-        qDebug()<<"updateViewFromItem x:"<<m_item->x()<<" updateViewFromItem y:"<<m_item->y();
+        //qDebug()<<"updateViewFromItem x:"<<m_item->x()<<" updateViewFromItem y:"<<m_item->y();
         //m_view->update();
 
     }
@@ -87,7 +87,7 @@ void PictureItemController::subscribe()
 
     auto on_property_change = [this](auto, auto) {
 
-        qDebug()<<"on_property_change...";
+        //qDebug()<<"on_property_change...";
 
         if (p_impl->m_blockOnPropertyChanged)
             return;
@@ -98,7 +98,7 @@ void PictureItemController::subscribe()
 
     auto on_data_change = [this](auto, auto) {
 
-        qDebug()<<"on_data_change...";
+        //qDebug()<<"on_data_change...";
         p_impl->updateViewFromItemdata();
     };
 

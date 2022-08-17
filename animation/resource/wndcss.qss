@@ -1,4 +1,10 @@
 
+
+QLabel
+{color:rgb(0, 0, 0);
+  font-size:14px;
+}
+
 PicScaleViewComp
 {
 background-color: rgb(95, 95, 95);
@@ -225,7 +231,7 @@ background-color:rgb(226,236,241);
 QComboBox{
   color:#666666;
   font-size:14px;
-  padding: 1px 15px 1px 3px;
+  padding: 1px 1px 1px 3px;
   border:1px solid rgba(228,228,228,1);
   border-radius:5px 5px 0px 0px;
 } 
@@ -241,7 +247,8 @@ QComboBox{
     border:1px solid rgba(228,228,228,1);
     border-radius:0px 0px 5px 5px;
 	font-size:14px;
-    outline: 0px;  //去虚线
+	padding: 1px 1px 1px 1px;
+    outline: 0px;
   }
  QComboBox QAbstractItemView::item{
 	height:36px;
@@ -249,11 +256,11 @@ QComboBox{
 	padding-left:9px;
 	background-color:#FFFFFF;
 }
-QComboBox QAbstractItemView::item:hover{ //悬浮
+QComboBox QAbstractItemView::item:hover{
   background-color:#409CE1;
   color:#ffffff;
 }
-QComboBox QAbstractItemView::item:selected{//选中
+QComboBox QAbstractItemView::item:selected{
   background-color:#409CE1;
   color:#ffffff;
 }

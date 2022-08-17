@@ -1,4 +1,4 @@
-#include "gifSizeOp.h"
+﻿#include "gifSizeOp.h"
 #include "QtCore/qjsonobject.h"
 #include<QDebug>
 #include <QCoreApplication>
@@ -238,14 +238,15 @@ void GifSizeOp::initial()
             {
                 QJsonObject obj = arry[i].toObject();
                 sizeInf inf;
+                inf.uuid = obj["uuid"].toString();
                 inf.name = obj["name"].toString();
                 inf.heigth = obj["heigth"].toInt();
                 inf.width = obj["width"].toInt();
 
-                lstsizeInf[obj["uuid"].toString().toStdString()] = inf;
+                //lstsizeInf[obj["uuid"].toString().toStdString()] = inf;
+                lstsizeInf.emplace_back(inf);
+                //emit s_insertItem(obj["name"].toString(), obj["uuid"].toString());
 
-                emit s_insertItem(obj["name"].toString(), obj["uuid"].toString());
-                qDebug()<<"s_insertItem"<<obj["name"].toString();
             }
         }
     }

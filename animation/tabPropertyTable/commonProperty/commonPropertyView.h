@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <QFrame>
 
 #include "gifSizeOp.h"
@@ -6,6 +6,29 @@
 #include <memory>
 
 class QComboBox;
+
+class customSizeOp : public QFrame
+{
+    Q_OBJECT
+public:
+    customSizeOp(QWidget *parent = 0);
+    void setConnect();
+
+    void initial();
+signals:
+
+
+protected:
+    void paintEvent(QPaintEvent *e) override;
+public slots:
+
+
+protected:
+
+private:
+
+};
+
 class CommonPropertyView : public QFrame
 { 
     Q_OBJECT

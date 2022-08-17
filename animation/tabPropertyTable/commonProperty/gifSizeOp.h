@@ -1,13 +1,19 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
-#include <map>
+#include <vector>
 
 struct sizeInf
 {
+    QString uuid;
     QString name;
     int width;
     int heigth;
+
+    bool operator==(const sizeInf & inf)
+    {
+        return uuid == inf.uuid;
+    }
 
 };
 class GifSizeOp : public QObject
@@ -23,7 +29,7 @@ public:
 
     void initJosnData(QString file);
 
-    std::map<std::string, sizeInf> getSizeInf()
+    std::vector<sizeInf> getSizeInf()
     {
         return lstsizeInf;
     }
@@ -38,6 +44,6 @@ protected:
     //void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;//重写重绘函数
 private:
 
-    std::map<std::string, sizeInf> lstsizeInf;
+    std::vector<sizeInf> lstsizeInf;
     int index = 0;
 };
