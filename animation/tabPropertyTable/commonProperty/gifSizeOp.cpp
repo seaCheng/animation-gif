@@ -209,6 +209,34 @@ void GifSizeOp::readData()
     initial();
 }
 
+void GifSizeOp::saveData()
+{
+     QJsonArray arry;
+     for(const auto &u : lstsizeInf)
+     {
+
+         QJsonObject object
+         {
+             {"bCustom", u.bCustom},
+             {"uuid", u.uuid},
+             {"name", u.name},
+             {"width", u.width},
+             {"heigth", u.heigth}
+         };
+
+         arry.append(object);
+     }
+
+     QJsonDocument doc(arry);
+     QString content = doc.toJson().data();
+
+     QString filePath = QCoreApplication::applicationDirPath() + "/config/gifSize.json";
+     QFile file(filePath);
+     file.open(QIODeviceBase::ReadWrite|QIODeviceBase::Truncate);
+     file.write(content.toStdString().c_str(), content.size());        // write to stderr
+     file.close();
+}
+
 void GifSizeOp::initial()
 {
     QDir dir;
@@ -242,13 +270,57 @@ void GifSizeOp::initial()
                 inf.name = obj["name"].toString();
                 inf.heigth = obj["heigth"].toInt();
                 inf.width = obj["width"].toInt();
+                inf.bCustom = obj["bCustom"].toBool();
 
-                //lstsizeInf[obj["uuid"].toString().toStdString()] = inf;
                 lstsizeInf.emplace_back(inf);
-                //emit s_insertItem(obj["name"].toString(), obj["uuid"].toString());
+
 
             }
         }
     }
 }
 
+void GifSizeOp::addSizeInf(const sizeInf & sInf)
+{
+    lstsizeInf.emplace_back(sInf);
+}
+
+sizeInf GifSizeOp::getSizeInfBU(const QString & strUUid)
+{
+    std::vector<sizeInf>::iterator it = std::find(lstsizeInf.begin(), lstsizeInf.end(), strUUid);
+    if(it != lstsizeInf.end())
+    {
+        return *it;
+    }else
+    {
+        return sizeInf();
+    }
+}
+
+void GifSizeOp::setdata(int iwidth, int iheigth, const QString &struuid)
+{
+    std::vector<sizeInf>::iterator it = std::find(lstsizeInf.begin(), lstsizeInf.end(), struuid);
+    if(it != lstsizeInf.end())
+    {
+        it->width = iwidth;
+        it->heigth = iheigth;
+    }
+}
+
+void GifSizeOp::setName(const QString &name, const QString &struuid)
+{
+    std::vector<sizeInf>::iterator it = std::find(lstsizeInf.begin(), lstsizeInf.end(), struuid);
+    if(it != lstsizeInf.end())
+    {
+        it->name = name;
+    }
+}
+
+void GifSizeOp::removeSize(const QString & strUUid)
+{
+    std::vector<sizeInf>::iterator it = std::find(lstsizeInf.begin(), lstsizeInf.end(), strUUid);
+    if(it != lstsizeInf.end())
+    {
+        lstsizeInf.erase(it);
+    }
+}
