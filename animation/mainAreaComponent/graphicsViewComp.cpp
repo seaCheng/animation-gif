@@ -1,4 +1,4 @@
-#include "graphicsViewComp.h"
+﻿#include "graphicsViewComp.h"
 #include "pictureItem.h"
 #include <QGraphicsScene>
 #include <QPushButton>
@@ -8,75 +8,95 @@
 #include <QToolButton>
 #include <QDebug>
 
-GraphicsViewComp::GraphicsViewComp(QWidget *parent)
-    :QGraphicsView(parent)
+GraphicsViewComp::GraphicsViewComp(QGraphicsScene *scene, QWidget *parent)
+    :QGraphicsView(scene, parent)
 {
-    mscene = new PicGraphicsScene();
-    //mscene->setSceneRect(1,1,318,318);
-    //setFixedSize(320,320);
-    setScene(mscene);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+}
+
+void GraphicsViewComp::setGifSize(const QSize & size)
+{
+    sizeInf = size;
+    refreashSize();
+}
+
+void GraphicsViewComp::refreashSize()
+{
+    QWidget * wid = parentWidget();
+    if(wid != nullptr && pPicItem != nullptr)
+    {
+        PicGraphicsScene * pScene = (PicGraphicsScene *)scene();
+        if(!pScene)
+        {
+            return;
+        }
+
+
+        int iheigth = wid->height() - 40;
+        int iwidth = sizeInf.width() / sizeInf.height() * iheigth;
+        if(sizeInf.width() > iwidth)
+        {
+            //wid->resize(iwidth,iheigth);
+            setFixedSize(iwidth,iheigth);
+            pScene->setSceneRect(0,0,sizeInf.width(),sizeInf.height());
+        }else
+        {
+            //wid->resize(sizeInf.width(),sizeInf.height());
+            setFixedSize(sizeInf.width(),sizeInf.height());
+            pScene->setSceneRect(0,0,sizeInf.width(),sizeInf.height());
+        }
+        pScene->update();
+
+    }
 }
 
 void GraphicsViewComp::paintEvent(QPaintEvent *event)
 {
 
     QGraphicsView::paintEvent(event);
-
-    QWidget * wid = parentWidget();
-    if(wid != nullptr && pPicItem != nullptr)
-    {
-
-        int iheigth = wid->height() - 40;
-        int iwidth = pPicItem->x() / pPicItem->y() * iheigth;
-        setFixedSize(iwidth,iheigth);
-        mscene->setSceneRect(2,2,iwidth -4,iheigth -4);
-
-    }
+    //refreashSize();
 
 }
 
 void GraphicsViewComp::resizeEvent(QResizeEvent *event)
 {
-
-    QWidget * wid = parentWidget();
-    if(wid != nullptr && pPicItem != nullptr)
-    {
-
-        int iheigth = wid->height() - 40;
-        int iwidth = pPicItem->x() / pPicItem->y() * iheigth;
-        setFixedSize(iwidth,iheigth);
-        mscene->setSceneRect(1,1,iwidth -2,iheigth -2);
-    }
-
+    //refreashSize();
     QGraphicsView::resizeEvent(event);
 }
 
 void GraphicsViewComp::setPicItem(PictureItem * pItem)
 {
-    QWidget * wid = parentWidget();
-    if(wid != nullptr && pItem != nullptr)
-    {
-
-        int iheigth = wid->height() - 40;
-        int iwidth = pItem->x() / pItem->y() * iheigth;
-        setFixedSize(iwidth,iheigth);
-        mscene->setSceneRect(2,2,iwidth -4,iheigth -4);
-
-    }
 
     pPicItem = pItem;
-    mscene->setPicItem(pItem);
-    mscene->update();
 
+    PicGraphicsScene * pScene = (PicGraphicsScene *)scene();
+    if(pScene)
+    {
+        pScene->setPicItem(pItem);
+
+    }
+    repaint();
 }
 
 
 ////////////////////////////////PicGraphicsScene ///////////////////////////////////
-PicGraphicsScene::PicGraphicsScene()
-    :QGraphicsScene()
+PicGraphicsScene::PicGraphicsScene(QWidget * p)
+    :QGraphicsScene(p)
 {
     setBackgroundBrush(Qt::white);
 }
+
+void PicGraphicsScene::setPicItem(PictureItem * pItem)
+{
+    mpItem = pItem;
+    if(pItem != nullptr)
+    {
+        pic = mpItem->pic();
+        //setBackgroundBrush(pic);
+    }
+}
+
 
 void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
@@ -88,14 +108,11 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
     if(mpItem == nullptr)
           return;
 
-    // 计算视窗的大小,消除图元拖动时出现的残影
-    QGraphicsView* pView=views().first();
-    QRect contentRect=pView->viewport()->contentsRect();
-    QRectF sceneRect =pView->mapToScene(contentRect).boundingRect();
-
+    QRectF sizeRec = sceneRect();
     //绘制指定图片作为背景
-    //QPixmap
-    QPixmap pix = mpItem->pic();
-    pix = pix.scaled(sceneRect.width(), sceneRect.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    painter->drawPixmap(sceneRect,mpItem->pic(),QRect());
+    //
+    pic = pic.scaled(sizeRec.width(), sizeRec.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    painter->drawPixmap(sizeRec,pic,QRect());
+
 }
+

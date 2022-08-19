@@ -1,4 +1,4 @@
-#include "mainAreaView.h"
+﻿#include "mainAreaView.h"
 #include "emptyAreaView.h"
 #include "graphicsViewComp.h"
 #include<QPainter>
@@ -16,8 +16,8 @@ MainAreaView::MainAreaView(QWidget *parent)
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setContentsMargins(0,0,0,0);
     graWid->setLayout(layout);
-
-    graphicView = new GraphicsViewComp(graWid);
+    pScene = new PicGraphicsScene(graWid);
+    graphicView = new GraphicsViewComp(pScene);
     layout->addWidget(graphicView);
     addWidget(graWid);
 
@@ -29,6 +29,11 @@ MainAreaView::MainAreaView(QWidget *parent)
 void MainAreaView::setConnect()
 {
     connect(emptyView, &EmptyAreaView::s_clicked, this, &MainAreaView::s_clicked);
+}
+
+void MainAreaView::setGifSize(const QSize & size)
+{
+    graphicView->setGifSize(size);
 }
 
 void MainAreaView::slot_selPicItem(PictureItem * pItem)

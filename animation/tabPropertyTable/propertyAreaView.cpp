@@ -1,4 +1,4 @@
-#include "propertyAreaView.h"
+﻿#include "propertyAreaView.h"
 #include "commonPropertyView.h"
 
 #include<QDebug>
@@ -33,15 +33,20 @@ void PropertyAreaView::initial()
     setObjectName("PropertyAreaView");
 
     commView = new CommonPropertyView;
+
+    connect(commView, &CommonPropertyView::s_sizeFresh, this, &PropertyAreaView::s_sizeFresh);
+
     addTab(commView, QStringLiteral("Common"));
     addTab(new QWidget(), QStringLiteral("specific"));
     addTab(new QWidget(), QStringLiteral("whiteboard"));
     addTab(new QWidget(), QStringLiteral("effects"));
 
-
     setMinimumWidth(320);
     setMinimumHeight(780);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+}
 
-
+QSize PropertyAreaView::getGifSize()
+{
+    return commView->getGifSize();
 }

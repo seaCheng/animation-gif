@@ -23,6 +23,12 @@ public:
     void initial();
     void setconnect();
 
+    void setGifSize(const QSize &size)
+    {
+        iWidth = size.width();
+        iHeigth = size.height();
+    }
+
     void setGifSize(const int & width, const int & height)
     {
         iWidth = width;

@@ -52,23 +52,26 @@ public:
     void setConnect();
 
     void initial();
+
+    void refreashGifSize();
+    QSize getGifSize();
+
 signals:
-    //void s_clicked(type_import eType);
+    void s_sizeFresh(QSize);
 
 protected:
     void paintEvent(QPaintEvent *e) override;
 public slots:
-    //void slot_selPicItem(PictureItem *);
+
 
 protected:
-    //void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;//重写重绘函数
-    //bool eventFilter(QObject *obj, QEvent *event) override;
+
 private:
     QComboBox * comSize = nullptr;
 
     //自定义uuid
     QString uuid;
     int prIndex = 0;
-
+    QSize gifSize{360,240};
     std::unique_ptr<customSizeOp> custOP;
 };

@@ -1,9 +1,10 @@
-#pragma once
+﻿#pragma once
 #include <QLabel> 
 #include<QPaintEvent>
 #include <QStackedWidget>
 
 #include "emptyAreaView.h"
+#include "graphicsViewComp.h"
 
 class GraphicsViewComp;
 class PictureItem;
@@ -14,6 +15,8 @@ class MainAreaView : public QStackedWidget
 public:
     MainAreaView(QWidget *parent = 0);
     void setConnect();
+
+    void setGifSize(const QSize & size);
 signals:
     void s_clicked(type_import eType);
 
@@ -24,5 +27,6 @@ protected:
 private:
     EmptyAreaView * emptyView = nullptr;
     GraphicsViewComp * graphicView = nullptr;
+    PicGraphicsScene * pScene;
     QWidget * graWid = nullptr;
 };

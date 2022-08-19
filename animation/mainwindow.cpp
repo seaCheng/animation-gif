@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_animationMW.h"
 
 #include "QtSingleApplication"
@@ -133,7 +133,7 @@ void MainWindow::slot_export()
         vecPix.emplace_back(((PictureItem *)item)->pic());
     }
 
-    GifExport::instace()->setGifSize(250, 150);
+    GifExport::instace()->setGifSize(propertyArea->getGifSize());
     GifExport::instace()->setGifPictures(vecPix);
     GifExport::instace()->startGifExport(fileName);
 
@@ -205,7 +205,19 @@ MainWindow::~MainWindow()
 void MainWindow::setConnect()
 {
     connect(mainArea, &MainAreaView::s_clicked, this, &MainWindow::slot_import);
-    connect(ui->scrollAreaWidgetContents, &PicScaleViewComp::s_selPicItem, mainArea, &MainAreaView::slot_selPicItem);
+    //connect(ui->scrollAreaWidgetContents, &PicScaleViewComp::s_selPicItem, mainArea, &MainAreaView::slot_selPicItem);
+    connect(ui->scrollAreaWidgetContents, &PicScaleViewComp::s_selPicItem, [&](PictureItem * item){
+
+        mainArea->setGifSize(propertyArea->getGifSize());
+        mainArea->slot_selPicItem(item);
+
+    });
+
+    connect(propertyArea, &PropertyAreaView::s_sizeFresh, [&](QSize size){
+         mainArea->setGifSize(size);
+         qDebug()<<"s_sizeFresh width:"<<size.width()<<" heigth:"<<size.height();
+    });
+
     connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);
 
 }

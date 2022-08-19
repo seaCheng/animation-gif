@@ -290,6 +290,7 @@ void CommonPropertyView::setConnect()
         }else
         {
             prIndex = index;
+            refreashGifSize();
         }
 
     });
@@ -340,6 +341,7 @@ void CommonPropertyView::initial()
     uuid = QUuid::createUuid().toByteArray().data();
     comSize->addItem(QStringLiteral("管理自定义"), uuid.toStdString().c_str());
     prIndex = comSize->currentIndex();
+    refreashGifSize();
 
     comSize->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     QLabel *lSize = new QLabel;
@@ -364,3 +366,17 @@ void CommonPropertyView::initial()
     setLayout(lay);
 }
 
+void CommonPropertyView::refreashGifSize()
+{
+    QString strUUid = comSize->currentData().toString();
+
+    sizeInf inf = GifSizeOp::getInstance()->getSizeInfBU(strUUid);
+    gifSize = QSize(inf.width, inf.heigth);
+
+    emit s_sizeFresh(gifSize);
+}
+
+QSize CommonPropertyView::getGifSize()
+{
+    return gifSize;
+}

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <QLabel> 
 #include<QPaintEvent>
 #include <QTabWidget>
@@ -12,8 +12,12 @@ public:
     void setConnect();
 
     void initial();
+
+    //对外提供接口
+public:
+    QSize getGifSize();
 signals:
-    //void s_clicked(type_import eType);
+    void s_sizeFresh(QSize);
 
 protected:
     void paintEvent(QPaintEvent *e) override;

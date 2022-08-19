@@ -17,7 +17,7 @@ GifSizeOp::GifSizeOp(QObject *parent)
 
 void GifSizeOp::setConnect()
 {
-    //connect(emptyView, &EmptyAreaView::s_clicked, this, &MainAreaView::s_clicked);
+
 }
 
 
@@ -188,8 +188,8 @@ void GifSizeOp::initJosnData(QString filePath)
     {
         {"uuid", QUuid::createUuid().toByteArray().data()},
         {"name", QStringLiteral("(8:5) 640 * 400 pixel")},
-        {"width", 300},
-        {"heigth", 250}
+        {"width", 640},
+        {"heigth", 400}
     };
 
     arry.append(object16);
