@@ -12,9 +12,11 @@ MainAreaView::MainAreaView(QWidget *parent)
     emptyView = new EmptyAreaView;
     addWidget(emptyView);
 
-    graWid = new QWidget;
+    graWid = new QFrame;
+    graWid->setFrameShape(QFrame::Panel);
+    graWid->setFrameShadow(QFrame::Sunken);
     QHBoxLayout *layout = new QHBoxLayout;
-    layout->setContentsMargins(0,0,0,0);
+    layout->setContentsMargins(1,1,1,1);
     graWid->setLayout(layout);
     pScene = new PicGraphicsScene(graWid);
     graphicView = new GraphicsViewComp(pScene);

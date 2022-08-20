@@ -28,5 +28,5 @@ private:
     EmptyAreaView * emptyView = nullptr;
     GraphicsViewComp * graphicView = nullptr;
     PicGraphicsScene * pScene;
-    QWidget * graWid = nullptr;
+    QFrame * graWid = nullptr;
 };
