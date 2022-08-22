@@ -156,7 +156,7 @@ void GraphicsViewComp::refreashSize()
         {
 
             setFixedSize(iwidth,iheigth);
-            pScene->setSceneRect(0,1,sizeInf.width(),sizeInf.height());
+            pScene->setSceneRect(0,0,sizeInf.width(),sizeInf.height());
         }else
         {
 
@@ -228,11 +228,14 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
     if(mpItem == nullptr)
           return;
 
+    painter->save();
+    painter->setRenderHint(QPainter::Antialiasing);
+    qreal pixelRatio = painter->device()->devicePixelRatioF();
     QRectF sizeRec = sceneRect();
     //绘制指定图片作为背景
     //
-    QPixmap tpic = pic.scaled(sizeRec.width(), sizeRec.height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap tpic = pic.scaled(sizeRec.width()*pixelRatio, sizeRec.height()*pixelRatio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     painter->drawPixmap(sizeRec,tpic,QRect());
-
+    painter->restore();
 }
 

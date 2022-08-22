@@ -4,6 +4,22 @@
 #include <QTabWidget>
 
 class CommonPropertyView;
+enum screenMode{screen_horizal,screen_vertical};
+Q_DECLARE_METATYPE(screenMode)
+
+enum fillMode{fill_full,fill_adjust,fill_stretch};
+Q_DECLARE_METATYPE(fillMode)
+
+struct propertyInf
+{
+    int width = 360;
+    int heigth = 240;
+    screenMode scMode = screen_horizal;
+    fillMode fMode = fill_adjust;
+    QColor color = Qt::white;
+};
+Q_DECLARE_METATYPE(propertyInf)
+
 class PropertyAreaView : public QTabWidget
 { 
     Q_OBJECT

@@ -1,4 +1,6 @@
 ﻿#include "commonPropertyView.h"
+#include "propertyAreaView.h"
+
 #include<QDebug>
 #include<QHBoxLayout>
 #include <QComboBox>
@@ -13,6 +15,7 @@
 #include <QIntValidator>
 #include <QStandardItemModel>
 #include <QStringListModel>
+#include <QRadioButton>
 
 
 /*--------------------customSizeOp--------------------------------------*/
@@ -50,7 +53,7 @@ void customSizeOp::setConnect()
 
     connect(okBtn, &QPushButton::clicked, [&]{
 
-        if(icount != stModel->rowCount())
+        //if(icount != stModel->rowCount())
         {
             GifSizeOp::getInstance()->saveData();
             QModelIndex index = view->currentIndex();
@@ -58,6 +61,11 @@ void customSizeOp::setConnect()
 
             emit s_customData(str);
         }
+
+        close();
+    });
+
+    connect(cancelBtn, &QPushButton::clicked, [&]{
 
         close();
     });
@@ -199,6 +207,9 @@ void customSizeOp::initial()
     okBtn = new QPushButton;
     okBtn->setText(QStringLiteral("OK"));
 
+    cancelBtn = new QPushButton;
+    cancelBtn->setText(QStringLiteral("Cancel"));
+
     QHBoxLayout * hlBoxLayout = new QHBoxLayout;
     hlBoxLayout->setContentsMargins(10,0,10,0);
     hlBoxLayout->setSpacing(15);
@@ -206,6 +217,7 @@ void customSizeOp::initial()
     hlBoxLayout->addWidget(addBtn);
     hlBoxLayout->addWidget(subBtn);
     hlBoxLayout->addStretch(5);
+    hlBoxLayout->addWidget(cancelBtn);
     hlBoxLayout->addWidget(okBtn);
 
     QVBoxLayout * hlVBoxLayout = new QVBoxLayout;
@@ -323,12 +335,10 @@ void CommonPropertyView::paintEvent(QPaintEvent *e)
 void CommonPropertyView::initial()
 {
     setObjectName("CommonPropertyView");
-
+    //size
     comSize = new QComboBox;
     comSize->setMinimumWidth(200);
-
     GifSizeOp::getInstance()->readData();
-
     custOP = std::make_unique<customSizeOp>();
 
     std::vector<sizeInf> lst = GifSizeOp::getInstance()->getSizeInf();
@@ -347,20 +357,59 @@ void CommonPropertyView::initial()
     QLabel *lSize = new QLabel;
     lSize->setText(QStringLiteral("size:"));
     lSize->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lSize->setFixedWidth(100);
 
     QHBoxLayout * sizeLay = new QHBoxLayout;
     sizeLay->setContentsMargins(0,0,0,0);
     sizeLay->setSpacing(5);
-    sizeLay->addStretch(1);
+
     sizeLay->addWidget(lSize);
     sizeLay->addWidget(comSize);
 
     sizeLay->addStretch(1);
 
+    //横屏 &竖屏幕
+    hRadioBtn = new QRadioButton;
+    hRadioBtn->setChecked(true);
+    hRadioBtn->setText(QStringLiteral("横屏"));
+    vRadioBtn = new QRadioButton;
+    vRadioBtn->setText(QStringLiteral("竖屏"));
+    QHBoxLayout * hRadLay = new QHBoxLayout;
+    hRadLay->setContentsMargins(0,0,0,0);
+    hRadLay->setSpacing(24);
+    hRadLay->addStretch(1);
+    hRadLay->addWidget(hRadioBtn);
+    hRadLay->addWidget(vRadioBtn);
+    hRadLay->addStretch(1);
+
+    //填充方式
+    QLabel *lfill = new QLabel;
+    lfill->setText(QStringLiteral("填充方式:"));
+    lfill->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lfill->setFixedWidth(100);
+
+    //fillMode{fill_full,fill_adjust,fill_stretch};
+    comFill = new QComboBox;
+    comFill->addItem(QStringLiteral("充满"), fill_full);
+    comFill->addItem(QStringLiteral("适应"), fill_adjust);
+    comFill->addItem(QStringLiteral("拉伸"), fill_stretch);
+    comFill->setMinimumWidth(200);
+
+    QHBoxLayout * fillLay = new QHBoxLayout;
+    fillLay->setContentsMargins(0,0,0,0);
+    fillLay->setSpacing(5);
+
+    fillLay->addWidget(lfill);
+    fillLay->addWidget(comFill);
+    fillLay->addStretch(1);
+
+
     QVBoxLayout * lay = new QVBoxLayout;
     lay->setContentsMargins(0,10,0,0);
     lay->setSpacing(5);
     lay->addItem(sizeLay);
+    lay->addItem(hRadLay);
+    lay->addItem(fillLay);\
     lay->addStretch(15);
 
     setLayout(lay);

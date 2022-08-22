@@ -38,12 +38,14 @@ private:
     QPushButton * addBtn = nullptr;
     QPushButton * subBtn = nullptr;
     QPushButton * okBtn = nullptr;
+    QPushButton * cancelBtn = nullptr;
     QLineEdit * edWidth = nullptr;
     QLineEdit * edHeigth = nullptr;
 
     int icount = 0;
 };
 
+class QRadioButton;
 class CommonPropertyView : public QFrame
 { 
     Q_OBJECT
@@ -68,6 +70,10 @@ protected:
 
 private:
     QComboBox * comSize = nullptr;
+    QRadioButton * hRadioBtn = nullptr;
+    QRadioButton * vRadioBtn = nullptr;
+
+    QComboBox * comFill = nullptr;
 
     //自定义uuid
     QString uuid;
