@@ -11,7 +11,29 @@ class QListView;
 class QLineEdit;
 class QStringListModel;
 class QStandardItemModel;
+class QTabBar;
+class QSpinBox;
 
+class QColorFrame :public QFrame
+{
+    Q_OBJECT
+public:
+    QColorFrame();
+    void setGifColor(const QColor & color);
+signals:
+    void s_clicked();
+protected:
+    void paintEvent(QPaintEvent *e) override;
+    void mousePressEvent(QMouseEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
+    bool event( QEvent *e) override;
+
+public slots:
+
+private:
+
+    QColor gifColor = Qt::white;
+};
 class customSizeOp : public QDialog
 {
     Q_OBJECT
@@ -74,6 +96,12 @@ private:
     QRadioButton * vRadioBtn = nullptr;
 
     QComboBox * comFill = nullptr;
+    QColorFrame * fColor = nullptr;
+    QTabBar * speedBar = nullptr;
+
+    QSpinBox * timeSpinBox = nullptr;
+    QSpinBox * secondSpinBox = nullptr;
+
 
     //自定义uuid
     QString uuid;

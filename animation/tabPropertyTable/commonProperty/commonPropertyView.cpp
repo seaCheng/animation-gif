@@ -10,13 +10,86 @@
 #include <QPushButton>
 
 #include <QUuid>
+#include <QPainter>
 #include <QStyledItemDelegate>
 #include <QRegExp>
 #include <QIntValidator>
 #include <QStandardItemModel>
 #include <QStringListModel>
 #include <QRadioButton>
+#include <QColorDialog>
+#include <QTabBar>
+#include <QSpinBox>
 
+
+/*---------------------QFrameColor-------------------------------------*/
+
+QColorFrame::QColorFrame()
+{
+    setObjectName("QColorFrame");
+
+    setFixedSize(60,30);
+    setLineWidth(1);
+
+    setFrameShadow(QFrame::Plain);
+    setFrameShape(QFrame::Box);
+    setStyleSheet("border:1px solid rgb(0,0,0); \
+                  background-color:rgba(214,249,255, 100);");
+}
+
+void QColorFrame::paintEvent(QPaintEvent *e)
+{
+    QFrame::paintEvent(e);
+    QPainter p;
+    p.setPen(gifColor);
+    QRectF rectangle(8, 8, width() - 8*2, height() - 8 * 2);
+    QPainter painter(this);
+    painter.setBrush(gifColor);
+    painter.drawRect(rectangle);
+}
+
+void QColorFrame::mousePressEvent(QMouseEvent *e)
+{
+    setStyleSheet("border:1px solid rgb(0,0,0); \
+                  background-color:rgba(214,249,255, 250);");
+}
+
+void QColorFrame::mouseReleaseEvent(QMouseEvent *e)
+{
+    setStyleSheet("border:1px solid rgb(0,0,0); \
+                  background-color:rgba(214,249,255, 100);");
+            QFrame::mouseReleaseEvent(e);
+
+    emit s_clicked();
+}
+
+bool QColorFrame::event( QEvent *e)
+{
+    static int counting=0;
+    if (e->type() ==QEvent::Enter)
+    {
+        setStyleSheet("border:1px solid rgb(0,0,0); \
+                      background-color:rgba(214,249,255, 150);");
+        qDebug() << counting++ << " Enter: " << this->objectName();
+    }
+    if (e->type() ==QEvent::Leave)
+    {
+        setStyleSheet("border:1px solid rgb(0,0,0); \
+                      background-color:rgba(214,249,255, 100);");
+        qDebug() << counting++ << " Leave: " << this->objectName();
+    }
+
+    return QFrame::event(e);
+}
+
+void QColorFrame::setGifColor(const QColor & color)
+{
+    gifColor = color;
+    repaint();
+
+}
+
+/*---------------------QFrameColor-------------------------------------*/
 
 /*--------------------customSizeOp--------------------------------------*/
 customSizeOp::customSizeOp(QWidget *parent)
@@ -325,6 +398,16 @@ void CommonPropertyView::setConnect()
 
     });
 
+    connect(fColor, &QColorFrame::s_clicked, this, [&](){
+
+        const QColorDialog::ColorDialogOptions options = QFlag(QColorDialog::ShowAlphaChannel);
+        const QColor color = QColorDialog::getColor(Qt::white, this, "Select Color", options);
+
+        if (color.isValid()) {
+             fColor->setGifColor(color);
+        }
+    });
+
 }
 
 void CommonPropertyView::paintEvent(QPaintEvent *e)
@@ -388,7 +471,6 @@ void CommonPropertyView::initial()
     lfill->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lfill->setFixedWidth(100);
 
-    //fillMode{fill_full,fill_adjust,fill_stretch};
     comFill = new QComboBox;
     comFill->addItem(QStringLiteral("充满"), fill_full);
     comFill->addItem(QStringLiteral("适应"), fill_adjust);
@@ -403,13 +485,86 @@ void CommonPropertyView::initial()
     fillLay->addWidget(comFill);
     fillLay->addStretch(1);
 
+    //颜色
+    QLabel *lColor = new QLabel;
+    lColor->setText(QStringLiteral("颜色:"));
+    lColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lColor->setFixedWidth(100);
+
+    fColor = new QColorFrame;
+    QHBoxLayout * colorLay = new QHBoxLayout;
+    colorLay->setContentsMargins(0,0,0,0);
+    colorLay->setSpacing(5);
+
+    colorLay->addWidget(lColor);
+    colorLay->addWidget(fColor);
+    colorLay->addStretch(1);
+
+    //速度
+    QLabel *lSpeedBar = new QLabel;
+    lSpeedBar->setText(QStringLiteral("速度:"));
+    lSpeedBar->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lSpeedBar->setFixedWidth(100);
+
+    speedBar = new QTabBar;
+    speedBar->setObjectName("speedBar");
+    speedBar->addTab(QStringLiteral("常规"));
+    speedBar->addTab(QStringLiteral("自动"));
+
+    QHBoxLayout * speedbarLay = new QHBoxLayout;
+    speedbarLay->setContentsMargins(0,0,0,0);
+    speedbarLay->setSpacing(5);
+    speedbarLay->addWidget(lSpeedBar);
+    speedbarLay->addWidget(speedBar);
+
+    //帧延时     QSpinBox * timeSpinBox = nullptr;
+
+    QLabel *lSpeedTime = new QLabel;
+    lSpeedTime->setText(QStringLiteral("帧延时(ms):"));
+    lSpeedTime->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lSpeedTime->setFixedWidth(100);
+
+    secondSpinBox = new QSpinBox;
+    secondSpinBox->setRange(20, 10000);
+
+    QHBoxLayout * timerLay = new QHBoxLayout;
+    timerLay->setContentsMargins(0,0,0,0);
+    timerLay->setSpacing(5);
+    timerLay->addWidget(lSpeedTime);
+    timerLay->addWidget(secondSpinBox);
+
+    QLabel *lSpeedSecond= new QLabel;
+    lSpeedSecond->setText(QStringLiteral("帧数(p-s):"));
+    lSpeedSecond->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lSpeedSecond->setFixedWidth(100);
+
+    timeSpinBox = new QSpinBox;
+    timeSpinBox->setRange(1, 30);
+
+    QHBoxLayout * secondLay = new QHBoxLayout;
+    secondLay->setContentsMargins(0,0,0,0);
+    secondLay->setSpacing(5);
+    secondLay->addWidget(lSpeedSecond);
+    secondLay->addWidget(timeSpinBox);
+
 
     QVBoxLayout * lay = new QVBoxLayout;
-    lay->setContentsMargins(0,10,0,0);
-    lay->setSpacing(5);
+    lay->setContentsMargins(25,25,25,25);
+    lay->setSpacing(12);
     lay->addItem(sizeLay);
     lay->addItem(hRadLay);
-    lay->addItem(fillLay);\
+    lay->addItem(fillLay);
+    lay->addItem(colorLay);
+
+    QFrame *fLine = new QFrame;
+    fLine->setStyleSheet("border:1px solid rgba(10,10,10, 30);");
+    fLine->setFixedHeight(1);
+    lay->addWidget(fLine);
+
+    lay->addItem(speedbarLay);
+    lay->addItem(timerLay);
+    lay->addItem(secondLay);
+
     lay->addStretch(15);
 
     setLayout(lay);

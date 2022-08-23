@@ -188,11 +188,12 @@ void MainWindow::slot_clear()
 
 void MainWindow::slot_add()
 {
+
     QStringList files = QFileDialog::getOpenFileNames(
                              this,
                              "Select one or more files to open",
-                             QDir::homePath(),
-                             "Images (*.bmp *.jpg *.png )");
+                             QDir::homePath()/*"/home"*/,
+                             "Images (*.bmp *.jpg *.png *.ico)");
 
     m_model->insertConnectItems(files);
 }

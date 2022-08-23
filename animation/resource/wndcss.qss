@@ -78,7 +78,7 @@ border-radius:5px;padding:2px 4px;
 /*??QTabWidget???*/
 
 
-QTabBar::tab {
+#PropertyAreaView>QTabBar::tab {
 
 border-bottom-left-radius:2px;
 border-bottom-right-radius:2px;
@@ -90,14 +90,14 @@ background:transparent;
 font:10px "Microsoft YaHei";
 }
 
-QTabWidget::tab-bar {
+#PropertyAreaView>QTabWidget::tab-bar {
 alignment:left;
 heigth:35px;
 }
 
 
 /* ???????????? */
-QTabBar::tab:hover {
+#PropertyAreaView>QTabBar::tab:hover {
 border:4px solid transparent;
 border-bottom-color:rgba(32,32,32,0.4);
 background:transparent;
@@ -106,7 +106,7 @@ border-bottom-right-radius:2px;
 }
 
 /* ?????? */
-QTabBar::tab:selected {
+#PropertyAreaView>QTabBar::tab:selected {
 
 border:4px solid transparent;
 border-bottom-color:rgba(32,32,32,0.8);
@@ -116,7 +116,7 @@ border-bottom-right-radius:2px;
 }
 
 /* ??????? */
-QTabBar::tab:!selected {
+#PropertyAreaView>QTabBar::tab:!selected {
 margin-top:2px;
 }
 /*-------------QTabWidget #PropertyAreaView-------------------------*/
