@@ -132,9 +132,16 @@ GraphicsViewComp::GraphicsViewComp(QGraphicsScene *scene, QWidget *parent)
     viewport()->setContentsMargins(0,0,0,0);
 }
 
-void GraphicsViewComp::setGifSize(const QSize & size)
+void GraphicsViewComp::setGifCommpro(std::shared_ptr<propertyInf> inf)
 {
-    sizeInf = size;
+    proInf = inf;
+    PicGraphicsScene * pScene = (PicGraphicsScene *)scene();
+    if(!pScene)
+    {
+        return;
+    }
+    pScene->setGifCommpro(inf);
+
     refreashSize();
 }
 
@@ -150,18 +157,29 @@ void GraphicsViewComp::refreashSize()
             return;
         }
 
-        int iheigth = wid->height() - 40;
-        int iwidth = ((float)sizeInf.width() * iheigth / sizeInf.height() + 0.5);
-        if(sizeInf.width() > iwidth)
+        int iSceneHeigth;
+        int iSceneWidth;
+        if(proInf->scMode == screen_horizal)
+        {
+            iSceneWidth = proInf->width;
+            iSceneHeigth = proInf->heigth;
+        }else
+        {
+            iSceneWidth = proInf->heigth;
+            iSceneHeigth = proInf->width;
+        }
+        qreal iViewheigth = wid->height() - 40;
+        qreal iViewwidth = ((qreal)iSceneWidth * iViewheigth / iSceneHeigth);
+        if(iSceneWidth > iViewwidth)
         {
 
-            setFixedSize(iwidth,iheigth);
-            pScene->setSceneRect(0,0,sizeInf.width(),sizeInf.height());
+            setFixedSize(iViewwidth,iViewheigth);
+            pScene->setSceneRect(0,0,iSceneWidth,iSceneHeigth);
         }else
         {
 
-            setFixedSize(sizeInf.width(),sizeInf.height());
-            pScene->setSceneRect(1,1,sizeInf.width()-2,sizeInf.height()-2);
+            setFixedSize(iSceneWidth,iSceneHeigth);
+            pScene->setSceneRect(0,0,iSceneWidth-2,iSceneHeigth-2);
         }
         pScene->update();
         update();
@@ -170,14 +188,13 @@ void GraphicsViewComp::refreashSize()
 
 void GraphicsViewComp::paintEvent(QPaintEvent *event)
 {
-     refreashSize();
     QGraphicsView::paintEvent(event);
-
+    refreashSize();
 }
 
 void GraphicsViewComp::resizeEvent(QResizeEvent *event)
 {
-
+    refreashSize();
     QGraphicsView::resizeEvent(event);
 }
 
@@ -190,9 +207,9 @@ void GraphicsViewComp::setPicItem(PictureItem * pItem)
     if(pScene)
     {
         pScene->setPicItem(pItem);
-
+        pScene->update();
     }
-    repaint();
+    update();
 }
 
 
@@ -202,6 +219,11 @@ PicGraphicsScene::PicGraphicsScene(QWidget * p)
 {
     setBackgroundBrush(Qt::white);
 
+}
+
+void PicGraphicsScene::setGifCommpro(std::shared_ptr<propertyInf> inf)
+{
+    proInf = inf;
 }
 
 void PicGraphicsScene::setPicItem(PictureItem * pItem)
@@ -229,13 +251,37 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
           return;
 
     painter->save();
-    painter->setRenderHint(QPainter::Antialiasing);
+    //painter->setRenderHint(QPainter::Antialiasing);
     qreal pixelRatio = painter->device()->devicePixelRatioF();
     QRectF sizeRec = sceneRect();
     //绘制指定图片作为背景
-    //
-    QPixmap tpic = pic.scaled(sizeRec.width()*pixelRatio, sizeRec.height()*pixelRatio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    painter->drawPixmap(sizeRec,tpic,QRect());
+
+    Qt::AspectRatioMode asMode = (Qt::AspectRatioMode)(int)proInf->fMode;
+    //qDebug()<<"asMode:"<<(int)asMode;
+    QPixmap tpic = pic.scaled(sizeRec.width()*pixelRatio, sizeRec.height()*pixelRatio, asMode, Qt::SmoothTransformation);
+
+    QImage desImage(sizeRec.width(), sizeRec.height(), QImage::Format_ARGB32);
+    desImage.fill(proInf->color);
+
+    QRect rectPic(0, 0, sizeRec.width(), sizeRec.height());
+    if (tpic.width() < sizeRec.width())
+    {
+        rectPic.setX((sizeRec.width() - tpic.width()) / 2);
+        rectPic.setY(0);
+        rectPic.setWidth(tpic.width());
+        rectPic.setHeight(tpic.height());
+    }
+
+    if (tpic.height() < sizeRec.height())
+    {
+        rectPic.setX(0); rectPic.setY((sizeRec.height() - tpic.height()) / 2);
+        rectPic.setWidth(tpic.width());
+        rectPic.setHeight(tpic.height());
+    }
+
+    painter->drawImage(sizeRec,desImage);
+    painter->drawPixmap(rectPic, tpic, QRect());
+
     painter->restore();
 }
 

@@ -13,6 +13,8 @@
 
 #include <QImage>
 
+#include "propertyAreaView.h"
+
 
 class PictureItem;
 class PicGraphicsScene;
@@ -50,17 +52,18 @@ public:
     GraphicsViewComp(QGraphicsScene *scene, QWidget *parent = nullptr);
     void setPicItem(PictureItem * pItem);
 
-    void setGifSize(const QSize & size);
+    void setGifCommpro(std::shared_ptr<propertyInf> inf);
     void refreashSize();
 protected:
     void paintEvent(QPaintEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
 private:
     //PicGraphicsScene * mscene = nullptr;
-    std::shared_ptr<PicGraphicsScene> pScene;
+    //std::shared_ptr<PicGraphicsScene> pScene;
+    std::shared_ptr<propertyInf> proInf;
     PictureItem * pPicItem = nullptr;
 
-    QSize sizeInf;
+    //QSize sizeInf;
 };
 
 
@@ -71,11 +74,12 @@ public:
     PicGraphicsScene(QWidget * p);
     void setPicItem(PictureItem * pItem);
 
+    void setGifCommpro(std::shared_ptr<propertyInf> inf);
 protected:
     void drawBackground(QPainter *painter, const QRectF &rect);
 private:
     PictureItem * mpItem = nullptr;
 
     QPixmap pic;
-
+    std::shared_ptr<propertyInf> proInf;
 };

@@ -3,6 +3,7 @@
 #include <QFrame>
 
 #include "gifSizeOp.h"
+#include "propertyAreaView.h"
 
 #include <memory>
 
@@ -68,20 +69,22 @@ private:
 };
 
 class QRadioButton;
+class QLabel;
+class QButtonGroup;
 class CommonPropertyView : public QFrame
 { 
     Q_OBJECT
 public:
-    CommonPropertyView(QWidget *parent = 0);
+    CommonPropertyView(std::shared_ptr<propertyInf> proInf, QWidget *parent = 0);
     void setConnect();
 
     void initial();
 
     void refreashGifSize();
-    QSize getGifSize();
+    std::shared_ptr<propertyInf> getGifCommpro();
 
 signals:
-    void s_sizeFresh(QSize);
+    void s_commproFresh();
 
 protected:
     void paintEvent(QPaintEvent *e) override;
@@ -94,13 +97,24 @@ private:
     QComboBox * comSize = nullptr;
     QRadioButton * hRadioBtn = nullptr;
     QRadioButton * vRadioBtn = nullptr;
+    QButtonGroup * gScreenrBtn = nullptr;
 
     QComboBox * comFill = nullptr;
     QColorFrame * fColor = nullptr;
     QTabBar * speedBar = nullptr;
 
+    QComboBox * comQuality = nullptr;
+
     QSpinBox * timeSpinBox = nullptr;
     QSpinBox * secondSpinBox = nullptr;
+
+    QButtonGroup * gOrderBtn = nullptr;
+
+    QLabel *lSpeedTime = nullptr;
+    QLabel *lSpeedSecond = nullptr;
+
+    QRadioButton * revRadioBtn = nullptr;
+    QRadioButton * orderRadioBtn = nullptr;
 
 
     //自定义uuid
@@ -108,4 +122,5 @@ private:
     int prIndex = 0;
     QSize gifSize{360,240};
     std::unique_ptr<customSizeOp> custOP;
+    std::shared_ptr<propertyInf> proInf;
 };

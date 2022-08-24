@@ -33,9 +33,10 @@ void MainAreaView::setConnect()
     connect(emptyView, &EmptyAreaView::s_clicked, this, &MainAreaView::s_clicked);
 }
 
-void MainAreaView::setGifSize(const QSize & size)
+void MainAreaView::setGifCommpro(std::shared_ptr<propertyInf> inf)
 {
-    graphicView->setGifSize(size);
+    graphicView->setGifCommpro(inf);
+
 }
 
 void MainAreaView::slot_selPicItem(PictureItem * pItem)

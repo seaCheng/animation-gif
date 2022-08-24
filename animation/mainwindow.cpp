@@ -48,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
     //添加tab 属性页
     propertyArea = new PropertyAreaView;
 
+    mainArea->setGifCommpro(propertyArea->getGifCommpro());
+
     QScrollArea *scrollArea = new QScrollArea;
     scrollArea->setBackgroundRole(QPalette::Dark);
     scrollArea->setWidget(propertyArea);
@@ -133,7 +135,7 @@ void MainWindow::slot_export()
         vecPix.emplace_back(((PictureItem *)item)->pic());
     }
 
-    GifExport::instace()->setGifSize(propertyArea->getGifSize());
+    GifExport::instace()->setGifSize(propertyArea->getGifCommpro()->width, propertyArea->getGifCommpro()->heigth);
     GifExport::instace()->setGifPictures(vecPix);
     GifExport::instace()->startGifExport(fileName);
 
@@ -207,14 +209,11 @@ void MainWindow::setConnect()
 {
     connect(mainArea, &MainAreaView::s_clicked, this, &MainWindow::slot_import);
     connect(ui->scrollAreaWidgetContents, &PicScaleViewComp::s_selPicItem, [&](PictureItem * item){
-
         mainArea->slot_selPicItem(item);
-        mainArea->setGifSize(propertyArea->getGifSize());
-
     });
 
-    connect(propertyArea, &PropertyAreaView::s_sizeFresh, [&](QSize size){
-         mainArea->setGifSize(size);
+    connect(propertyArea, &PropertyAreaView::s_commproFresh, [&](){
+         mainArea->setGifCommpro(propertyArea->getGifCommpro());
     });
 
     connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);

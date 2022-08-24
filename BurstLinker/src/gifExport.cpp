@@ -87,6 +87,7 @@ void GifExport::slot_GifExportMagick(QString file)
 
         imgMagick.read(bi);
         imgMagick.alpha(true);
+        imgMagick.animationDelay(200);
         imgMagick.gifDisposeMethod(BackgroundDispose);
         lstImages.emplace_back(imgMagick);
     }

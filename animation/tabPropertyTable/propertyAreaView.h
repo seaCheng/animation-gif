@@ -10,6 +10,12 @@ Q_DECLARE_METATYPE(screenMode)
 enum fillMode{fill_full,fill_adjust,fill_stretch};
 Q_DECLARE_METATYPE(fillMode)
 
+enum orderMode{order_compliant,order_reverse};
+Q_DECLARE_METATYPE(orderMode)
+
+enum qualityMode{quality_none,quality_auto};
+Q_DECLARE_METATYPE(qualityMode)
+
 struct propertyInf
 {
     int width = 360;
@@ -17,6 +23,9 @@ struct propertyInf
     screenMode scMode = screen_horizal;
     fillMode fMode = fill_adjust;
     QColor color = Qt::white;
+    int delay = 20; //ms
+    orderMode oMode = order_compliant;
+    qualityMode qMode = quality_none;
 };
 Q_DECLARE_METATYPE(propertyInf)
 
@@ -31,10 +40,15 @@ public:
 
     //对外提供接口
 public:
-    QSize getGifSize();
-signals:
-    void s_sizeFresh(QSize);
 
+    std::shared_ptr<propertyInf> getGifCommpro()
+    {
+        return proInf;
+    }
+
+
+signals:
+    void s_commproFresh();
 protected:
     void paintEvent(QPaintEvent *e) override;
 public slots:
@@ -43,5 +57,6 @@ protected:
     //void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;//重写重绘函数
 private:
     CommonPropertyView * commView;
+    std::shared_ptr<propertyInf> proInf;
 
 };

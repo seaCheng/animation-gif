@@ -1,5 +1,4 @@
 ﻿#include "commonPropertyView.h"
-#include "propertyAreaView.h"
 
 #include<QDebug>
 #include<QHBoxLayout>
@@ -20,6 +19,7 @@
 #include <QColorDialog>
 #include <QTabBar>
 #include <QSpinBox>
+#include <QButtonGroup>
 
 
 /*---------------------QFrameColor-------------------------------------*/
@@ -354,8 +354,8 @@ void customSizeOp::initial()
 /*--------------------customSizeOp--------------------------------------*/
 
 /*--------------------CommonPropertyView--------------------------------------*/
-CommonPropertyView::CommonPropertyView(QWidget *parent)
-    : QFrame(parent)
+CommonPropertyView::CommonPropertyView(std::shared_ptr<propertyInf> inf, QWidget *parent)
+    : QFrame(parent), proInf(inf)
 {
     initial();
     setConnect();
@@ -363,6 +363,7 @@ CommonPropertyView::CommonPropertyView(QWidget *parent)
 
 void CommonPropertyView::setConnect()
 {
+
     connect(comSize, &QComboBox::currentIndexChanged, this, [&](int index){
 
         if(index == comSize->count() - 1)
@@ -405,8 +406,81 @@ void CommonPropertyView::setConnect()
 
         if (color.isValid()) {
              fColor->setGifColor(color);
+             proInf->color = color;
+
+             emit s_commproFresh();
         }
     });
+
+    connect(speedBar, &QTabBar::currentChanged, this, [&](int index){
+        if(index == 0)
+        {
+            timeSpinBox->setVisible(true);
+            secondSpinBox->setVisible(false);
+
+            lSpeedTime->setVisible(true);
+            lSpeedSecond->setVisible(false);
+        }else
+        {
+            timeSpinBox->setVisible(false);
+            secondSpinBox->setVisible(true);
+
+            lSpeedTime->setVisible(false);
+            lSpeedSecond->setVisible(true);
+        }
+    });
+
+    connect(comFill, &QComboBox::currentIndexChanged, this, [&](int index){
+
+        proInf->fMode = (fillMode)comFill->currentData().toInt();
+        emit s_commproFresh();
+    });
+
+    connect(gScreenrBtn, &QButtonGroup::buttonClicked, this, [&](QAbstractButton *button){
+
+        QRadioButton * screenBtn = (QRadioButton *)button;
+
+        if(screenBtn == hRadioBtn)
+        {
+           proInf->scMode = screen_horizal;
+        }else if(screenBtn == vRadioBtn)
+        {
+           proInf->scMode = screen_vertical;
+        }
+
+        emit s_commproFresh();
+    });
+
+    connect(gOrderBtn, &QButtonGroup::buttonClicked, this, [&](QAbstractButton *button){
+
+        QRadioButton * screenBtn = (QRadioButton *)button;
+
+        if(screenBtn == orderRadioBtn)
+        {
+           proInf->oMode = order_compliant;
+        }else if(screenBtn == revRadioBtn)
+        {
+           proInf->oMode = order_reverse;
+        }
+
+        emit s_commproFresh();
+    });
+
+    connect(timeSpinBox, &QSpinBox::valueChanged, this, [&](int value){
+        proInf->delay = timeSpinBox->value();
+        emit s_commproFresh();
+    });
+
+    connect(secondSpinBox, &QSpinBox::valueChanged, this, [&](int value){
+        proInf->delay = 1000 / secondSpinBox->value();
+        emit s_commproFresh();
+    });
+
+    connect(comQuality, &QComboBox::currentIndexChanged, this, [&](int index){
+        proInf->qMode = (qualityMode)comQuality->currentData().toInt();
+        emit s_commproFresh();
+    });
+
 
 }
 
@@ -452,17 +526,32 @@ void CommonPropertyView::initial()
     sizeLay->addStretch(1);
 
     //横屏 &竖屏幕
+    QLabel *lScreen = new QLabel;
+    lScreen->setText(QStringLiteral("屏幕:"));
+    lScreen->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lScreen->setFixedWidth(100);
+
+    gScreenrBtn = new QButtonGroup(this);
+    gScreenrBtn->setExclusive(true);
     hRadioBtn = new QRadioButton;
     hRadioBtn->setChecked(true);
+
+    proInf->scMode = screen_horizal;
+
     hRadioBtn->setText(QStringLiteral("横屏"));
+    gScreenrBtn->addButton(hRadioBtn);
+
     vRadioBtn = new QRadioButton;
     vRadioBtn->setText(QStringLiteral("竖屏"));
+    gScreenrBtn->addButton(vRadioBtn);
+
     QHBoxLayout * hRadLay = new QHBoxLayout;
     hRadLay->setContentsMargins(0,0,0,0);
     hRadLay->setSpacing(24);
-    hRadLay->addStretch(1);
+    hRadLay->addWidget(lScreen);
     hRadLay->addWidget(hRadioBtn);
     hRadLay->addWidget(vRadioBtn);
+
     hRadLay->addStretch(1);
 
     //填充方式
@@ -476,6 +565,8 @@ void CommonPropertyView::initial()
     comFill->addItem(QStringLiteral("适应"), fill_adjust);
     comFill->addItem(QStringLiteral("拉伸"), fill_stretch);
     comFill->setMinimumWidth(200);
+    comFill->setCurrentIndex(1);
+    proInf->fMode = fill_adjust;
 
     QHBoxLayout * fillLay = new QHBoxLayout;
     fillLay->setContentsMargins(0,0,0,0);
@@ -495,6 +586,8 @@ void CommonPropertyView::initial()
     QHBoxLayout * colorLay = new QHBoxLayout;
     colorLay->setContentsMargins(0,0,0,0);
     colorLay->setSpacing(5);
+
+    proInf->color = Qt::white;
 
     colorLay->addWidget(lColor);
     colorLay->addWidget(fColor);
@@ -517,36 +610,37 @@ void CommonPropertyView::initial()
     speedbarLay->addWidget(lSpeedBar);
     speedbarLay->addWidget(speedBar);
 
-    //帧延时     QSpinBox * timeSpinBox = nullptr;
-
-    QLabel *lSpeedTime = new QLabel;
+    //帧延时
+    lSpeedTime = new QLabel;
     lSpeedTime->setText(QStringLiteral("帧延时(ms):"));
     lSpeedTime->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lSpeedTime->setFixedWidth(100);
 
-    secondSpinBox = new QSpinBox;
-    secondSpinBox->setRange(20, 10000);
+    timeSpinBox = new QSpinBox;
+    timeSpinBox->setRange(20, 10000);
+    proInf->delay = timeSpinBox->value();
 
     QHBoxLayout * timerLay = new QHBoxLayout;
     timerLay->setContentsMargins(0,0,0,0);
     timerLay->setSpacing(5);
     timerLay->addWidget(lSpeedTime);
-    timerLay->addWidget(secondSpinBox);
+    timerLay->addWidget(timeSpinBox);
 
-    QLabel *lSpeedSecond= new QLabel;
+    lSpeedSecond= new QLabel;
     lSpeedSecond->setText(QStringLiteral("帧数(p-s):"));
     lSpeedSecond->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lSpeedSecond->setFixedWidth(100);
+    lSpeedSecond->setVisible(false);
 
-    timeSpinBox = new QSpinBox;
-    timeSpinBox->setRange(1, 30);
+    secondSpinBox = new QSpinBox;
+    secondSpinBox->setRange(1, 30);
+    secondSpinBox->setVisible(false);
 
     QHBoxLayout * secondLay = new QHBoxLayout;
     secondLay->setContentsMargins(0,0,0,0);
     secondLay->setSpacing(5);
     secondLay->addWidget(lSpeedSecond);
-    secondLay->addWidget(timeSpinBox);
-
+    secondLay->addWidget(secondSpinBox);
 
     QVBoxLayout * lay = new QVBoxLayout;
     lay->setContentsMargins(25,25,25,25);
@@ -556,14 +650,73 @@ void CommonPropertyView::initial()
     lay->addItem(fillLay);
     lay->addItem(colorLay);
 
-    QFrame *fLine = new QFrame;
-    fLine->setStyleSheet("border:1px solid rgba(10,10,10, 30);");
-    fLine->setFixedHeight(1);
-    lay->addWidget(fLine);
+
+    QFrame *fLineO = new QFrame;
+    fLineO->setStyleSheet("border:1px solid rgba(10,10,10, 30);");
+    fLineO->setFixedHeight(1);
+    lay->addWidget(fLineO);
 
     lay->addItem(speedbarLay);
     lay->addItem(timerLay);
     lay->addItem(secondLay);
+
+    QFrame *fLineT = new QFrame;
+    fLineT->setStyleSheet("border:1px solid rgba(10,10,10, 30);");
+    fLineT->setFixedHeight(1);
+    lay->addWidget(fLineT);
+
+    //顺序
+    QLabel *lOrder = new QLabel;
+    lOrder->setText(QStringLiteral("顺序:"));
+    lOrder->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lOrder->setFixedWidth(100);
+
+    gOrderBtn = new QButtonGroup(this);
+    gOrderBtn->setExclusive(true);
+    orderRadioBtn = new QRadioButton;
+    orderRadioBtn->setText(QStringLiteral("顺序"));
+    orderRadioBtn->setChecked(true);
+
+    proInf->oMode = order_compliant;
+    gOrderBtn->addButton(orderRadioBtn);
+
+    revRadioBtn = new QRadioButton;
+    revRadioBtn->setChecked(false);
+    revRadioBtn->setText(QStringLiteral("反序"));
+    gOrderBtn->addButton(revRadioBtn);
+
+    QHBoxLayout * hOrderLay = new QHBoxLayout;
+    hOrderLay->setContentsMargins(0,0,0,0);
+    hOrderLay->setSpacing(24);
+    hOrderLay->addWidget(lOrder);
+    hOrderLay->addWidget(orderRadioBtn);
+    hOrderLay->addWidget(revRadioBtn);
+    hOrderLay->addStretch(1);
+
+    lay->addItem(hOrderLay);
+
+    //质量
+    QLabel *lQuality = new QLabel;
+    lQuality->setText(QStringLiteral("质量:"));
+    lQuality->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lQuality->setFixedWidth(100);
+
+    comQuality = new QComboBox;
+    comQuality->addItem(QStringLiteral("不优化"), quality_none);
+    comQuality->addItem(QStringLiteral("自动优化"), quality_auto);
+    comQuality->setMinimumWidth(200);
+    comQuality->setCurrentIndex(0);
+
+    proInf->qMode = quality_none;
+
+    QHBoxLayout * QualityLay = new QHBoxLayout;
+    QualityLay->setContentsMargins(0,0,0,0);
+    QualityLay->setSpacing(5);
+
+    QualityLay->addWidget(lQuality);
+    QualityLay->addWidget(comQuality);
+    QualityLay->addStretch(1);
+    lay->addItem(QualityLay);
 
     lay->addStretch(15);
 
@@ -577,10 +730,14 @@ void CommonPropertyView::refreashGifSize()
     sizeInf inf = GifSizeOp::getInstance()->getSizeInfBU(strUUid);
     gifSize = QSize(inf.width, inf.heigth);
 
-    emit s_sizeFresh(gifSize);
+    proInf->width = gifSize.width();
+    proInf->heigth = gifSize.height();
+
+    emit s_commproFresh();
 }
 
-QSize CommonPropertyView::getGifSize()
+std::shared_ptr<propertyInf> CommonPropertyView::getGifCommpro()
 {
-    return gifSize;
+    return proInf;
 }
+

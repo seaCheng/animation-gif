@@ -32,21 +32,16 @@ void PropertyAreaView::initial()
 {
     setObjectName("PropertyAreaView");
 
-    commView = new CommonPropertyView;
+    proInf = std::make_shared<propertyInf>();
+    commView = new CommonPropertyView(proInf);
 
-    connect(commView, &CommonPropertyView::s_sizeFresh, this, &PropertyAreaView::s_sizeFresh);
+    connect(commView, &CommonPropertyView::s_commproFresh, this, &PropertyAreaView::s_commproFresh);
 
     addTab(commView, QStringLiteral("Common"));
-    addTab(new QWidget(), QStringLiteral("specific"));
     addTab(new QWidget(), QStringLiteral("whiteboard"));
     addTab(new QWidget(), QStringLiteral("effects"));
 
     setMinimumWidth(320);
     setMinimumHeight(780);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-}
-
-QSize PropertyAreaView::getGifSize()
-{
-    return commView->getGifSize();
 }

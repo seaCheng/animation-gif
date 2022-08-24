@@ -16,7 +16,7 @@ public:
     MainAreaView(QWidget *parent = 0);
     void setConnect();
 
-    void setGifSize(const QSize & size);
+    void setGifCommpro(std::shared_ptr<propertyInf> inf);
 signals:
     void s_clicked(type_import eType);
 
