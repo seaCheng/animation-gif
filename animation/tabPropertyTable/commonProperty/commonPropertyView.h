@@ -71,6 +71,8 @@ private:
 class QRadioButton;
 class QLabel;
 class QButtonGroup;
+class QColorDialog;
+
 class CommonPropertyView : public QFrame
 { 
     Q_OBJECT
@@ -115,6 +117,8 @@ private:
 
     QRadioButton * revRadioBtn = nullptr;
     QRadioButton * orderRadioBtn = nullptr;
+
+    QColorDialog * colorDialog;
 
 
     //自定义uuid

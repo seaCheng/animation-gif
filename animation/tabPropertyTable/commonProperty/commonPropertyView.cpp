@@ -401,15 +401,13 @@ void CommonPropertyView::setConnect()
 
     connect(fColor, &QColorFrame::s_clicked, this, [&](){
 
+        /*
         const QColorDialog::ColorDialogOptions options = QFlag(QColorDialog::ShowAlphaChannel);
         const QColor color = QColorDialog::getColor(Qt::white, this, "Select Color", options);
+        */
 
-        if (color.isValid()) {
-             fColor->setGifColor(color);
-             proInf->color = color;
+        colorDialog->exec();
 
-             emit s_commproFresh();
-        }
     });
 
     connect(speedBar, &QTabBar::currentChanged, this, [&](int index){
@@ -481,7 +479,16 @@ void CommonPropertyView::setConnect()
         emit s_commproFresh();
     });
 
+    connect(colorDialog, &QColorDialog::currentColorChanged, this, [&](const QColor &color){
 
+        if (color.isValid()) {
+             fColor->setGifColor(color);
+             proInf->color = color;
+
+             emit s_commproFresh();
+        }
+
+    });
 }
 
 void CommonPropertyView::paintEvent(QPaintEvent *e)
@@ -492,6 +499,13 @@ void CommonPropertyView::paintEvent(QPaintEvent *e)
 void CommonPropertyView::initial()
 {
     setObjectName("CommonPropertyView");
+
+    const QColorDialog::ColorDialogOptions options = QFlag(QColorDialog::ShowAlphaChannel | QColorDialog::NoButtons);
+    colorDialog = new QColorDialog(this);
+    colorDialog->setCurrentColor(Qt::white);
+    colorDialog->setOptions(options);
+
+
     //size
     comSize = new QComboBox;
     comSize->setMinimumWidth(200);
