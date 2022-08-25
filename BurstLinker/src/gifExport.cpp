@@ -54,7 +54,7 @@ void GifExport::slot_GifExportMagick(QString file)
         QImage scalImage = img.scaled(QSize(iWidth, iHeigth),
                                       Qt::KeepAspectRatio, Qt::SmoothTransformation);
         QImage desImage(iWidth, iHeigth, QImage::Format_ARGB32);
-        desImage.fill(qRgba(255,255,255,0));
+        desImage.fill(proInf->color);
 
         QRect rectPic(0, 0, scalImage.width(), scalImage.height());
         if (scalImage.width() < iWidth)
@@ -87,7 +87,7 @@ void GifExport::slot_GifExportMagick(QString file)
 
         imgMagick.read(bi);
         imgMagick.alpha(true);
-        imgMagick.animationDelay(200);
+        imgMagick.animationDelay(proInf->delay);
         imgMagick.gifDisposeMethod(BackgroundDispose);
         lstImages.emplace_back(imgMagick);
     }

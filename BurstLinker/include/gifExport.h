@@ -6,6 +6,8 @@
 #include <vector>
 #include <QPixmap>
 
+#include "propertyAreaView.h"
+
 
 class GifExport : public QObject
 {
@@ -39,6 +41,11 @@ public:
     {
         lstPixmap = Pixmaps;
     }
+
+    void  setGifCommpro(std::shared_ptr<propertyInf> inf)
+    {
+        proInf = inf;
+    }
     void startGifExport(QString file);
     void slot_GifExport(QString file);
     void slot_GifExportMagick(QString file);
@@ -57,6 +64,8 @@ private:
     std::vector<QPixmap> lstPixmap;
     int iWidth;
     int iHeigth;
+
+    std::shared_ptr<propertyInf> proInf;
 
 };
 

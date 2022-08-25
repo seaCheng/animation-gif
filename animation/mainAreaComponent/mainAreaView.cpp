@@ -1,10 +1,41 @@
 ﻿#include "mainAreaView.h"
 #include "emptyAreaView.h"
 #include "graphicsViewComp.h"
+#include "sacleButtonView.h"
+
 #include<QPainter>
 #include<QDebug>
 #include<QHBoxLayout>
 
+GraphicFrame::GraphicFrame(QWidget *parent)
+    :QFrame(parent)
+{
+    scaleView = new ScaleButtonView(this);
+    setConnect();
+
+}
+
+void GraphicFrame::setConnect()
+{
+    connect(scaleView, &ScaleButtonView::s_scaleFreash, this, &GraphicFrame::s_scaleFreash);
+}
+
+void GraphicFrame::showEvent(QShowEvent *event)
+{
+    if(isVisible())
+    {
+       scaleView->setGeometry(width() - 52, height() - 140, 50, 130);
+    }
+}
+
+void GraphicFrame::resizeEvent(QResizeEvent *)
+{
+    scaleView->setGeometry(width() - 52, height() - 140, 50, 130);
+}
+
+/*----------GraphicFrame------------------*/
+
+/*----------MainAreaView------------------*/
 MainAreaView::MainAreaView(QWidget *parent)
     : QStackedWidget(parent)
 {
@@ -12,7 +43,7 @@ MainAreaView::MainAreaView(QWidget *parent)
     emptyView = new EmptyAreaView;
     addWidget(emptyView);
 
-    graWid = new QFrame;
+    graWid = new GraphicFrame;
     graWid->setFrameShape(QFrame::Panel);
     graWid->setFrameShadow(QFrame::Sunken);
     QHBoxLayout *layout = new QHBoxLayout;
@@ -31,6 +62,10 @@ MainAreaView::MainAreaView(QWidget *parent)
 void MainAreaView::setConnect()
 {
     connect(emptyView, &EmptyAreaView::s_clicked, this, &MainAreaView::s_clicked);
+    connect(graWid, &GraphicFrame::s_scaleFreash, this, [&](qreal lValue){
+        //
+        graphicView->scale(lValue, lValue);
+    });
 }
 
 void MainAreaView::setGifCommpro(std::shared_ptr<propertyInf> inf)

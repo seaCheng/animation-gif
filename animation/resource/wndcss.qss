@@ -276,3 +276,54 @@ QComboBox:on {
 
 /*-------------------QComboBox---------------------*/
 
+/*-------------ScaleButtonView-------------------------*/
+
+#ScaleButtonView>#enlargeBtn{
+                                    border-image:url(:images/icon_enlarge.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    background-attachment:fixed;
+                                    background-clip:padding
+}
+
+#ScaleButtonView>#enlargeBtn:hover{
+                                    border-image:url(:images/icon_enlarge_p.png);
+                                   background-repeat:repeat-no;
+                                    background-position:Center;
+                                    background-attachment:fixed;
+                                    background-clip:padding
+}
+
+#ScaleButtonView>#zoomOutBtn{
+                                    border-image:url(:images/icon_narrow.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    background-attachment:fixed;
+                                    background-clip:padding
+}
+
+#ScaleButtonView>#zoomOutBtn:hover{
+                                    border-image:url(:images/icon_narrow_p.png);
+                                   background-repeat:repeat-no;
+                                    background-position:Center;
+                                    background-attachment:fixed;
+                                    background-clip:padding
+}
+
+#ScaleButtonView>#lScale{
+                                    background-image: url(:images/map_scale.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+}
+
+#ScaleButtonView>#lNum{
+                                    color: rgb(0, 85, 0);
+                                    font: 7pt "Agency FB";
+}
+
+
+
+/*-------------ScaleButtonView-------------------------*/
+
+
+

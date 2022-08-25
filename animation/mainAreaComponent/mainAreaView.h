@@ -5,9 +5,30 @@
 
 #include "emptyAreaView.h"
 #include "graphicsViewComp.h"
+#include "qdialog.h"
 
 class GraphicsViewComp;
 class PictureItem;
+class ScaleButtonView;
+
+class GraphicFrame :public QFrame
+{
+    Q_OBJECT
+public:
+    GraphicFrame(QWidget *parent = 0);
+    void setConnect();
+
+signals:
+    void s_scaleFreash(qreal);
+
+public slots:
+
+protected:
+    void showEvent(QShowEvent *event) override;
+    void resizeEvent(QResizeEvent *) override;
+private:
+    ScaleButtonView * scaleView = nullptr;
+};
 
 class MainAreaView : public QStackedWidget
 { 
@@ -28,5 +49,5 @@ private:
     EmptyAreaView * emptyView = nullptr;
     GraphicsViewComp * graphicView = nullptr;
     PicGraphicsScene * pScene;
-    QFrame * graWid = nullptr;
+    GraphicFrame * graWid = nullptr;
 };

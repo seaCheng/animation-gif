@@ -13,6 +13,13 @@
      <file>../images/8.bmp</file>
      <file>../images/9.bmp</file> 
 	 <file>../images/10.bmp</file> 
-	 <file>../images/11.bmp</file> 
+	 <file>../images/11.bmp</file>
+	 
+	 <file>../images/icon_enlarge.png</file>
+	 <file>../images/icon_enlarge_p.png</file>
+	 <file>../images/icon_narrow.png</file>
+	 <file>../images/icon_narrow_p.png</file>
+	 <file>../images/map_scale.png</file>
+	 
     </qresource>
 </RCC>

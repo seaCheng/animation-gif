@@ -58,6 +58,7 @@ $$PWD/../lib/ImageMaick/Win/include
 
 INCLUDEPATH += \
 $$PWD/mainAreaComponent \
+$$PWD/mainAreaComponent/scaleButton \
 $$PWD/../AMLogger \
 $$PWD/../gifdec \
 $$PWD/../lib/SDL/include \
@@ -74,6 +75,7 @@ SOURCES += \
     mainAreaComponent/emptyAreaView.cpp \
     mainAreaComponent/graphicsViewComp.cpp \
     mainAreaComponent/mainAreaView.cpp \
+    mainAreaComponent/scaleButton/sacleButtonView.cpp \
     mainLaunch.cpp \
     mainwindow.cpp \
     modelController.cpp \
@@ -91,6 +93,7 @@ HEADERS += \
     mainAreaComponent/emptyAreaView.h \
     mainAreaComponent/graphicsViewComp.h \
     mainAreaComponent/mainAreaView.h \
+    mainAreaComponent/scaleButton/sacleButtonView.h \
     mainwindow.h \
     modelController.h \
     pictureItem.h \

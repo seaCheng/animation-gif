@@ -259,9 +259,7 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
     //绘制指定图片作为背景
 
     Qt::AspectRatioMode asMode = (Qt::AspectRatioMode)(int)proInf->fMode;
-    //qDebug()<<"asMode:"<<(int)asMode;
     QPixmap tpic = pic.scaled(sizeRec.width(), sizeRec.height(), asMode, Qt::SmoothTransformation);
-
     QImage desImage(sizeRec.width(), sizeRec.height(), QImage::Format_ARGB32);
     desImage.fill(proInf->color);
 

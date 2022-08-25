@@ -49,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     propertyArea = new PropertyAreaView;
 
     mainArea->setGifCommpro(propertyArea->getGifCommpro());
+    GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
 
     QScrollArea *scrollArea = new QScrollArea;
     scrollArea->setBackgroundRole(QPalette::Dark);
@@ -216,6 +217,7 @@ void MainWindow::setConnect()
 
     connect(propertyArea, &PropertyAreaView::s_commproFresh, [&](){
          mainArea->setGifCommpro(propertyArea->getGifCommpro());
+         GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
     });
 
     connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);
