@@ -63,8 +63,14 @@ void MainAreaView::setConnect()
 {
     connect(emptyView, &EmptyAreaView::s_clicked, this, &MainAreaView::s_clicked);
     connect(graWid, &GraphicFrame::s_scaleFreash, this, [&](qreal lValue){
-        //
-        graphicView->scale(lValue, lValue);
+
+        double newScale = lValue;
+        QTransform oldMatrix = graphicView->transform();
+        graphicView->resetTransform();
+        graphicView->translate(oldMatrix.dx(), oldMatrix.dy());
+        graphicView->scale(newScale, newScale);
+
+        //graphicView->scale(lValue, lValue);
     });
 }
 
