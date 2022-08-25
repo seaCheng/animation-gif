@@ -191,11 +191,13 @@ void MainWindow::slot_clear()
 void MainWindow::slot_add()
 {
 
+
+    QFileDialog::Options options =  QFileDialog::DontUseNativeDialog | QFileDialog::ReadOnly;
     QStringList files = QFileDialog::getOpenFileNames(
                              this,
                              "Select one or more files to open",
                              QDir::homePath()/*"/home"*/,
-                             "Images (*.bmp *.jpg *.png *.ico)");
+                             "Images (*.bmp *.jpg *.png *.ico)", nullptr, options);
 
     m_model->insertConnectItems(files);
 }

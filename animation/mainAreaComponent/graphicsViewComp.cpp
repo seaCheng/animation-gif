@@ -127,7 +127,7 @@ void MyGLWidget::setImage(const QImage &image)
 GraphicsViewComp::GraphicsViewComp(QGraphicsScene *scene, QWidget *parent)
     :QGraphicsView(scene, parent)
 {
-    MyGLWidget *widget =new MyGLWidget(this);
+    QOpenGLWidget *widget =new QOpenGLWidget();
     setViewport(widget);
     viewport()->setContentsMargins(0,0,0,0);
 }
@@ -178,8 +178,8 @@ void GraphicsViewComp::refreashSize()
         }else
         {
 
-            setFixedSize(iSceneWidth,iSceneHeigth);
-            pScene->setSceneRect(0,0,iSceneWidth-2,iSceneHeigth-2);
+            setFixedSize(iSceneWidth+2,iSceneHeigth+2);
+            pScene->setSceneRect(0,0,iSceneWidth,iSceneHeigth);
         }
         pScene->update();
         update();
@@ -192,11 +192,13 @@ void GraphicsViewComp::paintEvent(QPaintEvent *event)
     refreashSize();
 }
 
+
 void GraphicsViewComp::resizeEvent(QResizeEvent *event)
 {
     refreashSize();
     QGraphicsView::resizeEvent(event);
 }
+
 
 void GraphicsViewComp::setPicItem(PictureItem * pItem)
 {
@@ -251,14 +253,14 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
           return;
 
     painter->save();
-    //painter->setRenderHint(QPainter::Antialiasing);
+    painter->setRenderHint(QPainter::Antialiasing);
     qreal pixelRatio = painter->device()->devicePixelRatioF();
     QRectF sizeRec = sceneRect();
     //绘制指定图片作为背景
 
     Qt::AspectRatioMode asMode = (Qt::AspectRatioMode)(int)proInf->fMode;
     //qDebug()<<"asMode:"<<(int)asMode;
-    QPixmap tpic = pic.scaled(sizeRec.width()*pixelRatio, sizeRec.height()*pixelRatio, asMode, Qt::SmoothTransformation);
+    QPixmap tpic = pic.scaled(sizeRec.width(), sizeRec.height(), asMode, Qt::SmoothTransformation);
 
     QImage desImage(sizeRec.width(), sizeRec.height(), QImage::Format_ARGB32);
     desImage.fill(proInf->color);
@@ -279,8 +281,9 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
         rectPic.setHeight(tpic.height());
     }
 
+    QPixmap tpicRato = pic.scaled(sizeRec.width() * pixelRatio, sizeRec.height() * pixelRatio, asMode, Qt::SmoothTransformation);
     painter->drawImage(sizeRec,desImage);
-    painter->drawPixmap(rectPic, tpic, QRect());
+    painter->drawPixmap(rectPic, tpicRato, QRect());
 
     painter->restore();
 }
