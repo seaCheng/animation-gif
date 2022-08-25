@@ -189,7 +189,6 @@ void GraphicsViewComp::refreashSize()
 void GraphicsViewComp::paintEvent(QPaintEvent *event)
 {
     QGraphicsView::paintEvent(event);
-    refreashSize();
 }
 
 
@@ -209,9 +208,10 @@ void GraphicsViewComp::setPicItem(PictureItem * pItem)
     if(pScene)
     {
         pScene->setPicItem(pItem);
-        pScene->update();
+
     }
-    update();
+
+    refreashSize();
 }
 
 

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 
 #include "QtSingleApplication"
 #include "AWLogger.h"
@@ -44,10 +44,12 @@ int main(int argc, char *argv[])
     std::shared_ptr<AMLog::AMLogger> logger = AMLog::AWLoggerFactory::instace()->CreateLogger("outputMessage1");
     logger->info("app launch...");
     logger->info("bReg:{}, bRst:{}", bReg, bRst);
-    MainWindow w;
-    w.show();
 
-    app.setActivationWindow(&w,1);
+    MainWindow mainWindow;
+    mainWindow.setGeometry(100, 100, 800, 500);
+    mainWindow.show();
+
+    app.setActivationWindow(&mainWindow,1);
 
     return app.exec();
 }
