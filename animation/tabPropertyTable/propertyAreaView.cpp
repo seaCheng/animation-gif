@@ -1,6 +1,8 @@
 ﻿#include "propertyAreaView.h"
 #include "commonPropertyView.h"
 
+#include "whiteBoardPropertyView.h"
+
 #include<QDebug>
 #include<QHBoxLayout>
 #include <QTabBar>
@@ -15,7 +17,8 @@ PropertyAreaView::PropertyAreaView(QWidget *parent)
 
 void PropertyAreaView::setConnect()
 {
-    //connect(emptyView, &EmptyAreaView::s_clicked, this, &MainAreaView::s_clicked);
+    connect(commView, &CommonPropertyView::s_commproFresh, this, &PropertyAreaView::s_commproFresh);
+    connect(whiteBoardView, &WhiteBoardPropertyView::s_sceneItemInsert, this, &PropertyAreaView::s_sceneItemInsert);
 }
 
 void PropertyAreaView::paintEvent(QPaintEvent *e)
@@ -35,10 +38,10 @@ void PropertyAreaView::initial()
     proInf = std::make_shared<propertyInf>();
     commView = new CommonPropertyView(proInf);
 
-    connect(commView, &CommonPropertyView::s_commproFresh, this, &PropertyAreaView::s_commproFresh);
-
     addTab(commView, QStringLiteral("Common"));
-    addTab(new QWidget(), QStringLiteral("whiteboard"));
+
+    whiteBoardView = new WhiteBoardPropertyView;
+    addTab(whiteBoardView, QStringLiteral("whiteboard"));
     addTab(new QWidget(), QStringLiteral("effects"));
 
     setMinimumWidth(320);

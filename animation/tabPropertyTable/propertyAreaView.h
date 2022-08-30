@@ -3,7 +3,10 @@
 #include<QPaintEvent>
 #include <QTabWidget>
 
+#include "WhiteBoardPropertyView.h"
+
 class CommonPropertyView;
+class WhiteBoardPropertyView;
 enum screenMode{screen_horizal,screen_vertical};
 Q_DECLARE_METATYPE(screenMode)
 
@@ -49,6 +52,7 @@ public:
 
 signals:
     void s_commproFresh();
+    void s_sceneItemInsert(DiagramType);
 protected:
     void paintEvent(QPaintEvent *e) override;
 public slots:
@@ -57,6 +61,7 @@ protected:
     //void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;//重写重绘函数
 private:
     CommonPropertyView * commView;
+    WhiteBoardPropertyView * whiteBoardView;
     std::shared_ptr<propertyInf> proInf;
 
 };

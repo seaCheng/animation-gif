@@ -2,24 +2,22 @@
     <qresource prefix="/">
      <file>../images/app.ico</file>
      <file>../images/self.ico</file>
-     <file>../resource/wndcss.qss</file>
-	 <file>../images/1.bmp</file>
-     <file>../images/2.bmp</file>
-     <file>../images/3.bmp</file>
-     <file>../images/4.bmp</file>
-     <file>../images/5.bmp</file>
-     <file>../images/6.bmp</file>
-     <file>../images/7.bmp</file>
-     <file>../images/8.bmp</file>
-     <file>../images/9.bmp</file> 
-	 <file>../images/10.bmp</file> 
-	 <file>../images/11.bmp</file>
-	 
+     <file>../resource/wndcss.qss</file> 
 	 <file>../images/icon_enlarge.png</file>
 	 <file>../images/icon_enlarge_p.png</file>
 	 <file>../images/icon_narrow.png</file>
 	 <file>../images/icon_narrow_p.png</file>
 	 <file>../images/map_scale.png</file>
+	 
+	 <file>../images/condition.png</file>
+	 <file>../images/Parallelogram.png</file>
+	 <file>../images/rectangle.png</file>
+	 <file>../images/text.png</file>
+	 
+	 <file>../images/icon_rotate.png</file>
+	 <file>../images/icon_stretch.png</file>
+	 <file>../images/icon_close.png</file>
+	 
 	 
     </qresource>
 </RCC>

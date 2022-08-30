@@ -78,13 +78,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupUndoRedoActions();
 
-    for(int i = 0; i < 5; i++)
-    {
-        int iIndex = QRandomGenerator::global()->bounded(11) + 1;
-        QPixmap img = QPixmap(QString(":/images/%1.bmp").arg(iIndex));
-        m_model->insertConnectableItem("PictureItem", img.width(),img.height(), img);
-    }
-
     setConnect();
 
 }
@@ -219,6 +212,12 @@ void MainWindow::setConnect()
          mainArea->setGifCommpro(propertyArea->getGifCommpro());
          GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
     });
+
+    connect(propertyArea, &PropertyAreaView::s_sceneItemInsert, [&](DiagramType type){
+
+         mainArea->start_insertSceneItem(type);
+    });
+
 
     connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);
 

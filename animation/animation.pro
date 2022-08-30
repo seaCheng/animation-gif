@@ -65,6 +65,7 @@ $$PWD/../lib/SDL/include \
 $$PWD/../QtSingleApplication \
 $$PWD/tabPropertyTable \
 $$PWD/tabPropertyTable/commonProperty \
+$$PWD/tabPropertyTable/whiteBoardProperty \
 $$PWD/viewComponent
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -85,6 +86,11 @@ SOURCES += \
     tabPropertyTable/commonProperty/commonPropertyView.cpp \
     tabPropertyTable/commonProperty/gifSizeOp.cpp \
     tabPropertyTable/propertyAreaView.cpp \
+    tabPropertyTable/whiteBoardProperty/arrow.cpp \
+    tabPropertyTable/whiteBoardProperty/diagramitem.cpp \
+    tabPropertyTable/whiteBoardProperty/diagramtextitem.cpp \
+    tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.cpp \
+    tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
     viewComponent/picScaleComp.cpp \
     viewComponent/picScaleViewComp.cpp
@@ -102,6 +108,11 @@ HEADERS += \
     tabPropertyTable/commonProperty/commonPropertyView.h \
     tabPropertyTable/commonProperty/gifSizeOp.h \
     tabPropertyTable/propertyAreaView.h \
+    tabPropertyTable/whiteBoardProperty/arrow.h \
+    tabPropertyTable/whiteBoardProperty/diagramitem.h \
+    tabPropertyTable/whiteBoardProperty/diagramtextitem.h \
+    tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.h \
+    tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.h \
     viewComponent/aspectRatioPixmapLabel.h \
     viewComponent/picScaleComp.h \
     viewComponent/picScaleViewComp.h

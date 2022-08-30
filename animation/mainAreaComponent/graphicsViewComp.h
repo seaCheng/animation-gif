@@ -7,41 +7,25 @@
 #include <QObject>
 #include <QOpenGLWidget>
 
-#include <QOpenGLFunctions>
-#include <QOpenGLShaderProgram>
-#include <QOpenGLTexture>
-
 #include <QImage>
 
 #include "propertyAreaView.h"
+#include "whiteBoardPropertyView.h"
 
+QT_BEGIN_NAMESPACE
+class QGraphicsSceneMouseEvent;
+class QMenu;
+class QPointF;
+class QGraphicsLineItem;
+class QFont;
+class QGraphicsTextItem;
+class QColor;
+QT_END_NAMESPACE
 
 class PictureItem;
 class PicGraphicsScene;
-
-class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions
-{
-    Q_OBJECT
-public:
-    explicit MyGLWidget(QWidget *parent = 0);
-
-signals:
-
-public slots:
-    void initializeGL() Q_DECL_OVERRIDE;
-    void resizeGL(int w, int h) Q_DECL_OVERRIDE;
-    void paintGL() Q_DECL_OVERRIDE;
-    void setImage(const QImage &image);
-    void initTextures();
-    void initShaders();
-private:
-    QVector<QVector3D> vertices;
-    QVector<QVector2D> texCoords;
-    QOpenGLShaderProgram program;
-    QOpenGLTexture *texture;
-    QMatrix4x4 projection;
-
-};
+class DiagramItem;
+class DiagramTextItem;
 
 
 class GraphicsViewComp :public QGraphicsView
@@ -58,12 +42,10 @@ protected:
     void paintEvent(QPaintEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
 private:
-    //PicGraphicsScene * mscene = nullptr;
-    //std::shared_ptr<PicGraphicsScene> pScene;
+
     std::shared_ptr<propertyInf> proInf;
     PictureItem * pPicItem = nullptr;
 
-    //QSize sizeInf;
 };
 
 
@@ -71,15 +53,48 @@ class PicGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
+
+    enum InsertMode { InsertItem, InsertLine, InsertText, MoveItem };
     PicGraphicsScene(QWidget * p);
     void setPicItem(PictureItem * pItem);
 
+    void setMode(InsertMode mode);
+
+    void setItemType(DiagramType type);
+
     void setGifCommpro(std::shared_ptr<propertyInf> inf);
+
+signals:
+    void itemInserted(DiagramItem *item);
+    void textInserted(QGraphicsTextItem *item);
+    void itemSelected(QGraphicsItem *item);
+
+public slots:
+    void editorLostFocus(DiagramTextItem *item);
+
 protected:
-    void drawBackground(QPainter *painter, const QRectF &rect);
+    void drawBackground(QPainter *painter, const QRectF &rect) override;
+
+    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 private:
     PictureItem * mpItem = nullptr;
 
     QPixmap pic;
     std::shared_ptr<propertyInf> proInf;
+    InsertMode iMode = InsertItem;
+    DiagramType dType = Diagram_Conditional;
+
+    QMenu *myItemMenu;
+
+    bool leftButtonDown;
+    QPointF startPoint;
+    QGraphicsLineItem *line;
+    QFont myFont;
+    DiagramTextItem *textItem;
+    QColor myTextColor;
+    QColor myItemColor;
+    QColor myLineColor;
+
 };

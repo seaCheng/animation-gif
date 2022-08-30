@@ -38,6 +38,7 @@ public:
     void setConnect();
 
     void setGifCommpro(std::shared_ptr<propertyInf> inf);
+    void start_insertSceneItem(DiagramType type);
 signals:
     void s_clicked(type_import eType);
 

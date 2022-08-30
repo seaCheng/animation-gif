@@ -325,5 +325,35 @@ QComboBox:on {
 
 /*-------------ScaleButtonView-------------------------*/
 
+/*-------------WhiteBoardPropertyView-------------------------*/
 
 
+#WhiteBoardPropertyView #Text{
+                                    qproperty-icon:url(:images/text.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                     
+}
+
+#WhiteBoardPropertyView #Conditional{
+                                    qproperty-icon:url(:images/condition.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                           
+}
+
+#WhiteBoardPropertyView #Process{
+                                    qproperty-icon:url(:images/rectangle.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    
+}
+
+#WhiteBoardPropertyView #Input{
+                                    qproperty-icon:url(:images/Parallelogram.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    
+}
+
+/*-------------WhiteBoardPropertyView-------------------------*/

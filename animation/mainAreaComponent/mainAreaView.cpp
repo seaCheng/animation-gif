@@ -6,6 +6,7 @@
 #include<QPainter>
 #include<QDebug>
 #include<QHBoxLayout>
+#include <QGraphicsItem>
 
 GraphicFrame::GraphicFrame(QWidget *parent)
     :QFrame(parent)
@@ -70,7 +71,21 @@ void MainAreaView::setConnect()
         graphicView->translate(oldMatrix.dx(), oldMatrix.dy());
         graphicView->scale(newScale, newScale);
 
-        //graphicView->scale(lValue, lValue);
+        for(const auto &u : graphicView->scene()->items())
+        {
+
+                    //QGraphicsTextItem * item = (QGraphicsTextItem *)u;
+                    //u->setSelected(false);
+                    //item->setTextInteractionFlags(Qt::NoTextInteraction);//恢复不能编辑状态;
+                    //item->setRotation(item->rotation() + 20);
+        }
+
+        QImage image(graphicView->size(),QImage::Format_ARGB32);
+                 QPainter painter(&image);
+                 graphicView->scene()->render(&painter);   //关键函数
+                 image.save("test.png");
+
+
     });
 }
 
@@ -78,6 +93,11 @@ void MainAreaView::setGifCommpro(std::shared_ptr<propertyInf> inf)
 {
     graphicView->setGifCommpro(inf);
 
+}
+
+void MainAreaView::start_insertSceneItem(DiagramType type)
+{
+    pScene->setMode(PicGraphicsScene::InsertText);
 }
 
 void MainAreaView::slot_selPicItem(PictureItem * pItem)
