@@ -1,4 +1,4 @@
-// ************************************************************************** //
+﻿// ************************************************************************** //
 //
 //  Model-view-view-model framework for large GUI applications
 //
@@ -93,6 +93,7 @@ void PictureItemController::subscribe()
             return;
 
         p_impl->updateViewFromItem();
+        p_impl->updateViewFromItemdata();
     };
     setOnPropertyChange(on_property_change);
 

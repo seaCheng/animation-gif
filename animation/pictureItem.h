@@ -1,4 +1,4 @@
-// ************************************************************************** //
+﻿// ************************************************************************** //
 //
 //  Model-view-view-model framework for large GUI applications
 //
@@ -22,6 +22,7 @@ public:
     static inline const std::string P_XPOS = "P_Width";
     static inline const std::string P_YPOS = "P_Heigth";
     static inline const std::string P_COLOR = "P_COLOR";
+    static inline const std::string P_PICTURE = "P_PICTURE";
 
     explicit PictureItem(const std::string& modelType);
     explicit PictureItem();
