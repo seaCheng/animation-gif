@@ -27,6 +27,8 @@ public:
     void setItemResizeable(bool resizeable);
     void setItemResizeRatio(bool resizeRation, qreal rationValue);
 
+    //刷新鼠标
+    void refreashCursor(QPointF pos, QRectF outLintRect);
 private:
     // 初始化Icon
     void initIcon(void);
@@ -49,6 +51,9 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) final;
     QPainterPath shape() const override;
 
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
+
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
@@ -58,7 +63,7 @@ protected:
     // 自定义元素绘制
     virtual void customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    QSize m_size;
+    QSize m_size = QSize(50,50);
     ItemOperator m_itemOper = t_none;
 
     // 获取自定义绘制所需要的矩形
@@ -69,7 +74,7 @@ protected:
 protected:
     // 处理Item上的类型
     virtual void mouseMoveMoveOperator(const QPointF& scenePos, const QPointF& loacalPos);
-    virtual void mouseMoveResizeOperator(const QPointF& scenePos, const QPointF& loacalPos);
+    virtual void mouseMoveResizeOperator(const QPointF& scenePos, const QPointF& loacalPos, const QPointF& lPos);
     virtual void mouseMoveRotateOperator(const QPointF& scenePos, const QPointF& loacalPos);
 
     QPointF m_pos;              // 本地所坐标点击的点
@@ -78,12 +83,17 @@ protected:
     QTransform m_transform;     // 变换矩阵
     qreal m_rotate = 0.0;       // 当前旋转角度
 
+    QPointF pTopMiddle;
+    QPointF pRightMiddle;
+    QPointF pLeftMiddle;
+    QPointF pBottomMiddle;
+
 signals:
     void onClickedCopyItem(void);
 
 private:
-    int m_nInterval = 20;
-    int m_nEllipseWidth = 12;    // 半径
+    int m_nInterval = 2;
+    int m_nEllipseWidth = 3;    // 半径
 
     // 画笔设置
     QColor m_cPenColor;

@@ -19,10 +19,13 @@ UICanvasItemBase::UICanvasItemBase(QGraphicsItem* parentItem)
     :QGraphicsItem(parentItem)
     ,m_cPenColor(255, 0, 0)
     ,m_cBrushColor(200, 100, 100)
+
 {
     this->setFlag(QGraphicsItem::ItemIsSelectable, true);
     this->setFlag(QGraphicsItem::ItemIsMovable, true);
+    this->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 
+    setAcceptHoverEvents(true);
     initIcon();
 }
 
@@ -54,6 +57,77 @@ QRectF UICanvasItemBase::boundingRect() const
     return rectF;
 }
 
+void UICanvasItemBase::refreashCursor(QPointF pos, QRectF outLintRect)
+{
+    if (!this->isSelected())
+        return;
+
+    if (lengthPos(pos, outLintRect.topRight()) <= 5)
+    {
+        setCursor(Qt::SizeBDiagCursor);
+
+    }else if (lengthPos(pos, outLintRect.bottomLeft()) <= 5)
+    {
+        setCursor(Qt::SizeBDiagCursor);
+
+    }else if (lengthPos(pos, outLintRect.bottomRight()) <= 5)
+    {
+        setCursor(Qt::SizeFDiagCursor);
+
+    }else if (lengthPos(pos, outLintRect.topLeft()) <= 5)
+    {
+        setCursor(Qt::SizeFDiagCursor);
+
+    }else if (lengthPos(pos, pTopMiddle) <= 5)
+    {
+        setCursor(Qt::UpArrowCursor);
+
+    }else if (lengthPos(pos, pRightMiddle) <= 5)
+    {
+        setCursor(Qt::SizeHorCursor);
+
+    }else if (lengthPos(pos, pLeftMiddle) <= 5)
+    {
+        setCursor(Qt::SizeHorCursor);
+
+    }else if (lengthPos(pos, pBottomMiddle) <= 5)
+    {
+        setCursor(Qt::SizeVerCursor);
+
+    }
+    else
+    {
+        setCursor(Qt::ArrowCursor);
+    }
+}
+
+void UICanvasItemBase::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+
+    QRectF itemRect = this->getCustomRect();
+    QRectF outLintRect = itemRect.adjusted(-m_nInterval, -m_nInterval, m_nInterval, m_nInterval);
+
+    // 获取当前模式
+    QPointF pos = event->pos();
+
+    refreashCursor(pos, outLintRect);
+
+    QGraphicsItem::hoverEnterEvent(event);
+}
+
+void UICanvasItemBase::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+    QRectF itemRect = this->getCustomRect();
+    QRectF outLintRect = itemRect.adjusted(-m_nInterval, -m_nInterval, m_nInterval, m_nInterval);
+
+    // 获取当前模式
+    QPointF pos = event->pos();
+
+    refreashCursor(pos, outLintRect);
+    QGraphicsItem::hoverLeaveEvent(event);
+
+}
+
 void UICanvasItemBase::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
@@ -69,6 +143,7 @@ void UICanvasItemBase::paint(QPainter *painter, const QStyleOptionGraphicsItem *
         return;
 
 
+    painter->save();
     // 设置画笔
     QPen pen;
     pen.setWidth(m_nPenWidth);
@@ -82,27 +157,51 @@ void UICanvasItemBase::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     QRectF outLintRect = itemRect.adjusted(-m_nInterval, -m_nInterval, m_nInterval, m_nInterval);
     painter->drawRect(outLintRect);
 
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(m_cBrushColor);
+    pen.setWidth(m_nPenWidth);
+    pen.setColor(Qt::gray);
+    pen.setStyle(Qt::SolidLine);
+    painter->setPen(pen);
+
+    painter->setBrush(Qt::white);
+
+    QRectF recCen(0,0,10,10);
 
     // 绘制控制点
-    painter->drawEllipse(outLintRect.topRight(), m_nEllipseWidth, m_nEllipseWidth);
-    if (!m_closePixmap.isNull())
-        painter->drawPixmap(QRect(outLintRect.topRight().x() - m_nEllipseWidth / 2, \
-                                  outLintRect.topRight().y() - m_nEllipseWidth / 2, \
-                                  m_nEllipseWidth, m_nEllipseWidth), m_closePixmap);
 
-    painter->drawEllipse(outLintRect.bottomLeft(), m_nEllipseWidth, m_nEllipseWidth);
-    if (!m_rotatePixmap.isNull())
-        painter->drawPixmap(QRect(outLintRect.bottomLeft().x() - m_nEllipseWidth / 2, \
-                                  outLintRect.bottomLeft().y() - m_nEllipseWidth / 2, \
-                                  m_nEllipseWidth, m_nEllipseWidth), m_rotatePixmap);
+    recCen.moveCenter(outLintRect.topLeft());
+    painter->drawRect(recCen);
 
-    painter->drawEllipse(outLintRect.bottomRight(), m_nEllipseWidth, m_nEllipseWidth);
-    if (!m_resizePixmap.isNull())
-        painter->drawPixmap(QRect(outLintRect.bottomRight().x() - m_nEllipseWidth / 2, \
-                                  outLintRect.bottomRight().y() - m_nEllipseWidth / 2, \
-                                  m_nEllipseWidth, m_nEllipseWidth), m_resizePixmap);
+    pTopMiddle = outLintRect.topLeft();
+    pTopMiddle.setX(pTopMiddle.x() + outLintRect.width()/ 2);
+    recCen.moveCenter(pTopMiddle);
+    painter->drawRect(recCen);
+
+    recCen.moveCenter(outLintRect.topRight());
+    painter->drawRect(recCen);
+
+    pRightMiddle = outLintRect.topRight();
+    pRightMiddle.setY(pRightMiddle.y() + outLintRect.height()/ 2);
+    recCen.moveCenter(pRightMiddle);
+    painter->drawRect(recCen);
+
+
+    recCen.moveCenter(outLintRect.bottomLeft());
+    painter->drawRect(recCen);
+
+    pLeftMiddle = outLintRect.topLeft();
+    pLeftMiddle.setY(pLeftMiddle.y() + outLintRect.height()/ 2);
+    recCen.moveCenter(pLeftMiddle);
+    painter->drawRect(recCen);
+
+    recCen.moveCenter(outLintRect.bottomRight());
+    painter->drawRect(recCen);
+
+    pBottomMiddle = outLintRect.bottomLeft();
+    pBottomMiddle.setX(pBottomMiddle.x() + outLintRect.width()/ 2);
+    recCen.moveCenter(pBottomMiddle);
+    painter->drawRect(recCen);
+
+    painter->restore();
 }
 
 QPainterPath UICanvasItemBase::shape() const
@@ -129,14 +228,47 @@ void UICanvasItemBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
     // 获取当前模式
     QPointF pos = event->pos();
     QPointF scenePos = event->scenePos();
-    if (itemRect.contains(pos))
-        m_itemOper = t_move;
-    else if (lengthPos(pos, outLintRect.topRight()) <= m_nEllipseWidth)
-        emit onClickedCopyItem();
-    else if (lengthPos(pos, outLintRect.bottomLeft()) <= m_nEllipseWidth)
-        m_itemOper = t_rotate;
-    else if (lengthPos(pos, outLintRect.bottomRight()) <= m_nEllipseWidth)
+    if (lengthPos(pos, outLintRect.topRight()) <= m_nEllipseWidth)
+    {
+        setCursor(Qt::SizeBDiagCursor);
         m_itemOper = t_resize;
+    }else if (lengthPos(pos, outLintRect.bottomLeft()) <= m_nEllipseWidth)
+    {
+        setCursor(Qt::SizeBDiagCursor);
+        m_itemOper = t_resize;
+    }else if (lengthPos(pos, outLintRect.bottomRight()) <= m_nEllipseWidth)
+    {
+        setCursor(Qt::SizeFDiagCursor);
+        m_itemOper = t_resize;
+    }else if (lengthPos(pos, outLintRect.topLeft()) <= m_nEllipseWidth)
+    {
+        setCursor(Qt::SizeFDiagCursor);
+        m_itemOper = t_resize;
+    }else if (lengthPos(pos, pTopMiddle) <= m_nEllipseWidth)
+    {
+        setCursor(Qt::UpArrowCursor);
+        m_itemOper = t_resize;
+    }else if (lengthPos(pos, pRightMiddle) <= m_nEllipseWidth)
+    {
+        setCursor(Qt::SizeHorCursor);
+        m_itemOper = t_resize;
+    }else if (lengthPos(pos, pLeftMiddle) <= m_nEllipseWidth)
+    {
+        setCursor(Qt::SizeHorCursor);
+        m_itemOper = t_resize;
+    }else if (lengthPos(pos, pBottomMiddle) <= m_nEllipseWidth)
+    {
+        setCursor(Qt::SizeVerCursor);
+        m_itemOper = t_resize;
+    }
+    else if(itemRect.contains(pos))
+    {
+       setCursor(Qt::SizeAllCursor);
+       m_itemOper = t_move;
+    }else
+    {
+       setCursor(Qt::ArrowCursor);
+    }
 
     // 保存当前的一些信息
     m_pos = pos;
@@ -150,6 +282,7 @@ void UICanvasItemBase::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     // 获取场景坐标和本地坐标
     QPointF scenePos = event->scenePos();
     QPointF pos = event->pos();
+    QPointF lPos = event->lastPos();
 
     if (m_itemOper == t_move)
     {
@@ -159,7 +292,7 @@ void UICanvasItemBase::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     else if (m_itemOper == t_resize)
     {
         // 处理更改大小
-        mouseMoveResizeOperator(scenePos, pos);
+        mouseMoveResizeOperator(scenePos, pos, lPos);
     }
     else if (m_itemOper == t_rotate)
     {
@@ -167,7 +300,6 @@ void UICanvasItemBase::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         mouseMoveRotateOperator(scenePos, pos);
     }
 
-    //return QGraphicsItem::mouseMoveEvent(event);
 }
 
 void UICanvasItemBase::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -178,14 +310,27 @@ void UICanvasItemBase::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 QVariant UICanvasItemBase::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
-    if (change == QGraphicsItem::ItemSelectedChange)
-        prepareGeometryChange();
+    if (change == ItemPositionChange  &&  scene()) // 控件发生移动
+        {
+            QPointF newPos = value.toPointF(); //即将要移动的位置
+            QRectF rect(0, 0, scene()->width(), scene()->height()); // 你要限制的区域
+            if (!rect.contains(newPos)) // 是否在区域内
+            {
+                newPos.setX(qMin(rect.right(), qMax(newPos.x(), rect.left())));
+                newPos.setY(qMin(rect.bottom(), qMax(newPos.y(), rect.top())));
+                return newPos;
+            }else
+            {
+                prepareGeometryChange();
+            }
+        }
 
     return QGraphicsItem::itemChange(change, value);
 }
 
 void UICanvasItemBase::mouseMoveMoveOperator(const QPointF& scenePos, const QPointF& loacalPos)
 {
+    setCursor(Qt::SizeAllCursor);
     qreal xInterval = scenePos.x() - m_pressedPos.x();
     qreal yInterval = scenePos.y() - m_pressedPos.y();
 
@@ -193,16 +338,23 @@ void UICanvasItemBase::mouseMoveMoveOperator(const QPointF& scenePos, const QPoi
     this->update();
 }
 
-void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QPointF& loacalPos)
+void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QPointF& loacalPos, const QPointF& lPos)
 {
     if (!m_isResizeable)
         return;
 
     qreal ratio = m_ratioValue;
-    qreal itemWidth = abs(loacalPos.x()) * 2 - m_nInterval - m_nEllipseWidth;
-    qreal itemHeight = abs(loacalPos.y()) * 2 - m_nInterval - m_nEllipseWidth;
+    qreal itemWidth = abs(loacalPos.x()) - abs(lPos.x());
+    qreal itemHeight = abs(loacalPos.y()) - abs(lPos.y());
     if (m_isRatioScale)
-        itemHeight = itemWidth * 1.0 / ratio;
+    {
+           //itemWidth = itemHeight * 1.0 / ratio;
+           //itemHeight = itemWidth * 1.0 / ratio;
+
+    }
+
+    itemWidth = m_size.width() + itemWidth;
+    itemHeight = m_size.height() + itemHeight;
 
     // 设置图片的最小大小为10
     if (itemWidth < 10 || itemHeight < 10)
@@ -232,7 +384,7 @@ void UICanvasItemBase::mouseMoveRotateOperator(const QPointF& scenePos, const QP
         dotValue = 0.0;
 
     // 获取角度
-    qreal angle = dotValue * 1.0 / (PI / 180);
+    qreal angle = dotValue * 1.0 *180/PI;
 
     // 向量叉乘获取方向
     QVector3D crossValue = QVector3D::crossProduct(QVector3D(startVec, 1.0),QVector3D(endVec, 1.0));

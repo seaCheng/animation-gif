@@ -23,9 +23,11 @@ GraphicsViewComp::GraphicsViewComp(QGraphicsScene *scene, QWidget *parent)
     :QGraphicsView(scene, parent)
 {
     setStyleSheet("padding: 0px; border: 1px;");
-    QOpenGLWidget *widget =new QOpenGLWidget();
-    setViewport(widget);
+    //MyGLWidget *widget =new MyGLWidget();
+    //setViewport(widget);
     viewport()->setContentsMargins(0,0,0,0);
+    setViewportUpdateMode(FullViewportUpdate);
+    setDragMode(QGraphicsView::RubberBandDrag);
 }
 
 void GraphicsViewComp::setGifCommpro(std::shared_ptr<propertyInf> inf)

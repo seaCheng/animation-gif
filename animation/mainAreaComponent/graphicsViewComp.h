@@ -27,7 +27,6 @@ class PicGraphicsScene;
 class DiagramItem;
 class DiagramTextItem;
 
-
 class GraphicsViewComp :public QGraphicsView
 {
     Q_OBJECT
@@ -45,7 +44,6 @@ private:
 
     std::shared_ptr<propertyInf> proInf;
     PictureItem * pPicItem = nullptr;
-
 };
 
 
