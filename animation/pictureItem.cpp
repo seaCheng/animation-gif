@@ -1,4 +1,4 @@
-// ************************************************************************** //
+﻿// ************************************************************************** //
 //
 //  Model-view-view-model framework for large GUI applications
 //
@@ -19,14 +19,14 @@ PictureItem::PictureItem(const std::string& modelType) : ModelView::CompoundItem
 {
     addProperty(P_XPOS, 0.0)->setDisplayName("X");
     addProperty(P_YPOS, 0.0)->setDisplayName("Y");
-    //addProperty(P_COLOR, QColor(Qt::gray))->setDisplayName("Color");
+    addProperty(P_PICTURE, QPixmap())->setDisplayName("QPixmap");
 }
 
 PictureItem::PictureItem(): ModelView::CompoundItem("PictureItem")
 {
     addProperty(P_XPOS, 0.0)->setDisplayName("X");
     addProperty(P_YPOS, 0.0)->setDisplayName("Y");
-    //addProperty(P_COLOR, QColor(Qt::gray))->setDisplayName("Color");
+    addProperty(P_PICTURE, QPixmap())->setDisplayName("QPixmap");
     qRegisterMetaType<QPixmap >("QPixmap");
 }
 
@@ -69,11 +69,11 @@ void PictureItem::setPos(double x, double y)
 
 QPixmap PictureItem::pic()
 {
-    return data<QPixmap>();
+    return property<QPixmap>(P_PICTURE);
 }
 
 void PictureItem::setQpixmap( QPixmap pix)
 {
-    setData<QPixmap>(pix);
+    setProperty(P_PICTURE, pix);
 }
 
