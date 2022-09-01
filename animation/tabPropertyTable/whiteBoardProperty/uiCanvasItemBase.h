@@ -7,6 +7,20 @@
 #include <QGraphicsObject>
 #include <QPaintEvent>
 
+enum ItemResizeDirection
+{
+    d_none,
+    d_upLeft,
+    d_topMiddle,
+    d_upRight,
+    d_leftMiddle,
+    d_rightMiddle,
+    d_bottomLeft,
+    d_bottomRight,
+    d_bottomMiddle
+};
+Q_DECLARE_METATYPE(ItemResizeDirection)
+
 class UICanvasItemBase : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -19,6 +33,8 @@ public:
         t_resize,
         t_rotate
     };
+
+
 
     UICanvasItemBase(QGraphicsItem* parentItem = nullptr);
     ~UICanvasItemBase() override;
@@ -33,12 +49,8 @@ private:
     // 初始化Icon
     void initIcon(void);
 
-    static QImage m_closeIcon;
-    static QImage m_resizeIcon;
     static QImage m_rotateIcon;
 
-    QPixmap m_closePixmap;
-    QPixmap m_resizePixmap;
     QPixmap m_rotatePixmap;
 
     // 设置是否能够更改尺寸
@@ -83,6 +95,7 @@ protected:
     QTransform m_transform;     // 变换矩阵
     qreal m_rotate = 0.0;       // 当前旋转角度
 
+    QPointF pTopRota;
     QPointF pTopMiddle;
     QPointF pRightMiddle;
     QPointF pLeftMiddle;
@@ -93,13 +106,15 @@ signals:
 
 private:
     int m_nInterval = 2;
-    int m_nEllipseWidth = 3;    // 半径
+    int m_nEllipseWidth = 6;    // 半径
 
     // 画笔设置
     QColor m_cPenColor;
     int m_nPenWidth = 1;
     // 画刷设置
     QColor m_cBrushColor;
+    ItemResizeDirection itemDiretion = d_none;
+
 };
 #endif
 
