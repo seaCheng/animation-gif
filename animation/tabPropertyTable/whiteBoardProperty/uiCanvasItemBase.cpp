@@ -19,9 +19,8 @@ UICanvasItemBase::UICanvasItemBase(QGraphicsItem* parentItem)
     ,m_cBrushColor(200, 100, 100)
 
 {
-    this->setFlag(QGraphicsItem::ItemIsSelectable, true);
-    this->setFlag(QGraphicsItem::ItemIsMovable, true);
-    this->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    this->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable |
+                   QGraphicsItem::ItemSendsGeometryChanges | QGraphicsItem::ItemIsFocusable);
 
     setAcceptHoverEvents(true);
     initIcon();
@@ -137,7 +136,6 @@ void UICanvasItemBase::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     // 自定义绘制
     customPaint(painter, option, widget);
     
-
     if (!this->isSelected())
         return;
 
@@ -436,6 +434,7 @@ void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QP
         return;
 
     m_size = QSize(itemWidth, itemHeight);
+    sizeRefreash();
     this->update();
 }
 
@@ -472,12 +471,18 @@ void UICanvasItemBase::mouseMoveRotateOperator(const QPointF& scenePos, const QP
     this->setTransform(m_transform);
 
     m_pos = loacalPos;
+
     this->update();
 }
 
 void UICanvasItemBase::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->drawEllipse(getCustomRect());
+}
+
+void UICanvasItemBase::sizeRefreash()
+{
+    //
 }
 
 QRectF UICanvasItemBase::getCustomRect(void) const

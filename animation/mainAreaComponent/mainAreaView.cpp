@@ -97,7 +97,8 @@ void MainAreaView::setGifCommpro(std::shared_ptr<propertyInf> inf)
 
 void MainAreaView::start_insertSceneItem(DiagramType type)
 {
-    pScene->setMode(PicGraphicsScene::InsertText);
+    pScene->setMode(PicGraphicsScene::InsertItem);
+    pScene->setItemType(type);
 }
 
 void MainAreaView::slot_selPicItem(PictureItem * pItem)

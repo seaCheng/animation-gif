@@ -75,11 +75,13 @@ protected:
     // 自定义元素绘制
     virtual void customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    virtual void sizeRefreash();
+
     QSize m_size = QSize(50,50);
     ItemOperator m_itemOper = t_none;
 
     // 获取自定义绘制所需要的矩形
-    QRectF getCustomRect(void) const;
+    virtual QRectF getCustomRect(void) const;
 
     double lengthPos(const QPointF &p1, const QPointF &p2);
 
@@ -101,12 +103,13 @@ protected:
     QPointF pLeftMiddle;
     QPointF pBottomMiddle;
 
+    int m_nInterval = 1;
+    int m_nEllipseWidth = 6;    // 半径
+
 signals:
     void onClickedCopyItem(void);
 
 private:
-    int m_nInterval = 2;
-    int m_nEllipseWidth = 6;    // 半径
 
     // 画笔设置
     QColor m_cPenColor;

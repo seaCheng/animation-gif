@@ -15,7 +15,7 @@ include  (./../gifdec/gifdec.pri);
 
 include  (./../qt-mvvm/qt-mvvms.pri);
 
-include  (./../BurstLinker/BurstLinker.pri);
+include  (./../gifOpe/gifOpe.pri);
 include  (./../QtSingleApplication/qtsingleapplication.pri);
 
 

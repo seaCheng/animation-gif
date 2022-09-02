@@ -19,13 +19,13 @@ using namespace std;
 
 using namespace Magick;
 
-#include "BurstLinker.h"
+//#include "BurstLinker.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "stb_image.h"
+//#include "stb_image.h"
 
-using namespace blk;
+//using namespace blk;
 
 GifExport::GifExport(QObject *parent)
 {
@@ -97,7 +97,7 @@ void GifExport::slot_GifExportMagick(QString file)
 
 void GifExport::slot_GifExport(QString file)
 {
-
+    /*
     QuantizerType quantizerType = QuantizerType::Octree;
         DitherType ditherType = DitherType::No;
         int delay = 250;
@@ -197,6 +197,7 @@ void GifExport::slot_GifExport(QString file)
 
         burstLinker.release();
         emit s_FinGifExport();
+        */
 
 }
 

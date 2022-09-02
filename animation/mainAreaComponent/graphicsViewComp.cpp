@@ -28,6 +28,8 @@ GraphicsViewComp::GraphicsViewComp(QGraphicsScene *scene, QWidget *parent)
     viewport()->setContentsMargins(0,0,0,0);
     setViewportUpdateMode(FullViewportUpdate);
     setDragMode(QGraphicsView::RubberBandDrag);
+    viewport()->setMouseTracking(true);
+    setMouseTracking(true);
 }
 
 void GraphicsViewComp::setGifCommpro(std::shared_ptr<propertyInf> inf)
@@ -223,7 +225,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     switch (iMode) {
         case InsertItem:
             item = new DiagramItem(dType, myItemMenu);
-            item->setBrush(myItemColor);
+            //item->setBrush(myItemColor);
             addItem(item);
             item->setPos(mouseEvent->scenePos());
             emit itemInserted(item);
@@ -247,18 +249,15 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     this, &PicGraphicsScene::editorLostFocus);
             connect(textItem, &DiagramTextItem::selectedChange,
                     this, &PicGraphicsScene::itemSelected);
-            //addItem(textItem);
+            addItem(textItem);
             textItem->setDefaultTextColor(myTextColor);
             textItem->setPos(mouseEvent->scenePos());
-
+            /*
             UICanvasItemBase* itemBase = new UICanvasItemBase();
             addItem(itemBase);
             itemBase->setPos(mouseEvent->scenePos());
             itemBase->setSelected(true);
-
-            //emit textInserted(textItem);
-//! [8] //! [9]
-
+            */
     }
 
     
