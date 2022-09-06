@@ -17,7 +17,6 @@
 	 <file>../images/icon_rotate.png</file>
 	 <file>../images/icon_stretch.png</file>
 	 <file>../images/icon_close.png</file>
-	 
-	 
+	 <file>../images/linepointer.png</file>
     </qresource>
 </RCC>

@@ -28,9 +28,10 @@ void WhiteBoardPropertyView::initial()
     layout->addWidget(createCellWidget(tr("Conditional"), DiagramType::Diagram_Conditional), 0, 1);
     layout->addWidget(createCellWidget(tr("Process"), DiagramType::Diagram_Step),1, 0);
     layout->addWidget(createCellWidget(tr("Input"), DiagramType::Diagram_Io), 1, 1);
+    layout->addWidget(createCellWidget(tr("Line"), DiagramType::Diagram_StartEnd), 2, 0);
 
     layout->setRowStretch(3, 10);
-    layout->setColumnStretch(2, 10);
+    layout->setColumnStretch(3, 10);
 
     setLayout(layout);
 

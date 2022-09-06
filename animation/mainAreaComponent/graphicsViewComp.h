@@ -40,19 +40,23 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
+
 private:
 
     std::shared_ptr<propertyInf> proInf;
     PictureItem * pPicItem = nullptr;
+    PicGraphicsScene * pScene = nullptr;
 };
 
+enum InsertMode { InsertItem, InsertLine, InsertText, MoveItem };
+Q_DECLARE_METATYPE(InsertMode);
 
 class PicGraphicsScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
 
-    enum InsertMode { InsertItem, InsertLine, InsertText, MoveItem };
+
     PicGraphicsScene(QWidget * p);
     void setPicItem(PictureItem * pItem);
 
@@ -66,6 +70,8 @@ signals:
     void itemInserted(DiagramItem *item);
     void textInserted(QGraphicsTextItem *item);
     void itemSelected(QGraphicsItem *item);
+
+    void s_modeRef(InsertMode);
 
 public slots:
     void editorLostFocus(DiagramTextItem *item);
@@ -81,16 +87,18 @@ private:
 
     QPixmap pic;
     std::shared_ptr<propertyInf> proInf;
-    InsertMode iMode = InsertItem;
+    InsertMode iMode = MoveItem;
     DiagramType dType = Diagram_Conditional;
 
     QMenu *myItemMenu;
 
     bool leftButtonDown;
     QPointF startPoint;
-    QGraphicsLineItem *line;
+    QGraphicsLineItem *line = nullptr;
+
+    DiagramItem *item = nullptr;
     QFont myFont;
-    DiagramTextItem *textItem;
+    DiagramTextItem *textItem = nullptr;
     QColor myTextColor;
     QColor myItemColor;
     QColor myLineColor;

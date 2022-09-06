@@ -97,7 +97,7 @@ void UICanvasItemBase::refreashCursor(QPointF pos, QRectF outLintRect)
         itemDiretion = d_none;
         setCursor(Qt::SizeAllCursor);
         m_itemOper = t_rotate;
-        setSelected(true);
+        //setSelected(true);
     }
     else
     {
@@ -210,6 +210,7 @@ void UICanvasItemBase::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     recCen.moveCenter(pBottomMiddle);
     painter->drawRect(recCen);
 
+
     painter->restore();
 }
 
@@ -282,7 +283,7 @@ void UICanvasItemBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
         itemDiretion = d_none;
         setCursor(Qt::SizeAllCursor);
         m_itemOper = t_rotate;
-        setSelected(true);
+        //setSelected(true);
     }
     else if(itemRect.contains(pos))
     {

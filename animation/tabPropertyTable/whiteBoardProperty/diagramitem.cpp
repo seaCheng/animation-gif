@@ -14,8 +14,8 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
     : UICanvasItemBase(parent), myDiagramType(diagramType)
     , myContextMenu(contextMenu)
 {
-    m_size = QSize(100,100);
-    sizeRefreash();
+    m_size = QSize(15,15);
+    //sizeRefreash();
 }
 //! [0]
 

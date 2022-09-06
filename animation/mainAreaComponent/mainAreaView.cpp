@@ -95,9 +95,30 @@ void MainAreaView::setGifCommpro(std::shared_ptr<propertyInf> inf)
 
 }
 
+//DiagramType { Diagram_Text, Diagram_Step, Diagram_Conditional, Diagram_StartEnd, Diagram_Io }
 void MainAreaView::start_insertSceneItem(DiagramType type)
 {
-    pScene->setMode(PicGraphicsScene::InsertItem);
+    switch(type)
+    {
+       case Diagram_Text:
+       {
+          pScene->setMode(InsertText);
+          break;
+       }
+       case Diagram_Step:
+       case Diagram_Conditional:
+       case Diagram_Io:
+      {
+         pScene->setMode(InsertItem);
+         break;
+      }
+      case Diagram_StartEnd:
+      {
+         pScene->setMode(InsertLine);
+         break;
+      }
+    }
+
     pScene->setItemType(type);
 }
 

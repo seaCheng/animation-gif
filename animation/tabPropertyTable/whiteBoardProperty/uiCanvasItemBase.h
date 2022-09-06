@@ -35,6 +35,10 @@ public:
     };
 
 
+    void setRectSize(QSize size)
+    {
+        m_size = size;
+    }
 
     UICanvasItemBase(QGraphicsItem* parentItem = nullptr);
     ~UICanvasItemBase() override;
@@ -45,6 +49,8 @@ public:
 
     //刷新鼠标
     void refreashCursor(QPointF pos, QRectF outLintRect);
+
+    virtual void sizeRefreash();
 private:
     // 初始化Icon
     void initIcon(void);
@@ -75,7 +81,7 @@ protected:
     // 自定义元素绘制
     virtual void customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    virtual void sizeRefreash();
+
 
     QSize m_size = QSize(50,50);
     ItemOperator m_itemOper = t_none;

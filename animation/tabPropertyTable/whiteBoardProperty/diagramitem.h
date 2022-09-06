@@ -35,12 +35,14 @@ public:
     QPixmap image() const;
     int type() const override { return Type; }
 
+    virtual void sizeRefreash() override;
+
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
     virtual QRectF getCustomRect(void) const override;
-    virtual void sizeRefreash() override;
+
     // 自定义元素绘制
     virtual void customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 

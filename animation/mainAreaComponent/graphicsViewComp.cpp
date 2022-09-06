@@ -22,14 +22,21 @@
 GraphicsViewComp::GraphicsViewComp(QGraphicsScene *scene, QWidget *parent)
     :QGraphicsView(scene, parent)
 {
+    pScene = (PicGraphicsScene *)scene;
+    connect(pScene, &PicGraphicsScene::s_modeRef, this, [=](InsertMode mode)
+    {
+        if(MoveItem == mode)
+        {
+           setDragMode(QGraphicsView::RubberBandDrag);
+        }else
+        {
+           setDragMode(QGraphicsView::NoDrag);
+        }
+    });
     setStyleSheet("padding: 0px; border: 1px;");
-    //MyGLWidget *widget =new MyGLWidget();
-    //setViewport(widget);
     viewport()->setContentsMargins(0,0,0,0);
     setViewportUpdateMode(FullViewportUpdate);
     setDragMode(QGraphicsView::RubberBandDrag);
-    viewport()->setMouseTracking(true);
-    setMouseTracking(true);
 }
 
 void GraphicsViewComp::setGifCommpro(std::shared_ptr<propertyInf> inf)
@@ -94,10 +101,10 @@ void GraphicsViewComp::paintEvent(QPaintEvent *event)
 
 void GraphicsViewComp::resizeEvent(QResizeEvent *event)
 {
-    refreashSize();
-    QGraphicsView::resizeEvent(event);
-}
 
+    QGraphicsView::resizeEvent(event);
+    refreashSize();
+}
 
 void GraphicsViewComp::setPicItem(PictureItem * pItem)
 {
@@ -120,7 +127,6 @@ PicGraphicsScene::PicGraphicsScene(QWidget * p)
     :QGraphicsScene(p)
 {
     myItemMenu = new QMenu;
-    iMode = InsertText;
     dType = Diagram_Step;
     line = nullptr;
     textItem = nullptr;
@@ -153,6 +159,8 @@ void PicGraphicsScene::setPicItem(PictureItem * pItem)
 void PicGraphicsScene::setMode(InsertMode mode)
 {
     iMode = mode;
+
+    emit s_modeRef(iMode);
 }
 
 void PicGraphicsScene::setItemType(DiagramType type)
@@ -221,16 +229,13 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() != Qt::LeftButton)
         return;
 
-    DiagramItem *item;
     switch (iMode) {
         case InsertItem:
             item = new DiagramItem(dType, myItemMenu);
-            //item->setBrush(myItemColor);
             addItem(item);
             item->setPos(mouseEvent->scenePos());
-            emit itemInserted(item);
+            item->setSelected(false);
 
-            iMode = MoveItem;
             break;
 //! [6] //! [7]
         case InsertLine:
@@ -252,33 +257,63 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             addItem(textItem);
             textItem->setDefaultTextColor(myTextColor);
             textItem->setPos(mouseEvent->scenePos());
-            /*
-            UICanvasItemBase* itemBase = new UICanvasItemBase();
-            addItem(itemBase);
-            itemBase->setPos(mouseEvent->scenePos());
-            itemBase->setSelected(true);
-            */
+
+            break;
+         default:
+         {
+
+             break;
+         }
+
     }
 
-    
-
-    iMode = MoveItem;
     QGraphicsScene::mousePressEvent(mouseEvent);
+
+
 }
 
 void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
+    if(mouseEvent->isAccepted())
+    {
+        return;
+    }
+
     if (iMode == InsertLine && line != nullptr) {
         QLineF newLine(line->line().p1(), mouseEvent->scenePos());
         line->setLine(newLine);
-    } else if (iMode == MoveItem) {
+
+    }else if(iMode == InsertItem && item != nullptr)
+    {
+        QSize size;
+        size.setWidth(abs(mouseEvent->scenePos().x() - item->pos().x() ));
+        size.setHeight(abs(mouseEvent->scenePos().y() - item->pos().y() ));
+
+        if(size.width() < 15)
+        {
+           size.setWidth(15);
+        }
+
+        if(size.height() < 15)
+        {
+           size.setHeight(15);
+        }
+
+        item->setRectSize(size);
+        item->sizeRefreash();
+
+        item->update();
+
+    }
+    else if (iMode == MoveItem) {
         QGraphicsScene::mouseMoveEvent(mouseEvent);
     }
 }
 
 void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (line != nullptr && iMode == InsertLine) {
+    if (line != nullptr && iMode == InsertLine)
+    {
         QList<QGraphicsItem *> startItems = items(line->line().p1());
         if (startItems.count() && startItems.first() == line)
             startItems.removeFirst();
@@ -304,8 +339,17 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             addItem(arrow);
             arrow->updatePosition();
         }
+
+
+    }else if(item != nullptr && iMode == InsertItem)
+    {
+        item->setSelected(true);
     }
+
 //! [12] //! [13]
     line = nullptr;
+    item = nullptr;
+    setMode(MoveItem);
+
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
