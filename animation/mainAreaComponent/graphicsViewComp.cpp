@@ -301,7 +301,7 @@ void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         item->setRectSize(size);
         item->sizeRefreash();
-
+        item->setSelected(false);
         item->update();
 
     }

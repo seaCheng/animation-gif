@@ -26,9 +26,12 @@ void WhiteBoardPropertyView::initial()
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(createCellWidget(tr("Text"), DiagramType::Diagram_Text), 0, 0);
     layout->addWidget(createCellWidget(tr("Conditional"), DiagramType::Diagram_Conditional), 0, 1);
-    layout->addWidget(createCellWidget(tr("Process"), DiagramType::Diagram_Step),1, 0);
-    layout->addWidget(createCellWidget(tr("Input"), DiagramType::Diagram_Io), 1, 1);
-    layout->addWidget(createCellWidget(tr("Line"), DiagramType::Diagram_StartEnd), 2, 0);
+    layout->addWidget(createCellWidget(tr("Process"), DiagramType::Diagram_Step),0, 2);
+    layout->addWidget(createCellWidget(tr("Input"), DiagramType::Diagram_Io), 1, 0);
+    layout->addWidget(createCellWidget(tr("oval"), DiagramType::Diagram_Oval), 1, 1);
+    layout->addWidget(createCellWidget(tr("triangle"), DiagramType::Diagram_Triangle), 1, 2);
+    layout->addWidget(createCellWidget(tr("pen"), DiagramType::Diagram_Pen), 2, 0);
+    layout->addWidget(createCellWidget(tr("Line"), DiagramType::Diagram_StartEnd), 2, 1);
 
     layout->setRowStretch(3, 10);
     layout->setColumnStretch(3, 10);

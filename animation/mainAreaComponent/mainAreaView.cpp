@@ -106,6 +106,8 @@ void MainAreaView::start_insertSceneItem(DiagramType type)
           break;
        }
        case Diagram_Step:
+       case Diagram_Triangle:
+       case Diagram_Oval:
        case Diagram_Conditional:
        case Diagram_Io:
       {
@@ -116,6 +118,10 @@ void MainAreaView::start_insertSceneItem(DiagramType type)
       {
          pScene->setMode(InsertLine);
          break;
+      }
+    default:
+      {
+        break;
       }
     }
 

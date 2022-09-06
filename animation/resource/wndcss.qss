@@ -356,4 +356,34 @@ QComboBox:on {
                                     
 }
 
+#WhiteBoardPropertyView #oval{
+                                    qproperty-icon:url(:images/oval.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    
+}
+
+#WhiteBoardPropertyView #triangle{
+                                    qproperty-icon:url(:images/triangle.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    
+}
+
+#WhiteBoardPropertyView #pen{
+                                    qproperty-icon:url(:images/pen.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    
+}
+
+#WhiteBoardPropertyView #Line{
+                                    qproperty-icon:url(:images/linepointer.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    
+}
+
+
+
 /*-------------WhiteBoardPropertyView-------------------------*/

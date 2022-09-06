@@ -363,58 +363,70 @@ void UICanvasItemBase::mouseMoveMoveOperator(const QPointF& scenePos, const QPoi
     this->update();
 }
 
-void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QPointF& loacalPos, const QPointF& lPos)
+void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QPointF& loacalPos, const QPointF& latsPos)
 {
     if (!m_isResizeable)
         return;
 
     qreal ratio = m_ratioValue;
-    qreal itemWidth = abs(scenePos.x()) - abs(lPos.x());
-    qreal itemHeight = abs(scenePos.y()) - abs(lPos.y());
+    qreal itemWidth = abs(scenePos.x()) - abs(latsPos.x());
+    qreal itemHeight = abs(scenePos.y()) - abs(latsPos.y());
 
     switch (itemDiretion) {
     case d_upLeft:
     {
-        itemWidth = abs(lPos.x()) - abs(scenePos.x());
-        itemHeight = abs(lPos.y()) - abs(scenePos.y());
+        itemWidth = abs(latsPos.x()) - abs(scenePos.x());
+        itemHeight = abs(latsPos.y()) - abs(scenePos.y());
+        setPos(scenePos);
         break;
     }
     case d_upRight:
     {
-        itemWidth = abs(scenePos.x()) - abs(lPos.x());
-        itemHeight = abs(lPos.y()) - abs(scenePos.y());
+        itemWidth = abs(scenePos.x()) - abs(latsPos.x());
+        itemHeight = abs(latsPos.y()) - abs(scenePos.y());
+        QPointF pi(pos().x(), scenePos.y());
+        setPos(pi);
         break;
     }
     case d_topMiddle:
     {
-        itemHeight = abs(lPos.y()) - abs(scenePos.y());
+        itemHeight = abs(latsPos.y()) - abs(scenePos.y());
+
+        QPointF pi(pos().x(), scenePos.y());
+        setPos(pi);
         break;
     }
     case d_leftMiddle:
     {
-        itemWidth = abs(lPos.x()) - abs(scenePos.x());
+        itemWidth = abs(latsPos.x()) - abs(scenePos.x());
+        QPointF pi(scenePos.x(), pos().y());
+        setPos(pi);
         break;
     }
     case d_rightMiddle:
     {
-        itemWidth = abs(scenePos.x()) - abs(lPos.x());
+        itemWidth = abs(scenePos.x()) - abs(latsPos.x());
+
         break;
     }
     case d_bottomLeft:
     {
-        itemWidth = abs(lPos.x()) - abs(scenePos.x());
-        itemHeight = abs(scenePos.y()) - abs(lPos.y());
+        itemWidth = abs(latsPos.x()) - abs(scenePos.x());
+        itemHeight = abs(scenePos.y()) - abs(latsPos.y());
+
+        QPointF pi(scenePos.x(), pos().y());
+        setPos(pi);
         break;
     }
     case d_bottomMiddle:
     {
-        itemHeight = abs(scenePos.y()) - abs(lPos.y());
+        itemHeight = abs(scenePos.y()) - abs(latsPos.y());
         break;
     }
     case d_bottomRight:
     {
-        itemWidth = abs(scenePos.x()) - abs(lPos.x());
-        itemHeight = abs(scenePos.y()) - abs(lPos.y());
+        itemWidth = abs(scenePos.x()) - abs(latsPos.x());
+        itemHeight = abs(scenePos.y()) - abs(latsPos.y());
         break;
     }
     default:
@@ -431,8 +443,9 @@ void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QP
     itemHeight = m_size.height() + itemHeight;
 
     // 设置图片的最小大小为10
-    if (itemWidth < 6 || itemHeight < 6)
+    /*if (itemWidth < 6 || itemHeight < 6)
         return;
+        */
 
     m_size = QSize(itemWidth, itemHeight);
     sizeRefreash();
@@ -488,8 +501,7 @@ void UICanvasItemBase::sizeRefreash()
 
 QRectF UICanvasItemBase::getCustomRect(void) const
 {
-    QPointF centerPos(0, 0);
-    return QRectF(centerPos.x() - m_size.width() / 2, centerPos.y() - m_size.height() / 2, \
+    return QRectF(0, 0, \
                   m_size.width(), m_size.height());
 }
 

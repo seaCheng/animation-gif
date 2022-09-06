@@ -18,5 +18,11 @@
 	 <file>../images/icon_stretch.png</file>
 	 <file>../images/icon_close.png</file>
 	 <file>../images/linepointer.png</file>
+	 <file>../images/oval.png</file>
+	 <file>../images/triangle.png</file>
+	 <file>../images/pen.png</file>
+	 
+	 
+	 
     </qresource>
 </RCC>

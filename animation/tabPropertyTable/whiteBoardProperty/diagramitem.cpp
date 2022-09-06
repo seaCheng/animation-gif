@@ -8,27 +8,20 @@
 #include <QMenu>
 #include <QPainter>
 
-//! [0]
 DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
                          QGraphicsItem *parent)
     : UICanvasItemBase(parent), myDiagramType(diagramType)
     , myContextMenu(contextMenu)
 {
-    m_size = QSize(15,15);
+    m_size = QSize(1,1);
     //sizeRefreash();
 }
-//! [0]
 
-
-
-//! [1]
 void DiagramItem::removeArrow(Arrow *arrow)
 {
     arrows.removeAll(arrow);
 }
-//! [1]
 
-//! [2]
 void DiagramItem::removeArrows()
 {
     // need a copy here since removeArrow() will
@@ -41,16 +34,12 @@ void DiagramItem::removeArrows()
         delete arrow;
     }
 }
-//! [2]
 
-//! [3]
 void DiagramItem::addArrow(Arrow *arrow)
 {
     arrows.append(arrow);
 }
-//! [3]
 
-//! [4]
 QPixmap DiagramItem::image() const
 {
     QPixmap pixmap(250, 250);
@@ -62,18 +51,14 @@ QPixmap DiagramItem::image() const
 
     return pixmap;
 }
-//! [4]
 
-//! [5]
 void DiagramItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
     scene()->clearSelection();
     setSelected(true);
     myContextMenu->exec(event->screenPos());
 }
-//! [5]
 
-//! [6]
 QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     if (change == QGraphicsItem::ItemPositionChange) {
@@ -99,21 +84,27 @@ void DiagramItem::sizeRefreash()
 
             break;
         case Diagram_Conditional:
-            myPolygon << QPointF(-m_size.width(), 0) << QPointF(0, m_size.height())
-                      << QPointF(m_size.width(), 0) << QPointF(0, -m_size.height())
-                      << QPointF(-m_size.width(), 0);
+            myPolygon << QPointF(m_size.width()/2, 0) << QPointF(m_size.width(), m_size.height()/2)
+                      << QPointF(m_size.width()/2, m_size.height()) << QPointF(0, m_size.height()/2)
+                      << QPointF(m_size.width()/2, 0);
             break;
         case Diagram_Step:
-            myPolygon << QPointF(-m_size.width(), -m_size.height()) << QPointF(m_size.width(), -m_size.height())
-                      << QPointF(m_size.width(), m_size.height()) << QPointF(-m_size.width(), m_size.height())
-                      << QPointF(-m_size.width(), -m_size.height());
+            myPolygon << QPointF(0, 0) << QPointF(m_size.width(), 0)
+                      << QPointF(m_size.width(), m_size.height()) << QPointF(0, m_size.height())
+                      << QPointF(0,0);
             break;
+        case Diagram_Triangle:
+         myPolygon << QPointF(m_size.width()/2, 0) << QPointF(0, m_size.height())
+                  << QPointF(m_size.width(), m_size.height())
+                  << QPointF(m_size.width()/2, 0);
+        break;
         case Diagram_Io:
-            myPolygon << QPointF(-1.20 * m_size.width(), -0.80 * m_size.height())
-                      << QPointF(-0.70 * m_size.width(), 0.80 * m_size.height())
-                      << QPointF(1.20 * m_size.width(), 0.80 * m_size.height())
-                      << QPointF(0.70 * m_size.width(),  -0.80 * m_size.height())
-                      << QPointF(-1.20 * m_size.width(), -0.80 * m_size.height());
+            myPolygon << QPointF(0, 0)
+                      << QPointF(0.80 * m_size.width(), 0)
+                      << QPointF(m_size.width(),  m_size.height())
+                      << QPointF(0.20 * m_size.width(), m_size.height())
+                      << QPointF(0 , 0);
+
             break;
         default:
             break;
@@ -123,14 +114,34 @@ void DiagramItem::sizeRefreash()
 void DiagramItem::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->save();
-    painter->setPen(QPen(QColor(79, 106, 25), 1, Qt::SolidLine,
-                        Qt::FlatCap, Qt::MiterJoin));
+
+    QPen pen;
+    pen.setColor(QColor(79, 106, 25));
+    pen.setWidth(2);
+    painter->setPen(pen);
     painter->setBrush(QColor(122, 163, 39));
-    painter->drawPolygon(myPolygon);
+
+    if(Diagram_Oval == myDiagramType)
+    {
+        QRectF rec(0,0,m_size.width(), m_size.height());
+        painter->drawEllipse(rec);
+    }else
+    {
+        painter->drawPolygon(myPolygon);
+    }
+
+
     painter->restore();
 }
 
 QRectF DiagramItem::getCustomRect(void) const
 {
-    return myPolygon.boundingRect();
+    if(Diagram_Oval == myDiagramType)
+    {
+        return QRectF(0,0,m_size.width(), m_size.height());
+    }else
+    {
+        return myPolygon.boundingRect();
+    }
+
 }
