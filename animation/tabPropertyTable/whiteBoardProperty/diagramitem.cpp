@@ -84,26 +84,26 @@ void DiagramItem::sizeRefreash()
 
             break;
         case Diagram_Conditional:
-            myPolygon << QPointF(m_size.width()/2, 0) << QPointF(m_size.width(), m_size.height()/2)
-                      << QPointF(m_size.width()/2, m_size.height()) << QPointF(0, m_size.height()/2)
-                      << QPointF(m_size.width()/2, 0);
+            myPolygon << QPointF(0, -m_size.height()/2) << QPointF(m_size.width()/2, 0)
+                      << QPointF(0, m_size.height()/2) << QPointF(-m_size.width()/2, 0)
+                      << QPointF(0, -m_size.height()/2);
             break;
         case Diagram_Step:
-            myPolygon << QPointF(0, 0) << QPointF(m_size.width(), 0)
-                      << QPointF(m_size.width(), m_size.height()) << QPointF(0, m_size.height())
-                      << QPointF(0,0);
+            myPolygon << QPointF(-m_size.width()/2, -m_size.height()/2) << QPointF(m_size.width()/2, -m_size.height() / 2)
+                      << QPointF(m_size.width()/2, m_size.height()/2) << QPointF(-m_size.width()/2, m_size.height()/2)
+                      << QPointF(-m_size.width()/2, -m_size.height()/2);
             break;
         case Diagram_Triangle:
-         myPolygon << QPointF(m_size.width()/2, 0) << QPointF(0, m_size.height())
-                  << QPointF(m_size.width(), m_size.height())
-                  << QPointF(m_size.width()/2, 0);
+         myPolygon << QPointF(0, -m_size.height()/2) << QPointF(m_size.width()/2, m_size.height()/2)
+                  << QPointF(-m_size.width()/2, m_size.height()/2)
+                  << QPointF(0, -m_size.height()/2);
         break;
         case Diagram_Io:
-            myPolygon << QPointF(0, 0)
-                      << QPointF(0.80 * m_size.width(), 0)
-                      << QPointF(m_size.width(),  m_size.height())
-                      << QPointF(0.20 * m_size.width(), m_size.height())
-                      << QPointF(0 , 0);
+            myPolygon << QPointF(-m_size.width()/2, -m_size.height()/2)
+                      << QPointF(0.80 * m_size.width() / 2,  -m_size.height()/2)
+                      << QPointF(m_size.width()/2,  m_size.height()/2)
+                      << QPointF(-0.80 * m_size.width()/2, m_size.height()/2)
+                      << QPointF(-m_size.width()/2, -m_size.height()/2);
 
             break;
         default:
@@ -123,7 +123,7 @@ void DiagramItem::customPaint(QPainter *painter, const QStyleOptionGraphicsItem 
 
     if(Diagram_Oval == myDiagramType)
     {
-        QRectF rec(0,0,m_size.width(), m_size.height());
+        QRectF rec(-m_size.width()/2,-m_size.height()/2,m_size.width(), m_size.height());
         painter->drawEllipse(rec);
     }else
     {
@@ -138,7 +138,7 @@ QRectF DiagramItem::getCustomRect(void) const
 {
     if(Diagram_Oval == myDiagramType)
     {
-        return QRectF(0,0,m_size.width(), m_size.height());
+        return QRectF(-m_size.width()/2,-m_size.height()/2,m_size.width(), m_size.height());
     }else
     {
         return myPolygon.boundingRect();

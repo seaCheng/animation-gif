@@ -40,6 +40,12 @@ public:
         m_size = size;
     }
 
+    QSize getRectSize()
+    {
+        return m_size;
+    }
+
+
     UICanvasItemBase(QGraphicsItem* parentItem = nullptr);
     ~UICanvasItemBase() override;
 

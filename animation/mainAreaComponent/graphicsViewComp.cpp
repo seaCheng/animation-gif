@@ -285,9 +285,11 @@ void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     }else if(iMode == InsertItem && item != nullptr)
     {
+        qreal itemWidthMove = mouseEvent->scenePos().x() - mouseEvent->lastScenePos().x();
+        qreal itemHeigthMove = mouseEvent->scenePos().y() - mouseEvent->lastScenePos().y();
         QSize size;
-        size.setWidth(abs(mouseEvent->scenePos().x() - item->pos().x() ));
-        size.setHeight(abs(mouseEvent->scenePos().y() - item->pos().y() ));
+        size.setWidth(item->getRectSize().width() + itemWidthMove);
+        size.setHeight(item->getRectSize().height() + itemHeigthMove);
 
         if(size.width() < 15)
         {
@@ -299,6 +301,10 @@ void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
            size.setHeight(15);
         }
 
+        QPointF pi = item->pos();
+        pi.setX(pi.x() + itemWidthMove / 2);
+        pi.setY(pi.y() + itemHeigthMove / 2);
+        item->setPos(pi);
         item->setRectSize(size);
         item->sizeRefreash();
         item->setSelected(false);

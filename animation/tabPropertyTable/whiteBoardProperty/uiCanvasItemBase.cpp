@@ -97,7 +97,6 @@ void UICanvasItemBase::refreashCursor(QPointF pos, QRectF outLintRect)
         itemDiretion = d_none;
         setCursor(Qt::SizeAllCursor);
         m_itemOper = t_rotate;
-        //setSelected(true);
     }
     else
     {
@@ -283,7 +282,6 @@ void UICanvasItemBase::mousePressEvent(QGraphicsSceneMouseEvent *event)
         itemDiretion = d_none;
         setCursor(Qt::SizeAllCursor);
         m_itemOper = t_rotate;
-        //setSelected(true);
     }
     else if(itemRect.contains(pos))
     {
@@ -372,19 +370,33 @@ void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QP
     qreal itemWidth = abs(scenePos.x()) - abs(latsPos.x());
     qreal itemHeight = abs(scenePos.y()) - abs(latsPos.y());
 
+    qreal itemWidthG = m_size.width() + itemWidth;
+    qreal itemHeightG = m_size.height() + itemHeight;
+
+    // 设置图片的最小大小为10
+    if (itemWidthG < 5 || itemHeightG < 5)
+        return;
+
+
     switch (itemDiretion) {
     case d_upLeft:
     {
         itemWidth = abs(latsPos.x()) - abs(scenePos.x());
         itemHeight = abs(latsPos.y()) - abs(scenePos.y());
-        setPos(scenePos);
+        QPointF pi = pos();
+        pi.setX(pi.x() - itemWidth/2);
+        pi.setY(pi.y() - itemHeight/2);
+        setPos(pi);
         break;
     }
     case d_upRight:
     {
         itemWidth = abs(scenePos.x()) - abs(latsPos.x());
         itemHeight = abs(latsPos.y()) - abs(scenePos.y());
-        QPointF pi(pos().x(), scenePos.y());
+        QPointF pi = pos();
+        pi.setX(pi.x() + itemWidth/2);
+        pi.setY(pi.y() - itemHeight/2);
+
         setPos(pi);
         break;
     }
@@ -392,20 +404,28 @@ void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QP
     {
         itemHeight = abs(latsPos.y()) - abs(scenePos.y());
 
-        QPointF pi(pos().x(), scenePos.y());
+        QPointF pi = pos();
+        pi.setY(pi.y() - itemHeight/2);
         setPos(pi);
         break;
     }
     case d_leftMiddle:
     {
         itemWidth = abs(latsPos.x()) - abs(scenePos.x());
-        QPointF pi(scenePos.x(), pos().y());
+        QPointF pi = pos();
+        pi.setX(pi.x() - itemWidth/2);
+
         setPos(pi);
         break;
     }
     case d_rightMiddle:
     {
         itemWidth = abs(scenePos.x()) - abs(latsPos.x());
+
+        QPointF pi = pos();
+        pi.setX(pi.x() + itemWidth/2);
+
+        setPos(pi);
 
         break;
     }
@@ -414,19 +434,32 @@ void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QP
         itemWidth = abs(latsPos.x()) - abs(scenePos.x());
         itemHeight = abs(scenePos.y()) - abs(latsPos.y());
 
-        QPointF pi(scenePos.x(), pos().y());
+        QPointF pi = pos();
+        pi.setX(pi.x() - itemWidth/2);
+        pi.setY(pi.y() + itemHeight/2);
         setPos(pi);
         break;
     }
     case d_bottomMiddle:
     {
         itemHeight = abs(scenePos.y()) - abs(latsPos.y());
+
+        QPointF pi = pos();
+        pi.setY(pi.y() + itemHeight/2);
+        setPos(pi);
+
         break;
     }
     case d_bottomRight:
     {
         itemWidth = abs(scenePos.x()) - abs(latsPos.x());
         itemHeight = abs(scenePos.y()) - abs(latsPos.y());
+
+        QPointF pi = pos();
+        pi.setX(pi.x() + itemWidth/2);
+        pi.setY(pi.y() + itemHeight/2);
+        setPos(pi);
+
         break;
     }
     default:
@@ -442,10 +475,6 @@ void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QP
     itemWidth = m_size.width() + itemWidth;
     itemHeight = m_size.height() + itemHeight;
 
-    // 设置图片的最小大小为10
-    /*if (itemWidth < 6 || itemHeight < 6)
-        return;
-        */
 
     m_size = QSize(itemWidth, itemHeight);
     sizeRefreash();
@@ -454,6 +483,8 @@ void UICanvasItemBase::mouseMoveResizeOperator(const QPointF& scenePos, const QP
 
 void UICanvasItemBase::mouseMoveRotateOperator(const QPointF& scenePos, const QPointF& loacalPos)
 {
+
+
     // 获取并设置为单位向量
     QVector2D startVec(m_pos.x() - 0, m_pos.y() - 0);
     startVec.normalize();
@@ -478,12 +509,14 @@ void UICanvasItemBase::mouseMoveRotateOperator(const QPointF& scenePos, const QP
     QVector3D crossValue = QVector3D::crossProduct(QVector3D(startVec, 1.0),QVector3D(endVec, 1.0));
     if (crossValue.z() < 0)
         angle = -angle;
+
     m_rotate += angle;
 
+    setTransformOriginPoint(m_size.width()/2, m_size.height()/2);
     // 设置变化矩阵
     m_transform.rotate(m_rotate);
     this->setTransform(m_transform);
-
+    //setRotation(m_rotate);
     m_pos = loacalPos;
 
     this->update();
