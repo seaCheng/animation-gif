@@ -323,6 +323,7 @@ void UICanvasItemBase::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         mouseMoveRotateOperator(scenePos, pos);
     }
 
+    event->accept();
 }
 
 void UICanvasItemBase::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

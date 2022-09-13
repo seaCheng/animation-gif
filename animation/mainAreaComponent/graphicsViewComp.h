@@ -27,6 +27,8 @@ class PicGraphicsScene;
 class DiagramItem;
 class DiagramTextItem;
 
+class Shape;
+
 class GraphicsViewComp :public QGraphicsView
 {
     Q_OBJECT
@@ -48,7 +50,7 @@ private:
     PicGraphicsScene * pScene = nullptr;
 };
 
-enum InsertMode { InsertItem, InsertLine, InsertText, MoveItem };
+enum InsertMode { InsertItem, InsertLine, InsertText,InsertDrawLine, MoveItem };
 Q_DECLARE_METATYPE(InsertMode);
 
 class PicGraphicsScene : public QGraphicsScene
@@ -95,6 +97,8 @@ private:
     bool leftButtonDown;
     QPointF startPoint;
     QGraphicsLineItem *line = nullptr;
+
+    Shape *m_currentShape = nullptr;
 
     DiagramItem *item = nullptr;
     QFont myFont;

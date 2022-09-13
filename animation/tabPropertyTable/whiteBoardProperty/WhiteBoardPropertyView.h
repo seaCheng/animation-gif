@@ -6,7 +6,7 @@ class QAbstractButton;
 class QButtonGroup;
 
 enum DiagramType { Diagram_Text, Diagram_Step, Diagram_Conditional,
-                   Diagram_StartEnd, Diagram_Io, Diagram_Oval, Diagram_Triangle, Diagram_Pen };
+                   Diagram_StartEnd, Diagram_Io, Diagram_Oval, Diagram_Triangle, Diagram_Pen, Diagram_Sel };
 Q_DECLARE_METATYPE(DiagramType)
 
 class WhiteBoardPropertyView :public QFrame

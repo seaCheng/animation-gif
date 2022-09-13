@@ -119,6 +119,17 @@ void MainAreaView::start_insertSceneItem(DiagramType type)
          pScene->setMode(InsertLine);
          break;
       }
+      case Diagram_Sel:
+      {
+       pScene->setMode(MoveItem);
+       break;
+      }
+      case Diagram_Pen:
+      {
+        pScene->setMode(InsertDrawLine);
+        break;
+      }
+
     default:
       {
         break;

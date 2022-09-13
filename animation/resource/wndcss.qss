@@ -327,6 +327,27 @@ QComboBox:on {
 
 /*-------------WhiteBoardPropertyView-------------------------*/
 
+#WhiteBoardPropertyView QToolButton{
+	background-color:rgb(240,255,255);
+	color: rgb(0, 0, 2);
+
+    border-style: outset;
+	border-radius: 3px;
+    border-width: 4px;
+    border-color: beige;;
+	padding: 6px;
+}
+
+#WhiteBoardPropertyView QToolButton:checked {
+    background-color:rgb(14, 170, 79);
+	color: rgb(255, 255, 0);
+}
+
+#WhiteBoardPropertyView QToolButton:hover QToolButton:unchecked
+{
+    background-color:rgb(14, 220, 0);
+	color: rgb(0, 0, 0);
+}
 
 #WhiteBoardPropertyView #Text{
                                     qproperty-icon:url(:images/text.png);
@@ -334,6 +355,7 @@ QComboBox:on {
                                     background-position:Center;
                      
 }
+
 
 #WhiteBoardPropertyView #Conditional{
                                     qproperty-icon:url(:images/condition.png);
@@ -384,6 +406,12 @@ QComboBox:on {
                                     
 }
 
+#WhiteBoardPropertyView #Select{
+                                    qproperty-icon:url(:images/pointer.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    
+}
 
 
 /*-------------WhiteBoardPropertyView-------------------------*/

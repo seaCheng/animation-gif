@@ -32,6 +32,7 @@ void WhiteBoardPropertyView::initial()
     layout->addWidget(createCellWidget(tr("triangle"), DiagramType::Diagram_Triangle), 1, 2);
     layout->addWidget(createCellWidget(tr("pen"), DiagramType::Diagram_Pen), 2, 0);
     layout->addWidget(createCellWidget(tr("Line"), DiagramType::Diagram_StartEnd), 2, 1);
+    layout->addWidget(createCellWidget(tr("Select"), DiagramType::Diagram_Sel), 2, 2);
 
     layout->setRowStretch(3, 10);
     layout->setColumnStretch(3, 10);
@@ -65,8 +66,12 @@ void WhiteBoardPropertyView::buttonGroupClicked(QAbstractButton *button)
     const QList<QAbstractButton *> buttons = buttonGroup->buttons();
     for (QAbstractButton *myButton : buttons) {
         if (myButton != button)
-            button->setChecked(false);
+        {
+            myButton->setChecked(false);
+        }
     }
+
+    button->setChecked(true);
     const int id = buttonGroup->id(button);
     emit s_sceneItemInsert((DiagramType)id);
 }

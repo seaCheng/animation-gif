@@ -21,8 +21,7 @@
 	 <file>../images/oval.png</file>
 	 <file>../images/triangle.png</file>
 	 <file>../images/pen.png</file>
-	 
-	 
-	 
+	 <file>../images/pointer.png</file>
+	  
     </qresource>
 </RCC>

@@ -229,6 +229,16 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() != Qt::LeftButton)
         return;
 
+    auto au = selectedItems();
+    for(auto u : au)
+    {
+        if(u->sceneBoundingRect().contains(mouseEvent->scenePos()))
+        {
+            return  QGraphicsScene::mousePressEvent(mouseEvent);
+;
+        }
+    }
+
     switch (iMode) {
         case InsertItem:
             item = new DiagramItem(dType, myItemMenu);
@@ -244,6 +254,14 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             line->setPen(QPen(myLineColor, 2));
             addItem(line);
             break;
+    case InsertDrawLine:
+        m_currentShape = new SGraffiti();
+        m_currentShape->setStrokeWidth(3);
+        m_currentShape->setStrokeColor(QColor::fromRgbF(0.9f, 0.1f, 0.6f, 0.7f));
+
+        addItem(m_currentShape);
+        m_currentShape->setStartPoint(mouseEvent->scenePos());
+        break;
 //! [7] //! [8]
         case InsertText:
             textItem = new DiagramTextItem();
@@ -283,7 +301,12 @@ void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         QLineF newLine(line->line().p1(), mouseEvent->scenePos());
         line->setLine(newLine);
 
-    }else if(iMode == InsertItem && item != nullptr)
+    }else if(iMode == InsertDrawLine && m_currentShape != nullptr)
+    {
+        m_currentShape->setEndPoint(mouseEvent->scenePos());
+        update();
+    }
+    else if(iMode == InsertItem && item != nullptr)
     {
         qreal itemWidthMove = mouseEvent->scenePos().x() - mouseEvent->lastScenePos().x();
         qreal itemHeigthMove = mouseEvent->scenePos().y() - mouseEvent->lastScenePos().y();
@@ -311,7 +334,7 @@ void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         item->update();
 
     }
-    else if (iMode == MoveItem) {
+    else /*if (iMode == MoveItem)*/ {
         QGraphicsScene::mouseMoveEvent(mouseEvent);
     }
 }
@@ -350,12 +373,16 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }else if(item != nullptr && iMode == InsertItem)
     {
         item->setSelected(true);
+    }else if(m_currentShape != nullptr && iMode == InsertDrawLine)
+    {
+        //delete m_currentShape;
+        //m_currentShape = nullptr;
     }
 
 //! [12] //! [13]
     line = nullptr;
     item = nullptr;
-    setMode(MoveItem);
+    //setMode(MoveItem);
 
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }
