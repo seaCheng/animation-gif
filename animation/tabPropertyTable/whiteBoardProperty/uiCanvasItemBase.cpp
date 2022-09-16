@@ -7,16 +7,18 @@
 #include <QVector2D>
 #include <QVector3D>
 #include <QtMath>
+#include <QMenu>
 
 
 #define PI 3.14159265358979
 
 QImage UICanvasItemBase::m_rotateIcon;
 
-UICanvasItemBase::UICanvasItemBase(QGraphicsItem* parentItem)
+UICanvasItemBase::UICanvasItemBase(QMenu *conMenu, QGraphicsItem* parentItem)
     :QGraphicsItem(parentItem)
     ,m_cPenColor(255, 0, 0)
     ,m_cBrushColor(200, 100, 100)
+    ,myContextMenu(conMenu)
 
 {
     this->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable |
@@ -552,3 +554,9 @@ void UICanvasItemBase::initIcon(void)
     m_rotatePixmap = QPixmap::fromImage(m_rotateIcon);
 }
 
+void UICanvasItemBase::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    scene()->clearSelection();
+    setSelected(true);
+    myContextMenu->exec(event->screenPos());
+}

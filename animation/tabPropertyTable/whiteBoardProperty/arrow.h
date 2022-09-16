@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -58,6 +58,7 @@ class DiagramItem;
 //! [0]
 class Arrow : public QGraphicsLineItem
 {
+
 public:
     enum { Type = UserType + 4 };
 

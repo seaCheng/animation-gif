@@ -39,6 +39,8 @@ public:
 
     void setGifCommpro(std::shared_ptr<propertyInf> inf);
     void start_insertSceneItem(DiagramType type);
+
+    void createActions();
 signals:
     void s_clicked(type_import eType);
 
@@ -51,4 +53,10 @@ private:
     GraphicsViewComp * graphicView = nullptr;
     PicGraphicsScene * pScene;
     GraphicFrame * graWid = nullptr;
+
+    QMenu *itemMenu;
+    QAction *deleteAction;
+    QAction *toFrontAction;
+    QAction *sendBackAction;
+    QAction *resetRotaAction;
 };

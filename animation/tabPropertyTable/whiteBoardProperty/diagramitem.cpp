@@ -9,7 +9,7 @@
 #include <QPainter>
 
 // SGraffiti
-SGraffiti::SGraffiti() : Shape(tt_Graffiti), m_rcBounding(0, 0, 0, 0)
+SGraffiti::SGraffiti(QMenu * menu) : Shape(menu,tt_Graffiti), m_rcBounding(0, 0, 0, 0)
 {
     setResizeAble(false);
 }
@@ -72,13 +72,10 @@ void SGraffiti::serialize(QJsonObject &obj)
     //
 }
 
-
 QRectF SGraffiti::getCustomRect(void) const
 {
     return m_rcBounding;
-
 }
-
 
 /*-----------------SLine--------------------*/
 int Shape::m_idBase = 0;
@@ -87,13 +84,10 @@ int Shape::generateLocalId()
     return ++m_idBase;
 }
 
-
-
 /*----------------------------DiagramItem-------------------------------------*/
 DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
                          QGraphicsItem *parent)
-    : UICanvasItemBase(parent), myDiagramType(diagramType)
-    , myContextMenu(contextMenu)
+    : UICanvasItemBase(contextMenu,parent), myDiagramType(diagramType)
 {
     m_size = QSize(1,1);
 }
@@ -129,13 +123,6 @@ QPixmap DiagramItem::image() const
     painter.drawPolyline(myPolygon);
 
     return pixmap;
-}
-
-void DiagramItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
-{
-    scene()->clearSelection();
-    setSelected(true);
-    myContextMenu->exec(event->screenPos());
 }
 
 QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &value)

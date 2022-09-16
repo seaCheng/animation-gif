@@ -123,10 +123,10 @@ void GraphicsViewComp::setPicItem(PictureItem * pItem)
 
 
 ////////////////////////////////PicGraphicsScene ///////////////////////////////////
-PicGraphicsScene::PicGraphicsScene(QWidget * p)
+PicGraphicsScene::PicGraphicsScene(QMenu * menu, QWidget * p)
     :QGraphicsScene(p)
 {
-    myItemMenu = new QMenu;
+    myItemMenu = menu;
     dType = Diagram_Step;
     line = nullptr;
     textItem = nullptr;
@@ -235,7 +235,6 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(u->sceneBoundingRect().contains(mouseEvent->scenePos()))
         {
             return  QGraphicsScene::mousePressEvent(mouseEvent);
-;
         }
     }
 
@@ -255,7 +254,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             addItem(line);
             break;
     case InsertDrawLine:
-        m_currentShape = new SGraffiti();
+        m_currentShape = new SGraffiti(myItemMenu);
         m_currentShape->setStrokeWidth(3);
         m_currentShape->setStrokeColor(QColor::fromRgbF(0.9f, 0.1f, 0.6f, 0.7f));
 
@@ -375,14 +374,19 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         item->setSelected(true);
     }else if(m_currentShape != nullptr && iMode == InsertDrawLine)
     {
-        //delete m_currentShape;
+        if(m_currentShape->sceneBoundingRect().width() < 15 &&
+                m_currentShape->sceneBoundingRect().height() < 15)
+        {
+            removeItem(m_currentShape);
+            delete m_currentShape;
+            m_currentShape = nullptr;
+        }
         m_currentShape = nullptr;
     }
 
 //! [12] //! [13]
     line = nullptr;
     item = nullptr;
-    //setMode(MoveItem);
 
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }

@@ -22,6 +22,10 @@
 	 <file>../images/triangle.png</file>
 	 <file>../images/pen.png</file>
 	 <file>../images/pointer.png</file>
-	  
+	 
+	 <file>../images/bringtofront.png</file>
+	 <file>../images/delete.png</file>
+	 <file>../images/sendtoback.png</file>
+	 <file>../images/del.png</file>
     </qresource>
 </RCC>

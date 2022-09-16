@@ -30,7 +30,7 @@ enum ToolType {
 class Shape : public UICanvasItemBase
 {
 public:
-    Shape(int type): m_type(type)
+    Shape(QMenu * menu,int type):UICanvasItemBase(menu), m_type(type)
       , m_strokeWidth(1.0f)
       , m_strokeColor(Qt::black)
       , m_fillColor(Qt::transparent)
@@ -71,7 +71,9 @@ protected:
 class SGraffiti : public Shape
 {
 public:
-    SGraffiti();
+
+    enum { Type = UserType + 5 };
+    SGraffiti(QMenu * menu);
 
     QRectF getCustomRect() const override;
     //void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -85,6 +87,7 @@ public:
     bool isValid() override;
     void serialize(QJsonObject &obj) override;
     void setPath(QPainterPath &path);
+    int type() const override { return Type; }
 
 protected:
     QPointF m_startPosScene;
@@ -115,7 +118,7 @@ public:
     virtual void sizeRefreash() override;
 
 protected:
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
+
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
     virtual QRectF getCustomRect(void) const override;
@@ -126,7 +129,6 @@ protected:
 private:
     DiagramType myDiagramType;
     QPolygonF myPolygon;
-    QMenu *myContextMenu;
     QList<Arrow *> arrows;
 
     QPainterPath path;

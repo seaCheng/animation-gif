@@ -50,7 +50,7 @@ public:
     }
 
 
-    UICanvasItemBase(QGraphicsItem* parentItem = nullptr);
+    UICanvasItemBase(QMenu *conMenu, QGraphicsItem* parentItem = nullptr);
     ~UICanvasItemBase() override;
 
     // 设置改变大小相关属性
@@ -91,7 +91,7 @@ protected:
     // 自定义元素绘制
     virtual void customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
 
     QSize m_size = QSize(50,50);
     ItemOperator m_itemOper = t_none;
@@ -135,6 +135,8 @@ private:
     ItemResizeDirection itemDiretion = d_none;
 
     bool m_resize = true;
+
+    QMenu *myContextMenu;
 
 };
 #endif
