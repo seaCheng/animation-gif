@@ -263,7 +263,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         break;
 //! [7] //! [8]
         case InsertText:
-            textItem = new DiagramTextItem();
+            textItem = new DiagramTextItem(myItemMenu);
             textItem->setFont(myFont);
             textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
             textItem->setZValue(1000.0);

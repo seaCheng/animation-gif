@@ -2,9 +2,12 @@
 #include "diagramtextitem.h"
 #include "graphicsViewComp.h"
 
+#include <QMenu>
+#include <QGraphicsSceneContextMenuEvent>
+
 //! [0]
-DiagramTextItem::DiagramTextItem(QGraphicsItem *parent)
-    : QGraphicsTextItem(parent)
+DiagramTextItem::DiagramTextItem(QMenu * menu,QGraphicsItem *parent)
+    : QGraphicsTextItem(parent),myContextMenu(menu)
 {
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
@@ -40,3 +43,10 @@ void DiagramTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsTextItem::mouseDoubleClickEvent(event);
 }
 //! [5]
+
+void DiagramTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    scene()->clearSelection();
+    setSelected(true);
+    myContextMenu->exec(event->screenPos());
+}
