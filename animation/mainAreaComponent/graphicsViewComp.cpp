@@ -376,7 +376,7 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }else if(m_currentShape != nullptr && iMode == InsertDrawLine)
     {
         //delete m_currentShape;
-        //m_currentShape = nullptr;
+        m_currentShape = nullptr;
     }
 
 //! [12] //! [13]

@@ -34,6 +34,10 @@ public:
         t_rotate
     };
 
+    void setResizeAble(bool bResize)
+    {
+        m_resize = bResize;
+    }
 
     void setRectSize(QSize size)
     {
@@ -129,6 +133,8 @@ private:
     // 画刷设置
     QColor m_cBrushColor;
     ItemResizeDirection itemDiretion = d_none;
+
+    bool m_resize = true;
 
 };
 #endif

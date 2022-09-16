@@ -27,7 +27,7 @@ enum ToolType {
     tt_Triangle
 };
 
-class Shape : public QGraphicsItem
+class Shape : public UICanvasItemBase
 {
 public:
     Shape(int type): m_type(type)
@@ -68,36 +68,15 @@ protected:
     int m_localId;
 };
 
-class SLine : public Shape
-{
-public:
-    SLine();
-
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-
-    void setStartPoint(const QPointF &pos) override;
-    void setEndPoint(const QPointF &pos) override;
-    void setStrokeWidth(float w) override;
-    void setStrokeColor(const QColor &clr) override;
-    bool isValid() override;
-    void serialize(QJsonObject &obj) override;
-
-protected:
-    QPointF m_startPosScene;
-    QPointF m_endPosScene;
-    QLineF m_line;
-    QRectF m_rcBounding;
-    QPen m_pen;
-};
-
 class SGraffiti : public Shape
 {
 public:
     SGraffiti();
 
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    QRectF getCustomRect() const override;
+    //void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    // 自定义元素绘制
+    virtual void customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     void setStartPoint(const QPointF &pos) override;
     void setEndPoint(const QPointF &pos) override;

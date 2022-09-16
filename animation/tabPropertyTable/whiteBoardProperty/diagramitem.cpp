@@ -10,7 +10,9 @@
 
 // SGraffiti
 SGraffiti::SGraffiti() : Shape(tt_Graffiti), m_rcBounding(0, 0, 0, 0)
-{}
+{
+    setResizeAble(false);
+}
 
 void SGraffiti::setStartPoint(const QPointF &pos)
 {
@@ -28,14 +30,25 @@ void SGraffiti::setEndPoint(const QPointF &pos)
     m_rcBounding.moveTo(0, 0);
 }
 
+void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    painter->save();
+    painter->setPen(m_pen);
+    QPainterPath path = m_path.translated(-m_topLeftInScene);
+    painter->drawPath(path);
+    painter->restore();
+}
+
+
 void SGraffiti::setPath(QPainterPath &path)
 {
     m_path = path;
     m_rcBounding = m_path.boundingRect();
     m_topLeftInScene = m_rcBounding.topLeft();
-    setPos(m_topLeftInScene);
+    setPos(m_rcBounding.center());
     m_rcBounding.moveTo(0, 0);
 }
+
 
 void SGraffiti::setStrokeWidth(float w)
 {
@@ -59,18 +72,11 @@ void SGraffiti::serialize(QJsonObject &obj)
     //
 }
 
-QRectF SGraffiti::boundingRect() const
+
+QRectF SGraffiti::getCustomRect(void) const
 {
     return m_rcBounding;
-}
 
-void SGraffiti::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    painter->save();
-    painter->setPen(m_pen);
-    QPainterPath path = m_path.translated(-m_topLeftInScene);
-    painter->drawPath(path);
-    painter->restore();
 }
 
 
@@ -81,93 +87,6 @@ int Shape::generateLocalId()
     return ++m_idBase;
 }
 
-// SLine
-
-SLine::SLine() : Shape(tt_Line), m_rcBounding(0, 0, 0, 0)
-{}
-
-void SLine::setStartPoint(const QPointF &pos)
-{
-    setPos(pos);
-    m_startPosScene = pos;
-}
-
-void SLine::setEndPoint(const QPointF &pos)
-{
-    m_endPosScene = pos;
-    qreal endX = m_endPosScene.x();
-    qreal endY = m_endPosScene.y();
-    qreal startX = m_startPosScene.x();
-    qreal startY = m_startPosScene.y();
-
-    m_rcBounding.setWidth(qAbs(endX - startX));
-    m_rcBounding.setHeight(qAbs(endY - startY));
-
-    QPointF startPoint;
-    QPointF endPoint;
-
-    if(endX < startX)
-    {
-        startX = endX;
-        startPoint.setX(m_rcBounding.width());
-        endPoint.setX(0);
-    }
-    else
-    {
-        startPoint.setX(0);
-        endPoint.setX(m_rcBounding.width());
-    }
-
-    if(endY < startY)
-    {
-        startY = endY;
-        startPoint.setY(m_rcBounding.height());
-        endPoint.setY(0);
-    }
-    else
-    {
-        startPoint.setY(0);
-        endPoint.setY(m_rcBounding.height());
-    }
-
-    m_line.setPoints(startPoint, endPoint);
-    setPos(startX, startY);
-}
-
-void SLine::setStrokeWidth(float w)
-{
-    m_strokeWidth = w;
-    m_pen.setWidthF(w);
-}
-
-void SLine::setStrokeColor(const QColor &clr)
-{
-    m_strokeColor = clr;
-    m_pen.setColor(clr);
-}
-
-bool SLine::isValid()
-{
-    return !m_line.isNull();
-}
-
-void SLine::serialize(QJsonObject &obj)
-{
-
-}
-
-QRectF SLine::boundingRect() const
-{
-    return m_rcBounding;
-}
-
-void SLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    painter->save();
-    painter->setPen(m_pen);
-    painter->drawLine(m_line);
-    painter->restore();
-}
 
 
 /*----------------------------DiagramItem-------------------------------------*/
@@ -177,7 +96,6 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
     , myContextMenu(contextMenu)
 {
     m_size = QSize(1,1);
-    //sizeRefreash();
 }
 
 void DiagramItem::removeArrow(Arrow *arrow)
@@ -187,8 +105,6 @@ void DiagramItem::removeArrow(Arrow *arrow)
 
 void DiagramItem::removeArrows()
 {
-    // need a copy here since removeArrow() will
-    // modify the arrows container
     const auto arrowsCopy = arrows;
     for (Arrow *arrow : arrowsCopy) {
         arrow->startItem()->removeArrow(arrow);

@@ -153,6 +153,11 @@ void UICanvasItemBase::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     QRectF outLintRect = itemRect.adjusted(-m_nInterval, -m_nInterval, m_nInterval, m_nInterval);
     painter->drawRect(outLintRect);
 
+    if(!m_resize)
+    {
+        return;
+    }
+
     pen.setWidth(m_nPenWidth);
     pen.setColor(Qt::gray);
     pen.setStyle(Qt::SolidLine);
@@ -312,12 +317,12 @@ void UICanvasItemBase::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         // 处理移动
         mouseMoveMoveOperator(scenePos, pos);
     }
-    else if (m_itemOper == t_resize)
+    else if (m_itemOper == t_resize && m_resize)
     {
         // 处理更改大小
         mouseMoveResizeOperator(scenePos, pos, lPos);
     }
-    else if (m_itemOper == t_rotate)
+    else if (m_itemOper == t_rotate && m_resize)
     {
         // 处理旋转
         mouseMoveRotateOperator(scenePos, pos);
