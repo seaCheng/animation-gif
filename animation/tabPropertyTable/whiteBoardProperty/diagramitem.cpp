@@ -25,6 +25,7 @@ void SGraffiti::setEndPoint(const QPointF &pos)
 {
     m_path.lineTo(pos);
     m_rcBounding = m_path.boundingRect();
+    m_rcBounding.adjust(-10, -10,10, 10);
     m_topLeftInScene = m_rcBounding.topLeft();
     m_rcBounding.moveTo(0, 0);
     setPos(m_topLeftInScene);
@@ -36,7 +37,28 @@ void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->save();
     painter->setPen(m_pen);
     QPainterPath path = m_path.translated(-m_topLeftInScene);
-    painter->drawPath(path);
+    //painter->drawPath(path);
+
+    QPainterPathStroker stroker;
+    stroker.setCapStyle(Qt::RoundCap);  // 端点风格
+    stroker.setJoinStyle(Qt::RoundJoin);  // 连接样式
+    stroker.setDashPattern(Qt::SolidLine);  // 虚线图案
+    stroker.setWidth(10);  // 宽度
+
+    // 生成一个新路径（可填充区域），表示原始路径 path 的轮廓
+    QPainterPath outlinePath = stroker.createStroke(path);
+
+    QPen pen = painter->pen();
+    pen.setColor(QColor(0, 160, 230));
+    pen.setWidth(10);
+
+    // 用指定的画笔 pen 绘制 outlinePath
+    painter->setPen(pen);
+    painter->drawPath(outlinePath);
+
+    // 用指定的画刷 brush 填充路径 outlinePath
+    painter->fillPath(outlinePath, QBrush(Qt::yellow));
+
     painter->restore();
 }
 
