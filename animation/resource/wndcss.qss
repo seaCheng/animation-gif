@@ -413,5 +413,19 @@ QComboBox:on {
                                     
 }
 
+#WhiteBoardPropertyView #Delete{
+                                    qproperty-icon:url(:images/delItem.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    
+}
+
+#WhiteBoardPropertyView #Picture{
+                                    qproperty-icon:url(:images/bt_pic.png);
+                                    background-repeat:repeat-no;
+                                    background-position:Center;
+                                    
+}
+
 
 /*-------------WhiteBoardPropertyView-------------------------*/

@@ -26,6 +26,7 @@
 	 <file>../images/bringtofront.png</file>
 	 <file>../images/delete.png</file>
 	 <file>../images/sendtoback.png</file>
-	 <file>../images/del.png</file>
+	 <file>../images/delItem.png</file>
+	 <file>../images/bt_pic.png</file>
     </qresource>
 </RCC>

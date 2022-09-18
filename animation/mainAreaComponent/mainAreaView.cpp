@@ -136,9 +136,9 @@ void MainAreaView::createActions()
     });
 
 
-    resetRotaAction = new QAction(QIcon(":/images/icon_rotate.png"), tr("&reset"), this);
+    resetRotaAction = new QAction(QIcon(":/images/icon_rotate.png"), tr("&reset rotation"), this);
     resetRotaAction->setShortcut(tr("reset rotation"));
-    resetRotaAction->setStatusTip(tr("Delete item from diagram"));
+    resetRotaAction->setStatusTip(tr("reset rotation"));
     connect(resetRotaAction, &QAction::triggered, this, [=](){
 
         QList<QGraphicsItem *> selectedItems = pScene->selectedItems();
@@ -174,14 +174,18 @@ void MainAreaView::setConnect()
         for(const auto &u : graphicView->scene()->items())
         {
                     QGraphicsItem * item = (QGraphicsItem *)u;
+
+
+                    item->setSelected(false);
+                    item->clearFocus();
                     if(DiagramTextItem::Type == item->type())
                     {
                        DiagramTextItem * textItem = (DiagramTextItem *)item;
                        textItem->setTextInteractionFlags(Qt::NoTextInteraction);
+                       textItem->clearFocus();
+                       textItem->setSelected(false);
+                       qDebug()<<"clear focus....";
                     }
-
-                    item->setSelected(false);
-                    item->clearFocus();
 
         }
 
@@ -232,6 +236,16 @@ void MainAreaView::start_insertSceneItem(DiagramType type)
       case Diagram_Pen:
       {
         pScene->setMode(InsertDrawLine);
+        break;
+      }
+      case Diagram_Del:
+      {
+        pScene->setMode(DeleteItem);
+        break;
+      }
+      case Diagram_Pic:
+      {
+        pScene->setMode(InsertPic);
         break;
       }
 

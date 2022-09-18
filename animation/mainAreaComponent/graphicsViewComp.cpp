@@ -15,6 +15,7 @@
 #include <QOpenGLWidget>
 #include <QDebug>
 #include <QMenu>
+#include <QFileDialog>
 
 #include <QGraphicsSceneMouseEvent>
 
@@ -195,7 +196,6 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
     qreal pixelRatio = painter->device()->devicePixelRatioF();
     QRectF sizeRec = sceneRect();
     //绘制指定图片作为背景
-
     Qt::AspectRatioMode asMode = (Qt::AspectRatioMode)(int)proInf->fMode;
     QPixmap tpic = pic.scaled(sizeRec.width(), sizeRec.height(), asMode, Qt::SmoothTransformation);
     QImage desImage(sizeRec.width(), sizeRec.height(), QImage::Format_ARGB32);
@@ -234,7 +234,16 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     {
         if(u->sceneBoundingRect().contains(mouseEvent->scenePos()))
         {
-            return  QGraphicsScene::mousePressEvent(mouseEvent);
+            if(DeleteItem == iMode)
+            {
+                removeItem(u);
+                delete u;
+                return;
+            }else
+            {
+               return  QGraphicsScene::mousePressEvent(mouseEvent);
+            }
+
         }
     }
 
@@ -246,12 +255,21 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             item->setSelected(false);
 
             break;
-//! [6] //! [7]
+
+    case InsertPic:
+        item = new DiagramItem(dType, myItemMenu);
+        addItem(item);
+        item->setPos(mouseEvent->scenePos());
+        item->setSelected(false);
+
+        break;
+
         case InsertLine:
             line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
                                         mouseEvent->scenePos()));
             line->setPen(QPen(myLineColor, 2));
             addItem(line);
+            QGraphicsScene::mousePressEvent(mouseEvent);
             break;
     case InsertDrawLine:
         m_currentShape = new SGraffiti(myItemMenu);
@@ -261,7 +279,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         addItem(m_currentShape);
         m_currentShape->setStartPoint(mouseEvent->scenePos());
         break;
-//! [7] //! [8]
+
         case InsertText:
             textItem = new DiagramTextItem(myItemMenu);
             textItem->setFont(myFont);
@@ -275,16 +293,21 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             textItem->setDefaultTextColor(myTextColor);
             textItem->setPos(mouseEvent->scenePos());
 
+            QGraphicsScene::mousePressEvent(mouseEvent);
             break;
+    case DeleteItem:
+        QGraphicsScene::mousePressEvent(mouseEvent);
+
+        break;
          default:
          {
-
+             QGraphicsScene::mousePressEvent(mouseEvent);
              break;
          }
 
     }
 
-    QGraphicsScene::mousePressEvent(mouseEvent);
+
 
 
 }
@@ -305,23 +328,13 @@ void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         m_currentShape->setEndPoint(mouseEvent->scenePos());
         update();
     }
-    else if(iMode == InsertItem && item != nullptr)
+    else if((iMode == InsertItem || iMode == InsertPic ) && item != nullptr)
     {
         qreal itemWidthMove = mouseEvent->scenePos().x() - mouseEvent->lastScenePos().x();
         qreal itemHeigthMove = mouseEvent->scenePos().y() - mouseEvent->lastScenePos().y();
         QSize size;
         size.setWidth(item->getRectSize().width() + itemWidthMove);
         size.setHeight(item->getRectSize().height() + itemHeigthMove);
-
-        if(size.width() < 15)
-        {
-           size.setWidth(15);
-        }
-
-        if(size.height() < 15)
-        {
-           size.setHeight(15);
-        }
 
         QPointF pi = item->pos();
         pi.setX(pi.x() + itemWidthMove / 2);
@@ -369,10 +382,57 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         }
 
 
-    }else if(item != nullptr && iMode == InsertItem)
+    }else if(item != nullptr && (iMode == InsertItem))
+    {
+        QSize size = item->getRectSize();
+        if(size.width() < 35)
+        {
+           size.setWidth(35);
+        }
+
+        if(size.height() < 35)
+        {
+           size.setHeight(35);
+        }
+        item->setRectSize(size);
+        item->sizeRefreash();
+
+        item->setSelected(true);
+    }else if(item != nullptr && iMode == InsertPic)
     {
         item->setSelected(true);
-    }else if(m_currentShape != nullptr && iMode == InsertDrawLine)
+        QSize size = item->getRectSize();
+        if(size.width() < 35)
+        {
+           size.setWidth(35);
+        }
+
+        if(size.height() < 35)
+        {
+           size.setHeight(35);
+        }
+        item->setRectSize(size);
+        item->sizeRefreash();
+
+        QFileDialog::Options options =  QFileDialog::ReadOnly;
+
+        QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open File"),
+                                                        QDir::homePath(),
+                                                        "Images (*.bmp *.jpg *.png *.ico)", nullptr, options);
+
+        if(fileName.isEmpty())
+        {
+            removeItem(item);
+            delete item;
+            item = nullptr;
+        }else
+        {
+            item->setPic(QPixmap(fileName));
+        }
+
+
+    }
+    else if(m_currentShape != nullptr && iMode == InsertDrawLine)
     {
         if(m_currentShape->sceneBoundingRect().width() < 15 &&
                 m_currentShape->sceneBoundingRect().height() < 15)

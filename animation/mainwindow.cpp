@@ -186,7 +186,7 @@ void MainWindow::slot_add()
 {
 
 
-    QFileDialog::Options options =  QFileDialog::DontUseNativeDialog | QFileDialog::ReadOnly;
+    QFileDialog::Options options =  QFileDialog::ReadOnly;
     QStringList files = QFileDialog::getOpenFileNames(
                              this,
                              "Select one or more files to open",

@@ -50,7 +50,7 @@ private:
     PicGraphicsScene * pScene = nullptr;
 };
 
-enum InsertMode { InsertItem, InsertLine, InsertText,InsertDrawLine, MoveItem,DeleteItem };
+enum InsertMode { InsertItem, InsertLine, InsertText,InsertDrawLine, InsertPic,MoveItem,DeleteItem };
 Q_DECLARE_METATYPE(InsertMode);
 
 class PicGraphicsScene : public QGraphicsScene

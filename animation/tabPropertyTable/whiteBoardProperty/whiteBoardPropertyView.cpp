@@ -32,7 +32,9 @@ void WhiteBoardPropertyView::initial()
     layout->addWidget(createCellWidget(tr("triangle"), DiagramType::Diagram_Triangle), 1, 2);
     layout->addWidget(createCellWidget(tr("pen"), DiagramType::Diagram_Pen), 2, 0);
     layout->addWidget(createCellWidget(tr("Line"), DiagramType::Diagram_StartEnd), 2, 1);
-    layout->addWidget(createCellWidget(tr("Select"), DiagramType::Diagram_Sel), 2, 2);
+    layout->addWidget(createCellWidget(tr("Picture"), DiagramType::Diagram_Pic), 2, 2);
+    layout->addWidget(createCellWidget(tr("Select"), DiagramType::Diagram_Sel), 3, 0);
+    layout->addWidget(createCellWidget(tr("Delete"), DiagramType::Diagram_Del), 3, 1);
 
     layout->setRowStretch(3, 10);
     layout->setColumnStretch(3, 10);

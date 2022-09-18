@@ -26,8 +26,9 @@ void SGraffiti::setEndPoint(const QPointF &pos)
     m_path.lineTo(pos);
     m_rcBounding = m_path.boundingRect();
     m_topLeftInScene = m_rcBounding.topLeft();
-    setPos(m_topLeftInScene);
     m_rcBounding.moveTo(0, 0);
+    setPos(m_topLeftInScene);
+
 }
 
 void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -45,8 +46,9 @@ void SGraffiti::setPath(QPainterPath &path)
     m_path = path;
     m_rcBounding = m_path.boundingRect();
     m_topLeftInScene = m_rcBounding.topLeft();
-    setPos(m_rcBounding.center());
+    setPos(m_topLeftInScene);
     m_rcBounding.moveTo(0, 0);
+
 }
 
 
@@ -75,6 +77,7 @@ void SGraffiti::serialize(QJsonObject &obj)
 QRectF SGraffiti::getCustomRect(void) const
 {
     return m_rcBounding;
+
 }
 
 /*-----------------SLine--------------------*/
@@ -170,8 +173,10 @@ void DiagramItem::sizeRefreash()
                       << QPointF(m_size.width()/2,  m_size.height()/2)
                       << QPointF(-0.80 * m_size.width()/2, m_size.height()/2)
                       << QPointF(-m_size.width()/2, -m_size.height()/2);
-
             break;
+        case Diagram_Oval:
+        case Diagram_Pic:
+            myPolygon = QPolygonF(getCustomRect());
         default:
             break;
     }
@@ -191,7 +196,13 @@ void DiagramItem::customPaint(QPainter *painter, const QStyleOptionGraphicsItem 
     {
         QRectF rec(-m_size.width()/2,-m_size.height()/2,m_size.width(), m_size.height());
         painter->drawEllipse(rec);
-    }else
+    }else if(Diagram_Pic == myDiagramType)
+    {
+        qreal pixelRatio = painter->device()->devicePixelRatioF();
+        QPixmap tpic = pix.scaled(m_size.width()*pixelRatio, m_size.height()*pixelRatio, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        painter->drawPixmap(getCustomRect() ,tpic, QRect());
+    }
+    else
     {
         painter->drawPolygon(myPolygon);
     }
@@ -202,7 +213,7 @@ void DiagramItem::customPaint(QPainter *painter, const QStyleOptionGraphicsItem 
 
 QRectF DiagramItem::getCustomRect(void) const
 {
-    if(Diagram_Oval == myDiagramType)
+    if(Diagram_Oval == myDiagramType || Diagram_Pic == myDiagramType)
     {
         return QRectF(-m_size.width()/2,-m_size.height()/2,m_size.width(), m_size.height());
     }else

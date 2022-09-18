@@ -107,6 +107,11 @@ public:
 
     DiagramItem(DiagramType diagramType, QMenu *contextMenu, QGraphicsItem *parent = nullptr);
 
+    void setPic(QPixmap pic)
+    {
+        pix = pic;
+        update();
+    }
     void removeArrow(Arrow *arrow);
     void removeArrows();
     DiagramType diagramType() const { return myDiagramType; }
@@ -132,6 +137,7 @@ private:
     QList<Arrow *> arrows;
 
     QPainterPath path;
+    QPixmap pix;
 };
 //! [0]
 
