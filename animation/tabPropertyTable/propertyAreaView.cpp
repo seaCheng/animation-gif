@@ -18,6 +18,7 @@ PropertyAreaView::PropertyAreaView(QWidget *parent)
 void PropertyAreaView::setConnect()
 {
     connect(commView, &CommonPropertyView::s_commproFresh, this, &PropertyAreaView::s_commproFresh);
+    connect(whiteBoardView, &WhiteBoardPropertyView::s_whiteBoardProFresh, this, &PropertyAreaView::s_whiteBoardProFresh);
     connect(whiteBoardView, &WhiteBoardPropertyView::s_sceneItemInsert, this, &PropertyAreaView::s_sceneItemInsert);
 }
 
@@ -35,12 +36,13 @@ void PropertyAreaView::initial()
 {
     setObjectName("PropertyAreaView");
 
-    proInf = std::make_shared<propertyInf>();
-    commView = new CommonPropertyView(proInf);
+    commproInf = std::make_shared<propertyInf>();
+    commView = new CommonPropertyView(commproInf);
 
     addTab(commView, QStringLiteral("Common"));
 
-    whiteBoardView = new WhiteBoardPropertyView;
+    whBoardProInf = std::make_shared<whiteBoardProInf>();
+    whiteBoardView = new WhiteBoardPropertyView(whBoardProInf);
     addTab(whiteBoardView, QStringLiteral("whiteboard"));
     addTab(new QWidget(), QStringLiteral("effects"));
 

@@ -6,8 +6,13 @@
 #include <QLabel>
 #include <QGroupBox>
 #include <QFontComboBox>
+#include <QMenu>
+#include <QPainter>
+#include <QAction>
 
-WhiteBoardPropertyView::WhiteBoardPropertyView()
+WhiteBoardPropertyView::WhiteBoardPropertyView(std::shared_ptr<whiteBoardProInf> pro)
+    :QFrame(),
+      proInf(pro)
 {
     initial();
     setConnect();
@@ -106,12 +111,93 @@ void WhiteBoardPropertyView::initial()
     FontSizeLay->addStretch(1);
     vProlay->addItem(FontSizeLay);
 
+    QLabel *lFontColor = new QLabel;
+    lFontColor->setText(QStringLiteral("颜色:"));
+    lFontColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lFontColor->setFixedWidth(100);
+
+    fontColorToolButton = new QToolButton;
+    fontColorToolButton->setMinimumWidth(120);
+    fontColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
+    fontColorToolButton->setMenu(createColorMenu(SLOT(textColorChanged()), Qt::black));
+    textAction = fontColorToolButton->menu()->defaultAction();
+    fontColorToolButton->setIcon(createColorToolButtonIcon(":images/text.png", Qt::black));
+    fontColorToolButton->setAutoFillBackground(true);
+    connect(fontColorToolButton, &QAbstractButton::clicked,
+            this, &WhiteBoardPropertyView::textButtonTriggered);
+
+    QHBoxLayout * FontColorLay = new QHBoxLayout;
+    FontColorLay->setContentsMargins(0,0,0,0);
+    FontColorLay->setSpacing(5);
+
+    FontColorLay->addWidget(lFontColor);
+    FontColorLay->addWidget(fontColorToolButton);
+    FontColorLay->addStretch(1);
+    vProlay->addItem(FontColorLay);
+
 
     groupBoxProperty->setLayout(vProlay);
     vlay->addWidget(groupBoxProperty);
     vlay->addStretch(1);
 
+    handleFontChange();
 
+
+}
+
+void WhiteBoardPropertyView::textColorChanged()
+{
+    textAction = qobject_cast<QAction *>(sender());
+    fontColorToolButton->setIcon(createColorToolButtonIcon(
+                                     ":images/text.png",
+                                     qvariant_cast<QColor>(textAction->data())));
+    textButtonTriggered();
+}
+
+QMenu *WhiteBoardPropertyView::createColorMenu(const char *slot, QColor defaultColor)
+{
+    QList<QColor> colors;
+    colors << Qt::black << Qt::white << Qt::red << Qt::blue << Qt::yellow;
+    QStringList names;
+    names << tr("black") << tr("white") << tr("red") << tr("blue")
+          << tr("yellow");
+
+    QMenu *colorMenu = new QMenu(this);
+    for (int i = 0; i < colors.count(); ++i) {
+        QAction *action = new QAction(names.at(i), this);
+        action->setData(colors.at(i));
+        action->setIcon(createColorIcon(colors.at(i)));
+        connect(action, SIGNAL(triggered()), this, slot);
+        colorMenu->addAction(action);
+        if (colors.at(i) == defaultColor)
+            colorMenu->setDefaultAction(action);
+    }
+    return colorMenu;
+}
+
+QIcon WhiteBoardPropertyView::createColorIcon(QColor color)
+{
+    QPixmap pixmap(20, 20);
+    QPainter painter(&pixmap);
+    painter.setPen(Qt::NoPen);
+    painter.fillRect(QRect(0, 0, 20, 20), color);
+
+    return QIcon(pixmap);
+}
+
+QIcon WhiteBoardPropertyView::createColorToolButtonIcon(const QString &imageFile, QColor color)
+{
+    QPixmap pixmap(50, 80);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    QPixmap image(imageFile);
+    // Draw icon centred horizontally on button.
+    QRect target(4, 0, 42, 43);
+    QRect source(0, 0, 42, 43);
+    painter.fillRect(QRect(0, 60, 50, 80), color);
+    painter.drawPixmap(target, image, source);
+
+    return QIcon(pixmap);
 }
 
 QWidget * WhiteBoardPropertyView::createCellWidget(const QString &text, DiagramType type)
@@ -151,7 +237,7 @@ void WhiteBoardPropertyView::buttonGroupClicked(QAbstractButton *button)
 
 void WhiteBoardPropertyView::currentFontChanged(const QFont &f)
 {
-    //
+    handleFontChange();
 }
 
 void WhiteBoardPropertyView::fontSizeChanged(const QString &)
@@ -159,13 +245,21 @@ void WhiteBoardPropertyView::fontSizeChanged(const QString &)
     handleFontChange();
 }
 
+void WhiteBoardPropertyView::textButtonTriggered()
+{
+    proInf->textColor = qvariant_cast<QColor>(textAction->data());
+    emit s_whiteBoardProFresh();
+}
+
 void WhiteBoardPropertyView::handleFontChange()
 {
-    QFont font = fontCombo->currentFont();
-    font.setPointSize(fontSizeCombo->currentText().toInt());
+    QFont nfont = fontCombo->currentFont();
+    nfont.setPointSize(fontSizeCombo->currentText().toInt());
     //font.setWeight(boldAction->isChecked() ? QFont::Bold : QFont::Normal);
     //font.setItalic(italicAction->isChecked());
     //font.setUnderline(underlineAction->isChecked());
 
-    //scene->setFont(font);
+    proInf->font =  nfont;
+
+    emit s_whiteBoardProFresh();
 }

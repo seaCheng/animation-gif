@@ -3,34 +3,12 @@
 #include<QPaintEvent>
 #include <QTabWidget>
 
+#include "commonPropertyView.h"
 #include "WhiteBoardPropertyView.h"
 
 class CommonPropertyView;
 class WhiteBoardPropertyView;
-enum screenMode{screen_horizal,screen_vertical};
-Q_DECLARE_METATYPE(screenMode)
 
-enum fillMode{fill_full = 0,fill_adjust,fill_stretch};
-Q_DECLARE_METATYPE(fillMode)
-
-enum orderMode{order_compliant,order_reverse};
-Q_DECLARE_METATYPE(orderMode)
-
-enum qualityMode{quality_none,quality_auto};
-Q_DECLARE_METATYPE(qualityMode)
-
-struct propertyInf
-{
-    int width = 360;
-    int heigth = 240;
-    screenMode scMode = screen_horizal;
-    fillMode fMode = fill_adjust;
-    QColor color = Qt::white;
-    int delay = 20; //ms
-    orderMode oMode = order_compliant;
-    qualityMode qMode = quality_none;
-};
-Q_DECLARE_METATYPE(propertyInf)
 
 class PropertyAreaView : public QTabWidget
 { 
@@ -46,11 +24,17 @@ public:
 
     std::shared_ptr<propertyInf> getGifCommpro()
     {
-        return proInf;
+        return commproInf;
+    }
+
+    std::shared_ptr<whiteBoardProInf> getWhiteBoardInf()
+    {
+        return whBoardProInf;
     }
 
 
 signals:
+    void s_whiteBoardProFresh();
     void s_commproFresh();
     void s_sceneItemInsert(DiagramType);
 protected:
@@ -62,6 +46,8 @@ protected:
 private:
     CommonPropertyView * commView;
     WhiteBoardPropertyView * whiteBoardView;
-    std::shared_ptr<propertyInf> proInf;
+    std::shared_ptr<propertyInf> commproInf;
+
+    std::shared_ptr<whiteBoardProInf> whBoardProInf;
 
 };

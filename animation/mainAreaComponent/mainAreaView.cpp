@@ -175,7 +175,6 @@ void MainAreaView::setConnect()
         {
                     QGraphicsItem * item = (QGraphicsItem *)u;
 
-
                     item->setSelected(false);
                     item->clearFocus();
                     if(DiagramTextItem::Type == item->type())
@@ -204,7 +203,11 @@ void MainAreaView::setGifCommpro(std::shared_ptr<propertyInf> inf)
 
 }
 
-//DiagramType { Diagram_Text, Diagram_Step, Diagram_Conditional, Diagram_StartEnd, Diagram_Io }
+void MainAreaView::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf)
+{
+    pScene->setWhiteBoardPro(inf);
+}
+
 void MainAreaView::start_insertSceneItem(DiagramType type)
 {
     switch(type)

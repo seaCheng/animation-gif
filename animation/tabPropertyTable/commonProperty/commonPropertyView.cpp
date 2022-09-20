@@ -20,6 +20,7 @@
 #include <QTabBar>
 #include <QSpinBox>
 #include <QButtonGroup>
+#include <QEvent>
 
 
 /*---------------------QFrameColor-------------------------------------*/
@@ -70,13 +71,11 @@ bool QColorFrame::event( QEvent *e)
     {
         setStyleSheet("border:1px solid rgb(0,0,0); \
                       background-color:rgba(214,249,255, 150);");
-        qDebug() << counting++ << " Enter: " << this->objectName();
     }
     if (e->type() ==QEvent::Leave)
     {
         setStyleSheet("border:1px solid rgb(0,0,0); \
                       background-color:rgba(214,249,255, 100);");
-        qDebug() << counting++ << " Leave: " << this->objectName();
     }
 
     return QFrame::event(e);
@@ -750,8 +749,4 @@ void CommonPropertyView::refreashGifSize()
     emit s_commproFresh();
 }
 
-std::shared_ptr<propertyInf> CommonPropertyView::getGifCommpro()
-{
-    return proInf;
-}
 

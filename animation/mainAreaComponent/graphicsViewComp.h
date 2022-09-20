@@ -67,6 +67,7 @@ public:
     void setItemType(DiagramType type);
 
     void setGifCommpro(std::shared_ptr<propertyInf> inf);
+    void setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf);
 
 signals:
     void itemInserted(DiagramItem *item);
@@ -89,6 +90,7 @@ private:
 
     QPixmap pic;
     std::shared_ptr<propertyInf> proInf;
+    std::shared_ptr<whiteBoardProInf> whiteBoardInf;
     InsertMode iMode = MoveItem;
     DiagramType dType = Diagram_Conditional;
 

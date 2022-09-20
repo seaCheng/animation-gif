@@ -51,6 +51,8 @@ MainWindow::MainWindow(QWidget *parent)
     mainArea->setGifCommpro(propertyArea->getGifCommpro());
     GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
 
+    mainArea->setWhiteBoardPro(propertyArea->getWhiteBoardInf());
+
     QScrollArea *scrollArea = new QScrollArea;
     scrollArea->setBackgroundRole(QPalette::Dark);
     scrollArea->setWidget(propertyArea);
@@ -211,6 +213,11 @@ void MainWindow::setConnect()
     connect(propertyArea, &PropertyAreaView::s_commproFresh, [&](){
          mainArea->setGifCommpro(propertyArea->getGifCommpro());
          GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
+    });
+
+    connect(propertyArea, &PropertyAreaView::s_whiteBoardProFresh, [&](){
+         mainArea->setWhiteBoardPro(propertyArea->getWhiteBoardInf());
+
     });
 
     connect(propertyArea, &PropertyAreaView::s_sceneItemInsert, [&](DiagramType type){

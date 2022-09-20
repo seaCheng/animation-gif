@@ -3,7 +3,6 @@
 #include <QFrame>
 
 #include "gifSizeOp.h"
-#include "propertyAreaView.h"
 
 #include <memory>
 
@@ -14,6 +13,31 @@ class QStringListModel;
 class QStandardItemModel;
 class QTabBar;
 class QSpinBox;
+
+enum screenMode{screen_horizal,screen_vertical};
+Q_DECLARE_METATYPE(screenMode)
+
+enum fillMode{fill_full = 0,fill_adjust,fill_stretch};
+Q_DECLARE_METATYPE(fillMode)
+
+enum orderMode{order_compliant,order_reverse};
+Q_DECLARE_METATYPE(orderMode)
+
+enum qualityMode{quality_none,quality_auto};
+Q_DECLARE_METATYPE(qualityMode)
+
+struct propertyInf
+{
+    int width = 360;
+    int heigth = 240;
+    screenMode scMode = screen_horizal;
+    fillMode fMode = fill_adjust;
+    QColor color = Qt::white;
+    int delay = 20; //ms
+    orderMode oMode = order_compliant;
+    qualityMode qMode = quality_none;
+};
+Q_DECLARE_METATYPE(propertyInf)
 
 class QColorFrame :public QFrame
 {
@@ -83,7 +107,6 @@ public:
     void initial();
 
     void refreashGifSize();
-    std::shared_ptr<propertyInf> getGifCommpro();
 
 signals:
     void s_commproFresh();

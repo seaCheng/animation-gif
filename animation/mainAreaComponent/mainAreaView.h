@@ -38,6 +38,7 @@ public:
     void setConnect();
 
     void setGifCommpro(std::shared_ptr<propertyInf> inf);
+    void setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf);
     void start_insertSceneItem(DiagramType type);
 
     void createActions();

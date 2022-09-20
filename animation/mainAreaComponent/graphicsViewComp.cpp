@@ -144,6 +144,11 @@ void PicGraphicsScene::setGifCommpro(std::shared_ptr<propertyInf> inf)
     proInf = inf;
 }
 
+void PicGraphicsScene::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf)
+{
+    whiteBoardInf = inf;
+}
+
 void PicGraphicsScene::setPicItem(PictureItem * pItem)
 {
     mpItem = pItem;
@@ -282,7 +287,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         case InsertText:
             textItem = new DiagramTextItem(myItemMenu);
-            textItem->setFont(myFont);
+            textItem->setFont(whiteBoardInf->font);
             textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
             textItem->setZValue(1000.0);
             connect(textItem, &DiagramTextItem::lostFocus,
@@ -290,7 +295,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             connect(textItem, &DiagramTextItem::selectedChange,
                     this, &PicGraphicsScene::itemSelected);
             addItem(textItem);
-            textItem->setDefaultTextColor(myTextColor);
+            textItem->setDefaultTextColor(whiteBoardInf->textColor);
             textItem->setPos(mouseEvent->scenePos());
 
             QGraphicsScene::mousePressEvent(mouseEvent);
@@ -444,7 +449,6 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         m_currentShape = nullptr;
     }
 
-//! [12] //! [13]
     line = nullptr;
     item = nullptr;
 
