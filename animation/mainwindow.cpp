@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     splitter->addWidget(ui->leftView);
     ui->leftView->setMinimumWidth(450);
     splitter->addWidget(ui->rightView);
-    ui->rightView->setMaximumWidth(360);
+    ui->rightView->setMaximumWidth(450);
     ui->topView->layout()->addWidget(splitter);
 
     m_model = new PictureModel();

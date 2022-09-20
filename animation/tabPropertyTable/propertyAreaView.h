@@ -10,7 +10,7 @@ class WhiteBoardPropertyView;
 enum screenMode{screen_horizal,screen_vertical};
 Q_DECLARE_METATYPE(screenMode)
 
-enum fillMode{fill_full,fill_adjust,fill_stretch};
+enum fillMode{fill_full = 0,fill_adjust,fill_stretch};
 Q_DECLARE_METATYPE(fillMode)
 
 enum orderMode{order_compliant,order_reverse};

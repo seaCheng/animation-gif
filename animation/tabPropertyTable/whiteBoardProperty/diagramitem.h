@@ -103,7 +103,6 @@ class DiagramItem : public UICanvasItemBase
 {
 public:
     enum { Type = UserType + 15 };
-    //enum DiagramType { Step, Conditional, StartEnd, Io };
 
     DiagramItem(DiagramType diagramType, QMenu *contextMenu, QGraphicsItem *parent = nullptr);
 
