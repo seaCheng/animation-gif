@@ -117,12 +117,19 @@ void WhiteBoardPropertyView::initial()
     lFontColor->setFixedWidth(100);
 
     fontColorToolButton = new QToolButton;
-    fontColorToolButton->setMinimumWidth(120);
-    fontColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
+    fontColorToolButton->setMinimumWidth(100);
+    fontColorToolButton->setPopupMode(QToolButton::InstantPopup);
+    fontColorToolButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    fontColorToolButton->setArrowType(Qt::NoArrow);
     fontColorToolButton->setMenu(createColorMenu(SLOT(textColorChanged()), Qt::black));
     textAction = fontColorToolButton->menu()->defaultAction();
     fontColorToolButton->setIcon(createColorToolButtonIcon(":images/text.png", Qt::black));
     fontColorToolButton->setAutoFillBackground(true);
+    fontColorToolButton->setStyleSheet("\
+        QToolButton::menu-indicator{\
+        image: none;\
+    }");
+
     connect(fontColorToolButton, &QAbstractButton::clicked,
             this, &WhiteBoardPropertyView::textButtonTriggered);
 
@@ -135,14 +142,11 @@ void WhiteBoardPropertyView::initial()
     FontColorLay->addStretch(1);
     vProlay->addItem(FontColorLay);
 
-
     groupBoxProperty->setLayout(vProlay);
     vlay->addWidget(groupBoxProperty);
     vlay->addStretch(1);
 
     handleFontChange();
-
-
 }
 
 void WhiteBoardPropertyView::textColorChanged()
