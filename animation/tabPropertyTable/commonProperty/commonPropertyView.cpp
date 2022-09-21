@@ -400,8 +400,7 @@ void CommonPropertyView::setConnect()
 
     connect(fColor, &QColorFrame::s_clicked, this, [&](){
 
-
-        const QColorDialog::ColorDialogOptions options = QFlag(QColorDialog::ShowAlphaChannel);
+        //const QColorDialog::ColorDialogOptions options = QFlag(QColorDialog::ShowAlphaChannel);
         //const QColor color = QColorDialog::getColor(Qt::white, this, "Select Color", options);
         //const QColor color = QColorDialog::getColor(proInf->color, this, "Select Color", options);
         colorDialog->setCurrentColor(proInf->color);

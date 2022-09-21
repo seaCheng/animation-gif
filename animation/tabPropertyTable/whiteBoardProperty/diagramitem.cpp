@@ -42,7 +42,7 @@ void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *o
     QPainterPathStroker stroker;
     stroker.setCapStyle(Qt::RoundCap);  // 端点风格
     stroker.setJoinStyle(Qt::RoundJoin);  // 连接样式
-    stroker.setDashPattern(Qt::SolidLine);  // 虚线图案
+    stroker.setDashPattern(Qt::NoPen);  // 虚线图案
     stroker.setWidth(10);  // 宽度
 
     // 生成一个新路径（可填充区域），表示原始路径 path 的轮廓
@@ -50,7 +50,7 @@ void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
     QPen pen = painter->pen();
     pen.setColor(QColor(0, 160, 230));
-    pen.setWidth(10);
+    pen.setWidth(2);
 
     // 用指定的画笔 pen 绘制 outlinePath
     painter->setPen(pen);
