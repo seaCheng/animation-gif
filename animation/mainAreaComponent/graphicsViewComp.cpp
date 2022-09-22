@@ -255,6 +255,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     switch (iMode) {
         case InsertItem:
             item = new DiagramItem(dType, myItemMenu);
+            item->setItemInf(whiteBoardInf->itemInfmation);
             addItem(item);
             item->setPos(mouseEvent->scenePos());
             item->setSelected(false);
@@ -278,6 +279,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             break;
     case InsertDrawLine:
         m_currentShape = new SGraffiti(myItemMenu);
+        m_currentShape->setPathInf(whiteBoardInf->pathInfmation);
         m_currentShape->setStrokeWidth(3);
         m_currentShape->setStrokeColor(QColor::fromRgbF(0.9f, 0.1f, 0.6f, 0.7f));
 

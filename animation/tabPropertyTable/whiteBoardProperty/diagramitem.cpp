@@ -7,6 +7,7 @@
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 #include <QPainter>
+#include <QRegion>
 
 // SGraffiti
 SGraffiti::SGraffiti(QMenu * menu) : Shape(menu,tt_Graffiti), m_rcBounding(0, 0, 0, 0)
@@ -40,25 +41,24 @@ void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *o
     //painter->drawPath(path);
 
     QPainterPathStroker stroker;
-    stroker.setCapStyle(Qt::RoundCap);  // 端点风格
-    stroker.setJoinStyle(Qt::RoundJoin);  // 连接样式
-    stroker.setDashPattern(Qt::NoPen);  // 虚线图案
-    stroker.setWidth(10);  // 宽度
+    stroker.setCapStyle(pathinformation.capStyle);  // 端点风格
+    stroker.setJoinStyle(pathinformation.joinStyle);  // 连接样式
+    stroker.setDashPattern(pathinformation.penStyle);  // 虚线图案
+    stroker.setWidth(pathinformation.penPathWidth);  // 宽度
 
     // 生成一个新路径（可填充区域），表示原始路径 path 的轮廓
     QPainterPath outlinePath = stroker.createStroke(path);
 
     QPen pen = painter->pen();
-    pen.setColor(QColor(0, 160, 230));
-    pen.setWidth(2);
+    pen.setColor(pathinformation.pathContourcolor);
+    pen.setWidth(pathinformation.penPathcontourWidth);
 
     // 用指定的画笔 pen 绘制 outlinePath
     painter->setPen(pen);
     painter->drawPath(outlinePath);
 
     // 用指定的画刷 brush 填充路径 outlinePath
-    painter->fillPath(outlinePath, QBrush(Qt::yellow));
-
+    painter->fillPath(outlinePath, QBrush(pathinformation.pathColor));
     painter->restore();
 }
 
@@ -163,7 +163,9 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
 void DiagramItem::sizeRefreash()
 {
     myPolygon.clear();
-    switch (myDiagramType) {
+    path.clear();
+    switch (myDiagramType)
+    {
         case Diagram_StartEnd:
             path.moveTo(200, 50);
             path.arcTo(150, 0, 50, 50, 0, 90);
@@ -197,6 +199,12 @@ void DiagramItem::sizeRefreash()
                       << QPointF(-m_size.width()/2, -m_size.height()/2);
             break;
         case Diagram_Oval:
+        {
+
+            path.addEllipse(getCustomRect());
+            myPolygon = path.toFillPolygon();
+            break;
+        }
         case Diagram_Pic:
             myPolygon = QPolygonF(getCustomRect());
         default:
@@ -209,10 +217,11 @@ void DiagramItem::customPaint(QPainter *painter, const QStyleOptionGraphicsItem 
     painter->save();
 
     QPen pen;
-    pen.setColor(QColor(79, 106, 25));
-    pen.setWidth(2);
+    pen.setColor(itemInformation.itemBoardcolor);
+    pen.setWidth(itemInformation.penBoardWidth);
+    pen.setStyle(itemInformation.penStyle);
     painter->setPen(pen);
-    painter->setBrush(QColor(122, 163, 39));
+    painter->setBrush(itemInformation.itemColor);
 
     if(Diagram_Oval == myDiagramType)
     {

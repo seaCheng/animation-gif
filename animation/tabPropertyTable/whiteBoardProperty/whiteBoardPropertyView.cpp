@@ -53,15 +53,29 @@ void WhiteBoardPropertyView::setConnect()
 
     connect(fPathColor, &QColorFrame::s_clicked,
             this, [&](){
-        bPath = true;
+        colorType = color_path;
         colorDialog->setCurrentColor(proInf->pathInfmation.pathColor);
         colorDialog->exec();
     });
 
     connect(fPathcontourColor, &QColorFrame::s_clicked,
             this, [&](){
-        bPath = false;
+        colorType = color_pathContour;
         colorDialog->setCurrentColor(proInf->pathInfmation.pathContourcolor);
+        colorDialog->exec();
+    });
+
+    connect(fItemBoardColor, &QColorFrame::s_clicked,
+            this, [&](){
+        colorType = color_itemBoard;
+        colorDialog->setCurrentColor(proInf->itemInfmation.itemBoardcolor);
+        colorDialog->exec();
+    });
+
+    connect(fItemColor, &QColorFrame::s_clicked,
+            this, [&](){
+        colorType = color_item;
+        colorDialog->setCurrentColor(proInf->itemInfmation.itemColor);
         colorDialog->exec();
     });
 
@@ -95,20 +109,44 @@ void WhiteBoardPropertyView::setConnect()
         emit s_whiteBoardProFresh();
     });
 
+    connect(penItemWidth, &QComboBox::currentIndexChanged,
+            this, [&](int index){
+        proInf->itemInfmation.penBoardWidth = penItemWidth->currentText().toInt();
+        emit s_whiteBoardProFresh();
+    });
+
+    connect(penItemStyles, &QComboBox::currentIndexChanged,
+            this, [&](int index){
+        proInf->itemInfmation.penStyle = (Qt::PenStyle)penItemStyles->currentData().toInt();
+        emit s_whiteBoardProFresh();
+    });
+
     connect(colorDialog, &QColorDialog::currentColorChanged, this, [&](const QColor &color){
 
         if (color.isValid())
         {
-
-            if(bPath)
-            {
+            switch (colorType) {
+            case color_path:
                 fPathColor->setGifColor(color);
                 proInf->pathInfmation.pathColor = color;
-            }else
-            {
+                break;
+            case color_pathContour:
                 fPathcontourColor->setGifColor(color);
                 proInf->pathInfmation.pathContourcolor = color;
+                break;
+            case color_item:
+                fItemColor->setGifColor(color);
+                proInf->itemInfmation.itemColor = color;
+                break;
+            case color_itemBoard:
+                fItemBoardColor->setGifColor(color);
+                proInf->itemInfmation.itemBoardcolor = color;
+                break;
+            default:
+                break;
             }
+
+            emit s_whiteBoardProFresh();
 
         }
 
@@ -379,6 +417,8 @@ void WhiteBoardPropertyView::initial()
     lPathColor->setFixedWidth(100);
 
     fPathColor = new QColorFrame;
+    fPathColor->setGifColor(Qt::yellow);
+    proInf->pathInfmation.pathColor = Qt::yellow;
 
     QHBoxLayout * PathColorLay = new QHBoxLayout;
     PathColorLay->setContentsMargins(0,0,0,0);
@@ -420,6 +460,8 @@ void WhiteBoardPropertyView::initial()
     lPathcontourColor->setFixedWidth(100);
 
     fPathcontourColor = new QColorFrame;
+    fPathcontourColor->setGifColor(QColor(0, 160, 230));
+    proInf->pathInfmation.pathContourcolor = QColor(0, 160, 230);
 
     QHBoxLayout * PathcontourColorLay = new QHBoxLayout;
     PathcontourColorLay->setContentsMargins(0,0,0,0);
@@ -430,6 +472,110 @@ void WhiteBoardPropertyView::initial()
 
     PathcontourColorLay->addStretch(1);
     vProlay->addItem(PathcontourColorLay);
+
+    //图元
+    QLabel *lGraphicItem = new QLabel;
+    lGraphicItem->setText(QStringLiteral("图元"));
+    lGraphicItem->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    lGraphicItem->setFixedWidth(150);
+
+    vProlay->addWidget(lGraphicItem);
+    QFrame *fLineGI = new QFrame;
+    fLineGI->setStyleSheet("border:1px solid rgba(10,10,10, 30);");
+    fLineGI->setFixedHeight(1);
+    vProlay->addWidget(fLineGI);
+
+    //虚线
+    QLabel *lItemPenStyle = new QLabel;
+    lItemPenStyle->setText(QStringLiteral("虚线:"));
+    lItemPenStyle->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lItemPenStyle->setFixedWidth(100);
+    penItemStyles = new QComboBox;
+    penItemStyles->setFixedWidth(200);
+    penItemStyles->setEditable(false);
+
+    penItemStyles->addItem(QStringLiteral("NoPen"), (int)Qt::NoPen);
+    penItemStyles->addItem(QStringLiteral("SolidLine"), (int)Qt::SolidLine);
+    penItemStyles->addItem(QStringLiteral("DashLine"), (int)Qt::DashLine);
+    penItemStyles->addItem(QStringLiteral("DotLine"), (int)Qt::DotLine);
+    penItemStyles->addItem(QStringLiteral("DashDotLine"), (int)Qt::DashDotLine);
+    penItemStyles->addItem(QStringLiteral("DashDotDotLine"), (int)Qt::DashDotDotLine);
+    penItemStyles->addItem(QStringLiteral("CustomDashLine"), (int)Qt::CustomDashLine);
+    penItemStyles->setCurrentIndex(1);
+
+    QHBoxLayout * penItemStyleLay = new QHBoxLayout;
+    penItemStyleLay->setContentsMargins(0,0,0,0);
+    penItemStyleLay->setSpacing(5);
+
+    penItemStyleLay->addWidget(lItemPenStyle);
+    penItemStyleLay->addWidget(penItemStyles);
+
+    penItemStyleLay->addStretch(1);
+    vProlay->addItem(penItemStyleLay);
+
+    //边框
+    QLabel *lItemPenWidth = new QLabel;
+    lItemPenWidth->setText(QStringLiteral("边框宽度:"));
+    lItemPenWidth->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lItemPenWidth->setFixedWidth(100);
+    penItemWidth = new QComboBox;
+    penItemWidth->setFixedWidth(200);
+    penItemWidth->setEditable(false);
+
+    for (int iItemwidth = 0; iItemwidth < 20; iItemwidth = iItemwidth + 1)
+        penItemWidth->addItem(QString().setNum(iItemwidth));
+    penItemWidth->setCurrentIndex(2);
+    proInf->itemInfmation.penBoardWidth = 2;
+
+    QHBoxLayout * itemPenWidthLay = new QHBoxLayout;
+    itemPenWidthLay->setContentsMargins(0,0,0,0);
+    itemPenWidthLay->setSpacing(5);
+
+    itemPenWidthLay->addWidget(lItemPenWidth);
+    itemPenWidthLay->addWidget(penItemWidth);
+
+    itemPenWidthLay->addStretch(1);
+    vProlay->addItem(itemPenWidthLay);
+
+    //边框颜色
+    QLabel *lItemBorderColor = new QLabel;
+    lItemBorderColor->setText(QStringLiteral("边框颜色:"));
+    lItemBorderColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lItemBorderColor->setFixedWidth(100);
+
+    fItemBoardColor = new QColorFrame;
+    fItemBoardColor->setGifColor(QColor(Qt::blue));
+    proInf->itemInfmation.itemBoardcolor = QColor(Qt::blue);
+
+    QHBoxLayout * itemBoardColorLay = new QHBoxLayout;
+    itemBoardColorLay->setContentsMargins(0,0,0,0);
+    itemBoardColorLay->setSpacing(5);
+
+    itemBoardColorLay->addWidget(lItemBorderColor);
+    itemBoardColorLay->addWidget(fItemBoardColor);
+
+    itemBoardColorLay->addStretch(1);
+    vProlay->addItem(itemBoardColorLay);
+
+    //图元颜色
+    QLabel *lItemColor = new QLabel;
+    lItemColor->setText(QStringLiteral("图元颜色:"));
+    lItemColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lItemColor->setFixedWidth(100);
+
+    fItemColor = new QColorFrame;
+    fItemColor->setGifColor(QColor(0, 160, 230));
+    proInf->itemInfmation.itemColor = QColor(0, 160, 230);
+
+    QHBoxLayout * itemColorLay = new QHBoxLayout;
+    itemColorLay->setContentsMargins(0,0,0,0);
+    itemColorLay->setSpacing(5);
+
+    itemColorLay->addWidget(lItemColor);
+    itemColorLay->addWidget(fItemColor);
+
+    itemColorLay->addStretch(1);
+    vProlay->addItem(itemColorLay);
 
     groupBoxProperty->setLayout(vProlay);
     vlay->addWidget(groupBoxProperty);

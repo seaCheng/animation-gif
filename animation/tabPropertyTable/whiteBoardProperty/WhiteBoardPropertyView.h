@@ -5,7 +5,7 @@
 class QAbstractButton;
 class QButtonGroup;
 
-enum DiagramType { Diagram_Text, Diagram_Step, Diagram_Conditional,
+enum DiagramType { Diagram_Text, Diagram_Step, Diagram_Conditional,  \
                    Diagram_StartEnd, Diagram_Io, Diagram_Oval, Diagram_Triangle, Diagram_Pen, Diagram_Pic,Diagram_Sel,Diagram_Del };
 Q_DECLARE_METATYPE(DiagramType)
 
@@ -19,14 +19,29 @@ struct pathInf
     int penPathWidth = 10;
     int penPathcontourWidth = 10;
 };
+Q_DECLARE_METATYPE(pathInf)
+
+struct itemInf
+{
+    QColor itemColor = QColor(0, 160, 230);
+    QColor itemBoardcolor = Qt::blue;
+    Qt::PenStyle penStyle = Qt::SolidLine;
+    int penBoardWidth = 2;
+
+};
+Q_DECLARE_METATYPE(itemInf)
+
 struct whiteBoardProInf
 {
     QFont font;
     QColor textColor;
     pathInf pathInfmation;
-
+    itemInf itemInfmation;
 };
 Q_DECLARE_METATYPE(whiteBoardProInf)
+
+enum colorPenType{color_path,color_pathContour, color_item, color_itemBoard};
+Q_DECLARE_METATYPE(colorPenType)
 
 class QFontComboBox;
 class QComboBox;
@@ -91,7 +106,12 @@ private:
     QColorFrame * fPathcontourColor = nullptr;
 
     QColorDialog * colorDialog;
-    bool bPath = true;
+    colorPenType colorType = color_path;
+
+    QComboBox * penItemWidth = nullptr;
+    QComboBox * penItemStyles = nullptr;
+    QColorFrame * fItemBoardColor = nullptr;
+    QColorFrame * fItemColor = nullptr;
 
     std::shared_ptr<whiteBoardProInf> proInf;
 };

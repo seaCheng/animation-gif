@@ -89,6 +89,11 @@ public:
     void setPath(QPainterPath &path);
     int type() const override { return Type; }
 
+    void setPathInf(pathInf pathIn)
+    {
+        pathinformation = pathIn;
+    }
+
 protected:
     QPointF m_startPosScene;
     QPointF m_endPosScene;
@@ -96,6 +101,8 @@ protected:
     QPen m_pen;
     QPainterPath m_path;
     QPointF m_topLeftInScene;
+
+    pathInf pathinformation;
 };
 
 //! [0]
@@ -121,6 +128,11 @@ public:
 
     virtual void sizeRefreash() override;
 
+    void setItemInf(itemInf itemInfor)
+    {
+        itemInformation = itemInfor;
+    }
+
 protected:
 
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
@@ -137,6 +149,8 @@ private:
 
     QPainterPath path;
     QPixmap pix;
+
+    itemInf itemInformation;
 };
 //! [0]
 

@@ -27,7 +27,7 @@ class PicGraphicsScene;
 class DiagramItem;
 class DiagramTextItem;
 
-class Shape;
+class SGraffiti;
 
 class GraphicsViewComp :public QGraphicsView
 {
@@ -100,7 +100,7 @@ private:
     QPointF startPoint;
     QGraphicsLineItem *line = nullptr;
 
-    Shape *m_currentShape = nullptr;
+    SGraffiti *m_currentShape = nullptr;
 
     DiagramItem *item = nullptr;
     QFont myFont;
