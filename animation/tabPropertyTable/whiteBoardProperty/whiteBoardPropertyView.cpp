@@ -121,27 +121,56 @@ void WhiteBoardPropertyView::setConnect()
         emit s_whiteBoardProFresh();
     });
 
+    connect(penArrowWidth, &QComboBox::currentIndexChanged,
+            this, [&](int index){
+        proInf->arrowInformation.penWidth = penArrowWidth->currentText().toInt();
+        emit s_whiteBoardProFresh();
+    });
+
+    connect(fArrowColor, &QColorFrame::s_clicked,
+            this, [&](){
+        colorType = color_arrow;
+        colorDialog->setCurrentColor(proInf->arrowInformation.arrowColor);
+        colorDialog->exec();
+    });
+
     connect(colorDialog, &QColorDialog::currentColorChanged, this, [&](const QColor &color){
 
         if (color.isValid())
         {
             switch (colorType) {
             case color_path:
+            {
                 fPathColor->setGifColor(color);
                 proInf->pathInfmation.pathColor = color;
                 break;
+            }
             case color_pathContour:
+            {
                 fPathcontourColor->setGifColor(color);
                 proInf->pathInfmation.pathContourcolor = color;
                 break;
+            }
             case color_item:
+            {
                 fItemColor->setGifColor(color);
                 proInf->itemInfmation.itemColor = color;
                 break;
+            }
             case color_itemBoard:
+            {
                 fItemBoardColor->setGifColor(color);
                 proInf->itemInfmation.itemBoardcolor = color;
                 break;
+            }
+            case color_arrow:
+            {
+                QColor tcolor = color;
+                tcolor.setAlpha(255);
+                fArrowColor->setGifColor(tcolor);
+                proInf->arrowInformation.arrowColor = tcolor;
+                break;
+            }
             default:
                 break;
             }
@@ -576,6 +605,62 @@ void WhiteBoardPropertyView::initial()
 
     itemColorLay->addStretch(1);
     vProlay->addItem(itemColorLay);
+
+    //箭头
+    QLabel *lArrow = new QLabel;
+    lArrow->setText(QStringLiteral("箭头"));
+    lArrow->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    lArrow->setFixedWidth(150);
+
+    vProlay->addWidget(lArrow);
+    QFrame *fLineArrow = new QFrame;
+    fLineArrow->setStyleSheet("border:1px solid rgba(10,10,10, 30);");
+    fLineArrow->setFixedHeight(1);
+    vProlay->addWidget(fLineArrow);
+
+    //宽度
+    QLabel *lArrowPenWidth = new QLabel;
+    lArrowPenWidth->setText(QStringLiteral("宽度:"));
+    lArrowPenWidth->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lArrowPenWidth->setFixedWidth(100);
+    penArrowWidth = new QComboBox;
+    penArrowWidth->setFixedWidth(200);
+    penArrowWidth->setEditable(false);
+
+    for (int iItemwidth = 0; iItemwidth < 20; iItemwidth = iItemwidth + 1)
+        penArrowWidth->addItem(QString().setNum(iItemwidth));
+    penArrowWidth->setCurrentIndex(2);
+    proInf->arrowInformation.penWidth = 2;
+
+    QHBoxLayout * arrowPenWidthLay = new QHBoxLayout;
+    arrowPenWidthLay->setContentsMargins(0,0,0,0);
+    arrowPenWidthLay->setSpacing(5);
+
+    arrowPenWidthLay->addWidget(lArrowPenWidth);
+    arrowPenWidthLay->addWidget(penArrowWidth);
+
+    arrowPenWidthLay->addStretch(1);
+    vProlay->addItem(arrowPenWidthLay);
+
+    //颜色
+    QLabel *lArrowColor = new QLabel;
+    lArrowColor->setText(QStringLiteral("颜色:"));
+    lArrowColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lArrowColor->setFixedWidth(100);
+
+    fArrowColor = new QColorFrame;
+    fArrowColor->setGifColor(QColor(Qt::blue));
+    proInf->arrowInformation.arrowColor = QColor(Qt::blue);
+
+    QHBoxLayout * arrowColorLay = new QHBoxLayout;
+    arrowColorLay->setContentsMargins(0,0,0,0);
+    arrowColorLay->setSpacing(5);
+
+    arrowColorLay->addWidget(lArrowColor);
+    arrowColorLay->addWidget(fArrowColor);
+
+    arrowColorLay->addStretch(1);
+    vProlay->addItem(arrowColorLay);
 
     groupBoxProperty->setLayout(vProlay);
     vlay->addWidget(groupBoxProperty);

@@ -241,8 +241,24 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         {
             if(DeleteItem == iMode)
             {
-                removeItem(u);
-                delete u;
+                QList<QGraphicsItem *> lstselectedItems = this->selectedItems();
+                for (QGraphicsItem *item : qAsConst(lstselectedItems)) {
+                    if (item->type() == Arrow::Type) {
+                        removeItem(item);
+                        Arrow *arrow = qgraphicsitem_cast<Arrow *>(item);
+                        arrow->startItem()->removeArrow(arrow);
+                        arrow->endItem()->removeArrow(arrow);
+                        delete item;
+                    }
+                }
+
+                lstselectedItems = selectedItems();
+                for (QGraphicsItem *item : qAsConst(lstselectedItems)) {
+                     if (item->type() == DiagramItem::Type)
+                         qgraphicsitem_cast<DiagramItem *>(item)->removeArrows();
+                     removeItem(item);
+                     delete item;
+                 }
                 return;
             }else
             {
@@ -273,7 +289,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         case InsertLine:
             line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
                                         mouseEvent->scenePos()));
-            line->setPen(QPen(myLineColor, 2));
+            line->setPen(QPen(whiteBoardInf->arrowInformation.arrowColor, whiteBoardInf->arrowInformation.penWidth));
             addItem(line);
             QGraphicsScene::mousePressEvent(mouseEvent);
             break;
@@ -311,12 +327,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
              QGraphicsScene::mousePressEvent(mouseEvent);
              break;
          }
-
     }
-
-
-
-
 }
 
 void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -376,11 +387,13 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if (startItems.count() > 0 && endItems.count() > 0 &&
             startItems.first()->type() == DiagramItem::Type &&
             endItems.first()->type() == DiagramItem::Type &&
-            startItems.first() != endItems.first()) {
+            startItems.first() != endItems.first())
+        {
             DiagramItem *startItem = qgraphicsitem_cast<DiagramItem *>(startItems.first());
             DiagramItem *endItem = qgraphicsitem_cast<DiagramItem *>(endItems.first());
             Arrow *arrow = new Arrow(startItem, endItem);
-            arrow->setColor(myLineColor);
+            //arrow->setColor(myLineColor);
+            arrow->setArrowInf(whiteBoardInf->arrowInformation);
             startItem->addArrow(arrow);
             endItem->addArrow(arrow);
             arrow->setZValue(-1000.0);

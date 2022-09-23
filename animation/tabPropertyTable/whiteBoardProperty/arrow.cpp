@@ -52,27 +52,45 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         return;
 
     QPen myPen = pen();
-    myPen.setColor(myColor);
-    qreal arrowSize = 20;
+    myPen.setColor(arrorInformation.arrowColor);
+    myPen.setWidth(arrorInformation.penWidth);
+    myPen.setStyle(arrorInformation.penStyle);
+    qreal arrowSize = 20 + arrorInformation.penWidth;
     painter->setPen(myPen);
-    painter->setBrush(myColor);
+    painter->setBrush(arrorInformation.arrowColor);
 //! [4] //! [5]
 
     QLineF centerLine(myStartItem->pos(), myEndItem->pos());
+
+    QPolygonF startPolygon = myStartItem->polygon();
+    QPointF pS1 = startPolygon.first() + myStartItem->pos();
+    QPointF intersectPointStart;
+    for (int i = 1; i < startPolygon.count(); ++i)
+    {
+        QPointF pS2 = startPolygon.at(i) + myStartItem->pos();
+        QLineF polyLine = QLineF(pS1, pS2);
+        QLineF::IntersectionType intersectionTypeStart =
+            polyLine.intersects(centerLine, &intersectPointStart);
+        if (intersectionTypeStart == QLineF::BoundedIntersection)
+            break;
+        pS1 = pS2;
+    }
+
     QPolygonF endPolygon = myEndItem->polygon();
     QPointF p1 = endPolygon.first() + myEndItem->pos();
-    QPointF intersectPoint;
-    for (int i = 1; i < endPolygon.count(); ++i) {
+    QPointF intersectPointEnd;
+    for (int i = 1; i < endPolygon.count(); ++i)
+    {
         QPointF p2 = endPolygon.at(i) + myEndItem->pos();
         QLineF polyLine = QLineF(p1, p2);
         QLineF::IntersectionType intersectionType =
-            polyLine.intersects(centerLine, &intersectPoint);
+            polyLine.intersects(centerLine, &intersectPointEnd);
         if (intersectionType == QLineF::BoundedIntersection)
             break;
         p1 = p2;
     }
 
-    setLine(QLineF(intersectPoint, myStartItem->pos()));
+    setLine(QLineF(intersectPointEnd, intersectPointStart));
 //! [5] //! [6]
 
     double angle = std::atan2(-line().dy(), line().dx());
@@ -88,7 +106,7 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     painter->drawLine(line());
     painter->drawPolygon(arrowHead);
     if (isSelected()) {
-        painter->setPen(QPen(myColor, 1, Qt::DashLine));
+        painter->setPen(QPen(arrorInformation.arrowColor, 1, Qt::DashLine));
         QLineF myLine = line();
         myLine.translate(0, 4.0);
         painter->drawLine(myLine);

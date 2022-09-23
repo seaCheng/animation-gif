@@ -31,16 +31,26 @@ struct itemInf
 };
 Q_DECLARE_METATYPE(itemInf)
 
+struct arrowInf
+{
+    QColor arrowColor = QColor(0, 160, 230);
+    Qt::PenStyle penStyle = Qt::SolidLine;
+    int penWidth = 2;
+
+};
+Q_DECLARE_METATYPE(arrowInf)
+
 struct whiteBoardProInf
 {
     QFont font;
     QColor textColor;
     pathInf pathInfmation;
     itemInf itemInfmation;
+    arrowInf arrowInformation;
 };
 Q_DECLARE_METATYPE(whiteBoardProInf)
 
-enum colorPenType{color_path,color_pathContour, color_item, color_itemBoard};
+enum colorPenType{color_path,color_pathContour, color_item, color_itemBoard, color_arrow};
 Q_DECLARE_METATYPE(colorPenType)
 
 class QFontComboBox;
@@ -112,6 +122,10 @@ private:
     QComboBox * penItemStyles = nullptr;
     QColorFrame * fItemBoardColor = nullptr;
     QColorFrame * fItemColor = nullptr;
+
+    QComboBox * penArrowWidth = nullptr;
+    QComboBox * penArrowStyles = nullptr;
+    QColorFrame * fArrowColor = nullptr;
 
     std::shared_ptr<whiteBoardProInf> proInf;
 };
