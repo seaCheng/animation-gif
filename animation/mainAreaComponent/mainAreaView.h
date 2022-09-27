@@ -42,6 +42,10 @@ public:
     void start_insertSceneItem(DiagramType type);
 
     void createActions();
+
+    void saveToCurrentPictire();
+
+    void clearsSceneItems();
 signals:
     void s_clicked(type_import eType);
 
@@ -54,6 +58,7 @@ private:
     GraphicsViewComp * graphicView = nullptr;
     PicGraphicsScene * pScene;
     GraphicFrame * graWid = nullptr;
+    PictureItem * currentItem = nullptr;
 
     QMenu *itemMenu;
     QAction *deleteAction;

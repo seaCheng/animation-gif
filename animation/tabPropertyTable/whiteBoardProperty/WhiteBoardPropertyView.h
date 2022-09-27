@@ -80,6 +80,10 @@ public:
 signals:
     void s_sceneItemInsert(DiagramType);
     void s_whiteBoardProFresh();
+
+    void s_saveToCurrentPicture();
+    void s_saveToAllPictures();
+    void s_clearGraphicsItems();
 protected:
 
 
@@ -126,6 +130,10 @@ private:
     QComboBox * penArrowWidth = nullptr;
     QComboBox * penArrowStyles = nullptr;
     QColorFrame * fArrowColor = nullptr;
+
+    QToolButton * saveCurrentToolButton = nullptr;
+    QToolButton * saveAllToolButton = nullptr;
+    QToolButton * clearToolButton = nullptr;
 
     std::shared_ptr<whiteBoardProInf> proInf;
 };

@@ -76,7 +76,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->topView->layout()->addWidget(splitter);
 
     m_model = new PictureModel();
-    ModelController * ctl = new ModelController(m_model, ui->scrollAreaWidgetContents);
+    ctl = new ModelController(m_model, ui->scrollAreaWidgetContents);
 
     setupUndoRedoActions();
 
@@ -225,6 +225,28 @@ void MainWindow::setConnect()
          mainArea->start_insertSceneItem(type);
     });
 
+    connect(propertyArea, &PropertyAreaView::s_saveToCurrentPicture, [&](){
+         mainArea->saveToCurrentPictire();
+         mainArea->clearsSceneItems();
+    });
+
+    connect(propertyArea, &PropertyAreaView::s_saveToAllPictures, [&](){
+
+        std::vector<ModelView::SessionItem*> vecSession = m_model->rootItem()->children();
+        std::vector<QPixmap> vecPix;
+        for (auto item : vecSession) {
+
+            mainArea->slot_selPicItem((PictureItem *)item);
+            mainArea->saveToCurrentPictire();
+        }
+
+        mainArea->clearsSceneItems();
+
+    });
+
+    connect(propertyArea, &PropertyAreaView::s_clearGraphicsItems, [&](){
+         mainArea->clearsSceneItems();
+    });
 
     connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);
 

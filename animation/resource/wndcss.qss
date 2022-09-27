@@ -343,10 +343,16 @@ QComboBox:on {
 	color: rgb(255, 255, 0);
 }
 
-#WhiteBoardPropertyView QToolButton:hover QToolButton:unchecked
+#WhiteBoardPropertyView QToolButton:hover
 {
     background-color:rgb(14, 220, 0);
 	color: rgb(0, 0, 0);
+}
+
+#WhiteBoardPropertyView QToolButton:pressed
+{
+    background-color:rgb(14, 170, 79);
+	color: rgb(255, 255, 0);
 }
 
 #WhiteBoardPropertyView #Text{

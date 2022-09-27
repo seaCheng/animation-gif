@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -13,6 +13,7 @@ class PictureModel;
 class MainAreaView;
 class PropertyAreaView;
 class QSplitter;
+class ModelController;
 
 class MainWindow : public QMainWindow
 {
@@ -46,5 +47,7 @@ private:
     MainAreaView * mainArea = nullptr;
     PropertyAreaView * propertyArea = nullptr;
     QSplitter * splitter = nullptr;
+
+    ModelController * ctl = nullptr;
 };
 #endif // MAINWINDOW_H

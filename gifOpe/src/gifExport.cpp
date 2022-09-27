@@ -51,8 +51,14 @@ void GifExport::slot_GifExportMagick(QString file)
     for(auto pix : lstPixmap)
     {
         QImage img = pix.toImage();
+
+        //绘制指定图片作为背景
+        Qt::AspectRatioMode asMode = (Qt::AspectRatioMode)(int)proInf->fMode;
+        QImage scalImage = img.scaled(iWidth, iHeigth, asMode, Qt::SmoothTransformation);
+        /*
         QImage scalImage = img.scaled(QSize(iWidth, iHeigth),
                                       Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                                      */
         QImage desImage(iWidth, iHeigth, QImage::Format_ARGB32);
         desImage.fill(proInf->color);
 

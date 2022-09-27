@@ -5,6 +5,7 @@
 #include "diagramitem.h"
 #include "arrow.h"
 #include "diagramtextitem.h"
+#include "pictureItem.h"
 
 #include<QPainter>
 #include<QDebug>
@@ -188,12 +189,10 @@ void MainAreaView::setConnect()
 
         }
 
-        QImage image(graphicView->size(),QImage::Format_ARGB32);
+        QImage image(graphicView->scene()->sceneRect().size().toSize(),QImage::Format_ARGB32);
                  QPainter painter(&image);
                  graphicView->scene()->render(&painter);   //关键函数
                  image.save("test.png");
-
-
     });
 }
 
@@ -263,6 +262,7 @@ void MainAreaView::start_insertSceneItem(DiagramType type)
 
 void MainAreaView::slot_selPicItem(PictureItem * pItem)
 {
+    currentItem = pItem;
     if(pItem == nullptr)
     {
         graphicView->setPicItem(pItem);
@@ -273,4 +273,37 @@ void MainAreaView::slot_selPicItem(PictureItem * pItem)
         setCurrentWidget(graWid);
     }
 
+}
+
+void MainAreaView::clearsSceneItems()
+{
+    pScene->clear();
+}
+
+void MainAreaView::saveToCurrentPictire()
+{
+    if(currentItem)
+    {
+        for(const auto &u : graphicView->scene()->items())
+        {
+                    QGraphicsItem * item = (QGraphicsItem *)u;
+
+                    item->setSelected(false);
+                    item->clearFocus();
+                    if(DiagramTextItem::Type == item->type())
+                    {
+                       DiagramTextItem * textItem = (DiagramTextItem *)item;
+                       textItem->setTextInteractionFlags(Qt::NoTextInteraction);
+                       textItem->clearFocus();
+                       textItem->setSelected(false);
+                       qDebug()<<"clear focus....";
+                    }
+
+        }
+
+        QImage image(graphicView->scene()->sceneRect().size().toSize(),QImage::Format_ARGB32);
+                 QPainter painter(&image);
+                 graphicView->scene()->render(&painter);   //关键函数
+                 currentItem->setQpixmap(QPixmap::fromImage(image));
+    }
 }

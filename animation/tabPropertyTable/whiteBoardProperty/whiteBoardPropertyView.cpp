@@ -181,6 +181,20 @@ void WhiteBoardPropertyView::setConnect()
 
     });
 
+    connect(saveCurrentToolButton, &QToolButton::clicked,
+            this, [&](){
+        emit s_saveToCurrentPicture();
+    });
+
+    connect(saveAllToolButton, &QToolButton::clicked,
+            this, [&](){
+        emit s_saveToAllPictures();
+    });
+
+    connect(clearToolButton, &QToolButton::clicked,
+            this, [&](){
+        emit s_clearGraphicsItems();
+    });
 
 }
 void WhiteBoardPropertyView::initial()
@@ -427,7 +441,8 @@ void WhiteBoardPropertyView::initial()
 
     for (int iPathwidth = 0; iPathwidth < 20; iPathwidth = iPathwidth + 1)
         penPathWidth->addItem(QString().setNum(iPathwidth));
-    penPathWidth->setCurrentIndex(10);
+    penPathWidth->setCurrentIndex(4);
+    proInf->pathInfmation.penPathWidth = 4;
 
     QHBoxLayout * penPathWidthLay = new QHBoxLayout;
     penPathWidthLay->setContentsMargins(0,0,0,0);
@@ -470,7 +485,8 @@ void WhiteBoardPropertyView::initial()
 
     for (int iPathwidth = 0; iPathwidth < 20; iPathwidth = iPathwidth + 1)
         penPathcontourWidth->addItem(QString().setNum(iPathwidth));
-    penPathcontourWidth->setCurrentIndex(10);
+    penPathcontourWidth->setCurrentIndex(2);
+    proInf->pathInfmation.penPathcontourWidth = 2;
 
     QHBoxLayout * penPathcontourWidthLay = new QHBoxLayout;
     penPathcontourWidthLay->setContentsMargins(0,0,0,0);
@@ -664,6 +680,43 @@ void WhiteBoardPropertyView::initial()
 
     groupBoxProperty->setLayout(vProlay);
     vlay->addWidget(groupBoxProperty);
+
+    QGroupBox *groupBoxOperation= new QGroupBox(tr("Operation"));
+    QGridLayout * vOprlay = new QGridLayout(this);
+    vOprlay->setContentsMargins(10,5,10,5);
+    vOprlay->setSpacing(12);
+
+    groupBoxProperty->setLayout(vProlay);
+    vlay->addWidget(groupBoxProperty);
+
+    groupBoxOperation->setLayout(vOprlay);
+    vlay->addWidget(groupBoxOperation);
+
+    saveCurrentToolButton = new QToolButton;
+    saveCurrentToolButton->setObjectName("saveCurrentToolButton");
+    saveCurrentToolButton->setFixedSize(260,30);
+    saveCurrentToolButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    saveCurrentToolButton->setArrowType(Qt::NoArrow);
+    saveCurrentToolButton->setText(QStringLiteral("save to current picture"));
+    vOprlay->addWidget(saveCurrentToolButton, 0,0);
+
+    saveAllToolButton = new QToolButton;
+    saveAllToolButton->setObjectName("saveAllToolButton");
+    saveAllToolButton->setFixedSize(260,30);
+    saveAllToolButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    saveAllToolButton->setArrowType(Qt::NoArrow);
+    saveAllToolButton->setText(QStringLiteral("save to all pictures"));
+    vOprlay->addWidget(saveAllToolButton,1,0);
+
+    clearToolButton = new QToolButton;
+    clearToolButton->setObjectName("clearToolButton");
+    clearToolButton->setFixedSize(260,30);
+    clearToolButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    clearToolButton->setArrowType(Qt::NoArrow);
+    clearToolButton->setText(QStringLiteral("clear white board"));
+    vOprlay->addWidget(clearToolButton,2,0);
+
+    vProlay->setContentsMargins(10,5,10,5);
     vlay->addStretch(1);
 
     handleFontChange();

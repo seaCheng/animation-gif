@@ -20,6 +20,10 @@ void PropertyAreaView::setConnect()
     connect(commView, &CommonPropertyView::s_commproFresh, this, &PropertyAreaView::s_commproFresh);
     connect(whiteBoardView, &WhiteBoardPropertyView::s_whiteBoardProFresh, this, &PropertyAreaView::s_whiteBoardProFresh);
     connect(whiteBoardView, &WhiteBoardPropertyView::s_sceneItemInsert, this, &PropertyAreaView::s_sceneItemInsert);
+
+    connect(whiteBoardView, &WhiteBoardPropertyView::s_saveToCurrentPicture, this, &PropertyAreaView::s_saveToCurrentPicture);
+    connect(whiteBoardView, &WhiteBoardPropertyView::s_saveToAllPictures, this, &PropertyAreaView::s_saveToAllPictures);
+    connect(whiteBoardView, &WhiteBoardPropertyView::s_clearGraphicsItems, this, &PropertyAreaView::s_clearGraphicsItems);
 }
 
 void PropertyAreaView::paintEvent(QPaintEvent *e)
@@ -44,7 +48,6 @@ void PropertyAreaView::initial()
     whBoardProInf = std::make_shared<whiteBoardProInf>();
     whiteBoardView = new WhiteBoardPropertyView(whBoardProInf);
     addTab(whiteBoardView, QStringLiteral("whiteboard"));
-    addTab(new QWidget(), QStringLiteral("effects"));
 
     setMinimumWidth(320);
     setMinimumHeight(780);

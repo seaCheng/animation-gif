@@ -37,6 +37,10 @@ signals:
     void s_whiteBoardProFresh();
     void s_commproFresh();
     void s_sceneItemInsert(DiagramType);
+
+    void s_saveToCurrentPicture();
+    void s_saveToAllPictures();
+    void s_clearGraphicsItems();
 protected:
     void paintEvent(QPaintEvent *e) override;
 public slots:
