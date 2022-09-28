@@ -82,49 +82,49 @@ void WhiteBoardPropertyView::setConnect()
     connect(capStyles, &QComboBox::currentIndexChanged,
             this, [&](int index){
         proInf->pathInfmation.capStyle = (Qt::PenCapStyle)capStyles->currentData().toInt();
-        emit s_whiteBoardProFresh();
+        emit s_whiteBoardProFresh(pro_pen);
     });
 
     connect(joinStyles, &QComboBox::currentIndexChanged,
             this, [&](int index){
         proInf->pathInfmation.joinStyle = (Qt::PenJoinStyle)joinStyles->currentData().toInt();
-        emit s_whiteBoardProFresh();
+        emit s_whiteBoardProFresh(pro_pen);
     });
 
     connect(penStyles, &QComboBox::currentIndexChanged,
             this, [&](int index){
         proInf->pathInfmation.penStyle = (Qt::PenStyle)penStyles->currentData().toInt();
-        emit s_whiteBoardProFresh();
+        emit s_whiteBoardProFresh(pro_pen);
     });
 
     connect(penPathWidth, &QComboBox::currentIndexChanged,
             this, [&](int index){
         proInf->pathInfmation.penPathWidth = penPathWidth->currentText().toInt();
-        emit s_whiteBoardProFresh();
+        emit s_whiteBoardProFresh(pro_pen);
     });
 
     connect(penPathcontourWidth, &QComboBox::currentIndexChanged,
             this, [&](int index){
         proInf->pathInfmation.penPathcontourWidth = penPathcontourWidth->currentText().toInt();
-        emit s_whiteBoardProFresh();
+        emit s_whiteBoardProFresh(pro_pen);
     });
 
     connect(penItemWidth, &QComboBox::currentIndexChanged,
             this, [&](int index){
         proInf->itemInfmation.penBoardWidth = penItemWidth->currentText().toInt();
-        emit s_whiteBoardProFresh();
+        emit s_whiteBoardProFresh(pro_item);
     });
 
     connect(penItemStyles, &QComboBox::currentIndexChanged,
             this, [&](int index){
         proInf->itemInfmation.penStyle = (Qt::PenStyle)penItemStyles->currentData().toInt();
-        emit s_whiteBoardProFresh();
+        emit s_whiteBoardProFresh(pro_item);
     });
 
     connect(penArrowWidth, &QComboBox::currentIndexChanged,
             this, [&](int index){
         proInf->arrowInformation.penWidth = penArrowWidth->currentText().toInt();
-        emit s_whiteBoardProFresh();
+        emit s_whiteBoardProFresh(pro_arrow);
     });
 
     connect(fArrowColor, &QColorFrame::s_clicked,
@@ -143,24 +143,28 @@ void WhiteBoardPropertyView::setConnect()
             {
                 fPathColor->setGifColor(color);
                 proInf->pathInfmation.pathColor = color;
+                emit s_whiteBoardProFresh(pro_pen);
                 break;
             }
             case color_pathContour:
             {
                 fPathcontourColor->setGifColor(color);
                 proInf->pathInfmation.pathContourcolor = color;
+                emit s_whiteBoardProFresh(pro_pen);
                 break;
             }
             case color_item:
             {
                 fItemColor->setGifColor(color);
                 proInf->itemInfmation.itemColor = color;
+                emit s_whiteBoardProFresh(pro_item);
                 break;
             }
             case color_itemBoard:
             {
                 fItemBoardColor->setGifColor(color);
                 proInf->itemInfmation.itemBoardcolor = color;
+                emit s_whiteBoardProFresh(pro_item);
                 break;
             }
             case color_arrow:
@@ -169,14 +173,12 @@ void WhiteBoardPropertyView::setConnect()
                 tcolor.setAlpha(255);
                 fArrowColor->setGifColor(tcolor);
                 proInf->arrowInformation.arrowColor = tcolor;
+                emit s_whiteBoardProFresh(pro_arrow);
                 break;
             }
             default:
                 break;
             }
-
-            emit s_whiteBoardProFresh();
-
         }
 
     });
@@ -609,8 +611,8 @@ void WhiteBoardPropertyView::initial()
     lItemColor->setFixedWidth(100);
 
     fItemColor = new QColorFrame;
-    fItemColor->setGifColor(QColor(0, 160, 230));
-    proInf->itemInfmation.itemColor = QColor(0, 160, 230);
+    fItemColor->setGifColor(QColor(0, 160, 230, 125));
+    proInf->itemInfmation.itemColor = QColor(0, 160, 230, 125);
 
     QHBoxLayout * itemColorLay = new QHBoxLayout;
     itemColorLay->setContentsMargins(0,0,0,0);
@@ -825,7 +827,7 @@ void WhiteBoardPropertyView::fontSizeChanged(const QString &)
 void WhiteBoardPropertyView::textButtonTriggered()
 {
     proInf->textColor = qvariant_cast<QColor>(textAction->data());
-    emit s_whiteBoardProFresh();
+    emit s_whiteBoardProFresh(pro_text);
 }
 
 void WhiteBoardPropertyView::handleFontChange()
@@ -854,5 +856,5 @@ void WhiteBoardPropertyView::handleFontChange()
 
     proInf->font =  nfont;
 
-    emit s_whiteBoardProFresh();
+    emit s_whiteBoardProFresh(pro_text);
 }

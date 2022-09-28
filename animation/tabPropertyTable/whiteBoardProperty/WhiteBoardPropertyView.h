@@ -53,6 +53,9 @@ Q_DECLARE_METATYPE(whiteBoardProInf)
 enum colorPenType{color_path,color_pathContour, color_item, color_itemBoard, color_arrow};
 Q_DECLARE_METATYPE(colorPenType)
 
+enum refreashProType{pro_none,pro_text,pro_pen, pro_item, pro_arrow};
+Q_DECLARE_METATYPE(refreashProType)
+
 class QFontComboBox;
 class QComboBox;
 class QMenu;
@@ -79,7 +82,7 @@ public:
 
 signals:
     void s_sceneItemInsert(DiagramType);
-    void s_whiteBoardProFresh();
+    void s_whiteBoardProFresh(refreashProType);
 
     void s_saveToCurrentPicture();
     void s_saveToAllPictures();

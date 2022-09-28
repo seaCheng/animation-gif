@@ -519,6 +519,7 @@ void CommonPropertyView::initial()
     comSize->insertSeparator(comSize->count());
     uuid = QUuid::createUuid().toByteArray().data();
     comSize->addItem(QStringLiteral("管理自定义"), uuid.toStdString().c_str());
+    comSize->setCurrentIndex(9);
     prIndex = comSize->currentIndex();
     refreashGifSize();
 
@@ -630,6 +631,7 @@ void CommonPropertyView::initial()
 
     timeSpinBox = new QSpinBox;
     timeSpinBox->setRange(20, 10000);
+    timeSpinBox->setValue(40);
     proInf->delay = timeSpinBox->value();
 
     QHBoxLayout * timerLay = new QHBoxLayout;
@@ -647,6 +649,7 @@ void CommonPropertyView::initial()
     secondSpinBox = new QSpinBox;
     secondSpinBox->setRange(1, 30);
     secondSpinBox->setVisible(false);
+    secondSpinBox->setValue(25);
 
     QHBoxLayout * secondLay = new QHBoxLayout;
     secondLay->setContentsMargins(0,0,0,0);

@@ -67,7 +67,7 @@ public:
     void setItemType(DiagramType type);
 
     void setGifCommpro(std::shared_ptr<propertyInf> inf);
-    void setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf);
+    void setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf, refreashProType proType);
 
 signals:
     void itemInserted(DiagramItem *item);

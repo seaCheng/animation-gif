@@ -1,4 +1,4 @@
-// ************************************************************************** //
+﻿// ************************************************************************** //
 //
 //  Model-view-view-model framework for large GUI applications
 //
@@ -30,6 +30,8 @@ public:
     void insertConnectItems(const std::vector<QPixmap> lst);
     void eraseConnectItem(ModelView::SessionItem * item);
     void eraseConnectItems(const std::vector<ModelView::SessionItem *> lst);
+
+    void insertEmptyPicture();
 
     void loadFromFile(const std::string& name);
 

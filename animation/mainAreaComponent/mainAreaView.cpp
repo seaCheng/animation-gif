@@ -202,9 +202,9 @@ void MainAreaView::setGifCommpro(std::shared_ptr<propertyInf> inf)
 
 }
 
-void MainAreaView::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf)
+void MainAreaView::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf, refreashProType proType)
 {
-    pScene->setWhiteBoardPro(inf);
+    pScene->setWhiteBoardPro(inf, proType);
 }
 
 void MainAreaView::start_insertSceneItem(DiagramType type)

@@ -19,6 +19,7 @@ GifLoad::GifLoad(QObject *parent)
 
 void GifLoad::startGifLoad(QString file)
 {
+    m_lstPixmap.clear();
     emit s_GifLoad(file);
 }
 

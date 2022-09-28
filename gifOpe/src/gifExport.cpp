@@ -55,12 +55,14 @@ void GifExport::slot_GifExportMagick(QString file)
         //绘制指定图片作为背景
         Qt::AspectRatioMode asMode = (Qt::AspectRatioMode)(int)proInf->fMode;
         QImage scalImage = img.scaled(iWidth, iHeigth, asMode, Qt::SmoothTransformation);
-        /*
-        QImage scalImage = img.scaled(QSize(iWidth, iHeigth),
-                                      Qt::KeepAspectRatio, Qt::SmoothTransformation);
-                                      */
         QImage desImage(iWidth, iHeigth, QImage::Format_ARGB32);
-        desImage.fill(proInf->color);
+        if(asMode == Qt::KeepAspectRatio)
+        {
+            desImage.fill(proInf->color);
+        }else
+        {
+            desImage.fill(QColor(255,255,255,0));
+        }
 
         QRect rectPic(0, 0, scalImage.width(), scalImage.height());
         if (scalImage.width() < iWidth)
@@ -95,7 +97,11 @@ void GifExport::slot_GifExportMagick(QString file)
         imgMagick.alpha(true);
         imgMagick.animationDelay(proInf->delay);
         imgMagick.gifDisposeMethod(BackgroundDispose);
-        lstImages.emplace_back(imgMagick);
+        lstImages.emplace_back(imgMagick);    
+    }
+    if(proInf->oMode == order_reverse)
+    {
+        std::reverse(lstImages.begin(), lstImages.end());
     }
 
     writeImages(lstImages.begin(), lstImages.end(), file.toStdString().c_str(), true);

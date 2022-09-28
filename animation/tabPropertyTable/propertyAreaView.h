@@ -34,7 +34,7 @@ public:
 
 
 signals:
-    void s_whiteBoardProFresh();
+    void s_whiteBoardProFresh(refreashProType);
     void s_commproFresh();
     void s_sceneItemInsert(DiagramType);
 

@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainArea->setGifCommpro(propertyArea->getGifCommpro());
     GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
 
-    mainArea->setWhiteBoardPro(propertyArea->getWhiteBoardInf());
+    mainArea->setWhiteBoardPro(propertyArea->getWhiteBoardInf(), pro_none);
 
     QScrollArea *scrollArea = new QScrollArea;
     scrollArea->setBackgroundRole(QPalette::Dark);
@@ -126,7 +126,8 @@ void MainWindow::slot_export()
 
     std::vector<ModelView::SessionItem*> vecSession = m_model->rootItem()->children();
     std::vector<QPixmap> vecPix;
-    for (auto item : vecSession) {
+    for (auto item : vecSession)
+    {
 
         vecPix.emplace_back(((PictureItem *)item)->pic());
     }
@@ -163,7 +164,6 @@ void MainWindow::slot_import(type_import type)
 
 void MainWindow::slot_FinimportGif()
 {
-
     std::vector<QPixmap> lstPix = GifLoad::instace()->getPixmaps();
     m_model->insertConnectItems(lstPix);
 }
@@ -186,8 +186,6 @@ void MainWindow::slot_clear()
 
 void MainWindow::slot_add()
 {
-
-
     QFileDialog::Options options =  QFileDialog::ReadOnly;
     QStringList files = QFileDialog::getOpenFileNames(
                              this,
@@ -215,8 +213,8 @@ void MainWindow::setConnect()
          GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
     });
 
-    connect(propertyArea, &PropertyAreaView::s_whiteBoardProFresh, [&](){
-         mainArea->setWhiteBoardPro(propertyArea->getWhiteBoardInf());
+    connect(propertyArea, &PropertyAreaView::s_whiteBoardProFresh, [&](refreashProType type){
+         mainArea->setWhiteBoardPro(propertyArea->getWhiteBoardInf(), type);
 
     });
 
@@ -227,7 +225,7 @@ void MainWindow::setConnect()
 
     connect(propertyArea, &PropertyAreaView::s_saveToCurrentPicture, [&](){
          mainArea->saveToCurrentPictire();
-         mainArea->clearsSceneItems();
+         //mainArea->clearsSceneItems();
     });
 
     connect(propertyArea, &PropertyAreaView::s_saveToAllPictures, [&](){
@@ -254,7 +252,6 @@ void MainWindow::setConnect()
 
 void MainWindow::setupUndoRedoActions()
 {
-
     //load file
     auto loadAction = new QAction("Load project", this);
     connect(loadAction, &QAction::triggered, this, &MainWindow::slot_load
@@ -272,6 +269,15 @@ void MainWindow::setupUndoRedoActions()
     auto addAction = new QAction("Add picture", this);
     connect(addAction, &QAction::triggered, this, &MainWindow::slot_add);
     m_toolBar->addAction(addAction);
+
+    // insert empty
+    auto insertAction = new QAction("Insert empty", this);
+    connect(insertAction, &QAction::triggered,
+            [this]()
+    {
+        m_model->insertEmptyPicture();
+    });
+    m_toolBar->addAction(insertAction);
 
     // delete action
     auto deleteAction = new QAction("Remove picture", this);

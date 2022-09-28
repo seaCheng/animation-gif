@@ -1,4 +1,4 @@
-// ************************************************************************** //
+﻿// ************************************************************************** //
 //
 //  Model-view-view-model framework for large GUI applications
 //
@@ -77,6 +77,29 @@ void PictureModel::insertConnectItems(QStringList lst)
     }
 
     Utils::EndMacros(this);
+}
+
+void PictureModel::insertEmptyPicture()
+{
+    QImage img(300,300,QImage::Format_ARGB32);
+    img.fill(QColor(255,255,255,0));
+    PictureItem * item;
+    Utils::BeginMacros(this, "insertEmptyPicture");
+
+    if ( item = dynamic_cast<PictureItem*>(insertItem<PictureItem>()); item) {
+
+        item->setQpixmap(QPixmap::fromImage(img));
+        item->setX(0);
+        item->setY(0);
+
+    }else
+    {
+        qDebug()<<"insert failed....";
+    }
+
+
+    Utils::EndMacros(this);
+
 }
 
 void PictureModel::insertConnectItems(const std::vector<QPixmap> lst)

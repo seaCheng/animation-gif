@@ -144,9 +144,36 @@ void PicGraphicsScene::setGifCommpro(std::shared_ptr<propertyInf> inf)
     proInf = inf;
 }
 
-void PicGraphicsScene::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf)
+void PicGraphicsScene::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf, refreashProType proType)
 {
     whiteBoardInf = inf;
+    //refreashProType{pro_text,pro_pen, pro_item, pro_arrow}
+    QList<QGraphicsItem *> lstselectedItems = this->selectedItems();
+    for (QGraphicsItem *item : qAsConst(lstselectedItems))
+    {
+
+        if (item->type() == DiagramTextItem::Type && proType == pro_text)
+        {
+            DiagramTextItem * textItem = (DiagramTextItem *)item;
+            textItem->setFont(whiteBoardInf->font);
+            textItem->setDefaultTextColor(whiteBoardInf->textColor);
+
+
+        }else if(item->type() == SGraffiti::Type && proType == pro_pen)
+        {
+            SGraffiti * sgra = (SGraffiti *)item;
+            sgra->setPathInf(whiteBoardInf->pathInfmation);
+        }else if(item->type() == DiagramItem::Type && proType == pro_item)
+        {
+             DiagramItem * digItem = (DiagramItem *)item;
+             digItem->setItemInf(whiteBoardInf->itemInfmation);
+        }else if(item->type() == Arrow::Type && proType == pro_arrow)
+        {
+             Arrow * arrItem = (Arrow *)item;
+             arrItem->setArrowInf(whiteBoardInf->arrowInformation);
+        }
+    }
+    update();
 }
 
 void PicGraphicsScene::setPicItem(PictureItem * pItem)
@@ -188,7 +215,7 @@ void PicGraphicsScene::editorLostFocus(DiagramTextItem *item)
 
 void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
-    QGraphicsScene::drawBackground(painter, rect);
+    //QGraphicsScene::drawBackground(painter, rect);
 
     if(views().count()==0)
            return;
@@ -223,7 +250,16 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
     }
 
     QPixmap tpicRato = pic.scaled(sizeRec.width() * pixelRatio, sizeRec.height() * pixelRatio, asMode, Qt::SmoothTransformation);
-    painter->drawImage(sizeRec,desImage);
+    if(asMode == Qt::KeepAspectRatio)
+    {
+        painter->drawImage(sizeRec,desImage);
+    }else
+    {
+        QImage tImage(sizeRec.width(), sizeRec.height(), QImage::Format_ARGB32);
+        tImage.fill(QColor(255,255,255,0));
+        painter->drawImage(sizeRec,tImage);
+    }
+
     painter->drawPixmap(rectPic, tpicRato, QRect());
 
     painter->restore();
@@ -296,9 +332,6 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     case InsertDrawLine:
         m_currentShape = new SGraffiti(myItemMenu);
         m_currentShape->setPathInf(whiteBoardInf->pathInfmation);
-        m_currentShape->setStrokeWidth(3);
-        m_currentShape->setStrokeColor(QColor::fromRgbF(0.9f, 0.1f, 0.6f, 0.7f));
-
         addItem(m_currentShape);
         m_currentShape->setStartPoint(mouseEvent->scenePos());
         break;
@@ -306,6 +339,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         case InsertText:
             textItem = new DiagramTextItem(myItemMenu);
             textItem->setFont(whiteBoardInf->font);
+            textItem->setDefaultTextColor(whiteBoardInf->textColor);
             textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
             textItem->setZValue(1000.0);
             connect(textItem, &DiagramTextItem::lostFocus,
@@ -313,7 +347,6 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             connect(textItem, &DiagramTextItem::selectedChange,
                     this, &PicGraphicsScene::itemSelected);
             addItem(textItem);
-            textItem->setDefaultTextColor(whiteBoardInf->textColor);
             textItem->setPos(mouseEvent->scenePos());
 
             QGraphicsScene::mousePressEvent(mouseEvent);
