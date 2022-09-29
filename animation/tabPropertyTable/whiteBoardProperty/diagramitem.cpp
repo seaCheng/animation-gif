@@ -37,8 +37,21 @@ void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *o
 {
     painter->save();
     painter->setPen(m_pen);
-    QPainterPath path = m_path.translated(-m_topLeftInScene);
-    //painter->drawPath(path);
+
+    QPainterPath path;
+    if(pathinformation.bHandWriting)
+    {
+        path = m_path.translated(-m_topLeftInScene);
+    }else
+    {
+        path.addText(0,0,pathinformation.textFont,pathinformation.text);
+
+        m_rcBounding = path.boundingRect();
+        int pathwidth = 2*(pathinformation.penPathWidth + pathinformation.penPathcontourWidth);
+        m_rcBounding.adjust(-pathwidth, -pathwidth, pathwidth, pathwidth);
+        m_topLeftInScene = m_rcBounding.topLeft();
+
+    }
 
     QPainterPathStroker stroker;
     stroker.setCapStyle(pathinformation.capStyle);  // 端点风格

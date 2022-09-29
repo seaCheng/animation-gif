@@ -18,6 +18,9 @@ struct pathInf
     Qt::PenStyle penStyle = Qt::SolidLine;
     int penPathWidth = 10;
     int penPathcontourWidth = 10;
+    bool bHandWriting = false;
+    QString text = "this is a test";
+    QFont textFont;
 };
 Q_DECLARE_METATYPE(pathInf)
 
@@ -63,6 +66,8 @@ class QToolButton;
 class QCheckBox;
 class QColorFrame;
 class QColorDialog;
+class QRadioButton;
+class QTextEdit;
 
 class WhiteBoardPropertyView :public QFrame
 {
@@ -79,6 +84,7 @@ public:
     QIcon createColorToolButtonIcon(const QString &imageFile, QColor color);
 
     void handleFontChange();
+    void handleFontChangeHandWrite();
 
 signals:
     void s_sceneItemInsert(DiagramType);
@@ -137,6 +143,13 @@ private:
     QToolButton * saveCurrentToolButton = nullptr;
     QToolButton * saveAllToolButton = nullptr;
     QToolButton * clearToolButton = nullptr;
+    QButtonGroup * handWritingGrp = nullptr;
+    QRadioButton * handWritRad = nullptr;
+    QRadioButton * textRad = nullptr;
+
+    QFontComboBox * fontComboHandWrite = nullptr;
+    QComboBox * fontSizeComboHandWrite = nullptr;
+    QTextEdit * handWriteTextEdit = nullptr;
 
     std::shared_ptr<whiteBoardProInf> proInf;
 };

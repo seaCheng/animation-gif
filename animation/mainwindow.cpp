@@ -232,7 +232,8 @@ void MainWindow::setConnect()
 
         std::vector<ModelView::SessionItem*> vecSession = m_model->rootItem()->children();
         std::vector<QPixmap> vecPix;
-        for (auto item : vecSession) {
+        for (auto item : vecSession)
+        {
 
             mainArea->slot_selPicItem((PictureItem *)item);
             mainArea->saveToCurrentPictire();

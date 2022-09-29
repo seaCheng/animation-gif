@@ -61,7 +61,8 @@ void GifExport::slot_GifExportMagick(QString file)
             desImage.fill(proInf->color);
         }else
         {
-            desImage.fill(QColor(255,255,255,0));
+            //desImage.fill(QColor(255,255,255,0));
+            desImage.fill(proInf->color);
         }
 
         QRect rectPic(0, 0, scalImage.width(), scalImage.height());

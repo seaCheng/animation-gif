@@ -89,9 +89,19 @@ public:
     void setPath(QPainterPath &path);
     int type() const override { return Type; }
 
+    void setText(QString str)
+    {
+        strText = str;
+    }
+
     void setPathInf(pathInf pathIn)
     {
         pathinformation = pathIn;
+    }
+
+    bool getHandWriteState()
+    {
+        return pathinformation.bHandWriting;
     }
 
 protected:
@@ -101,6 +111,8 @@ protected:
     QPen m_pen;
     QPainterPath m_path;
     QPointF m_topLeftInScene;
+
+    QString strText;
 
     pathInf pathinformation;
 };

@@ -13,6 +13,8 @@
 #include <QCheckBox>
 #include <Qt>
 #include <QColorDialog>
+#include <QRadioButton>
+#include <QTextEdit>
 
 WhiteBoardPropertyView::WhiteBoardPropertyView(std::shared_ptr<whiteBoardProInf> pro)
     :QFrame(),
@@ -106,6 +108,34 @@ void WhiteBoardPropertyView::setConnect()
     connect(penPathcontourWidth, &QComboBox::currentIndexChanged,
             this, [&](int index){
         proInf->pathInfmation.penPathcontourWidth = penPathcontourWidth->currentText().toInt();
+        emit s_whiteBoardProFresh(pro_pen);
+    });
+
+    connect(fontComboHandWrite, &QFontComboBox::currentFontChanged,
+            this, [=](){
+            handleFontChangeHandWrite();
+    });
+
+    connect(fontSizeComboHandWrite, &QComboBox::currentTextChanged,
+            this, [=](){
+            handleFontChangeHandWrite();
+    });
+
+    connect(handWriteTextEdit, &QTextEdit::textChanged,
+            this, [&](){
+        proInf->pathInfmation.text = handWriteTextEdit->toPlainText();
+        emit s_whiteBoardProFresh(pro_pen);
+    });
+
+    connect(handWritRad, &QRadioButton::toggled,
+            this, [&](bool checked){
+        proInf->pathInfmation.bHandWriting = checked;
+        emit s_whiteBoardProFresh(pro_pen);
+    });
+
+    connect(textRad, &QRadioButton::toggled,
+            this, [&](bool checked){
+        proInf->pathInfmation.bHandWriting = !checked;
         emit s_whiteBoardProFresh(pro_pen);
     });
 
@@ -520,6 +550,93 @@ void WhiteBoardPropertyView::initial()
     PathcontourColorLay->addStretch(1);
     vProlay->addItem(PathcontourColorLay);
 
+    //横屏 &竖屏幕
+    QLabel *lScreen = new QLabel;
+    lScreen->setText(QStringLiteral("屏幕:"));
+    lScreen->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lScreen->setFixedWidth(100);
+
+    handWritingGrp = new QButtonGroup(this);
+    handWritingGrp->setExclusive(true);
+    handWritRad = new QRadioButton;
+    handWritRad->setChecked(true);
+    proInf->pathInfmation.bHandWriting = true;
+
+    handWritRad->setText(QStringLiteral("手写"));
+    handWritingGrp->addButton(handWritRad);
+
+    textRad = new QRadioButton;
+    textRad->setText(QStringLiteral("文字"));
+    handWritingGrp->addButton(textRad);
+
+    QHBoxLayout * hRadLay = new QHBoxLayout;
+    hRadLay->setContentsMargins(0,0,0,0);
+    hRadLay->setSpacing(24);
+    hRadLay->addWidget(lScreen);
+    hRadLay->addWidget(handWritRad);
+    hRadLay->addWidget(textRad);
+
+    hRadLay->addStretch(1);
+    vProlay->addItem(hRadLay);
+
+    QLabel *lFontHandWrite = new QLabel;
+    lFontHandWrite->setText(QStringLiteral("字体:"));
+    lFontHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lFontHandWrite->setFixedWidth(100);
+
+    fontComboHandWrite = new QFontComboBox();
+    fontComboHandWrite->setFixedWidth(200);
+    fontComboHandWrite->setEditable(false);
+    fontComboHandWrite->setCurrentIndex(10);
+
+    QHBoxLayout * FontLayHandWrite = new QHBoxLayout;
+    FontLayHandWrite->setContentsMargins(0,0,0,0);
+    FontLayHandWrite->setSpacing(5);
+
+    FontLayHandWrite->addWidget(lFontHandWrite);
+    FontLayHandWrite->addWidget(fontComboHandWrite);
+    FontLayHandWrite->addStretch(1);
+    vProlay->addItem(FontLayHandWrite);
+
+    QLabel *lFontSizeHandWrite = new QLabel;
+    lFontSizeHandWrite->setText(QStringLiteral("字体大小:"));
+    lFontSizeHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lFontSizeHandWrite->setFixedWidth(100);
+    fontSizeComboHandWrite = new QComboBox;
+    fontSizeComboHandWrite->setFixedWidth(200);
+    fontSizeComboHandWrite->setEditable(false);
+    for (int i = 8; i < 30; i = i + 2)
+        fontSizeComboHandWrite->addItem(QString().setNum(i));
+    QIntValidator *validatorHandWrite = new QIntValidator(2, 64, this);
+    fontSizeComboHandWrite->setValidator(validatorHandWrite);
+
+    fontSizeComboHandWrite->setCurrentIndex(5);
+    QHBoxLayout * FontSizeLayHandWrite = new QHBoxLayout;
+    FontSizeLayHandWrite->setContentsMargins(0,0,0,0);
+    FontSizeLayHandWrite->setSpacing(5);
+
+    FontSizeLayHandWrite->addWidget(lFontSizeHandWrite);
+    FontSizeLayHandWrite->addWidget(fontSizeComboHandWrite);
+    FontSizeLayHandWrite->addStretch(1);
+    vProlay->addItem(FontSizeLayHandWrite);
+
+    QLabel *ltextHandWrite = new QLabel;
+    ltextHandWrite->setText(QStringLiteral("文字:"));
+    ltextHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    ltextHandWrite->setFixedWidth(100);
+    handWriteTextEdit = new QTextEdit;
+    handWriteTextEdit->setFixedWidth(200);
+    handWriteTextEdit->setFixedHeight(60);
+
+    QHBoxLayout * textEditHandWriteLay = new QHBoxLayout;
+    textEditHandWriteLay->setContentsMargins(0,0,0,0);
+    textEditHandWriteLay->setSpacing(5);
+
+    textEditHandWriteLay->addWidget(ltextHandWrite);
+    textEditHandWriteLay->addWidget(handWriteTextEdit);
+    textEditHandWriteLay->addStretch(1);
+    vProlay->addItem(textEditHandWriteLay);
+
     //图元
     QLabel *lGraphicItem = new QLabel;
     lGraphicItem->setText(QStringLiteral("图元"));
@@ -611,8 +728,8 @@ void WhiteBoardPropertyView::initial()
     lItemColor->setFixedWidth(100);
 
     fItemColor = new QColorFrame;
-    fItemColor->setGifColor(QColor(0, 160, 230, 125));
-    proInf->itemInfmation.itemColor = QColor(0, 160, 230, 125);
+    fItemColor->setGifColor(QColor(0, 160, 230, 255));
+    proInf->itemInfmation.itemColor = QColor(0, 160, 230, 255);
 
     QHBoxLayout * itemColorLay = new QHBoxLayout;
     itemColorLay->setContentsMargins(0,0,0,0);
@@ -722,6 +839,7 @@ void WhiteBoardPropertyView::initial()
     vlay->addStretch(1);
 
     handleFontChange();
+    handleFontChangeHandWrite();
 }
 
 void WhiteBoardPropertyView::textColorChanged()
@@ -828,6 +946,15 @@ void WhiteBoardPropertyView::textButtonTriggered()
 {
     proInf->textColor = qvariant_cast<QColor>(textAction->data());
     emit s_whiteBoardProFresh(pro_text);
+}
+
+void WhiteBoardPropertyView::handleFontChangeHandWrite()
+{
+    QFont nfont = fontComboHandWrite->currentFont();
+    nfont.setPointSize(fontSizeComboHandWrite->currentText().toInt());
+    proInf->pathInfmation.textFont =  nfont;
+
+    emit s_whiteBoardProFresh(pro_pen);
 }
 
 void WhiteBoardPropertyView::handleFontChange()

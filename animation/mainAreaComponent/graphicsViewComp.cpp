@@ -162,7 +162,11 @@ void PicGraphicsScene::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf, r
         }else if(item->type() == SGraffiti::Type && proType == pro_pen)
         {
             SGraffiti * sgra = (SGraffiti *)item;
-            sgra->setPathInf(whiteBoardInf->pathInfmation);
+            if(whiteBoardInf->pathInfmation.bHandWriting == sgra->getHandWriteState())
+            {
+                sgra->setPathInf(whiteBoardInf->pathInfmation);
+            }
+
         }else if(item->type() == DiagramItem::Type && proType == pro_item)
         {
              DiagramItem * digItem = (DiagramItem *)item;
@@ -255,12 +259,18 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
         painter->drawImage(sizeRec,desImage);
     }else
     {
+        /*
         QImage tImage(sizeRec.width(), sizeRec.height(), QImage::Format_ARGB32);
         tImage.fill(QColor(255,255,255,0));
         painter->drawImage(sizeRec,tImage);
+        */
+        painter->drawImage(sizeRec,desImage);
     }
 
-    painter->drawPixmap(rectPic, tpicRato, QRect());
+    if(pic.isNull() == false)
+    {
+        painter->drawPixmap(rectPic, tpicRato, QRect());
+    }
 
     painter->restore();
 }
@@ -332,8 +342,8 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     case InsertDrawLine:
         m_currentShape = new SGraffiti(myItemMenu);
         m_currentShape->setPathInf(whiteBoardInf->pathInfmation);
-        addItem(m_currentShape);
         m_currentShape->setStartPoint(mouseEvent->scenePos());
+        addItem(m_currentShape);
         break;
 
         case InsertText:
@@ -376,8 +386,12 @@ void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     }else if(iMode == InsertDrawLine && m_currentShape != nullptr)
     {
-        m_currentShape->setEndPoint(mouseEvent->scenePos());
-        update();
+        if(whiteBoardInf->pathInfmation.bHandWriting)
+        {
+            m_currentShape->setEndPoint(mouseEvent->scenePos());
+            update();
+        }
+
     }
     else if((iMode == InsertItem || iMode == InsertPic ) && item != nullptr)
     {
@@ -485,7 +499,7 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 
     }
-    else if(m_currentShape != nullptr && iMode == InsertDrawLine)
+    else if(m_currentShape != nullptr && iMode == InsertDrawLine && whiteBoardInf->pathInfmation.bHandWriting)
     {
         if(m_currentShape->sceneBoundingRect().width() < 15 &&
                 m_currentShape->sceneBoundingRect().height() < 15)
