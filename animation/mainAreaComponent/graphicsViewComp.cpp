@@ -35,6 +35,7 @@ GraphicsViewComp::GraphicsViewComp(QGraphicsScene *scene, QWidget *parent)
         }
     });
     setStyleSheet("padding: 0px; border: 1px;");
+    setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
     viewport()->setContentsMargins(0,0,0,0);
     setViewportUpdateMode(FullViewportUpdate);
     setDragMode(QGraphicsView::RubberBandDrag);
@@ -135,7 +136,7 @@ PicGraphicsScene::PicGraphicsScene(QMenu * menu, QWidget * p)
     myTextColor = Qt::black;
     myLineColor = Qt::black;
 
-    setBackgroundBrush(Qt::white);
+    setBackgroundBrush(QColor(255,255,255,0));
 
 }
 
@@ -147,7 +148,6 @@ void PicGraphicsScene::setGifCommpro(std::shared_ptr<propertyInf> inf)
 void PicGraphicsScene::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf, refreashProType proType)
 {
     whiteBoardInf = inf;
-    //refreashProType{pro_text,pro_pen, pro_item, pro_arrow}
     QList<QGraphicsItem *> lstselectedItems = this->selectedItems();
     for (QGraphicsItem *item : qAsConst(lstselectedItems))
     {
@@ -219,8 +219,6 @@ void PicGraphicsScene::editorLostFocus(DiagramTextItem *item)
 
 void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
-    //QGraphicsScene::drawBackground(painter, rect);
-
     if(views().count()==0)
            return;
 
@@ -228,7 +226,7 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
           return;
 
     painter->save();
-    painter->setRenderHint(QPainter::Antialiasing);
+    painter->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
     qreal pixelRatio = painter->device()->devicePixelRatioF();
     QRectF sizeRec = sceneRect();
     //绘制指定图片作为背景
@@ -259,12 +257,9 @@ void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
         painter->drawImage(sizeRec,desImage);
     }else
     {
-        /*
         QImage tImage(sizeRec.width(), sizeRec.height(), QImage::Format_ARGB32);
         tImage.fill(QColor(255,255,255,0));
         painter->drawImage(sizeRec,tImage);
-        */
-        painter->drawImage(sizeRec,desImage);
     }
 
     if(pic.isNull() == false)
@@ -343,6 +338,10 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         m_currentShape = new SGraffiti(myItemMenu);
         m_currentShape->setPathInf(whiteBoardInf->pathInfmation);
         m_currentShape->setStartPoint(mouseEvent->scenePos());
+        if(whiteBoardInf->pathInfmation.bHandWriting == false)
+        {
+            m_currentShape->setSelected(true);
+        }
         addItem(m_currentShape);
         break;
 
@@ -358,6 +357,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     this, &PicGraphicsScene::itemSelected);
             addItem(textItem);
             textItem->setPos(mouseEvent->scenePos());
+            textItem->setSelected(true);
 
             QGraphicsScene::mousePressEvent(mouseEvent);
             break;

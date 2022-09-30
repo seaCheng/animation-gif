@@ -19,13 +19,9 @@ using namespace std;
 
 using namespace Magick;
 
-//#include "BurstLinker.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 
-//#include "stb_image.h"
-
-//using namespace blk;
 
 GifExport::GifExport(QObject *parent)
 {
@@ -61,8 +57,7 @@ void GifExport::slot_GifExportMagick(QString file)
             desImage.fill(proInf->color);
         }else
         {
-            //desImage.fill(QColor(255,255,255,0));
-            desImage.fill(proInf->color);
+            desImage.fill(QColor(255,255,255,0));
         }
 
         QRect rectPic(0, 0, scalImage.width(), scalImage.height());

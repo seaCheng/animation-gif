@@ -304,7 +304,7 @@ void WhiteBoardPropertyView::initial()
     fontSizeCombo = new QComboBox;
     fontSizeCombo->setFixedWidth(200);
     fontSizeCombo->setEditable(false);
-    for (int i = 8; i < 30; i = i + 2)
+    for (int i = 8; i < 100; i = i + 2)
         fontSizeCombo->addItem(QString().setNum(i));
     QIntValidator *validator = new QIntValidator(2, 64, this);
     fontSizeCombo->setValidator(validator);
@@ -473,8 +473,8 @@ void WhiteBoardPropertyView::initial()
 
     for (int iPathwidth = 0; iPathwidth < 20; iPathwidth = iPathwidth + 1)
         penPathWidth->addItem(QString().setNum(iPathwidth));
-    penPathWidth->setCurrentIndex(4);
-    proInf->pathInfmation.penPathWidth = 4;
+    penPathWidth->setCurrentIndex(2);
+    proInf->pathInfmation.penPathWidth = 2;
 
     QHBoxLayout * penPathWidthLay = new QHBoxLayout;
     penPathWidthLay->setContentsMargins(0,0,0,0);
@@ -517,8 +517,8 @@ void WhiteBoardPropertyView::initial()
 
     for (int iPathwidth = 0; iPathwidth < 20; iPathwidth = iPathwidth + 1)
         penPathcontourWidth->addItem(QString().setNum(iPathwidth));
-    penPathcontourWidth->setCurrentIndex(2);
-    proInf->pathInfmation.penPathcontourWidth = 2;
+    penPathcontourWidth->setCurrentIndex(4);
+    proInf->pathInfmation.penPathcontourWidth = 4;
 
     QHBoxLayout * penPathcontourWidthLay = new QHBoxLayout;
     penPathcontourWidthLay->setContentsMargins(0,0,0,0);
@@ -550,9 +550,9 @@ void WhiteBoardPropertyView::initial()
     PathcontourColorLay->addStretch(1);
     vProlay->addItem(PathcontourColorLay);
 
-    //横屏 &竖屏幕
+    //手写，或编辑
     QLabel *lScreen = new QLabel;
-    lScreen->setText(QStringLiteral("屏幕:"));
+    lScreen->setText(QStringLiteral("文字编辑:"));
     lScreen->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lScreen->setFixedWidth(100);
 
@@ -566,7 +566,7 @@ void WhiteBoardPropertyView::initial()
     handWritingGrp->addButton(handWritRad);
 
     textRad = new QRadioButton;
-    textRad->setText(QStringLiteral("文字"));
+    textRad->setText(QStringLiteral("编辑"));
     handWritingGrp->addButton(textRad);
 
     QHBoxLayout * hRadLay = new QHBoxLayout;
@@ -605,7 +605,7 @@ void WhiteBoardPropertyView::initial()
     fontSizeComboHandWrite = new QComboBox;
     fontSizeComboHandWrite->setFixedWidth(200);
     fontSizeComboHandWrite->setEditable(false);
-    for (int i = 8; i < 30; i = i + 2)
+    for (int i = 8; i < 100; i = i + 2)
         fontSizeComboHandWrite->addItem(QString().setNum(i));
     QIntValidator *validatorHandWrite = new QIntValidator(2, 64, this);
     fontSizeComboHandWrite->setValidator(validatorHandWrite);
@@ -627,6 +627,8 @@ void WhiteBoardPropertyView::initial()
     handWriteTextEdit = new QTextEdit;
     handWriteTextEdit->setFixedWidth(200);
     handWriteTextEdit->setFixedHeight(60);
+    handWriteTextEdit->setText("Edit text via text edit box");
+    proInf->pathInfmation.text = "Edit text via text edit box";
 
     QHBoxLayout * textEditHandWriteLay = new QHBoxLayout;
     textEditHandWriteLay->setContentsMargins(0,0,0,0);
@@ -728,8 +730,8 @@ void WhiteBoardPropertyView::initial()
     lItemColor->setFixedWidth(100);
 
     fItemColor = new QColorFrame;
-    fItemColor->setGifColor(QColor(0, 160, 230, 255));
-    proInf->itemInfmation.itemColor = QColor(0, 160, 230, 255);
+    fItemColor->setGifColor(QColor(0, 160, 230, 125));
+    proInf->itemInfmation.itemColor = QColor(0, 160, 230, 125);
 
     QHBoxLayout * itemColorLay = new QHBoxLayout;
     itemColorLay->setContentsMargins(0,0,0,0);
