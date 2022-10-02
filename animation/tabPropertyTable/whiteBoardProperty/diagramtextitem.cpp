@@ -4,6 +4,7 @@
 
 #include <QMenu>
 #include <QGraphicsSceneContextMenuEvent>
+#include <QGraphicsDropShadowEffect>
 
 //! [0]
 DiagramTextItem::DiagramTextItem(QMenu * menu,QGraphicsItem *parent)

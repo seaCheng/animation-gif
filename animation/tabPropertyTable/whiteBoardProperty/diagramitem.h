@@ -5,6 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QList>
 #include <QPen>
+#include <QGraphicsDropShadowEffect>
 
 #include "whiteBoardPropertyView.h"
 
@@ -68,6 +69,7 @@ protected:
     int m_localId;
 };
 
+class QGraphicsDropShadowEffect;
 class SGraffiti : public Shape
 {
 public:
@@ -89,14 +91,19 @@ public:
     void setPath(QPainterPath &path);
     int type() const override { return Type; }
 
-    void setText(QString str)
-    {
-        strText = str;
-    }
+    void setText(QString str);
 
     void setPathInf(pathInf pathIn)
     {
         pathinformation = pathIn;
+        if(pathinformation.bHandWriting)
+        {
+            shadowEffect->setEnabled(false);
+        }else
+        {
+            shadowEffect->setEnabled(true);
+            setText(pathinformation.text);
+        }
     }
 
     bool getHandWriteState()
@@ -110,11 +117,13 @@ protected:
     QRectF m_rcBounding;
     QPen m_pen;
     QPainterPath m_path;
+    QPainterPath Textpath;
     QPointF m_topLeftInScene;
 
     QString strText;
 
     pathInf pathinformation;
+    QGraphicsDropShadowEffect* shadowEffect;
 };
 
 //! [0]

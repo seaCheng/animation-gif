@@ -343,6 +343,7 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             m_currentShape->setSelected(true);
         }
         addItem(m_currentShape);
+
         break;
 
         case InsertText:
@@ -390,6 +391,9 @@ void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         {
             m_currentShape->setEndPoint(mouseEvent->scenePos());
             update();
+        }else
+        {
+            QGraphicsScene::mouseMoveEvent(mouseEvent);
         }
 
     }

@@ -1,6 +1,4 @@
-﻿
-
-#include "diagramitem.h"
+﻿#include "diagramitem.h"
 #include "arrow.h"
 
 #include <QGraphicsScene>
@@ -9,10 +7,16 @@
 #include <QPainter>
 #include <QRegion>
 
+
 // SGraffiti
 SGraffiti::SGraffiti(QMenu * menu) : Shape(menu,tt_Graffiti), m_rcBounding(0, 0, 0, 0)
 {
     setResizeAble(false);
+    shadowEffect = new QGraphicsDropShadowEffect(this);
+        shadowEffect->setOffset(0, 0);
+        shadowEffect->setColor(Qt::black);
+        shadowEffect->setBlurRadius(10);
+    setGraphicsEffect(shadowEffect);
 }
 
 void SGraffiti::setStartPoint(const QPointF &pos)
@@ -20,6 +24,23 @@ void SGraffiti::setStartPoint(const QPointF &pos)
     setPos(pos);
     m_startPosScene = pos;
     m_path.moveTo(pos);
+
+}
+
+void SGraffiti::setText(QString str)
+{
+    strText = str;
+
+
+    if(pathinformation.bHandWriting == false)
+    {
+        Textpath.addText(0,0,pathinformation.textFont,pathinformation.text);
+
+        m_rcBounding = Textpath.boundingRect();
+        int pathwidth = 2*(pathinformation.penPathWidth + pathinformation.penPathcontourWidth);
+        m_rcBounding.adjust(-pathwidth, -pathwidth, pathwidth, pathwidth);
+        m_topLeftInScene = m_rcBounding.topLeft();
+    }
 }
 
 void SGraffiti::setEndPoint(const QPointF &pos)
@@ -44,13 +65,7 @@ void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *o
         path = m_path.translated(-m_topLeftInScene);
     }else
     {
-        path.addText(0,0,pathinformation.textFont,pathinformation.text);
-
-        m_rcBounding = path.boundingRect();
-        int pathwidth = 2*(pathinformation.penPathWidth + pathinformation.penPathcontourWidth);
-        m_rcBounding.adjust(-pathwidth, -pathwidth, pathwidth, pathwidth);
-        m_topLeftInScene = m_rcBounding.topLeft();
-
+        path = Textpath;
     }
 
     QPainterPathStroker stroker;

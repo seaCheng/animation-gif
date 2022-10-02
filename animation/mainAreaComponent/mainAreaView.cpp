@@ -17,6 +17,7 @@
 GraphicFrame::GraphicFrame(QWidget *parent)
     :QFrame(parent)
 {
+    setAttribute(Qt::WA_TranslucentBackground);
     scaleView = new ScaleButtonView(this);
     setConnect();
 
