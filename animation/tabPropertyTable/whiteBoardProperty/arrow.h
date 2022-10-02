@@ -30,6 +30,7 @@ public:
     void setArrowInf(arrowInf arrorInf)
     {
         arrorInformation = arrorInf;
+        update();
     }
 
 protected:

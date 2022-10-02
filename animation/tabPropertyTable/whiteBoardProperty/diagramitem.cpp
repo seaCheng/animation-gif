@@ -34,6 +34,7 @@ void SGraffiti::setText(QString str)
 
     if(pathinformation.bHandWriting == false)
     {
+        Textpath.clear();
         Textpath.addText(0,0,pathinformation.textFont,pathinformation.text);
 
         m_rcBounding = Textpath.boundingRect();
@@ -41,6 +42,7 @@ void SGraffiti::setText(QString str)
         m_rcBounding.adjust(-pathwidth, -pathwidth, pathwidth, pathwidth);
         m_topLeftInScene = m_rcBounding.topLeft();
     }
+    update();
 }
 
 void SGraffiti::setEndPoint(const QPointF &pos)

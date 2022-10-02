@@ -101,7 +101,7 @@ public:
             shadowEffect->setEnabled(false);
         }else
         {
-            shadowEffect->setEnabled(true);
+            //shadowEffect->setEnabled(true);
             setText(pathinformation.text);
         }
     }
@@ -152,6 +152,7 @@ public:
     void setItemInf(itemInf itemInfor)
     {
         itemInformation = itemInfor;
+        update();
     }
 
 protected:
