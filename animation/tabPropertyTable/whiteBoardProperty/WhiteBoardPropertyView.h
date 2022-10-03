@@ -19,7 +19,8 @@ struct pathInf
     int penPathWidth = 10;
     int penPathcontourWidth = 10;
     bool bHandWriting = false;
-    QString text = "this is a test";
+    bool bShadow = false;
+    QString text = "";
     QFont textFont;
 };
 Q_DECLARE_METATYPE(pathInf)
@@ -68,6 +69,7 @@ class QColorFrame;
 class QColorDialog;
 class QRadioButton;
 class QTextEdit;
+class QLabel;
 
 class WhiteBoardPropertyView :public QFrame
 {
@@ -147,9 +149,17 @@ private:
     QRadioButton * handWritRad = nullptr;
     QRadioButton * textRad = nullptr;
 
+    QButtonGroup * shadowGrp = nullptr;
+    QRadioButton * withShadowRad = nullptr;
+    QRadioButton * withoutShadowRad = nullptr;
+
     QFontComboBox * fontComboHandWrite = nullptr;
     QComboBox * fontSizeComboHandWrite = nullptr;
     QTextEdit * handWriteTextEdit = nullptr;
+
+    QLabel * lFontHandWrite;
+    QLabel * lFontSizeHandWrite;
+    QLabel * ltextHandWrite;
 
     std::shared_ptr<whiteBoardProInf> proInf;
 };

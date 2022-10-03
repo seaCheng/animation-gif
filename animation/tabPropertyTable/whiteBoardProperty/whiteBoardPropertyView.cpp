@@ -131,11 +131,39 @@ void WhiteBoardPropertyView::setConnect()
             this, [&](bool checked){
         proInf->pathInfmation.bHandWriting = checked;
         emit s_whiteBoardProFresh(pro_pen);
+
+        lFontHandWrite->setEnabled(false);
+        lFontSizeHandWrite->setEnabled(false);
+        ltextHandWrite->setEnabled(false);
+        fontComboHandWrite->setEnabled(false);
+        fontSizeComboHandWrite->setEnabled(false);
+        handWriteTextEdit->setEnabled(false);
     });
 
     connect(textRad, &QRadioButton::toggled,
             this, [&](bool checked){
         proInf->pathInfmation.bHandWriting = !checked;
+        emit s_whiteBoardProFresh(pro_pen);
+
+        lFontHandWrite->setEnabled(true);
+        lFontSizeHandWrite->setEnabled(true);
+        ltextHandWrite->setEnabled(true);
+        fontComboHandWrite->setEnabled(true);
+        fontSizeComboHandWrite->setEnabled(true);
+        handWriteTextEdit->setEnabled(true);
+
+        update();
+    });
+
+    connect(withShadowRad, &QRadioButton::toggled,
+            this, [&](bool checked){
+        proInf->pathInfmation.bShadow = checked;
+        emit s_whiteBoardProFresh(pro_pen);
+    });
+
+    connect(withoutShadowRad, &QRadioButton::toggled,
+            this, [&](bool checked){
+        proInf->pathInfmation.bShadow = !checked;
         emit s_whiteBoardProFresh(pro_pen);
     });
 
@@ -550,6 +578,35 @@ void WhiteBoardPropertyView::initial()
     PathcontourColorLay->addStretch(1);
     vProlay->addItem(PathcontourColorLay);
 
+    //阴影
+    QLabel *lShadow = new QLabel;
+    lShadow->setText(QStringLiteral("阴影:"));
+    lShadow->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lShadow->setFixedWidth(100);
+
+    shadowGrp = new QButtonGroup(this);
+    shadowGrp->setExclusive(true);
+    withoutShadowRad = new QRadioButton;
+    withoutShadowRad->setChecked(true);
+    proInf->pathInfmation.bShadow = false;
+
+    withoutShadowRad->setText(QStringLiteral("无"));
+    shadowGrp->addButton(withoutShadowRad);
+
+    withShadowRad = new QRadioButton;
+    withShadowRad->setText(QStringLiteral("有"));
+    shadowGrp->addButton(withShadowRad);
+
+    QHBoxLayout * hShadowRadLay = new QHBoxLayout;
+    hShadowRadLay->setContentsMargins(0,0,0,0);
+    hShadowRadLay->setSpacing(24);
+    hShadowRadLay->addWidget(lShadow);
+    hShadowRadLay->addWidget(withoutShadowRad);
+    hShadowRadLay->addWidget(withShadowRad);
+
+    hShadowRadLay->addStretch(1);
+    vProlay->addItem(hShadowRadLay);
+
     //手写，或编辑
     QLabel *lScreen = new QLabel;
     lScreen->setText(QStringLiteral("文字编辑:"));
@@ -579,7 +636,7 @@ void WhiteBoardPropertyView::initial()
     hRadLay->addStretch(1);
     vProlay->addItem(hRadLay);
 
-    QLabel *lFontHandWrite = new QLabel;
+    lFontHandWrite = new QLabel;
     lFontHandWrite->setText(QStringLiteral("字体:"));
     lFontHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lFontHandWrite->setFixedWidth(100);
@@ -598,7 +655,7 @@ void WhiteBoardPropertyView::initial()
     FontLayHandWrite->addStretch(1);
     vProlay->addItem(FontLayHandWrite);
 
-    QLabel *lFontSizeHandWrite = new QLabel;
+    lFontSizeHandWrite = new QLabel;
     lFontSizeHandWrite->setText(QStringLiteral("字体大小:"));
     lFontSizeHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lFontSizeHandWrite->setFixedWidth(100);
@@ -620,7 +677,7 @@ void WhiteBoardPropertyView::initial()
     FontSizeLayHandWrite->addStretch(1);
     vProlay->addItem(FontSizeLayHandWrite);
 
-    QLabel *ltextHandWrite = new QLabel;
+    ltextHandWrite = new QLabel;
     ltextHandWrite->setText(QStringLiteral("文字:"));
     ltextHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ltextHandWrite->setFixedWidth(100);
@@ -638,6 +695,13 @@ void WhiteBoardPropertyView::initial()
     textEditHandWriteLay->addWidget(handWriteTextEdit);
     textEditHandWriteLay->addStretch(1);
     vProlay->addItem(textEditHandWriteLay);
+
+    lFontHandWrite->setEnabled(false);
+    lFontSizeHandWrite->setEnabled(false);
+    ltextHandWrite->setEnabled(false);
+    fontComboHandWrite->setEnabled(false);
+    fontSizeComboHandWrite->setEnabled(false);
+    handWriteTextEdit->setEnabled(false);
 
     //图元
     QLabel *lGraphicItem = new QLabel;

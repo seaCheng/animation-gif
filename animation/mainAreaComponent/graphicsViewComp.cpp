@@ -512,11 +512,12 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             delete m_currentShape;
             m_currentShape = nullptr;
         }
-        m_currentShape = nullptr;
+
     }
 
     line = nullptr;
     item = nullptr;
+    m_currentShape = nullptr;
 
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
 }

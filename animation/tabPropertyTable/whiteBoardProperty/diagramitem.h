@@ -96,14 +96,13 @@ public:
     void setPathInf(pathInf pathIn)
     {
         pathinformation = pathIn;
-        if(pathinformation.bHandWriting)
+        if(!pathinformation.bHandWriting)
         {
-            //shadowEffect->setEnabled(false);
-        }else
-        {
-            //shadowEffect->setEnabled(true);
-            setText(pathinformation.text);
+            setText(pathinformation.text);;
         }
+
+        shadowEffect->setEnabled(pathinformation.bShadow);
+
     }
 
     bool getHandWriteState()
