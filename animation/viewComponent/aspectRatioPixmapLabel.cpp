@@ -1,4 +1,4 @@
-#include "aspectRatioPixmapLabel.h"
+﻿#include "aspectRatioPixmapLabel.h"
 #include<QPainter>
 #include<QDebug>
 
@@ -16,6 +16,7 @@ void AspectRatioPixmapLabel::paintEvent(QPaintEvent *env)
     if (!m_pix.isNull())
     {
         QPainter painter(this);
+        painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
 
         m_pix = m_pix.scaled(this->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 

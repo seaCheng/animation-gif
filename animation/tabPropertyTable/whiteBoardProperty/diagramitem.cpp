@@ -54,6 +54,12 @@ void SGraffiti::setEndPoint(const QPointF &pos)
     m_rcBounding.moveTo(0, 0);
     setPos(m_topLeftInScene);
 
+    if(pathinformation.bHandWriting)
+    {
+        //Textpath = m_path.translated(-m_topLeftInScene);
+
+    }
+    update();
 }
 
 void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

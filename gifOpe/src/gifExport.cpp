@@ -77,6 +77,7 @@ void GifExport::slot_GifExportMagick(QString file)
         }
 
         QPainter painter(&desImage);
+        painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
         painter.drawImage(rectPic, scalImage);
 
         QByteArray bytes;

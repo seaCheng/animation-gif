@@ -98,7 +98,7 @@ public:
         pathinformation = pathIn;
         if(pathinformation.bHandWriting)
         {
-            shadowEffect->setEnabled(false);
+            //shadowEffect->setEnabled(false);
         }else
         {
             //shadowEffect->setEnabled(true);
