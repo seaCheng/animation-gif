@@ -24,6 +24,8 @@ public:
     void refreashSelPic(ModelView::SessionItem * parentItem, ModelView::TagRow row);
     void refreashIndex();
 
+    void refreashDelayTime(int tdelay);
+
     PicScaleComp * getSelItem();
     PicScaleComp * getSelPicByItem(PictureItem *);
 
@@ -45,5 +47,7 @@ private:
     QAction *deleteAction;
     QAction *toPreAction;
     QAction *toNextAction;
+
+    int delay = 0;
 
 };

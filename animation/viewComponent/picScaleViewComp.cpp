@@ -74,7 +74,7 @@ void PicScaleViewComp::refreashIndex()
 {
     for(auto it: m_itemToView)
     {
-        it.second->setPicIndexInterval(QString("%1").arg(it.first->tagRow().row), QString("%1ms").arg(600));
+        it.second->setPicIndexInterval(QString("%1").arg(it.first->tagRow().row), QString("%1ms").arg(it.first->tagRow().row * delay));
     }
 }
 
@@ -131,13 +131,23 @@ void PicScaleViewComp::eraseItem(ModelView::SessionItem * parentItem, ModelView:
     }
 }
 
+void PicScaleViewComp::refreashDelayTime(int tdelay)
+{
+    if(delay != tdelay)
+    {
+        delay = tdelay;
+        refreashIndex();
+
+    }
+}
+
 void PicScaleViewComp::insertItem(ModelView::SessionItem * item, ModelView::TagRow row)
 {
     PictureItem * pItem = (PictureItem *)item;
     PicScaleComp * picScale = new PicScaleComp(itemMenu,(PictureItem *)item);
     connect(picScale, &PicScaleComp::s_clicked, this, &PicScaleViewComp::refreashState);
     picScale->setFixedSize(180,180);
-    picScale->setPicIndexInterval(QString("%1").arg(row.row), QString("%1ms").arg(600));
+    picScale->setPicIndexInterval(QString("%1").arg(row.row), QString("%1ms").arg(row.row * delay));
     picScale->setPic(pItem->pic());
     m_layout->insertWidget(row.row, picScale);
 

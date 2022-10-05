@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainArea->setGifCommpro(propertyArea->getGifCommpro());
     GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
+    ui->scrollAreaWidgetContents->refreashDelayTime(propertyArea->getGifCommpro()->delay);
 
     mainArea->setWhiteBoardPro(propertyArea->getWhiteBoardInf(), pro_none);
 
@@ -211,6 +212,7 @@ void MainWindow::setConnect()
 
     connect(propertyArea, &PropertyAreaView::s_commproFresh, [&](){
          mainArea->setGifCommpro(propertyArea->getGifCommpro());
+         ui->scrollAreaWidgetContents->refreashDelayTime(propertyArea->getGifCommpro()->delay);
          GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
     });
 
