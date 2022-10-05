@@ -189,10 +189,12 @@ void MainAreaView::setConnect()
                     }
 
         }
-
         QImage image(graphicView->scene()->sceneRect().size().toSize(),QImage::Format_ARGB32);
+        image.fill(QColor(255,255,255,0));
                  QPainter painter(&image);
-                 graphicView->scene()->render(&painter);   //关键函数
+                 painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
+                 graphicView->scene()->render(&painter);
+
                  image.save("test.png");
     });
 }
@@ -306,7 +308,7 @@ void MainAreaView::saveToCurrentPictire()
         image.fill(QColor(255,255,255,0));
                  QPainter painter(&image);
                  painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
-                 graphicView->update();
+
                  graphicView->scene()->render(&painter);   //关键函数
                  currentItem->setQpixmap(QPixmap::fromImage(image));
     }

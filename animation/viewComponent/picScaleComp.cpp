@@ -1,14 +1,17 @@
-#include "picScaleComp.h"
+﻿#include "picScaleComp.h"
 #include <QLabel>
 #include <QHBoxLayout>
+#include <QMenu>
 
 #include "aspectRatioPixmapLabel.h"
 #include "pictureItem.h"
 #include "pictureItemcontroller.h"
 
-PicScaleComp::PicScaleComp(PictureItem* item, QWidget *parent)
+PicScaleComp::PicScaleComp(QMenu * menu,PictureItem* item, QWidget *parent)
     :QFrame(parent),
-    m_item(item), m_controller(std::make_unique<PictureItemController>(item, this))
+      m_item(item),
+      m_controller(std::make_unique<PictureItemController>(item, this)),
+      myContextMenu(menu)
 {
    initial();
 }
@@ -21,6 +24,7 @@ void PicScaleComp::paintEvent(QPaintEvent *event)
 void PicScaleComp::mouseReleaseEvent(QMouseEvent *ev)
 {
     QFrame::mouseReleaseEvent(ev);
+
     emit s_clicked();
 }
 
@@ -72,4 +76,10 @@ void PicScaleComp::initial()
 PictureItem* PicScaleComp::getPictureItem()
 {
     return m_item;
+}
+
+void PicScaleComp::contextMenuEvent(QContextMenuEvent *event)
+{
+    emit s_clicked();
+    myContextMenu->exec(event->globalPos());
 }

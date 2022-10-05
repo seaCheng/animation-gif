@@ -206,6 +206,7 @@ void MainWindow::setConnect()
     connect(mainArea, &MainAreaView::s_clicked, this, &MainWindow::slot_import);
     connect(ui->scrollAreaWidgetContents, &PicScaleViewComp::s_selPicItem, [&](PictureItem * item){
         mainArea->slot_selPicItem(item);
+
     });
 
     connect(propertyArea, &PropertyAreaView::s_commproFresh, [&](){
@@ -225,7 +226,7 @@ void MainWindow::setConnect()
 
     connect(propertyArea, &PropertyAreaView::s_saveToCurrentPicture, [&](){
          mainArea->saveToCurrentPictire();
-         //mainArea->clearsSceneItems();
+         mainArea->slot_selPicItem(ui->scrollAreaWidgetContents->getSelItem()->getPictureItem());
     });
 
     connect(propertyArea, &PropertyAreaView::s_saveToAllPictures, [&](){
@@ -234,12 +235,12 @@ void MainWindow::setConnect()
         std::vector<QPixmap> vecPix;
         for (auto item : vecSession)
         {
-
             mainArea->slot_selPicItem((PictureItem *)item);
             mainArea->saveToCurrentPictire();
         }
 
         mainArea->clearsSceneItems();
+        mainArea->slot_selPicItem(ui->scrollAreaWidgetContents->getSelItem()->getPictureItem());
 
     });
 
@@ -289,6 +290,7 @@ void MainWindow::setupUndoRedoActions()
         if(pic)
         {
             m_model->eraseConnectItem(pic->getPictureItem());
+
         }
     });
     m_toolBar->addAction(deleteAction);

@@ -1,12 +1,14 @@
-#include "picScaleViewComp.h"
+﻿#include "picScaleViewComp.h"
 
 #include <QHBoxLayout>
 #include<QRandomGenerator>
 #include <QStyle>
 #include <QVariant>
 #include <QDebug>
+#include <QMenu>
+#include <QAction>
 
-#include "mvvm/model/sessionmodel.h"
+#include "mvvm/model/modelutils.h"
 #include "picScaleComp.h"
 #include "pictureItem.h"
 
@@ -93,7 +95,8 @@ void PicScaleViewComp::refreashSelPic(ModelView::SessionItem * parentItem, Model
         PicScaleComp *comp = getSelPicByItem(pItem);
         if(comp)
         {
-           comp->s_clicked(false);
+           comp->s_clicked(true);
+
         }
     }
 }
@@ -131,7 +134,7 @@ void PicScaleViewComp::eraseItem(ModelView::SessionItem * parentItem, ModelView:
 void PicScaleViewComp::insertItem(ModelView::SessionItem * item, ModelView::TagRow row)
 {
     PictureItem * pItem = (PictureItem *)item;
-    PicScaleComp * picScale = new PicScaleComp((PictureItem *)item);
+    PicScaleComp * picScale = new PicScaleComp(itemMenu,(PictureItem *)item);
     connect(picScale, &PicScaleComp::s_clicked, this, &PicScaleViewComp::refreashState);
     picScale->setFixedSize(180,180);
     picScale->setPicIndexInterval(QString("%1").arg(row.row), QString("%1ms").arg(600));
@@ -140,7 +143,7 @@ void PicScaleViewComp::insertItem(ModelView::SessionItem * item, ModelView::TagR
 
     m_itemToView[pItem] = picScale;
 
-    picScale->s_clicked(false);
+    picScale->s_clicked(true);
 
     if(row.row != m_itemToView.size() - 1)
     {
@@ -157,6 +160,37 @@ void PicScaleViewComp::initial()
     m_layout->setSpacing(0);
 
     m_layout->addStretch();
+
+    toPreAction = new QAction(QIcon(":/images/bringtofront.png"),
+                                tr("Bring to previous"), this);
+    connect(toPreAction, &QAction::triggered, this, [=](){
+
+        PicScaleComp * pic = getSelItem();
+        ModelView::Utils::MoveUp(pic->getPictureItem());
+    });
+
+    toNextAction = new QAction(QIcon(":/images/sendtoback.png"), tr("Bring to next"), this);
+    connect(toNextAction, &QAction::triggered, this, [=](){
+
+        PicScaleComp * pic = getSelItem();
+        ModelView::Utils::MoveDown(pic->getPictureItem());
+
+    });
+
+    deleteAction = new QAction(QIcon(":/images/delete.png"), tr("&Delete"), this);
+
+    connect(deleteAction, &QAction::triggered, this, [=](){
+
+        PicScaleComp * pic = getSelItem();
+        ModelView::Utils::DeleteItemFromModel(pic->getPictureItem());
+
+    });
+
+    itemMenu = new QMenu(this);
+    itemMenu->addAction(toPreAction);
+    itemMenu->addAction(toNextAction);
+    itemMenu->addSeparator();
+    itemMenu->addAction(deleteAction);
 
 }
 

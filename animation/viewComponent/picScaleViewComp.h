@@ -1,10 +1,11 @@
-#pragma once
+﻿#pragma once
 #include <QFrame>
 #include "pictureItem.h"
 
 class QHBoxLayout;
 class QScrollArea;
 class PicScaleComp;
+class QMenu;
 
 class PicScaleViewComp :public QFrame
 {
@@ -39,5 +40,10 @@ private:
 
     PicScaleComp * m_picScaleCli = nullptr;
     std::map<PictureItem*, PicScaleComp*> m_itemToView;
+
+    QMenu *itemMenu;
+    QAction *deleteAction;
+    QAction *toPreAction;
+    QAction *toNextAction;
 
 };

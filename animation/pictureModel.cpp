@@ -88,8 +88,7 @@ void PictureModel::insertEmptyPicture()
 
     if ( item = dynamic_cast<PictureItem*>(insertItem<PictureItem>()); item) {
 
-        //item->setQpixmap(QPixmap::fromImage(img));
-        item->setQpixmap(QPixmap());
+        item->setQpixmap(QPixmap::fromImage(img));
         item->setX(0);
         item->setY(0);
 
@@ -100,6 +99,8 @@ void PictureModel::insertEmptyPicture()
 
 
     Utils::EndMacros(this);
+
+    ;
 
 }
 
