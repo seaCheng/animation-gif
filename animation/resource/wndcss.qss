@@ -1,4 +1,15 @@
 
+/*StyleSheet样式表*/
+QToolBar
+{
+    background-color: #333333;
+	border: none;
+	padding: 1px;
+}
+QToolBar::separator {
+    width: 0px;
+    background-color: #222222;
+}
 
 QLabel
 {color:rgb(0, 0, 0);
@@ -119,6 +130,7 @@ border-bottom-right-radius:2px;
 #PropertyAreaView>QTabBar::tab:!selected {
 margin-top:2px;
 }
+
 /*-------------QTabWidget #PropertyAreaView-------------------------*/
 
 #topSplitter::handle{background:#FFFFFF}

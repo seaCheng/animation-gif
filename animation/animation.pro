@@ -66,6 +66,7 @@ $$PWD/../QtSingleApplication \
 $$PWD/tabPropertyTable \
 $$PWD/tabPropertyTable/commonProperty \
 $$PWD/tabPropertyTable/whiteBoardProperty \
+$$PWD/titleBar   \
 $$PWD/viewComponent
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -91,6 +92,8 @@ SOURCES += \
     tabPropertyTable/whiteBoardProperty/diagramtextitem.cpp \
     tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.cpp \
     tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp \
+    titleBar/OSXHideTitleBar.mm \
+    titleBar/framelesswindow.mm \
     viewComponent/aspectRatioPixmapLabel.cpp \
     viewComponent/picScaleComp.cpp \
     viewComponent/picScaleViewComp.cpp
@@ -113,6 +116,8 @@ HEADERS += \
     tabPropertyTable/whiteBoardProperty/diagramtextitem.h \
     tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.h \
     tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.h \
+    titleBar/OSXHideTitleBar.h \
+    titleBar/framelesswindow.h \
     viewComponent/aspectRatioPixmapLabel.h \
     viewComponent/picScaleComp.h \
     viewComponent/picScaleViewComp.h
@@ -128,6 +133,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RC_ICONS = $$PWD/resource/app.ico
 
+macx {
+    LIBS += -framework Cocoa
+}
 macx {
 DEFINES += PLUGIN_LIBRARY
 QMAKE_INFO_PLIST = macos/Info.plist

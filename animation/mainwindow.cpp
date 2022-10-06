@@ -12,6 +12,7 @@
 #include "propertyAreaView.h"
 #include "gifLoad.h"
 #include "mvvm/model/sessionitem.h"
+#include "OSXHideTitleBar.h"
 
 #include "gifExport.h"
 
@@ -32,11 +33,18 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::animationMW)
 {
-    m_toolBar = addToolBar("test");
     setObjectName("MainWindow");
     ui->setupUi(this);
     ui->scrollAreaPicScal->setObjectName("scrollAreaPicScal");
     ui->scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
+
+    OSXHideTitleBar::HideTitleBar(winId());
+    //OSXHideTitleBar::setTitlebarVisible(winId(),false);
+
+    m_toolBar = new QToolBar(this);
+    m_toolBar->setFloatable(false);
+    m_toolBar->setMovable(false);
+    ui->titleLayout->addWidget(m_toolBar);
 
     //添加页面显示
     mainArea = new MainAreaView;
@@ -256,6 +264,7 @@ void MainWindow::setConnect()
 
 void MainWindow::setupUndoRedoActions()
 {
+
     //load file
     auto loadAction = new QAction("Load project", this);
     connect(loadAction, &QAction::triggered, this, &MainWindow::slot_load
@@ -338,4 +347,6 @@ void MainWindow::setupUndoRedoActions()
         connect(ModelView::UndoStack::qtUndoStack(m_model->undoStack()), &QUndoStack::canUndoChanged,
                 can_redo_changed);
     }
+
+
 }
