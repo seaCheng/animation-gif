@@ -15,7 +15,7 @@
 #pragma comment (lib,"user32.lib")
 
 CFramelessWindow::CFramelessWindow(QWidget *parent)
-    : QWidget(parent),
+    : QMainWindow(parent),
       m_titlebar(Q_NULLPTR),
       m_borderWidth(5),
       m_bJustMaximized(false),
@@ -239,7 +239,7 @@ bool CFramelessWindow::nativeEvent(const QByteArray &eventType, void *message, l
         return false;
     }
     default:
-        return QWidget::nativeEvent(eventType, message, result);
+        return QWidget::nativeEvent(eventType, message, (qintptr *)result);
     }
 }
 
@@ -267,7 +267,12 @@ QMargins CFramelessWindow::contentsMargins() const
 }
 void CFramelessWindow::getContentsMargins(int *left, int *top, int *right, int *bottom) const
 {
-    QWidget::getContentsMargins(left,top,right,bottom);
+    QMargins margins = QWidget::contentsMargins();
+    *left = margins.left();
+    *top = margins.top();
+    *right = margins.right();
+    *bottom = margins.bottom();
+
     if (!(left&&top&&right&&bottom)) return;
     if (isMaximized())
     {

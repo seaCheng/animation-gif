@@ -38,8 +38,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->scrollAreaPicScal->setObjectName("scrollAreaPicScal");
     ui->scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
 
+    #ifdef Q_OS_MAC
     OSXHideTitleBar::HideTitleBar(winId());
-    //OSXHideTitleBar::setTitlebarVisible(winId(),false);
+    #endif
 
     m_toolBar = new QToolBar(this);
     m_toolBar->setFloatable(false);
@@ -236,7 +237,11 @@ void MainWindow::setConnect()
 
     connect(propertyArea, &PropertyAreaView::s_saveToCurrentPicture, [&](){
          mainArea->saveToCurrentPictire();
-         mainArea->slot_selPicItem(ui->scrollAreaWidgetContents->getSelItem()->getPictureItem());
+         if(ui->scrollAreaWidgetContents->getSelItem())
+         {
+             mainArea->slot_selPicItem(ui->scrollAreaWidgetContents->getSelItem()->getPictureItem());
+         }
+
     });
 
     connect(propertyArea, &PropertyAreaView::s_saveToAllPictures, [&](){
@@ -250,7 +255,11 @@ void MainWindow::setConnect()
         }
 
         mainArea->clearsSceneItems();
-        mainArea->slot_selPicItem(ui->scrollAreaWidgetContents->getSelItem()->getPictureItem());
+        if(ui->scrollAreaWidgetContents->getSelItem())
+        {
+            mainArea->slot_selPicItem(ui->scrollAreaWidgetContents->getSelItem()->getPictureItem());
+        }
+
 
     });
 

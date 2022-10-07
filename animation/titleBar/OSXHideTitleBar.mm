@@ -1,4 +1,5 @@
-﻿#include "OSXHideTitleBar.h"
+﻿#ifdef Q_OS_MAC
+#include "OSXHideTitleBar.h"
 #include <Cocoa/Cocoa.h>
 #include <QDebug>
 
@@ -72,3 +73,6 @@ void OSXHideTitleBar::setZoomBtnEnabled(long winid,bool bEnable)
         [[window standardWindowButton:NSWindowZoomButton] setEnabled:NO];
     }
 }
+
+
+#endif

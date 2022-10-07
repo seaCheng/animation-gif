@@ -92,9 +92,8 @@ SOURCES += \
     tabPropertyTable/whiteBoardProperty/diagramtextitem.cpp \
     tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.cpp \
     tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp \
-    titleBar/OSXHideTitleBar.mm \
-    titleBar/framelesswindow.mm \
     viewComponent/aspectRatioPixmapLabel.cpp \
+    titleBar/framelesswindow.cpp \
     viewComponent/picScaleComp.cpp \
     viewComponent/picScaleViewComp.cpp
 
@@ -135,6 +134,11 @@ RC_ICONS = $$PWD/resource/app.ico
 
 macx {
     LIBS += -framework Cocoa
+
+    SOURCES += \
+    titleBar/OSXHideTitleBar.mm \
+    titleBar/framelesswindow.mm \
+
 }
 macx {
 DEFINES += PLUGIN_LIBRARY

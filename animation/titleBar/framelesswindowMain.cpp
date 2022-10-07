@@ -239,7 +239,7 @@ bool CFramelessWindowMain::nativeEvent(const QByteArray &eventType, void *messag
         return false;
     }
     default:
-        return QMainWindow::nativeEvent(eventType, message, result);
+        return QMainWindow::nativeEvent(eventType, message, (qintptr *)result);
     }
 }
 
@@ -267,7 +267,13 @@ QMargins CFramelessWindowMain::contentsMargins() const
 }
 void CFramelessWindowMain::getContentsMargins(int *left, int *top, int *right, int *bottom) const
 {
-    QMainWindow::getContentsMargins(left,top,right,bottom);
+    //QMainWindow::getContentsMargins(left,top,right,bottom);
+    QMargins margins = QMainWindow::contentsMargins();
+        *left = margins.left();
+        *top = margins.top();
+        *right = margins.right();
+        *bottom = margins.bottom();
+
     if (!(left&&top&&right&&bottom)) return;
     if (isMaximized())
     {

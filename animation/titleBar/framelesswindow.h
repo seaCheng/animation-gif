@@ -13,7 +13,7 @@
 #include <QList>
 #include <QMargins>
 #include <QRect>
-class CFramelessWindow : public QWidget
+class CFramelessWindow : public QMainWindow
 {
     Q_OBJECT
 public:
