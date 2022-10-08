@@ -48,7 +48,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(228, 234, 255);</string>
+       <string notr="true">background-color: rgb(185, 185, 185);</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
@@ -59,15 +59,12 @@
       <property name="lineWidth">
        <number>0</number>
       </property>
-      <layout class="QVBoxLayout" name="titleLayout">
-       <property name="spacing">
-        <number>2</number>
-       </property>
+      <layout class="QHBoxLayout" name="titleLayout">
        <property name="leftMargin">
         <number>2</number>
        </property>
        <property name="topMargin">
-        <number>35</number>
+        <number>28</number>
        </property>
        <property name="rightMargin">
         <number>2</number>

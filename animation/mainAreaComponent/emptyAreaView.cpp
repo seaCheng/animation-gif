@@ -1,4 +1,4 @@
-#include "emptyAreaView.h"
+﻿#include "emptyAreaView.h"
 #include<QDebug>
 #include<QToolButton>
 #include <QHBoxLayout>
@@ -13,7 +13,7 @@ EmptyAreaView::EmptyAreaView(QWidget *parent)
     });
     toolPicWid->setObjectName("toolPicWid");
     toolPicWid->setText(tr("pic add"));
-    toolPicWid->setFixedSize(185,185);
+    toolPicWid->setFixedSize(125,125);
 
     QToolButton *toolGifWid =  new QToolButton();
     connect(toolGifWid, &QToolButton::clicked, this, [=](){
@@ -22,8 +22,16 @@ EmptyAreaView::EmptyAreaView(QWidget *parent)
 
     toolGifWid->setObjectName("toolGifWid");
     toolGifWid->setText(tr("gif load"));
-    toolGifWid->setFixedSize(185,185);
+    toolGifWid->setFixedSize(125,125);
 
+    QToolButton *toolVideoWid =  new QToolButton();
+    connect(toolVideoWid, &QToolButton::clicked, this, [=](){
+        emit s_clicked(type_import::import_video);
+    });
+
+    toolVideoWid->setObjectName("toolVideoWid");
+    toolVideoWid->setText(tr("Video load"));
+    toolVideoWid->setFixedSize(125,125);
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->setContentsMargins(10,10,10,10);
@@ -31,8 +39,8 @@ EmptyAreaView::EmptyAreaView(QWidget *parent)
     layout->setSpacing(10);
     layout->addWidget(toolPicWid);
     layout->addWidget(toolGifWid);
+    layout->addWidget(toolVideoWid);
     layout->addStretch();
-
 
     setLayout(layout);
 }

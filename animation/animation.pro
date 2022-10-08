@@ -93,7 +93,6 @@ SOURCES += \
     tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.cpp \
     tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
-    titleBar/framelesswindow.cpp \
     viewComponent/picScaleComp.cpp \
     viewComponent/picScaleViewComp.cpp
 
@@ -140,6 +139,12 @@ macx {
     titleBar/framelesswindow.mm \
 
 }
+
+win32{
+    SOURCES += \
+    titleBar/framelesswindow.cpp
+}
+
 macx {
 DEFINES += PLUGIN_LIBRARY
 QMAKE_INFO_PLIST = macos/Info.plist

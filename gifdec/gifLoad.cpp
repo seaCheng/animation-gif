@@ -7,6 +7,15 @@
 #include <QImage>
 #include <QCoreApplication>
 
+#include <vector>
+
+#include <Magick++.h>
+#include <list>
+
+using namespace std;
+
+using namespace Magick;
+
 GifLoad::GifLoad(QObject *parent)
 {
     m_subThread = new QThread;
@@ -25,7 +34,7 @@ void GifLoad::startGifLoad(QString file)
 
 void GifLoad::slot_GifLoad(QString file)
 {
-
+    /*
     int sum = 0 ;
     Uint8 *color, *frame, *bgColor;
     SDL_Surface *surface;
@@ -70,13 +79,30 @@ void GifLoad::slot_GifLoad(QString file)
 
         SDL_UnlockSurface(surface);
 
-        QImage img((unsigned char*)frame, gif->width, gif->height, gif->width * 3, QImage::Format_RGB888);
+        QImage img((unsigned char*)frame, gif->width, gif->height, gif->width * 4, QImage::Format_ARGB32);
         m_lstPixmap.emplace_back(QPixmap::fromImage(img));
 
     }
 
     free(frame);
     gd_close_gif(gif);
+    */
+    list<Image> imageList;
+    //std::vector<Magick::Image> lstImages;
+    readImages( &imageList, file.toStdString().c_str());
+    for(auto it : imageList)
+    {
+        int width = it.columns();
+        int heigth = it.rows();
+        Magick::Blob bo;
+        it.write(&bo);
+
+        const QByteArray imageData1((char*)(bo.data()),bo.length());
+        QPixmap item1p;
+        item1p.loadFromData(imageData1);
+
+        m_lstPixmap.emplace_back(item1p);
+    }
 
     emit s_FinGifLoad();
 }

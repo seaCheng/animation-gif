@@ -1,8 +1,8 @@
-#ifndef EMPTYAREAVIEW_H
+﻿#ifndef EMPTYAREAVIEW_H
 #define EMPTYAREAVIEW_H
 #include <QLabel> 
 
-enum class type_import{import_none, import_pic,import_gif};
+enum class type_import{import_none, import_pic,import_gif, import_video};
 
 Q_DECLARE_METATYPE(type_import)
 

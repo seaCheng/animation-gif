@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_toolBar = new QToolBar(this);
     m_toolBar->setFloatable(false);
     m_toolBar->setMovable(false);
+    ui->titleLayout->addStretch(1);
     ui->titleLayout->addWidget(m_toolBar);
 
     //添加页面显示

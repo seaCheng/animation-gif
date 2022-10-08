@@ -1,7 +1,7 @@
-﻿#ifdef Q_OS_MAC
+﻿#include <QDebug>
+#ifdef Q_OS_MAC
 #include "OSXHideTitleBar.h"
 #include <Cocoa/Cocoa.h>
-#include <QDebug>
 
 void OSXHideTitleBar::HideTitleBar(long winid)
 {
@@ -9,7 +9,7 @@ void OSXHideTitleBar::HideTitleBar(long winid)
     NSWindow* nativeWindow = [nativeView window];
 
     [nativeWindow setStyleMask:
-        [nativeWindow styleMask] | NSFullSizeContentViewWindowMask | NSWindowTitleHidden];
+        [nativeWindow styleMask] | NSWindowStyleMaskFullSizeContentView | NSWindowTitleHidden];
 
     [nativeWindow setTitlebarAppearsTransparent:YES];
     [nativeWindow setMovableByWindowBackground:NO];

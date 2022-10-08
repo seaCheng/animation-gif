@@ -5,6 +5,7 @@ QToolBar
     background-color: #333333;
 	border: none;
 	padding: 1px;
+        border-radius:2px;
 }
 QToolBar::separator {
     width: 0px;
@@ -38,7 +39,7 @@ border:1px solid rgb(0,255,0)；
 
 /*-------------toolPicWid, toolGifWid-------------------------*/
 
-#toolGifWid, #toolPicWid{
+#toolGifWid, #toolPicWid, #toolVideoWid{
 color:rgb(255, 255, 255);
 border-style:solid;
 border-top-left-radius:8px;
@@ -49,7 +50,7 @@ stop: 1 rgb(140,140,140));
 border:1px;
 border-radius:5px;padding:2px 4px;/*border-radius??????*/
 }
-#toolGifWid:hover, #toolPicWid:hover{  /*?????*/
+#toolGifWid:hover, #toolPicWid:hover, #toolVideoWid:hover{  /*?????*/
 color:rgb(255, 255, 255);
 border-style:solid;
 border-top-left-radius:8px;
@@ -60,7 +61,7 @@ stop: 1 rgb(120,120,120));
 border:1px;
 border-radius:5px;padding:2px 4px;
 }
-#toolGifWid:pressed, #toolPicWid:pressed{ /*?????*/
+#toolGifWid:pressed, #toolPicWid:pressed, #toolVideoWid:pressed{ /*?????*/
 color:rgb(255, 255, 255);
 border-style:solid;
 border-top-left-radius:8px;
@@ -71,7 +72,7 @@ stop: 1 rgb(160,160,160));
 border:1px;
 border-radius:5px;padding:2px 4px;
 }
-#toolGifWid:checked, #toolPicWid:checked{    /*???*/
+#toolGifWid:checked, #toolPicWid:checked, #toolVideoWid:checked{    /*???*/
 color:rgb(255, 255, 255);
 border-style:solid;
 border-top-left-radius:8px;
