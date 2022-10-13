@@ -1,6 +1,8 @@
 ﻿#include "WhiteBoardPropertyView.h"
 #include "commonPropertyView.h"
 
+#include "utils.h"
+
 #include <QToolButton>
 #include <QButtonGroup>
 #include <QGridLayout>
@@ -868,7 +870,7 @@ void WhiteBoardPropertyView::initial()
 
     QGroupBox *groupBoxOperation= new QGroupBox(tr("Operation"));
     QGridLayout * vOprlay = new QGridLayout(this);
-    vOprlay->setContentsMargins(10,5,10,5);
+    vOprlay->setContentsMargins(10,5,15,5);
     vOprlay->setSpacing(12);
 
     groupBoxProperty->setLayout(vProlay);
@@ -879,7 +881,7 @@ void WhiteBoardPropertyView::initial()
 
     saveCurrentToolButton = new QToolButton;
     saveCurrentToolButton->setObjectName("saveCurrentToolButton");
-    saveCurrentToolButton->setFixedSize(260,30);
+    saveCurrentToolButton->setFixedSize(Utils::getInstance()->autoW(260),Utils::getInstance()->autoH(30));
     saveCurrentToolButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
     saveCurrentToolButton->setArrowType(Qt::NoArrow);
     saveCurrentToolButton->setText(QStringLiteral("save to current picture"));
@@ -887,7 +889,7 @@ void WhiteBoardPropertyView::initial()
 
     saveAllToolButton = new QToolButton;
     saveAllToolButton->setObjectName("saveAllToolButton");
-    saveAllToolButton->setFixedSize(260,30);
+    saveAllToolButton->setFixedSize(Utils::getInstance()->autoW(260),Utils::getInstance()->autoH(30));
     saveAllToolButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
     saveAllToolButton->setArrowType(Qt::NoArrow);
     saveAllToolButton->setText(QStringLiteral("save to all pictures"));
@@ -895,7 +897,7 @@ void WhiteBoardPropertyView::initial()
 
     clearToolButton = new QToolButton;
     clearToolButton->setObjectName("clearToolButton");
-    clearToolButton->setFixedSize(260,30);
+    clearToolButton->setFixedSize(Utils::getInstance()->autoW(260),Utils::getInstance()->autoH(30));
     clearToolButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
     clearToolButton->setArrowType(Qt::NoArrow);
     clearToolButton->setText(QStringLiteral("clear white board"));

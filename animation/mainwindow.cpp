@@ -45,8 +45,19 @@ MainWindow::MainWindow(QWidget *parent)
     m_toolBar = new QToolBar(this);
     m_toolBar->setFloatable(false);
     m_toolBar->setMovable(false);
+
+    #ifdef Q_OS_MAC
     ui->titleLayout->addStretch(1);
     ui->titleLayout->addWidget(m_toolBar);
+    #endif
+
+    #ifdef Q_OS_WIN32
+    ui->titleLayout->addWidget(m_toolBar);
+    ui->titleLayout->addStretch(1);
+    ui->titleBar->setFixedHeight(45);
+    ui->titleLayout->setContentsMargins(2,10,2,2);
+    ui->titleLayout->setSpacing(10);
+    #endif
 
     //添加页面显示
     mainArea = new MainAreaView;

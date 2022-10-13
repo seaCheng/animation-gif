@@ -3,6 +3,7 @@
 #include "QtSingleApplication"
 #include "AWLogger.h"
 #include "AWLoggerFactory.h"
+#include "utils.h"
 
 #include <iostream>
 
@@ -27,11 +28,11 @@ int main(int argc, char *argv[])
 
     QFont font;
     font.setPointSize(12);
-    #if defined (_WIN32) || defined (WIN32)
-        font.setFamily("微软雅黑");
-    #else
-        font.setFamily("PingFangSC-Regular");
-    #endif
+#if defined (_WIN32) || defined (WIN32)
+    font.setFamily("微软雅黑");
+#else
+    font.setFamily("PingFangSC-Regular");
+#endif
     app.setFont(font);
 
     bool bReg = QResource::registerResource(QCoreApplication::applicationDirPath() + "/resource/instance.rcc");
@@ -46,7 +47,8 @@ int main(int argc, char *argv[])
     logger->info("bReg:{}, bRst:{}", bReg, bRst);
 
     MainWindow mainWindow;
-    mainWindow.setGeometry(100, 100, 800, 500);
+    mainWindow.setGeometry(Utils::getInstance()->autoW(100), Utils::getInstance()->autoH(100),
+                           Utils::getInstance()->autoW(950), Utils::getInstance()->autoH(600));
     mainWindow.show();
 
     app.setActivationWindow(&mainWindow,1);

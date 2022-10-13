@@ -67,6 +67,7 @@ $$PWD/tabPropertyTable \
 $$PWD/tabPropertyTable/commonProperty \
 $$PWD/tabPropertyTable/whiteBoardProperty \
 $$PWD/titleBar   \
+$$PWD/utils   \
 $$PWD/viewComponent
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -92,6 +93,7 @@ SOURCES += \
     tabPropertyTable/whiteBoardProperty/diagramtextitem.cpp \
     tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.cpp \
     tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp \
+    utils/utils.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
     viewComponent/picScaleComp.cpp \
     viewComponent/picScaleViewComp.cpp
@@ -116,6 +118,7 @@ HEADERS += \
     tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.h \
     titleBar/OSXHideTitleBar.h \
     titleBar/framelesswindow.h \
+    utils/utils.h \
     viewComponent/aspectRatioPixmapLabel.h \
     viewComponent/picScaleComp.h \
     viewComponent/picScaleViewComp.h
