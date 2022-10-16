@@ -15,6 +15,7 @@ class MainAreaView;
 class PropertyAreaView;
 class QSplitter;
 class ModelController;
+class VideoPlayer;
 
 class MainWindow : public QMainWindow
 {
@@ -33,6 +34,7 @@ public slots:
     void slot_add();
     void slot_clear();
     void slot_importGif();
+    void slot_importVideos();
     void slot_FinimportGif();
 
     void slot_save();
@@ -48,6 +50,7 @@ private:
     MainAreaView * mainArea = nullptr;
     PropertyAreaView * propertyArea = nullptr;
     QSplitter * splitter = nullptr;
+    VideoPlayer * player = nullptr;
 
     ModelController * ctl = nullptr;
 };

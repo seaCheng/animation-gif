@@ -15,6 +15,8 @@
 #include "OSXHideTitleBar.h"
 
 #include "gifExport.h"
+#include "videoplayer.h"
+#include "utils.h"
 
 #include <QAction>
 #include <QFileDialog>
@@ -97,6 +99,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->rightView->setMaximumWidth(450);
     ui->topView->layout()->addWidget(splitter);
 
+    player = new VideoPlayer;
     m_model = new PictureModel();
     ctl = new ModelController(m_model, ui->scrollAreaWidgetContents);
 
@@ -175,6 +178,11 @@ void MainWindow::slot_import(type_import type)
             slot_importGif();
             break;
         }
+    case type_import::import_video:
+       {
+           slot_importVideos();
+           break;
+       }
 
     default:
         {
@@ -188,6 +196,24 @@ void MainWindow::slot_FinimportGif()
 {
     std::vector<QPixmap> lstPix = GifLoad::instace()->getPixmaps();
     m_model->insertConnectItems(lstPix);
+}
+
+void MainWindow::slot_importVideos()
+{
+
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                     QDir::homePath()
+                                                     );
+    if(!fileName.isNull())
+    {
+
+        player->setGeometry(100,100, 650, 400);
+        player->setUrl(QUrl::fromLocalFile(fileName));
+        Utils::MoveToCenterP(player, this);
+        player->exec();
+        player->stop();
+
+    }
 }
 
 void MainWindow::slot_importGif()
@@ -277,6 +303,19 @@ void MainWindow::setConnect()
 
     connect(propertyArea, &PropertyAreaView::s_clearGraphicsItems, [&](){
          mainArea->clearsSceneItems();
+    });
+
+    connect(player, &VideoPlayer::s_insertImage, [&](const QImage& img){
+         if(img.isNull() == false)
+         {
+             QPixmap pix;
+             pix.convertFromImage(img);
+             m_model->insertConnectItemImg(pix);
+         }else
+         {
+             qDebug()<<"s_insertImage null image...";
+         }
+
     });
 
     connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);

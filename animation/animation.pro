@@ -1,5 +1,6 @@
 QT       += core gui core5compat
 QT += openglwidgets
+QT += multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -68,6 +69,7 @@ $$PWD/tabPropertyTable/commonProperty \
 $$PWD/tabPropertyTable/whiteBoardProperty \
 $$PWD/titleBar   \
 $$PWD/utils   \
+$$PWD/VideoLoad   \
 $$PWD/viewComponent
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -75,6 +77,7 @@ $$PWD/viewComponent
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    VideoLoad/videoplayer.cpp \
     mainAreaComponent/emptyAreaView.cpp \
     mainAreaComponent/graphicsViewComp.cpp \
     mainAreaComponent/mainAreaView.cpp \
@@ -99,6 +102,7 @@ SOURCES += \
     viewComponent/picScaleViewComp.cpp
 
 HEADERS += \
+    VideoLoad/videoplayer.h \
     mainAreaComponent/emptyAreaView.h \
     mainAreaComponent/graphicsViewComp.h \
     mainAreaComponent/mainAreaView.h \

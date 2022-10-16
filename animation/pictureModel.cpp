@@ -51,6 +51,24 @@ PictureItem * PictureModel::insertConnectableItem(const std::string& itemType, d
     return item;
 }
 
+void PictureModel::insertConnectItemImg(QPixmap pix)
+{
+    PictureItem * item;
+    Utils::BeginMacros(this, "insertConnectItemImg");
+
+    if ( item = dynamic_cast<PictureItem*>(insertItem<PictureItem>()); item) {
+
+        item->setQpixmap(pix);
+
+    }else
+    {
+        qDebug()<<"insert failed....";
+    }
+
+
+    Utils::EndMacros(this);
+}
+
 void PictureModel::insertConnectItems(QStringList lst)
 {
     Utils::BeginMacros(this, "insertConnectableItems");

@@ -6,6 +6,7 @@
 #include <QCryptographicHash>
 #include <QtDebug>
 #include <QScreen>
+#include <QWidget>
 #include <QApplication>
 
 QMutex Utils::mutex;
@@ -265,4 +266,41 @@ int Utils::autoF(int beforeF)
     int r2 = autoH(beforeF);
     int f = r1 < r2 ? r2 : r1;
     return f < 8 ? 8 : f;
+}
+
+void Utils::MoveToCenterP(QWidget * pWid, QWidget *pPWid)
+{
+    if(pWid == nullptr || pPWid == nullptr)
+    {
+        return;
+    }
+
+    QPoint globalPos = pPWid->mapToGlobal(QPoint(0,0));//父窗口绝对坐标
+    int x =  (pPWid->width() - pWid->width()) / 2;//x坐标
+    int y = (pPWid->height() - pWid->height()) / 2;//y坐标
+    pWid->move(x, y + 50);//
+
+}
+
+void Utils::MoveToCenterNP(QWidget * pWid, QWidget *pPWid)
+{
+    if(pWid == nullptr || pPWid == nullptr)
+    {
+        return;
+    }
+
+    QPoint globalPos = pPWid->mapToGlobal(QPoint(0,0));//父窗口绝对坐标
+    int x =  (pPWid->width() - pWid->width()) / 2;//x坐标
+    int y = (pPWid->height() - pWid->height()) / 2;//y坐标
+
+    globalPos.setX(x + globalPos.x());
+    globalPos.setY(y + globalPos.y());
+
+    pWid->move(globalPos);//
+
+}
+
+void Utils::MoveToCenter(QWidget * pWid)
+{
+     //
 }

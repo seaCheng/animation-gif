@@ -28,6 +28,7 @@ public:
 
     void insertConnectItems(QStringList lst);
     void insertConnectItems(const std::vector<QPixmap> lst);
+    void insertConnectItemImg(QPixmap pix);
     void eraseConnectItem(ModelView::SessionItem * item);
     void eraseConnectItems(const std::vector<ModelView::SessionItem *> lst);
 

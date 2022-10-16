@@ -40,6 +40,13 @@ public:
     Q_INVOKABLE int autoH(int beforeH);
     //font pix size
     Q_INVOKABLE int autoF(int beforeF);
+
+    static void MoveToCenter(QWidget * pWid);
+    //移动到父窗口的中心位置
+    static void MoveToCenterP(QWidget * pWid, QWidget *pPWid);
+    //移动到非父窗口的中心位置
+    static void MoveToCenterNP(QWidget * pWid, QWidget *pPWid);
+
 signals:
     void log(const QString& txt);
 
