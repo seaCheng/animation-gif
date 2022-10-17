@@ -46,6 +46,7 @@ void GifExport::slot_GifExportMagick(QString file)
 
     for(auto pix : lstPixmap)
     {
+
         QImage img = pix.toImage();
 
         //绘制指定图片作为背景
@@ -82,9 +83,9 @@ void GifExport::slot_GifExportMagick(QString file)
         painter.drawImage(rectPic, scalImage);
 
         QByteArray bytes;
-                 QBuffer buffer(&bytes);
-                 buffer.open(QIODevice::WriteOnly);
-                 desImage.save(&buffer, "PNG");
+        QBuffer buffer(&bytes);
+        buffer.open(QIODevice::WriteOnly);
+        desImage.save(&buffer, "PNG");
 
         Magick::Image imgMagick;
         Blob bi(bytes.data(), bytes.size());

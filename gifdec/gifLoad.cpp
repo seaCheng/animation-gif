@@ -87,20 +87,18 @@ void GifLoad::slot_GifLoad(QString file)
     free(frame);
     gd_close_gif(gif);
     */
+
+
     list<Image> imageList;
-    //std::vector<Magick::Image> lstImages;
     readImages( &imageList, file.toStdString().c_str());
     for(auto it : imageList)
     {
-        int width = it.columns();
-        int heigth = it.rows();
         Magick::Blob bo;
         it.write(&bo);
 
         const QByteArray imageData1((char*)(bo.data()),bo.length());
         QPixmap item1p;
         item1p.loadFromData(imageData1);
-
         m_lstPixmap.emplace_back(item1p);
     }
 

@@ -6,7 +6,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QRegion>
-
+#include <QBuffer>
 
 // SGraffiti
 SGraffiti::SGraffiti(QMenu * menu) : Shape(menu,tt_Graffiti), m_rcBounding(0, 0, 0, 0)
@@ -35,7 +35,23 @@ void SGraffiti::setText(QString str)
     if(pathinformation.bHandWriting == false)
     {
         Textpath.clear();
+        /*
         Textpath.addText(0,0,pathinformation.textFont,pathinformation.text);
+        */
+
+        int fontWidth = pathinformation.penPathWidth > pathinformation.penPathcontourWidth ?  \
+                        pathinformation.penPathWidth : pathinformation.penPathcontourWidth;
+        qreal lineHeight = QFontMetricsF(pathinformation.textFont).height() + fontWidth;
+        int lineCount = 0;
+        QByteArray content = pathinformation.text.toUtf8();
+        QBuffer buff(&content);
+        buff.open(QBuffer::ReadOnly);
+        while(!buff.atEnd())
+        {
+            QByteArray line = buff.readLine();
+            Textpath.addText(0, 0 + lineCount * lineHeight, pathinformation.textFont, line);
+            lineCount++;
+        }
 
         m_rcBounding = Textpath.boundingRect();
         int pathwidth = 2*(pathinformation.penPathWidth + pathinformation.penPathcontourWidth);
