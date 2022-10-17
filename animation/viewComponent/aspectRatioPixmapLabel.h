@@ -1,4 +1,4 @@
-#ifndef ASPECTRATIOPIXMAPLABEL_H 
+﻿#ifndef ASPECTRATIOPIXMAPLABEL_H 
 #define ASPECTRATIOPIXMAPLABEL_H 
 #include <QLabel> 
 #include<QPaintEvent> 
@@ -15,6 +15,7 @@ public: AspectRatioPixmapLabel(QWidget *parent = 0);
     //void setScalPixmap(const QPixmap p);//设置变化的
 protected:
     void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;//重写重绘函数
+
 private:
     QPixmap m_pix;//保存图片Pixmap
     QString m_strPath = "";//保存图片路径

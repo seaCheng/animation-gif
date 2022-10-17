@@ -12,6 +12,8 @@ class QAbstractButton;
 class QSlider;
 class QLabel;
 class QUrl;
+class QToolButton;
+class QComboBox;
 class AspectRatioPixmapLabel;
 QT_END_NAMESPACE
 
@@ -55,6 +57,8 @@ public:
     ~VideoPlayer();
 
     void setUrl(const QUrl &url);
+
+    void reset();
 signals:
     void s_insertImage(const QImage& img);
 public slots:
@@ -74,9 +78,12 @@ private:
     QAbstractButton *m_playButton;
     QSlider *m_positionSlider;
     QLabel *m_errorLabel;
+    QToolButton * importBtn;
+    QToolButton * importStopBtn;
     QVideoSink m_videoSink;
+    QComboBox * frameRateCombo;
     AspectRatioPixmapLabel * picLabel;
-    bool bAdd = true;
+    bool bAdd = false;
 };
 
 #endif

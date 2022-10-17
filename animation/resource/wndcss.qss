@@ -163,13 +163,13 @@ QScrollBar:vertical{
 margin:0px 0px 0px 0px;
 background-color:rgb(226,236,241);
 border:0px;
-width:7px;
+width:10px;
 }
 
 QScrollBar::handle:vertical{
 background-color:rgba(32,32,32,0.4);
 border-radius:7px;
-width:7px;
+width:10px;
 }
 
 QScrollBar::handle:vertical:hover{
@@ -211,13 +211,15 @@ QScrollBar:horizontal{
 margin:0px 0px 0px 0px;
 background-color:rgb(226,236,241);
 border:none;
-height:7px;
+min-width:20px;
+height:10px;
 }
 
 QScrollBar::handle:horizontal{
 background-color:rgba(32,32,32,0.4);
 border-radius:7px;
-height:7px;
+height:10px;
+min-width:20px;
 }
 
 QScrollBar::handle:horizontal:hover{

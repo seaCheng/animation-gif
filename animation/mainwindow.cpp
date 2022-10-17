@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::animationMW)
 {
+    setWindowTitle(QStringLiteral("AnimationGif++"));
     setObjectName("MainWindow");
     ui->setupUi(this);
     ui->scrollAreaPicScal->setObjectName("scrollAreaPicScal");
@@ -206,13 +207,12 @@ void MainWindow::slot_importVideos()
                                                      );
     if(!fileName.isNull())
     {
-
         player->setGeometry(100,100, 650, 400);
+        player->reset();
         player->setUrl(QUrl::fromLocalFile(fileName));
         Utils::MoveToCenterP(player, this);
         player->exec();
         player->stop();
-
     }
 }
 
@@ -297,8 +297,6 @@ void MainWindow::setConnect()
         {
             mainArea->slot_selPicItem(ui->scrollAreaWidgetContents->getSelItem()->getPictureItem());
         }
-
-
     });
 
     connect(propertyArea, &PropertyAreaView::s_clearGraphicsItems, [&](){
@@ -319,13 +317,11 @@ void MainWindow::setConnect()
     });
 
     connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);
-
 }
 
 void MainWindow::setupUndoRedoActions()
 {
 
-    //load file
     auto loadAction = new QAction("Load project", this);
     connect(loadAction, &QAction::triggered, this, &MainWindow::slot_load
             );

@@ -86,14 +86,12 @@ void GifExport::slot_GifExportMagick(QString file)
                  buffer.open(QIODevice::WriteOnly);
                  desImage.save(&buffer, "PNG");
 
-
         Magick::Image imgMagick;
-
         Blob bi(bytes.data(), bytes.size());
 
         imgMagick.read(bi);
         imgMagick.alpha(true);
-        imgMagick.animationDelay(proInf->delay);
+        imgMagick.animationDelay(proInf->delay / 10);
         imgMagick.gifDisposeMethod(BackgroundDispose);
         lstImages.emplace_back(imgMagick);    
     }

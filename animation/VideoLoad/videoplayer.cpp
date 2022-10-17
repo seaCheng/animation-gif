@@ -9,6 +9,8 @@
 #include <QSlider>
 #include <QLabel>
 #include <QStyle>
+#include <QComboBox>
+#include <QRandomGenerator>
 
 CSlider::CSlider(QWidget * parent, uint16_t handleLen)
     : QSlider(parent), m_handleLen(handleLen) {
@@ -108,28 +110,52 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
     connect(&m_videoSink, &QVideoSink::videoFrameChanged, this, [&](const QVideoFrame &frame){
 
+
+
         QImage img = frame.toImage();
         if(img.isNull() == false)
         {
             if(bAdd)
             {
-                emit s_insertImage(img);
-            }
+                int iIndex = QRandomGenerator::global()->bounded(1, 25);
+                if(iIndex <= frameRateCombo->currentText().toInt())
+                {
+                     emit s_insertImage(img);
+                }
 
+            }
             picLabel->setPixmapLabel(QPixmap::fromImage(img));
 
         }else
         {
             qDebug()<<"img is null";
         }
+
+
     });
 
     m_playButton = new QPushButton;
     m_playButton->setEnabled(false);
     m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 
+    importBtn = new QToolButton();
+    importBtn->setText(QStringLiteral("导入"));
     connect(m_playButton, &QAbstractButton::clicked,
             this, &VideoPlayer::play);
+
+    importStopBtn = new QToolButton();
+    importStopBtn->setText(QStringLiteral("停止"));
+    connect(importStopBtn, &QAbstractButton::clicked,
+            this, [&]()
+    {
+        m_positionSlider->setEnabled(true);
+        m_playButton->setEnabled(true);
+        importBtn->setEnabled(true);
+        frameRateCombo->setEditable(true);
+        bAdd = false;
+        m_mediaPlayer->pause();
+    });
+
 
     m_positionSlider = new CSlider();
     m_positionSlider->setObjectName("CSlider");
@@ -137,7 +163,12 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     m_positionSlider->setRange(0, 0);
 
     connect(m_positionSlider, &QAbstractSlider::sliderMoved,
-            this, &VideoPlayer::setPosition);
+            this, [&](int position){
+
+         m_positionSlider->blockSignals(true);
+         setPosition(position);
+         m_positionSlider->blockSignals(false);
+    });
 
     m_errorLabel = new QLabel;
     m_errorLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
@@ -147,17 +178,54 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     controlLayout->addWidget(m_playButton);
     controlLayout->addWidget(m_positionSlider);
 
+
+    QLabel * lFrameRate = new QLabel;
+    lFrameRate->setText(QStringLiteral("帧率"));
+    lFrameRate->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lFrameRate->setFixedWidth(100);
+
+    frameRateCombo = new QComboBox;
+    frameRateCombo->setFixedWidth(200);
+    frameRateCombo->setEditable(false);
+    for (int i = 1; i < 26; i++)
+        frameRateCombo->addItem(QString().setNum(i));
+
+    frameRateCombo->setCurrentIndex(9);
+
+    QBoxLayout *controlImportLayout = new QHBoxLayout;
+    controlImportLayout->setContentsMargins(0, 0, 0, 0);
+    controlImportLayout->setSpacing(5);
+    controlImportLayout->addStretch(1);
+    controlImportLayout->addWidget(lFrameRate);
+    controlImportLayout->addWidget(frameRateCombo);
+    controlImportLayout->addWidget(importBtn);
+    controlImportLayout->addWidget(importStopBtn);
+    controlImportLayout->addStretch(1);
+
+    connect(importBtn, &QToolButton::clicked,
+            this, [&](){
+        m_positionSlider->setEnabled(false);
+        m_playButton->setEnabled(false);
+        importBtn->setEnabled(false);
+        frameRateCombo->setEditable(false);
+        bAdd = true;
+        m_mediaPlayer->play();
+
+    });
+
     QBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(picLabel);
     layout->addLayout(controlLayout);
+    layout->addLayout(controlImportLayout);
     layout->addWidget(m_errorLabel);
 
     setLayout(layout);
 
     connect(m_mediaPlayer, &QMediaPlayer::playbackStateChanged,
             this, &VideoPlayer::mediaStateChanged);
-    connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, [&](qint64 position){
-
+    connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, [&](qint64 position)
+    {
+         m_positionSlider->setValue(position);
     });
     connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, &VideoPlayer::durationChanged);
     connect(m_mediaPlayer, &QMediaPlayer::errorChanged,
@@ -166,6 +234,19 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
 VideoPlayer::~VideoPlayer()
 {
+}
+
+void VideoPlayer::reset()
+{
+    m_mediaPlayer->stop();
+    m_mediaPlayer->setPosition(0);
+    picLabel->setPixmapLabel(QPixmap());
+    m_positionSlider->setEnabled(true);
+    m_playButton->setEnabled(true);
+    importBtn->setEnabled(true);
+    m_positionSlider->setValue(0);
+    m_mediaPlayer->setPlaybackRate(1.0);
+    bAdd = false;
 }
 
 void VideoPlayer::openFile()
@@ -231,7 +312,6 @@ void VideoPlayer::setPosition(int position)
     bAdd = false;
     m_mediaPlayer->play();
     m_mediaPlayer->pause();
-    bAdd = true;
 }
 
 void VideoPlayer::handleError()
