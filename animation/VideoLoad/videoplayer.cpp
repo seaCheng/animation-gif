@@ -110,8 +110,6 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
     connect(&m_videoSink, &QVideoSink::videoFrameChanged, this, [&](const QVideoFrame &frame){
 
-
-
         QImage img = frame.toImage();
         if(img.isNull() == false)
         {
@@ -151,7 +149,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
         m_positionSlider->setEnabled(true);
         m_playButton->setEnabled(true);
         importBtn->setEnabled(true);
-        frameRateCombo->setEditable(true);
+        frameRateCombo->setEnabled(true);
         bAdd = false;
         m_mediaPlayer->pause();
     });
@@ -207,7 +205,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
         m_positionSlider->setEnabled(false);
         m_playButton->setEnabled(false);
         importBtn->setEnabled(false);
-        frameRateCombo->setEditable(false);
+        frameRateCombo->setEnabled(false);
         bAdd = true;
         m_mediaPlayer->play();
 
@@ -226,6 +224,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     connect(m_mediaPlayer, &QMediaPlayer::positionChanged, this, [&](qint64 position)
     {
          m_positionSlider->setValue(position);
+
     });
     connect(m_mediaPlayer, &QMediaPlayer::durationChanged, this, &VideoPlayer::durationChanged);
     connect(m_mediaPlayer, &QMediaPlayer::errorChanged,
@@ -289,6 +288,19 @@ void VideoPlayer::mediaStateChanged(QMediaPlayer::PlaybackState state)
     switch(state) {
     case QMediaPlayer::PlayingState:
         m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+
+        break;
+    case QMediaPlayer::PausedState:
+    case QMediaPlayer::StoppedState:
+        if(bAdd)
+        {
+            m_positionSlider->setEnabled(true);
+            m_playButton->setEnabled(true);
+            importBtn->setEnabled(true);
+            frameRateCombo->setEnabled(true);
+            bAdd = false;
+        }
+        m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
         break;
     default:
         m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));

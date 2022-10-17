@@ -42,7 +42,7 @@ void GifExport::startGifExport(QString file)
 
 void GifExport::slot_GifExportMagick(QString file)
 {
-    std::vector<Magick::Image> lstImages;
+    std::vector<Magick::Image> lstImages, lstNewImage;
 
     for(auto pix : lstPixmap)
     {
@@ -101,7 +101,19 @@ void GifExport::slot_GifExportMagick(QString file)
         std::reverse(lstImages.begin(), lstImages.end());
     }
 
-    writeImages(lstImages.begin(), lstImages.end(), file.toStdString().c_str(), true);
+    if(proInf->qMode == quality_auto)
+    {
+        const double fuzz = 8 * QuantumRange / 100;
+        for (int i = 0; i < lstImages.size(); i++)
+        {
+            //lstImages[i].colorFuzz(fuzz);
+        }
+        Magick::optimizeImageLayers(&lstNewImage, lstImages.begin(), lstImages.end());
+
+        Magick::optimizeTransparency(lstNewImage.begin(), lstNewImage.end());
+        qDebug()<<"optimizeTransparency.....";
+    }
+    writeImages(lstNewImage.begin(), lstNewImage.end(), file.toStdString().c_str(), true);
 }
 
 void GifExport::slot_GifExport(QString file)
