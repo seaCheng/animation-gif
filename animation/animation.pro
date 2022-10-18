@@ -26,13 +26,6 @@ $$PWD/../qt-mvvm/source/libmvvm_view \
 $$PWD/../qt-mvvm/source/libmvvm_viewmodel \
 $$PWD/../qt-mvvm/autogen/mvvm
 
-CONFIG(debug, debug|release) {
-    #LIBS+= -L"$$PWD/../lib/debug" -lqtMvvm
-}
-else {
-    #LIBS+= -L"$$PWD/../lib/release" -lqtMvvm
-}
-
 win32{
     LIBS+= -L"$$PWD/../lib/SDL/lib/x64" -lSDL2
 }

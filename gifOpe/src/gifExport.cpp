@@ -106,14 +106,17 @@ void GifExport::slot_GifExportMagick(QString file)
         const double fuzz = 8 * QuantumRange / 100;
         for (int i = 0; i < lstImages.size(); i++)
         {
-            //lstImages[i].colorFuzz(fuzz);
+            lstImages[i].colorFuzz(fuzz);
         }
         Magick::optimizeImageLayers(&lstNewImage, lstImages.begin(), lstImages.end());
 
-        Magick::optimizeTransparency(lstNewImage.begin(), lstNewImage.end());
-        qDebug()<<"optimizeTransparency.....";
+        //Magick::optimizeTransparency(lstNewImage.begin(), lstNewImage.end());
+        writeImages(lstNewImage.begin(), lstNewImage.end(), file.toStdString().c_str(), true);
+    }else
+    {
+        writeImages(lstImages.begin(), lstImages.end(), file.toStdString().c_str(), true);
     }
-    writeImages(lstNewImage.begin(), lstNewImage.end(), file.toStdString().c_str(), true);
+
 }
 
 void GifExport::slot_GifExport(QString file)

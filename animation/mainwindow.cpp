@@ -50,8 +50,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_toolBar->setMovable(false);
 
     #ifdef Q_OS_MAC
+    ui->titleBar->setFixedHeight(65);
     ui->titleLayout->addStretch(1);
     ui->titleLayout->addWidget(m_toolBar);
+    ui->titleLayout->setContentsMargins(2,35,2,2);
+    ui->titleLayout->addSpacing(5);
     #endif
 
     #ifdef Q_OS_WIN32
