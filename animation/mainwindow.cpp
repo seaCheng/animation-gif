@@ -105,6 +105,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     player = new VideoPlayer;
     m_model = new PictureModel();
+    m_modelDeal = new ModelWrape();
+    m_modelDeal->setModel(m_model);
     ctl = new ModelController(m_model, ui->scrollAreaWidgetContents);
 
     setupUndoRedoActions();
@@ -126,7 +128,7 @@ void MainWindow::slot_save()
 
         if(!fileName.isNull())
         {
-            m_model->saveToFile(fileName.toStdString());
+            m_modelDeal->saveToFile(fileName.toStdString());
         }
 }
 
@@ -138,7 +140,7 @@ void MainWindow::slot_load()
     if(!fileName.isNull())
     {
         slot_clear();
-        m_model->loadFromFile(fileName.toStdString());
+        m_modelDeal->loadFromFile(fileName.toStdString());
     }
 }
 
@@ -199,7 +201,8 @@ void MainWindow::slot_import(type_import type)
 void MainWindow::slot_FinimportGif()
 {
     std::vector<QPixmap> lstPix = GifLoad::instace()->getPixmaps();
-    m_model->insertConnectItems(lstPix);
+    //m_model->insertConnectItems(lstPix);
+    m_modelDeal->insertConnectItemsVec(lstPix);
 }
 
 void MainWindow::slot_importVideos()
@@ -232,7 +235,11 @@ void MainWindow::slot_importGif()
 
 void MainWindow::slot_clear()
 {
-    m_model->eraseConnectItems(m_model->rootItem()->children());
+    //m_modelDeal->eraseConnectItems(m_model->rootItem()->children());
+    for(auto u: m_model->rootItem()->children())
+    {
+        m_modelDeal->eraseConnectItem(u);
+    }
 }
 
 void MainWindow::slot_add()
@@ -244,7 +251,11 @@ void MainWindow::slot_add()
                              QDir::homePath()/*"/home"*/,
                              "Images (*.bmp *.jpg *.png *.ico)", nullptr, options);
 
-    m_model->insertConnectItems(files);
+    for(auto u: files)
+    {
+        m_modelDeal->insertConnectItemImg(QPixmap(u));
+    }
+    //m_modelDeal->insertConnectItemsLst(files);
 }
 
 MainWindow::~MainWindow()
@@ -311,7 +322,7 @@ void MainWindow::setConnect()
          {
              QPixmap pix;
              pix.convertFromImage(img);
-             m_model->insertConnectItemImg(pix);
+             m_modelDeal->insertConnectItemImg(pix);
          }else
          {
              qDebug()<<"s_insertImage null image...";
@@ -347,7 +358,7 @@ void MainWindow::setupUndoRedoActions()
     connect(insertAction, &QAction::triggered,
             [this]()
     {
-        m_model->insertEmptyPicture();
+        m_modelDeal->insertEmptyPicture();
     });
     m_toolBar->addAction(insertAction);
 
@@ -359,7 +370,7 @@ void MainWindow::setupUndoRedoActions()
         PicScaleComp * pic =  ui->scrollAreaWidgetContents->getSelItem();
         if(pic)
         {
-            m_model->eraseConnectItem(pic->getPictureItem());
+            m_modelDeal->eraseConnectItem(pic->getPictureItem());
 
         }
     });

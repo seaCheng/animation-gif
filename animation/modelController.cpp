@@ -20,24 +20,50 @@ using namespace ModelView;
 ModelController::ModelController(PictureModel* model, PicScaleViewComp* scene)
     : ModelView::ModelListener<PictureModel>(model), m_view(scene)
 {
-    setOnItemInserted([this](SessionItem * parentItem, TagRow tagrow) {
 
-        SessionItem * item = parentItem->getItem(tagrow.tag, tagrow.row);
-        m_view->insertItem(item, tagrow);
+    qRegisterMetaType<ModelView::SessionItem>("SessionItem");
+    qRegisterMetaType<std::vector<ModelView::TagRow>>("TagRow");
+
+    connect(this, &ModelController::s_insertItem, this, &ModelController::slot_insertItem);
+    connect(this, &ModelController::s_removeItem, this, &ModelController::slot_removeItem);
+    connect(this, &ModelController::s_aboutremoveItem, this, &ModelController::slot_aboutremoveItem);
+
+
+    setOnItemInserted([this](ModelView::SessionItem * parentItem, TagRow tagrow) {
+
+        ModelView::SessionItem * item = parentItem->getItem(tagrow.tag, tagrow.row);
+        emit s_insertItem(item, tagrow);
     });
 
-    auto on_Item_about_remove = [this](SessionItem* parentItem, const TagRow& tagrow) {
+    auto on_Item_about_remove = [this](ModelView::SessionItem* parentItem, const TagRow& tagrow) {
 
-        SessionItem * item = parentItem->getItem(tagrow.tag, tagrow.row);
-        m_view->aboutEraseItem(item, tagrow);
+        ModelView::SessionItem * item = parentItem->getItem(tagrow.tag, tagrow.row);
+        emit s_aboutremoveItem(item, tagrow);
+        //m_view->aboutEraseItem(item, tagrow);
     };
     setOnAboutToRemoveItem(on_Item_about_remove);
 
-    auto on_Item_remove = [this](SessionItem* parentItem, const TagRow& tagrow) {
+    auto on_Item_remove = [this](ModelView::SessionItem* parentItem, const TagRow& tagrow) {
 
-        m_view->eraseItem(parentItem, tagrow);
+        emit s_removeItem(parentItem, tagrow);
+        //m_view->eraseItem(parentItem, tagrow);
     };
     setOnItemRemoved(on_Item_remove);
 
+
 }
 
+void ModelController::slot_insertItem(ModelView::SessionItem * item, ModelView::TagRow tagrow)
+{
+    m_view->insertItem(item, tagrow);
+}
+
+void ModelController::slot_aboutremoveItem(ModelView::SessionItem * item, ModelView::TagRow tagrow)
+{
+    m_view->aboutEraseItem(item, tagrow);
+}
+
+void ModelController::slot_removeItem(ModelView::SessionItem * item, ModelView::TagRow tagrow)
+{
+    m_view->eraseItem(item, tagrow);
+}

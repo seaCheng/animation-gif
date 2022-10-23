@@ -13,11 +13,6 @@ AspectRatioPixmapLabel::AspectRatioPixmapLabel(QWidget *parent)
 
 void AspectRatioPixmapLabel::paintEvent(QPaintEvent *env)
 {
-    if(!isVisible())
-    {
-        return;
-    }
-
     //让图片按照Qlabel的大小进行缩放，保持宽高比。
     if (!m_pix.isNull())
     {

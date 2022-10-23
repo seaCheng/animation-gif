@@ -24,7 +24,7 @@ public:
 signals:
     void s_clicked(bool bShow = true);
 protected:
-    virtual void paintEvent(QPaintEvent *) override;
+
     virtual void mouseReleaseEvent(QMouseEvent *ev) override;
 
     void contextMenuEvent(QContextMenuEvent *ev) Q_DECL_OVERRIDE;

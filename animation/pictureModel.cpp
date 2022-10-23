@@ -17,38 +17,125 @@
 #include <QDebug>
 #include<QRandomGenerator>
 #include <QPixmap>
+#include <QThread>
 
 using namespace ModelView;
+ModelWrape::ModelWrape()
+{
+    m_subThread = new QThread;
+    moveToThread(m_subThread);
+    m_subThread->start();
 
+    qRegisterMetaType<QPixmap>("QPixmap");
+    qRegisterMetaType<std::vector<QPixmap>>("vector<QPixmap>");
+    qRegisterMetaType<std::vector<ModelView::SessionItem *>>("vector<ModelView::SessionItem *>");
+
+    connect(this, &ModelWrape::s_insertConnectItemsVec, this, &ModelWrape::slot_insertConnectItemsVec);
+    connect(this, &ModelWrape::s_insertConnectItemsLst, this, &ModelWrape::slot_insertConnectItemsLst);
+
+    //视频导入特殊处理
+    connect(this, &ModelWrape::s_insertConnectItemImg, this, &ModelWrape::slot_insertConnectItemImg, Qt::BlockingQueuedConnection);
+    connect(this, &ModelWrape::s_eraseConnectItem, this, &ModelWrape::slot_eraseConnectItem);
+    connect(this, &ModelWrape::s_eraseConnectItems, this, &ModelWrape::slot_eraseConnectItems);
+    connect(this, &ModelWrape::s_insertEmptyPicture, this, &ModelWrape::slot_insertEmptyPicture, Qt::BlockingQueuedConnection);
+    connect(this, &ModelWrape::s_loadFromFile, this, &ModelWrape::slot_loadFromFile);
+    connect(this, &ModelWrape::s_saveToFile, this, &ModelWrape::slot_saveToFile);
+
+}
+
+ModelWrape::~ModelWrape()
+{
+    m_subThread->quit();
+    m_subThread->wait();
+}
+
+void ModelWrape::insertConnectItemsVec(const std::vector<QPixmap> lst)
+{
+    emit s_insertConnectItemsVec(lst);
+}
+void ModelWrape::insertConnectItemsLst(QStringList lst)
+{
+    emit s_insertConnectItemsLst(lst);
+}
+
+void ModelWrape::insertConnectItemImg(QPixmap pix)
+{
+    emit s_insertConnectItemImg(pix);
+}
+void ModelWrape::eraseConnectItem(ModelView::SessionItem * item)
+{
+    emit s_eraseConnectItem(item);
+}
+void ModelWrape::eraseConnectItems(const std::vector<ModelView::SessionItem *> lst)
+{
+    emit s_eraseConnectItems(lst);
+}
+
+void ModelWrape::insertEmptyPicture()
+{
+    emit s_insertEmptyPicture();
+}
+
+void ModelWrape::loadFromFile(const std::string& name)
+{
+    emit s_loadFromFile(name);
+}
+void ModelWrape::saveToFile(const std::string& name)
+{
+    emit s_saveToFile(name);
+}
+
+void ModelWrape::slot_insertConnectItemsVec(const std::vector<QPixmap> lst)
+{
+    m_model->insertConnectItemsVec(lst);
+}
+
+void ModelWrape::slot_insertConnectItemsLst(QStringList lst)
+{
+    m_model->insertConnectItemsLst(lst);
+}
+
+void ModelWrape::slot_insertConnectItemImg(QPixmap pix)
+{
+    m_model->insertConnectItemImg(pix);
+}
+void ModelWrape::slot_eraseConnectItem(ModelView::SessionItem * item)
+{
+    m_model->eraseConnectItem(item);
+}
+
+void ModelWrape::slot_eraseConnectItems(const std::vector<ModelView::SessionItem *> lst)
+{
+    m_model->eraseConnectItems(lst);
+}
+
+void ModelWrape::slot_insertEmptyPicture()
+{
+    m_model->insertEmptyPicture();
+}
+
+void ModelWrape::slot_loadFromFile(const std::string& name)
+{
+    m_model->loadFromFile(name);
+}
+
+void ModelWrape::slot_saveToFile(const std::string& name)
+{
+    m_model->saveToFile(name);
+}
+
+/*----------------PictureModel--------------------------------*/
 PictureModel::PictureModel() : SessionModel("PictureModel")
 {
     registerItem<PictureItem>();
+
     populateModel();
     setUndoRedoEnabled(true);
 }
 
-//! Inserts new item of given type at given position.
-
-PictureItem * PictureModel::insertConnectableItem(const std::string& itemType, double xpos, double ypos, const QPixmap & pix)
+PictureModel::~PictureModel()
 {
-    PictureItem * item;
-    Utils::BeginMacros(this, "insertConnectableItem");
 
-    if ( item = dynamic_cast<PictureItem*>(insertItem<PictureItem>()); item) {
-
-        item->setQpixmap(pix);
-        item->setX(xpos);
-        item->setY(ypos);
-
-    }else
-    {
-        qDebug()<<"insert failed....";
-    }
-
-
-    Utils::EndMacros(this);
-
-    return item;
 }
 
 void PictureModel::insertConnectItemImg(QPixmap pix)
@@ -69,7 +156,7 @@ void PictureModel::insertConnectItemImg(QPixmap pix)
     Utils::EndMacros(this);
 }
 
-void PictureModel::insertConnectItems(QStringList lst)
+void PictureModel::insertConnectItemsLst(QStringList lst)
 {
     Utils::BeginMacros(this, "insertConnectableItems");
     for(auto file : lst)
@@ -79,7 +166,6 @@ void PictureModel::insertConnectItems(QStringList lst)
 
             QImage pix = QImage(file);
 
-            //qDebug()<<"pix x:"<<pix.width()<<" pix y"<<pix.height();
             QPixmap pi;
             pi.convertFromImage(pix);
             item->setX(pix.width());
@@ -118,11 +204,9 @@ void PictureModel::insertEmptyPicture()
 
     Utils::EndMacros(this);
 
-    ;
-
 }
 
-void PictureModel::insertConnectItems(const std::vector<QPixmap> lst)
+void PictureModel::insertConnectItemsVec(const std::vector<QPixmap> lst)
 {
     Utils::BeginMacros(this, "insertConnectableItemVec");
     for(auto file : lst)

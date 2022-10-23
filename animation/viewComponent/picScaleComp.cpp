@@ -16,11 +16,6 @@ PicScaleComp::PicScaleComp(QMenu * menu,PictureItem* item, QWidget *parent)
    initial();
 }
 
-void PicScaleComp::paintEvent(QPaintEvent *event)
-{
-    QFrame::paintEvent(event);
-}
-
 void PicScaleComp::mouseReleaseEvent(QMouseEvent *ev)
 {
     QFrame::mouseReleaseEvent(ev);

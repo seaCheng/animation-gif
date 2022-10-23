@@ -16,6 +16,7 @@ class PropertyAreaView;
 class QSplitter;
 class ModelController;
 class VideoPlayer;
+class ModelWrape;
 
 class MainWindow : public QMainWindow
 {
@@ -47,6 +48,7 @@ private:
     Ui::animationMW *ui;
     QToolBar* m_toolBar{nullptr};
     PictureModel * m_model = nullptr;
+    ModelWrape * m_modelDeal = nullptr;
     MainAreaView * mainArea = nullptr;
     PropertyAreaView * propertyArea = nullptr;
     QSplitter * splitter = nullptr;
