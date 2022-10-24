@@ -37,7 +37,7 @@ ModelWrape::ModelWrape()
     connect(this, &ModelWrape::s_insertConnectItemImg, this, &ModelWrape::slot_insertConnectItemImg, Qt::BlockingQueuedConnection);
     connect(this, &ModelWrape::s_eraseConnectItem, this, &ModelWrape::slot_eraseConnectItem);
     connect(this, &ModelWrape::s_eraseConnectItems, this, &ModelWrape::slot_eraseConnectItems);
-    connect(this, &ModelWrape::s_insertEmptyPicture, this, &ModelWrape::slot_insertEmptyPicture, Qt::BlockingQueuedConnection);
+    connect(this, &ModelWrape::s_insertEmptyPicture, this, &ModelWrape::slot_insertEmptyPicture);
     connect(this, &ModelWrape::s_loadFromFile, this, &ModelWrape::slot_loadFromFile);
     connect(this, &ModelWrape::s_saveToFile, this, &ModelWrape::slot_saveToFile);
 

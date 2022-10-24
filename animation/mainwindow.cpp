@@ -239,6 +239,7 @@ void MainWindow::slot_clear()
     for(auto u: m_model->rootItem()->children())
     {
         m_modelDeal->eraseConnectItem(u);
+        QCoreApplication::processEvents();
     }
 }
 
@@ -254,6 +255,7 @@ void MainWindow::slot_add()
     for(auto u: files)
     {
         m_modelDeal->insertConnectItemImg(QPixmap(u));
+        QCoreApplication::processEvents();
     }
     //m_modelDeal->insertConnectItemsLst(files);
 }
@@ -323,6 +325,7 @@ void MainWindow::setConnect()
              QPixmap pix;
              pix.convertFromImage(img);
              m_modelDeal->insertConnectItemImg(pix);
+
          }else
          {
              qDebug()<<"s_insertImage null image...";
