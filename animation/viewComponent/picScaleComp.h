@@ -8,6 +8,12 @@ class QVBoxLayout;
 class PictureItem;
 class QMenu;
 
+struct IntRange
+{
+    int min = 0;
+    int max = 200;
+};
+
 class PicScaleComp :public QFrame
 {
     Q_OBJECT

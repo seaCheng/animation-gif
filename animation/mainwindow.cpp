@@ -28,6 +28,8 @@
 #include <QFileDialog>
 #include <QScrollArea>
 #include <QSplitter>
+#include <QTimer>
+#include <QScrollBar>
 
 #include <vector>
 
@@ -109,6 +111,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_modelDeal->setModel(m_model);
     ctl = new ModelController(m_model, ui->scrollAreaWidgetContents);
 
+    runTimer = new QTimer();
+    runTimer->setInterval(40);
     setupUndoRedoActions();
 
     setConnect();
@@ -201,7 +205,6 @@ void MainWindow::slot_import(type_import type)
 void MainWindow::slot_FinimportGif()
 {
     std::vector<QPixmap> lstPix = GifLoad::instace()->getPixmaps();
-    //m_model->insertConnectItems(lstPix);
     m_modelDeal->insertConnectItemsVec(lstPix);
 }
 
@@ -235,10 +238,12 @@ void MainWindow::slot_importGif()
 
 void MainWindow::slot_clear()
 {
-    //m_modelDeal->eraseConnectItems(m_model->rootItem()->children());
-    for(auto u: m_model->rootItem()->children())
+
+    std::vector<ModelView::SessionItem*> vecItems = m_model->rootItem()->children();
+    std::vector<ModelView::SessionItem*>::reverse_iterator iter = vecItems.rbegin();
+    for (; iter != vecItems.rend(); ++iter)
     {
-        m_modelDeal->eraseConnectItem(u);
+        m_modelDeal->eraseConnectItem(*iter);
         QCoreApplication::processEvents();
     }
 }
@@ -257,7 +262,7 @@ void MainWindow::slot_add()
         m_modelDeal->insertConnectItemImg(QPixmap(u));
         QCoreApplication::processEvents();
     }
-    //m_modelDeal->insertConnectItemsLst(files);
+
 }
 
 MainWindow::~MainWindow()
@@ -334,6 +339,43 @@ void MainWindow::setConnect()
     });
 
     connect(GifLoad::instace(), &GifLoad::s_FinGifLoad, this, &MainWindow::slot_FinimportGif);
+
+    connect(runTimer, &QTimer::timeout, [&](){
+
+        if(!ui->scrollAreaWidgetContents->getSelItem())
+        {
+            return;
+        }
+
+        PictureItem * curItem = ui->scrollAreaWidgetContents->getSelItem()->getPictureItem();
+        int index = curItem->tagRow().row;
+        if(index < m_model->rootItem()->childrenCount() - 1)
+        {
+            index = curItem->tagRow().next().row;
+            curItem = (PictureItem *)m_model->rootItem()->getItem(curItem->tagRow().tag, index);
+        }else
+        {
+            index = 0;
+            curItem = (PictureItem *)m_model->rootItem()->getItem(curItem->tagRow().tag, index);
+        }
+
+        PicScaleComp * selComp = ui->scrollAreaWidgetContents->getSelPicByItem(curItem);
+        if(selComp)
+        {
+            selComp->s_clicked(true);
+        }
+    });
+
+    connect(ui->scrollAreaPicScal->horizontalScrollBar(), &QScrollBar::sliderMoved, this, [=](){
+        if(m_model->rootItem()->childrenCount() > 200)
+        {
+
+        }else
+        {
+
+        }
+    });
+
 }
 
 void MainWindow::setupUndoRedoActions()
@@ -385,6 +427,23 @@ void MainWindow::setupUndoRedoActions()
 
     m_toolBar->addSeparator();
 
+    auto runAction = new QAction("Run", this);
+    connect(runAction, &QAction::triggered, this, [=](){
+
+        if(runTimer->isActive())
+        {
+            runAction->setText(tr("Run"));
+            runTimer->stop();
+        }else
+        {
+            runAction->setText(tr("Stop"));
+            runTimer->setInterval(propertyArea->getGifCommpro()->delay);
+            runTimer->start();
+        }
+
+    });
+    m_toolBar->addAction(runAction);
+
     // undo action
     auto undoAction = new QAction("Undo", this);
     connect(undoAction, &QAction::triggered, [this]() { ModelView::Utils::Undo(*m_model); });
@@ -420,6 +479,5 @@ void MainWindow::setupUndoRedoActions()
         connect(ModelView::UndoStack::qtUndoStack(m_model->undoStack()), &QUndoStack::canUndoChanged,
                 can_redo_changed);
     }
-
 
 }

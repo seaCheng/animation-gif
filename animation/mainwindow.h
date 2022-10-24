@@ -55,5 +55,7 @@ private:
     VideoPlayer * player = nullptr;
 
     ModelController * ctl = nullptr;
+
+    QTimer * runTimer = nullptr;
 };
 #endif // MAINWINDOW_H

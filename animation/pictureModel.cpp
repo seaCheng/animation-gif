@@ -23,6 +23,7 @@ using namespace ModelView;
 ModelWrape::ModelWrape()
 {
     m_subThread = new QThread;
+    //m_subThread->setStackSize(static_cast<uint>(32000000));
     moveToThread(m_subThread);
     m_subThread->start();
 
@@ -35,9 +36,9 @@ ModelWrape::ModelWrape()
 
     //视频导入特殊处理
     connect(this, &ModelWrape::s_insertConnectItemImg, this, &ModelWrape::slot_insertConnectItemImg, Qt::BlockingQueuedConnection);
-    connect(this, &ModelWrape::s_eraseConnectItem, this, &ModelWrape::slot_eraseConnectItem);
+    connect(this, &ModelWrape::s_eraseConnectItem, this, &ModelWrape::slot_eraseConnectItem, Qt::BlockingQueuedConnection);
     connect(this, &ModelWrape::s_eraseConnectItems, this, &ModelWrape::slot_eraseConnectItems);
-    connect(this, &ModelWrape::s_insertEmptyPicture, this, &ModelWrape::slot_insertEmptyPicture);
+    connect(this, &ModelWrape::s_insertEmptyPicture, this, &ModelWrape::slot_insertEmptyPicture, Qt::BlockingQueuedConnection);
     connect(this, &ModelWrape::s_loadFromFile, this, &ModelWrape::slot_loadFromFile);
     connect(this, &ModelWrape::s_saveToFile, this, &ModelWrape::slot_saveToFile);
 
