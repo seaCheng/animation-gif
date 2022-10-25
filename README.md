@@ -21,4 +21,5 @@ Happy hacking!
 <img width="1154" alt="截屏2022-10-25 下午7 35 02" src="https://user-images.githubusercontent.com/74600149/197763812-fcbc84d3-3a80-47f9-9b9c-1f60bec5fedd.png">
 
 .white board
-<img width="1154" alt="截屏2022-10-25 下午7 37 35" src="https://user-images.githubusercontent.com/74600149/197764062-9f62d0c4-63c3-4006-b0d9-c162e01ca31c.png">
+
+<img width="1154" alt="截屏2022-10-25 下午7 56 54" src="https://user-images.githubusercontent.com/74600149/197767725-4938924c-afb3-49bf-9295-2623a91aa5f2.png">
