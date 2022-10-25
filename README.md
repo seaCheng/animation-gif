@@ -27,4 +27,3 @@ Happy hacking!
 .Example
  
 ![collin](https://user-images.githubusercontent.com/74600149/197768047-4aed55c6-7b37-418b-b5a1-db1f69c87176.gif)
-![lxiaowen](https://user-images.githubusercontent.com/74600149/197768097-7244d419-a70b-4045-9739-d57be0bc2702.gif)
