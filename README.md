@@ -23,3 +23,8 @@ Happy hacking!
 .white board
 
 <img width="1154" alt="截屏2022-10-25 下午7 56 54" src="https://user-images.githubusercontent.com/74600149/197767725-4938924c-afb3-49bf-9295-2623a91aa5f2.png">
+
+.Example
+ 
+![collin](https://user-images.githubusercontent.com/74600149/197768047-4aed55c6-7b37-418b-b5a1-db1f69c87176.gif)
+![lxiaowen](https://user-images.githubusercontent.com/74600149/197768097-7244d419-a70b-4045-9739-d57be0bc2702.gif)
