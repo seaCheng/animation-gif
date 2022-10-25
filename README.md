@@ -5,13 +5,14 @@ It will make editing animations very easy.
 
 ## Getting and Building animation-gif
 
-Prerequisites: You will need `Qt-5.15` installed.
+Prerequisites: You will need `Qt 6.3.1` installed.
 
 To build, you can just run these shell commands:
 
     git clone https://github.com/seaCheng/animation-gif
     cd animation-gif/animation 
     open animation.pro
+    build with QtCreator
     
 
 Happy hacking!
