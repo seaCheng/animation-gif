@@ -44,6 +44,8 @@ public slots:
     void slot_import(type_import type);
     void slot_export();
 
+    void slot_refreashPicItemView();
+
 private:
     Ui::animationMW *ui;
     QToolBar* m_toolBar{nullptr};

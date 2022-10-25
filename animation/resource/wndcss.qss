@@ -24,6 +24,7 @@ opacity：0；
 }
 
 QToolBar QToolButton:hover {
+color:rgb(255, 255, 255);
 border: 0px solid #8f8f91;
 background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
 stop: 0 #dadbde, stop: 1 #a6a7aa);

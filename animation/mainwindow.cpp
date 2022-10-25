@@ -274,6 +274,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::setConnect()
 {
+    //[signal] void QAbstractSlider::rangeChanged(int min, int max)
+    connect(ui->scrollAreaPicScal->horizontalScrollBar(), &QScrollBar::rangeChanged, [&](int min, int max){
+
+        slot_refreashPicItemView();
+
+    });
     connect(mainArea, &MainAreaView::s_clicked, this, &MainWindow::slot_import);
     connect(ui->scrollAreaWidgetContents, &PicScaleViewComp::s_selPicItem, [&](PictureItem * item){
         mainArea->slot_selPicItem(item);
@@ -368,15 +374,7 @@ void MainWindow::setConnect()
         }
     });
 
-    connect(ui->scrollAreaPicScal->horizontalScrollBar(), &QScrollBar::sliderMoved, this, [=](){
-        if(m_model->rootItem()->childrenCount() > 200)
-        {
-
-        }else
-        {
-
-        }
-    });
+    connect(ui->scrollAreaPicScal->horizontalScrollBar(), &QScrollBar::sliderMoved, this, &MainWindow::slot_refreashPicItemView);
 
 }
 
@@ -481,5 +479,56 @@ void MainWindow::setupUndoRedoActions()
         connect(ModelView::UndoStack::qtUndoStack(m_model->undoStack()), &QUndoStack::canUndoChanged,
                 can_redo_changed);
     }
+}
 
+void MainWindow::slot_refreashPicItemView()
+{
+    int pos = ui->scrollAreaPicScal->horizontalScrollBar()->sliderPosition();
+    if(m_model->rootItem()->childrenCount() > 200)
+    {
+        int max = ui->scrollAreaPicScal->horizontalScrollBar()->maximum();
+        int num = m_model->rootItem()->childrenCount() * pos / max;
+        int minRan = num;
+        int maxRan = 200 + num;
+        maxRan = std::min(m_model->rootItem()->childrenCount()-1, maxRan);
+        minRan = std::max(0, minRan);
+        if(maxRan == m_model->rootItem()->childrenCount()-1)
+        {
+            minRan = maxRan - 200;
+        }
+
+        std::vector<ModelView::SessionItem*> vecSession = m_model->rootItem()->children();
+        for(auto u : vecSession)
+        {
+            if(u->tagRow().row < minRan || u->tagRow().row > maxRan)
+            {
+                PicScaleComp * picComp = ui->scrollAreaWidgetContents->getSelPicByItem((PictureItem *)u);
+                if(picComp)
+                {
+                   picComp->setVisible(false);
+                }
+            }else
+            {
+                PicScaleComp * picComp = ui->scrollAreaWidgetContents->getSelPicByItem((PictureItem *)u);
+                if(picComp)
+                {
+                   picComp->setVisible(true);
+                }
+            }
+
+        }
+
+    }else
+    {
+        std::vector<ModelView::SessionItem*> vecSession = m_model->rootItem()->children();
+        for(auto u : vecSession)
+        {
+            PicScaleComp * picComp = ui->scrollAreaWidgetContents->getSelPicByItem((PictureItem *)u);
+            if(picComp)
+            {
+               picComp->setVisible(true);
+            }
+
+        }
+    }
 }
