@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::animationMW)
 {
+    //setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     setWindowTitle(QStringLiteral("AnimationGif++"));
     setObjectName("MainWindow");
     ui->setupUi(this);
@@ -48,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     #endif
 
     m_toolBar = new QToolBar(this);
+    m_toolBar->setStyleSheet("background-color:rgba(255,255,255, 0);");
     m_toolBar->setFloatable(false);
     m_toolBar->setMovable(false);
 
