@@ -319,6 +319,7 @@ void MainWindow::setConnect()
         {
             mainArea->slot_selPicItem((PictureItem *)item);
             mainArea->saveToCurrentPictire();
+            QCoreApplication::processEvents();
         }
 
         mainArea->clearsSceneItems();
@@ -498,6 +499,7 @@ void MainWindow::slot_refreashPicItemView()
         }
 
         std::vector<ModelView::SessionItem*> vecSession = m_model->rootItem()->children();
+
         for(auto u : vecSession)
         {
             if(u->tagRow().row < minRan || u->tagRow().row > maxRan)
