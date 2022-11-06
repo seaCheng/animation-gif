@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+     <file>../images/app.ico</file>
+     <file>../images/self.ico</file>
+     <file>../resource/wndcss.qss</file> 
+	 <file>../images/icon_enlarge.png</file>
+	 <file>../images/icon_enlarge_p.png</file>
+	 <file>../images/icon_narrow.png</file>
+	 <file>../images/icon_narrow_p.png</file>
+	 <file>../images/map_scale.png</file>
+	 
+	 <file>../images/condition.png</file>
+	 <file>../images/Parallelogram.png</file>
+	 <file>../images/rectangle.png</file>
+	 <file>../images/text.png</file>
+	 
+	 <file>../images/icon_rotate.png</file>
+	 <file>../images/icon_stretch.png</file>
+	 <file>../images/icon_close.png</file>
+	 <file>../images/linepointer.png</file>
+	 <file>../images/oval.png</file>
+	 <file>../images/triangle.png</file>
+	 <file>../images/pen.png</file>
+	 <file>../images/pointer.png</file>
+	 
+	 <file>../images/bringtofront.png</file>
+	 <file>../images/delete.png</file>
+	 <file>../images/sendtoback.png</file>
+	 <file>../images/delItem.png</file>
+	 <file>../images/bt_pic.png</file>
+    </qresource>
+</RCC>
