@@ -384,25 +384,25 @@ void MainWindow::setConnect()
 void MainWindow::setupUndoRedoActions()
 {
 
-    auto loadAction = new QAction("Load project", this);
+    auto loadAction = new QAction(tr("Load project"), this);
     connect(loadAction, &QAction::triggered, this, &MainWindow::slot_load
             );
     m_toolBar->addAction(loadAction);
 
     //save file
-    auto saveAction = new QAction("Save project", this);
+    auto saveAction = new QAction(tr("Save project"), this);
     connect(saveAction, &QAction::triggered, this, &MainWindow::slot_save);
     m_toolBar->addAction(saveAction);
 
     m_toolBar->addSeparator();
 
     //add pic
-    auto addAction = new QAction("Add picture", this);
+    auto addAction = new QAction(tr("Add picture"), this);
     connect(addAction, &QAction::triggered, this, &MainWindow::slot_add);
     m_toolBar->addAction(addAction);
 
     // insert empty
-    auto insertAction = new QAction("Insert empty", this);
+    auto insertAction = new QAction(tr("Insert empty"), this);
     connect(insertAction, &QAction::triggered,
             [this]()
     {
@@ -411,7 +411,7 @@ void MainWindow::setupUndoRedoActions()
     m_toolBar->addAction(insertAction);
 
     // delete action
-    auto deleteAction = new QAction("Remove picture", this);
+    auto deleteAction = new QAction(tr("Remove picture"), this);
     connect(deleteAction, &QAction::triggered,
             [this]()
     {
@@ -424,13 +424,13 @@ void MainWindow::setupUndoRedoActions()
     });
     m_toolBar->addAction(deleteAction);
 
-    auto clearAction = new QAction("Clear picture", this);
+    auto clearAction = new QAction(tr("Clear pictures"), this);
     connect(clearAction, &QAction::triggered, this, &MainWindow::slot_clear);
     m_toolBar->addAction(clearAction);
 
     m_toolBar->addSeparator();
 
-    auto runAction = new QAction("Run", this);
+    auto runAction = new QAction(tr("Run"), this);
     connect(runAction, &QAction::triggered, this, [=](){
 
         if(runTimer->isActive())
@@ -448,13 +448,13 @@ void MainWindow::setupUndoRedoActions()
     m_toolBar->addAction(runAction);
 
     // undo action
-    auto undoAction = new QAction("Undo", this);
+    auto undoAction = new QAction(tr("Undo"), this);
     connect(undoAction, &QAction::triggered, [this]() { ModelView::Utils::Undo(*m_model); });
     undoAction->setDisabled(true);
     m_toolBar->addAction(undoAction);
 
     // redo action
-    auto redoAction = new QAction("Redo", this);
+    auto redoAction = new QAction(tr("Redo"), this);
     connect(redoAction, &QAction::triggered, [this]() { ModelView::Utils::Redo(*m_model); });
     redoAction->setDisabled(true);
     m_toolBar->addAction(redoAction);
@@ -462,7 +462,7 @@ void MainWindow::setupUndoRedoActions()
     m_toolBar->addSeparator();
 
     //export gif
-    auto exportAction = new QAction("Export gif", this);
+    auto exportAction = new QAction(tr("Export gif"), this);
     connect(exportAction, &QAction::triggered, this, &MainWindow::slot_export);
     m_toolBar->addAction(exportAction);
 

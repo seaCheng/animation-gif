@@ -277,18 +277,18 @@ void WhiteBoardPropertyView::initial()
     buttonGroup->setExclusive(false);
 
     QGridLayout *layout = new QGridLayout;
-    layout->addWidget(createCellWidget(tr("Text"), DiagramType::Diagram_Text), 0, 0);
-    layout->addWidget(createCellWidget(tr("pen"), DiagramType::Diagram_Pen), 0, 1);
-    layout->addWidget(createCellWidget(tr("Process"), DiagramType::Diagram_Step),0, 2);
-    layout->addWidget(createCellWidget(tr("Input"), DiagramType::Diagram_Io), 1, 0);
-    layout->addWidget(createCellWidget(tr("oval"), DiagramType::Diagram_Oval), 1, 1);
-    layout->addWidget(createCellWidget(tr("triangle"), DiagramType::Diagram_Triangle), 1, 2);
+    layout->addWidget(createCellWidget(tr("Text"),"Text", DiagramType::Diagram_Text), 0, 0);
+    layout->addWidget(createCellWidget(tr("pen"),"pen", DiagramType::Diagram_Pen), 0, 1);
+    layout->addWidget(createCellWidget(tr("Process"), "Process",DiagramType::Diagram_Step),0, 2);
+    layout->addWidget(createCellWidget(tr("Input"),"Input", DiagramType::Diagram_Io), 1, 0);
+    layout->addWidget(createCellWidget(tr("oval"), "oval",DiagramType::Diagram_Oval), 1, 1);
+    layout->addWidget(createCellWidget(tr("triangle"),"triangle", DiagramType::Diagram_Triangle), 1, 2);
 
-    layout->addWidget(createCellWidget(tr("Conditional"), DiagramType::Diagram_Conditional), 2, 0);
-    layout->addWidget(createCellWidget(tr("Line"), DiagramType::Diagram_StartEnd), 2, 1);
-    layout->addWidget(createCellWidget(tr("Picture"), DiagramType::Diagram_Pic), 2, 2);
-    layout->addWidget(createCellWidget(tr("Select"), DiagramType::Diagram_Sel), 3, 0);
-    layout->addWidget(createCellWidget(tr("Delete"), DiagramType::Diagram_Del), 3, 1);
+    layout->addWidget(createCellWidget(tr("Conditional"),"Conditional", DiagramType::Diagram_Conditional), 2, 0);
+    layout->addWidget(createCellWidget(tr("Line"), "Line",DiagramType::Diagram_StartEnd), 2, 1);
+    layout->addWidget(createCellWidget(tr("Picture"), "Picture",DiagramType::Diagram_Pic), 2, 2);
+    layout->addWidget(createCellWidget(tr("Select"),"Select", DiagramType::Diagram_Sel), 3, 0);
+    layout->addWidget(createCellWidget(tr("Delete"),"Delete", DiagramType::Diagram_Del), 3, 1);
 
     layout->setRowStretch(4, DPI::getScaleUI(10));
     layout->setColumnStretch(3, DPI::getScaleUI(10));
@@ -967,12 +967,12 @@ QIcon WhiteBoardPropertyView::createColorToolButtonIcon(const QString &imageFile
     return QIcon(pixmap);
 }
 
-QWidget * WhiteBoardPropertyView::createCellWidget(const QString &text, DiagramType type)
+QWidget * WhiteBoardPropertyView::createCellWidget(const QString &text,const QString &textObJ, DiagramType type)
 {
 
     QToolButton *button = new QToolButton;
     button->setCheckable(true);
-    button->setObjectName(text);
+    button->setObjectName(textObJ);
     button->setFixedSize(DPI::getScaleUI(50),DPI::getScaleUI(50));
     button->setIconSize(QSize(DPI::getScaleUI(45),DPI::getScaleUI(45)));
     buttonGroup->addButton(button, int(type));

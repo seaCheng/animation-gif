@@ -28,5 +28,9 @@
 	 <file>../images/sendtoback.png</file>
 	 <file>../images/delItem.png</file>
 	 <file>../images/bt_pic.png</file>
+	 
+	 <file>../language/animationGif_en_US.qm</file>
+	 <file>../language/animationGif_ch.qm</file>
+	 
     </qresource>
 </RCC>

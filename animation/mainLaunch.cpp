@@ -12,6 +12,7 @@
 #include <QResource>
 #include <QFile>
 #include <QDebug>
+#include <QTranslator>
 
 
 int main(int argc, char *argv[])
@@ -46,6 +47,25 @@ int main(int argc, char *argv[])
     std::shared_ptr<AMLog::AMLogger> logger = AMLog::AWLoggerFactory::instace()->CreateLogger("outputMessage1");
     logger->info("app launch...");
     logger->info("bReg:{}, bRst:{}", bReg, bRst);
+
+    QLocale::Language language;
+    QLocale locale;
+    QString language_value;
+    language = locale.language();
+
+    if ( language == (int)QLocale::Chinese )
+    {
+        language_value = QString(":/language/animationGif_ch.qm");
+    }else
+    {
+        language_value = QString(":/language/animationGif_en_US.qm");
+    }
+
+    QTranslator translator;
+    translator.blockSignals(true);
+    translator.load(language_value);
+    translator.blockSignals(false);
+    app.installTranslator(&translator);
 
     MainWindow mainWindow;
     mainWindow.setGeometry(DPI::getScaleUI(100), DPI::getScaleUI(100),

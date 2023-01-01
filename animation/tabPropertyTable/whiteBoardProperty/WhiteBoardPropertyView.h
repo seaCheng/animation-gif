@@ -79,7 +79,7 @@ public:
     void setConnect();
     void initial();
 
-    QWidget * createCellWidget(const QString &text, DiagramType type);
+    QWidget * createCellWidget(const QString &text,const QString &textObJ, DiagramType type);
 
     QMenu *createColorMenu(const char *slot, QColor defaultColor);
     QIcon createColorIcon(QColor color);
