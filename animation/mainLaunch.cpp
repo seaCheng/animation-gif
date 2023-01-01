@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     QFont font;
     font.setPointSize(12);
 #if defined (_WIN32) || defined (WIN32)
-    font.setFamily("微软雅黑");
+    font.setFamily("Microsoft YaHei");
 #else
     font.setFamily("PingFangSC-Regular");
 #endif

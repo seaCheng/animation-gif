@@ -165,4 +165,8 @@ QMAKE_POST_LINK = \
         cp -avf ./../lib/SDL/lib/SDL2.framework  ./../bin/animationGif.app/Contents/Frameworks
 }
 
+TRANSLATIONS += \
+    language/animationGif_en_US.ts \
+    language/animationGif_ch.ts
+
 

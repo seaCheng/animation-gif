@@ -14,7 +14,7 @@ EmptyAreaView::EmptyAreaView(QWidget *parent)
         emit s_clicked(type_import::import_pic);
     });
     toolPicWid->setObjectName("toolPicWid");
-    toolPicWid->setText(tr("pic add"));
+    toolPicWid->setText(tr("Picture add"));
     toolPicWid->setFixedSize(DPI::getScaleUI(125),DPI::getScaleUI(125));
 
     QToolButton *toolGifWid =  new QToolButton();
@@ -23,7 +23,7 @@ EmptyAreaView::EmptyAreaView(QWidget *parent)
     });
 
     toolGifWid->setObjectName("toolGifWid");
-    toolGifWid->setText(tr("gif load"));
+    toolGifWid->setText(tr("Gif load"));
     toolGifWid->setFixedSize(DPI::getScaleUI(125),DPI::getScaleUI(125));
 
     QToolButton *toolVideoWid =  new QToolButton();

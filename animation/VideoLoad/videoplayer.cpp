@@ -140,12 +140,12 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 
     importBtn = new QToolButton();
-    importBtn->setText(QStringLiteral("导入"));
+    importBtn->setText(QStringLiteral("Import"));
     connect(m_playButton, &QAbstractButton::clicked,
             this, &VideoPlayer::play);
 
     importStopBtn = new QToolButton();
-    importStopBtn->setText(QStringLiteral("停止"));
+    importStopBtn->setText(QStringLiteral("Stop"));
     connect(importStopBtn, &QAbstractButton::clicked,
             this, [&]()
     {
@@ -181,7 +181,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
 
     QLabel * lFrameRate = new QLabel;
-    lFrameRate->setText(QStringLiteral("帧率"));
+    lFrameRate->setText(QStringLiteral("Frame rate"));
     lFrameRate->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lFrameRate->setFixedWidth(DPI::getScaleUI(100));
 
