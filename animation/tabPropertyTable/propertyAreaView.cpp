@@ -45,11 +45,11 @@ void PropertyAreaView::initial()
     commproInf = std::make_shared<propertyInf>();
     commView = new CommonPropertyView(commproInf);
 
-    addTab(commView, QStringLiteral("Common"));
+    addTab(commView, tr("Common"));
 
     whBoardProInf = std::make_shared<whiteBoardProInf>();
     whiteBoardView = new WhiteBoardPropertyView(whBoardProInf);
-    addTab(whiteBoardView, QStringLiteral("whiteboard"));
+    addTab(whiteBoardView, tr("White board"));
 
     setMinimumWidth(DPI::getScaleUI(320));
     setMinimumHeight(DPI::getScaleUI(780));

@@ -300,7 +300,7 @@ void WhiteBoardPropertyView::initial()
     vProlay->setContentsMargins(DPI::getScaleUI(10),DPI::getScaleUI(5),DPI::getScaleUI(10),DPI::getScaleUI(5));
 
     QLabel *lText = new QLabel;
-    lText->setText(QStringLiteral("Text"));
+    lText->setText(tr("Text"));
     lText->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     lText->setFixedWidth(DPI::getScaleUI(150));
 
@@ -311,7 +311,7 @@ void WhiteBoardPropertyView::initial()
     vProlay->addWidget(fLineT);
 
     QLabel *lFont = new QLabel;
-    lFont->setText(QStringLiteral("Font:"));
+    lFont->setText(tr("Font:"));
     lFont->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lFont->setFixedWidth(DPI::getScaleUI(100));
 
@@ -330,7 +330,7 @@ void WhiteBoardPropertyView::initial()
     vProlay->addItem(FontLay);
 
     QLabel *lFontSize = new QLabel;
-    lFontSize->setText(QStringLiteral("Font size:"));
+    lFontSize->setText(tr("Font size:"));
     lFontSize->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lFontSize->setFixedWidth(DPI::getScaleUI(100));
     fontSizeCombo = new QComboBox;
@@ -352,7 +352,7 @@ void WhiteBoardPropertyView::initial()
     vProlay->addItem(FontSizeLay);
 
     QLabel *lFontColor = new QLabel;
-    lFontColor->setText(QStringLiteral("Color:"));
+    lFontColor->setText(tr("Color:"));
     lFontColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lFontColor->setFixedWidth(DPI::getScaleUI(100));
 
@@ -380,18 +380,18 @@ void WhiteBoardPropertyView::initial()
     vProlay->addItem(FontColorLay);
 
     QLabel *lFontStyle = new QLabel;
-    lFontStyle->setText(QStringLiteral("Style:"));
+    lFontStyle->setText(tr("Style:"));
     lFontStyle->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lFontStyle->setFixedWidth(DPI::getScaleUI(100));
 
     ckBold = new QCheckBox;
-    ckBold->setText(QStringLiteral("Bold"));
+    ckBold->setText(tr("Bold"));
 
     ckItalic = new QCheckBox;
-    ckItalic->setText(QStringLiteral("Italic"));
+    ckItalic->setText(tr("Italic"));
 
     ckUnderLine = new QCheckBox;
-    ckUnderLine->setText(QStringLiteral("UnderLine"));
+    ckUnderLine->setText(tr("UnderLine"));
 
     QHBoxLayout * FontStyleLay = new QHBoxLayout;
     FontStyleLay->setContentsMargins(0,0,0,0);
@@ -409,7 +409,7 @@ void WhiteBoardPropertyView::initial()
 
     //画笔
     QLabel *lColoredPen = new QLabel;
-    lColoredPen->setText(QStringLiteral("Paintbrush"));
+    lColoredPen->setText(tr("Paintbrush"));
     lColoredPen->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     lColoredPen->setFixedWidth(DPI::getScaleUI(150));
 
@@ -420,16 +420,16 @@ void WhiteBoardPropertyView::initial()
     vProlay->addWidget(fLineCP);
 
     QLabel *lCapStyle = new QLabel;
-    lCapStyle->setText(QStringLiteral("Pen cap:"));
+    lCapStyle->setText(tr("Pen cap:"));
     lCapStyle->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lCapStyle->setFixedWidth(DPI::getScaleUI(100));
     capStyles = new QComboBox;
     capStyles->setFixedWidth(DPI::getScaleUI(200));
     capStyles->setEditable(false);
 
-    capStyles->addItem(QStringLiteral("FlatCap"), (int)Qt::FlatCap);
-    capStyles->addItem(QStringLiteral("SquareCap"), (int)Qt::SquareCap);
-    capStyles->addItem(QStringLiteral("RoundCap"), (int)Qt::RoundCap);
+    capStyles->addItem(tr("FlatCap"), (int)Qt::FlatCap);
+    capStyles->addItem(tr("SquareCap"), (int)Qt::SquareCap);
+    capStyles->addItem(tr("RoundCap"), (int)Qt::RoundCap);
     capStyles->setCurrentIndex(2);
 
     QHBoxLayout * capStyleLay = new QHBoxLayout;
@@ -443,17 +443,17 @@ void WhiteBoardPropertyView::initial()
     vProlay->addItem(capStyleLay);
 
     QLabel *lJoinStyle = new QLabel;
-    lJoinStyle->setText(QStringLiteral("Link:"));
+    lJoinStyle->setText(tr("Link:"));
     lJoinStyle->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lJoinStyle->setFixedWidth(DPI::getScaleUI(100));
     joinStyles = new QComboBox;
     joinStyles->setFixedWidth(DPI::getScaleUI(200));
     joinStyles->setEditable(false);
 
-    joinStyles->addItem(QStringLiteral("MiterJoin"), (int)Qt::MiterJoin);
-    joinStyles->addItem(QStringLiteral("BevelJoin"), (int)Qt::BevelJoin);
-    joinStyles->addItem(QStringLiteral("RoundJoin"), (int)Qt::RoundJoin);
-    joinStyles->addItem(QStringLiteral("SvgMiterJoin"), (int)Qt::SvgMiterJoin);
+    joinStyles->addItem(tr("MiterJoin"), (int)Qt::MiterJoin);
+    joinStyles->addItem(tr("BevelJoin"), (int)Qt::BevelJoin);
+    joinStyles->addItem(tr("RoundJoin"), (int)Qt::RoundJoin);
+    joinStyles->addItem(tr("SvgMiterJoin"), (int)Qt::SvgMiterJoin);
     joinStyles->setCurrentIndex(2);
 
     QHBoxLayout * joinStyleLay = new QHBoxLayout;
@@ -468,20 +468,20 @@ void WhiteBoardPropertyView::initial()
 
     //虚线
     QLabel *lPenStyle = new QLabel;
-    lPenStyle->setText(QStringLiteral("Dotted line:"));
+    lPenStyle->setText(tr("Dotted line:"));
     lPenStyle->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lPenStyle->setFixedWidth(DPI::getScaleUI(100));
     penStyles = new QComboBox;
     penStyles->setFixedWidth(DPI::getScaleUI(200));
     penStyles->setEditable(false);
 
-    penStyles->addItem(QStringLiteral("NoPen"), (int)Qt::NoPen);
-    penStyles->addItem(QStringLiteral("SolidLine"), (int)Qt::SolidLine);
-    penStyles->addItem(QStringLiteral("DashLine"), (int)Qt::DashLine);
-    penStyles->addItem(QStringLiteral("DotLine"), (int)Qt::DotLine);
-    penStyles->addItem(QStringLiteral("DashDotLine"), (int)Qt::DashDotLine);
-    penStyles->addItem(QStringLiteral("DashDotDotLine"), (int)Qt::DashDotDotLine);
-    penStyles->addItem(QStringLiteral("CustomDashLine"), (int)Qt::CustomDashLine);
+    penStyles->addItem(tr("NoPen"), (int)Qt::NoPen);
+    penStyles->addItem(tr("SolidLine"), (int)Qt::SolidLine);
+    penStyles->addItem(tr("DashLine"), (int)Qt::DashLine);
+    penStyles->addItem(tr("DotLine"), (int)Qt::DotLine);
+    penStyles->addItem(tr("DashDotLine"), (int)Qt::DashDotLine);
+    penStyles->addItem(tr("DashDotDotLine"), (int)Qt::DashDotDotLine);
+    penStyles->addItem(tr("CustomDashLine"), (int)Qt::CustomDashLine);
     penStyles->setCurrentIndex(1);
 
     QHBoxLayout * penStyleLay = new QHBoxLayout;
@@ -496,7 +496,7 @@ void WhiteBoardPropertyView::initial()
 
     //路径
     QLabel *lPenPath = new QLabel;
-    lPenPath->setText(QStringLiteral("Path width:"));
+    lPenPath->setText(tr("Path width:"));
     lPenPath->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lPenPath->setFixedWidth(DPI::getScaleUI(100));
     penPathWidth = new QComboBox;
@@ -520,7 +520,7 @@ void WhiteBoardPropertyView::initial()
 
     //路径颜色
     QLabel *lPathColor = new QLabel;
-    lPathColor->setText(QStringLiteral("Path color:"));
+    lPathColor->setText(tr("Path color:"));
     lPathColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lPathColor->setFixedWidth(DPI::getScaleUI(100));
 
@@ -540,7 +540,7 @@ void WhiteBoardPropertyView::initial()
 
     //路径轮廓
     QLabel *lPathcontour = new QLabel;
-    lPathcontour->setText(QStringLiteral("Contour width:"));
+    lPathcontour->setText(tr("Contour width:"));
     lPathcontour->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lPathcontour->setFixedWidth(DPI::getScaleUI(100));
     penPathcontourWidth = new QComboBox;
@@ -564,7 +564,7 @@ void WhiteBoardPropertyView::initial()
 
     //路径轮廓颜色
     QLabel *lPathcontourColor = new QLabel;
-    lPathcontourColor->setText(QStringLiteral("Contour color:"));
+    lPathcontourColor->setText(tr("Contour color:"));
     lPathcontourColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lPathcontourColor->setFixedWidth(DPI::getScaleUI(100));
 
@@ -584,7 +584,7 @@ void WhiteBoardPropertyView::initial()
 
     //阴影
     QLabel *lShadow = new QLabel;
-    lShadow->setText(QStringLiteral("Shadow:"));
+    lShadow->setText(tr("Shadow:"));
     lShadow->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lShadow->setFixedWidth(DPI::getScaleUI(100));
 
@@ -594,11 +594,11 @@ void WhiteBoardPropertyView::initial()
     withoutShadowRad->setChecked(true);
     proInf->pathInfmation.bShadow = false;
 
-    withoutShadowRad->setText(QStringLiteral("None"));
+    withoutShadowRad->setText(tr("None"));
     shadowGrp->addButton(withoutShadowRad);
 
     withShadowRad = new QRadioButton;
-    withShadowRad->setText(QStringLiteral("Yes"));
+    withShadowRad->setText(tr("Yes"));
     shadowGrp->addButton(withShadowRad);
 
     QHBoxLayout * hShadowRadLay = new QHBoxLayout;
@@ -613,7 +613,7 @@ void WhiteBoardPropertyView::initial()
 
     //手写，或编辑
     QLabel *lScreen = new QLabel;
-    lScreen->setText(QStringLiteral("Text editing:"));
+    lScreen->setText(tr("Text editing:"));
     lScreen->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lScreen->setFixedWidth(DPI::getScaleUI(100));
 
@@ -623,11 +623,11 @@ void WhiteBoardPropertyView::initial()
     handWritRad->setChecked(true);
     proInf->pathInfmation.bHandWriting = true;
 
-    handWritRad->setText(QStringLiteral("Hand write"));
+    handWritRad->setText(tr("Hand write"));
     handWritingGrp->addButton(handWritRad);
 
     textRad = new QRadioButton;
-    textRad->setText(QStringLiteral("Edit"));
+    textRad->setText(tr("Edit"));
     handWritingGrp->addButton(textRad);
 
     QHBoxLayout * hRadLay = new QHBoxLayout;
@@ -641,7 +641,7 @@ void WhiteBoardPropertyView::initial()
     vProlay->addItem(hRadLay);
 
     lFontHandWrite = new QLabel;
-    lFontHandWrite->setText(QStringLiteral("Font:"));
+    lFontHandWrite->setText(tr("Font:"));
     lFontHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lFontHandWrite->setFixedWidth(DPI::getScaleUI(100));
 
@@ -660,7 +660,7 @@ void WhiteBoardPropertyView::initial()
     vProlay->addItem(FontLayHandWrite);
 
     lFontSizeHandWrite = new QLabel;
-    lFontSizeHandWrite->setText(QStringLiteral("Font size:"));
+    lFontSizeHandWrite->setText(tr("Font size:"));
     lFontSizeHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lFontSizeHandWrite->setFixedWidth(DPI::getScaleUI(100));
     fontSizeComboHandWrite = new QComboBox;
@@ -682,7 +682,7 @@ void WhiteBoardPropertyView::initial()
     vProlay->addItem(FontSizeLayHandWrite);
 
     ltextHandWrite = new QLabel;
-    ltextHandWrite->setText(QStringLiteral("Text:"));
+    ltextHandWrite->setText(tr("Text:"));
     ltextHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     ltextHandWrite->setFixedWidth(DPI::getScaleUI(100));
     handWriteTextEdit = new QTextEdit;
@@ -709,7 +709,7 @@ void WhiteBoardPropertyView::initial()
 
     //图元
     QLabel *lGraphicItem = new QLabel;
-    lGraphicItem->setText(QStringLiteral("Graph element"));
+    lGraphicItem->setText(tr("Graph element"));
     lGraphicItem->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     lGraphicItem->setFixedWidth(DPI::getScaleUI(150));
 
@@ -721,20 +721,20 @@ void WhiteBoardPropertyView::initial()
 
     //虚线
     QLabel *lItemPenStyle = new QLabel;
-    lItemPenStyle->setText(QStringLiteral("Dotted line:"));
+    lItemPenStyle->setText(tr("Dotted line:"));
     lItemPenStyle->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lItemPenStyle->setFixedWidth(DPI::getScaleUI(100));
     penItemStyles = new QComboBox;
     penItemStyles->setFixedWidth(DPI::getScaleUI(200));
     penItemStyles->setEditable(false);
 
-    penItemStyles->addItem(QStringLiteral("NoPen"), (int)Qt::NoPen);
-    penItemStyles->addItem(QStringLiteral("SolidLine"), (int)Qt::SolidLine);
-    penItemStyles->addItem(QStringLiteral("DashLine"), (int)Qt::DashLine);
-    penItemStyles->addItem(QStringLiteral("DotLine"), (int)Qt::DotLine);
-    penItemStyles->addItem(QStringLiteral("DashDotLine"), (int)Qt::DashDotLine);
-    penItemStyles->addItem(QStringLiteral("DashDotDotLine"), (int)Qt::DashDotDotLine);
-    penItemStyles->addItem(QStringLiteral("CustomDashLine"), (int)Qt::CustomDashLine);
+    penItemStyles->addItem(tr("NoPen"), (int)Qt::NoPen);
+    penItemStyles->addItem(tr("SolidLine"), (int)Qt::SolidLine);
+    penItemStyles->addItem(tr("DashLine"), (int)Qt::DashLine);
+    penItemStyles->addItem(tr("DotLine"), (int)Qt::DotLine);
+    penItemStyles->addItem(tr("DashDotLine"), (int)Qt::DashDotLine);
+    penItemStyles->addItem(tr("DashDotDotLine"), (int)Qt::DashDotDotLine);
+    penItemStyles->addItem(tr("CustomDashLine"), (int)Qt::CustomDashLine);
     penItemStyles->setCurrentIndex(1);
 
     QHBoxLayout * penItemStyleLay = new QHBoxLayout;
@@ -749,7 +749,7 @@ void WhiteBoardPropertyView::initial()
 
     //边框
     QLabel *lItemPenWidth = new QLabel;
-    lItemPenWidth->setText(QStringLiteral("Border width:"));
+    lItemPenWidth->setText(tr("Border width:"));
     lItemPenWidth->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lItemPenWidth->setFixedWidth(DPI::getScaleUI(100));
     penItemWidth = new QComboBox;
@@ -773,7 +773,7 @@ void WhiteBoardPropertyView::initial()
 
     //边框颜色
     QLabel *lItemBorderColor = new QLabel;
-    lItemBorderColor->setText(QStringLiteral("Border color:"));
+    lItemBorderColor->setText(tr("Border color:"));
     lItemBorderColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lItemBorderColor->setFixedWidth(DPI::getScaleUI(100));
 
@@ -793,7 +793,7 @@ void WhiteBoardPropertyView::initial()
 
     //图元颜色
     QLabel *lItemColor = new QLabel;
-    lItemColor->setText(QStringLiteral("Element color:"));
+    lItemColor->setText(tr("Element color:"));
     lItemColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lItemColor->setFixedWidth(DPI::getScaleUI(100));
 
@@ -813,7 +813,7 @@ void WhiteBoardPropertyView::initial()
 
     //箭头
     QLabel *lArrow = new QLabel;
-    lArrow->setText(QStringLiteral("Arrow"));
+    lArrow->setText(tr("Arrow"));
     lArrow->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     lArrow->setFixedWidth(DPI::getScaleUI(150));
 
@@ -825,7 +825,7 @@ void WhiteBoardPropertyView::initial()
 
     //宽度
     QLabel *lArrowPenWidth = new QLabel;
-    lArrowPenWidth->setText(QStringLiteral("Width:"));
+    lArrowPenWidth->setText(tr("Width:"));
     lArrowPenWidth->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lArrowPenWidth->setFixedWidth(DPI::getScaleUI(100));
     penArrowWidth = new QComboBox;
@@ -849,7 +849,7 @@ void WhiteBoardPropertyView::initial()
 
     //颜色
     QLabel *lArrowColor = new QLabel;
-    lArrowColor->setText(QStringLiteral("Color:"));
+    lArrowColor->setText(tr("Color:"));
     lArrowColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lArrowColor->setFixedWidth(DPI::getScaleUI(100));
 
@@ -886,7 +886,7 @@ void WhiteBoardPropertyView::initial()
     saveCurrentToolButton->setFixedSize(Utils::getInstance()->autoW(260),Utils::getInstance()->autoH(30));
     saveCurrentToolButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
     saveCurrentToolButton->setArrowType(Qt::NoArrow);
-    saveCurrentToolButton->setText(QStringLiteral("save to current picture"));
+    saveCurrentToolButton->setText(tr("save to current picture"));
     vOprlay->addWidget(saveCurrentToolButton, 0,0);
 
     saveAllToolButton = new QToolButton;
@@ -894,7 +894,7 @@ void WhiteBoardPropertyView::initial()
     saveAllToolButton->setFixedSize(Utils::getInstance()->autoW(260),Utils::getInstance()->autoH(30));
     saveAllToolButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
     saveAllToolButton->setArrowType(Qt::NoArrow);
-    saveAllToolButton->setText(QStringLiteral("save to all pictures"));
+    saveAllToolButton->setText(tr("save to all pictures"));
     vOprlay->addWidget(saveAllToolButton,1,0);
 
     clearToolButton = new QToolButton;
@@ -902,7 +902,7 @@ void WhiteBoardPropertyView::initial()
     clearToolButton->setFixedSize(Utils::getInstance()->autoW(260),Utils::getInstance()->autoH(30));
     clearToolButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
     clearToolButton->setArrowType(Qt::NoArrow);
-    clearToolButton->setText(QStringLiteral("clear white board"));
+    clearToolButton->setText(tr("clear white board"));
     vOprlay->addWidget(clearToolButton,2,0);
 
     vProlay->setContentsMargins(DPI::getScaleUI(10),DPI::getScaleUI(5),DPI::getScaleUI(10),DPI::getScaleUI(10));

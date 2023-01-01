@@ -278,10 +278,10 @@ void customSizeOp::initial()
     subBtn->setFixedSize(DPI::getScaleUI(40),DPI::getScaleUI(30));
 
     okBtn = new QPushButton;
-    okBtn->setText(QStringLiteral("OK"));
+    okBtn->setText(tr("OK"));
 
     cancelBtn = new QPushButton;
-    cancelBtn->setText(QStringLiteral("Cancel"));
+    cancelBtn->setText(tr("Cancel"));
 
     QHBoxLayout * hlBoxLayout = new QHBoxLayout;
     hlBoxLayout->setContentsMargins(DPI::getScaleUI(10),0,DPI::getScaleUI(10),0);
@@ -305,7 +305,7 @@ void customSizeOp::initial()
     hrwBoxLayout->setSpacing(DPI::getScaleUI(15));
 
     QLabel * lWidth = new QLabel;
-    lWidth->setText(QStringLiteral("width:"));
+    lWidth->setText(tr("width:"));
     lWidth->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
     lWidth->setFixedWidth(DPI::getScaleUI(45));
     hrwBoxLayout->addWidget(lWidth);
@@ -321,7 +321,7 @@ void customSizeOp::initial()
     hrhBoxLayout->setSpacing(DPI::getScaleUI(15));
 
     QLabel * lheigth = new QLabel;
-    lheigth->setText(QStringLiteral("heigth:"));
+    lheigth->setText(tr("heigth:"));
     lheigth->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
     lheigth->setFixedWidth(DPI::getScaleUI(45));
     hrhBoxLayout->addWidget(lheigth);
@@ -393,7 +393,7 @@ void CommonPropertyView::setConnect()
         int index = comSize->count();
         comSize->insertSeparator(comSize->count());
         uuid = QUuid::createUuid().toByteArray().data();
-        comSize->addItem(QStringLiteral("管理自定义"), uuid.toStdString().c_str());
+        comSize->addItem(tr("Manage Customizations"), uuid.toStdString().c_str());
         comSize->setCurrentIndex(index - 1);
         prIndex = comSize->currentIndex();
 
@@ -519,14 +519,14 @@ void CommonPropertyView::initial()
 
     comSize->insertSeparator(comSize->count());
     uuid = QUuid::createUuid().toByteArray().data();
-    comSize->addItem(QStringLiteral("管理自定义"), uuid.toStdString().c_str());
+    comSize->addItem(tr("Manage Customizations"), uuid.toStdString().c_str());
     comSize->setCurrentIndex(9);
     prIndex = comSize->currentIndex();
     refreashGifSize();
 
     comSize->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     QLabel *lSize = new QLabel;
-    lSize->setText(QStringLiteral("size:"));
+    lSize->setText(tr("size:"));
     lSize->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lSize->setFixedWidth(DPI::getScaleUI(100));
 
@@ -541,7 +541,7 @@ void CommonPropertyView::initial()
 
     //横屏 &竖屏幕
     QLabel *lScreen = new QLabel;
-    lScreen->setText(QStringLiteral("Screen:"));
+    lScreen->setText(tr("Screen:"));
     lScreen->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lScreen->setFixedWidth(DPI::getScaleUI(100));
 
@@ -552,11 +552,11 @@ void CommonPropertyView::initial()
 
     proInf->scMode = screen_horizal;
 
-    hRadioBtn->setText(QStringLiteral("Landscape"));
+    hRadioBtn->setText(tr("Landscape"));
     gScreenrBtn->addButton(hRadioBtn);
 
     vRadioBtn = new QRadioButton;
-    vRadioBtn->setText(QStringLiteral("Portrait"));
+    vRadioBtn->setText(tr("Portrait"));
     gScreenrBtn->addButton(vRadioBtn);
 
     QHBoxLayout * hRadLay = new QHBoxLayout;
@@ -570,14 +570,14 @@ void CommonPropertyView::initial()
 
     //填充方式
     QLabel *lfill = new QLabel;
-    lfill->setText(QStringLiteral("Filling mode:"));
+    lfill->setText(tr("Filling mode:"));
     lfill->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lfill->setFixedWidth(DPI::getScaleUI(100));
 
     comFill = new QComboBox;
-    comFill->addItem(QStringLiteral("Full"), fill_full);
-    comFill->addItem(QStringLiteral("Adjust"), fill_adjust);
-    comFill->addItem(QStringLiteral("Stretch"), fill_stretch);
+    comFill->addItem(tr("Full"), fill_full);
+    comFill->addItem(tr("Adjust"), fill_adjust);
+    comFill->addItem(tr("Stretch"), fill_stretch);
     comFill->setMinimumWidth(DPI::getScaleUI(200));
     comFill->setCurrentIndex(1);
     proInf->fMode = fill_adjust;
@@ -592,7 +592,7 @@ void CommonPropertyView::initial()
 
     //颜色
     QLabel *lColor = new QLabel;
-    lColor->setText(QStringLiteral("Colour:"));
+    lColor->setText(tr("Color:"));
     lColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lColor->setFixedWidth(DPI::getScaleUI(100));
 
@@ -609,14 +609,14 @@ void CommonPropertyView::initial()
 
     //速度
     QLabel *lSpeedBar = new QLabel;
-    lSpeedBar->setText(QStringLiteral("Speed:"));
+    lSpeedBar->setText(tr("Speed:"));
     lSpeedBar->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lSpeedBar->setFixedWidth(DPI::getScaleUI(100));
 
     speedBar = new QTabBar(this);
     speedBar->setObjectName("speedBar");
-    speedBar->addTab(QStringLiteral("Routine"));
-    speedBar->addTab(QStringLiteral("Automatic"));
+    speedBar->addTab(tr("Routine"));
+    speedBar->addTab(tr("Automatic"));
 
     QHBoxLayout * speedbarLay = new QHBoxLayout;
     speedbarLay->setContentsMargins(0,0,0,0);
@@ -626,7 +626,7 @@ void CommonPropertyView::initial()
 
     //帧延时
     lSpeedTime = new QLabel;
-    lSpeedTime->setText(QStringLiteral("Frame delay(ms):"));
+    lSpeedTime->setText(tr("Frame delay(ms):"));
     lSpeedTime->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lSpeedTime->setFixedWidth(DPI::getScaleUI(100));
 
@@ -642,7 +642,7 @@ void CommonPropertyView::initial()
     timerLay->addWidget(timeSpinBox);
 
     lSpeedSecond= new QLabel;
-    lSpeedSecond->setText(QStringLiteral("Frame count(p-s):"));
+    lSpeedSecond->setText(tr("Frame count(p-s):"));
     lSpeedSecond->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lSpeedSecond->setFixedWidth(DPI::getScaleUI(100));
     lSpeedSecond->setVisible(false);
@@ -683,14 +683,14 @@ void CommonPropertyView::initial()
 
     //顺序
     QLabel *lOrder = new QLabel;
-    lOrder->setText(QStringLiteral("Sequence:"));
+    lOrder->setText(tr("Sequence:"));
     lOrder->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lOrder->setFixedWidth(DPI::getScaleUI(100));
 
     gOrderBtn = new QButtonGroup(this);
     gOrderBtn->setExclusive(true);
     orderRadioBtn = new QRadioButton;
-    orderRadioBtn->setText(QStringLiteral("Order"));
+    orderRadioBtn->setText(tr("Order"));
     orderRadioBtn->setChecked(true);
 
     proInf->oMode = order_compliant;
@@ -698,7 +698,7 @@ void CommonPropertyView::initial()
 
     revRadioBtn = new QRadioButton;
     revRadioBtn->setChecked(false);
-    revRadioBtn->setText(QStringLiteral("Reverse"));
+    revRadioBtn->setText(tr("Reverse"));
     gOrderBtn->addButton(revRadioBtn);
 
     QHBoxLayout * hOrderLay = new QHBoxLayout;
@@ -713,13 +713,13 @@ void CommonPropertyView::initial()
 
     //质量
     QLabel *lQuality = new QLabel;
-    lQuality->setText(QStringLiteral("Quality:"));
+    lQuality->setText(tr("Quality:"));
     lQuality->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lQuality->setFixedWidth(DPI::getScaleUI(100));
 
     comQuality = new QComboBox;
-    comQuality->addItem(QStringLiteral("non-optimization"), quality_none);
-    comQuality->addItem(QStringLiteral("Automatic optimization"), quality_auto);
+    comQuality->addItem(tr("non-optimization"), quality_none);
+    comQuality->addItem(tr("Automatic optimization"), quality_auto);
     comQuality->setMinimumWidth(DPI::getScaleUI(200));
     comQuality->setCurrentIndex(0);
 
