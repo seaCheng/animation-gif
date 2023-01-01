@@ -1,5 +1,8 @@
 ﻿
 #include "videoplayer.h"
+
+#include "dpi.h"
+
 #include "aspectRatioPixmapLabel.h"
 
 #include <QtWidgets>
@@ -180,10 +183,10 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     QLabel * lFrameRate = new QLabel;
     lFrameRate->setText(QStringLiteral("帧率"));
     lFrameRate->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lFrameRate->setFixedWidth(100);
+    lFrameRate->setFixedWidth(DPI::getScaleUI(100));
 
     frameRateCombo = new QComboBox;
-    frameRateCombo->setFixedWidth(200);
+    frameRateCombo->setFixedWidth(DPI::getScaleUI(200));
     frameRateCombo->setEditable(false);
     for (int i = 1; i < 26; i++)
         frameRateCombo->addItem(QString().setNum(i));

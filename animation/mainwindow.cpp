@@ -18,6 +18,8 @@
 #include "videoplayer.h"
 #include "utils.h"
 
+#include "dpi.h"
+
 #include <QAction>
 #include <QFileDialog>
 #include <QHBoxLayout>
@@ -54,19 +56,19 @@ MainWindow::MainWindow(QWidget *parent)
     m_toolBar->setMovable(false);
 
     #ifdef Q_OS_MAC
-    ui->titleBar->setFixedHeight(65);
-    ui->titleLayout->addStretch(1);
+    ui->titleBar->setFixedHeight(DPI::getScaleUI(65));
+    ui->titleLayout->addStretch(DPI::getScaleUI(1));
     ui->titleLayout->addWidget(m_toolBar);
-    ui->titleLayout->setContentsMargins(2,35,2,2);
-    ui->titleLayout->addSpacing(5);
+    ui->titleLayout->setContentsMargins(DPI::getScaleUI(2),DPI::getScaleUI(35),DPI::getScaleUI(2),DPI::getScaleUI(2));
+    ui->titleLayout->addSpacing(DPI::getScaleUI(5));
     #endif
 
     #ifdef Q_OS_WIN32
     ui->titleLayout->addWidget(m_toolBar);
-    ui->titleLayout->addStretch(1);
-    ui->titleBar->setFixedHeight(45);
-    ui->titleLayout->setContentsMargins(2,10,2,2);
-    ui->titleLayout->setSpacing(10);
+    ui->titleLayout->addStretch(DPI::getScaleUI(1));
+    ui->titleBar->setFixedHeight(DPI::getScaleUI(45));
+    ui->titleLayout->setContentsMargins(DPI::getScaleUI(2),DPI::getScaleUI(10),DPI::getScaleUI(2),DPI::getScaleUI(2));
+    ui->titleLayout->setSpacing(DPI::getScaleUI(10));
     #endif
 
     //添加页面显示
@@ -97,14 +99,14 @@ MainWindow::MainWindow(QWidget *parent)
     //添加 spiltter
     splitter = new QSplitter;
     splitter->setObjectName("topSplitter");
-    splitter->setHandleWidth(2);
+    splitter->setHandleWidth(DPI::getScaleUI(2));
     ui->topView->layout()->removeWidget(ui->leftView);
     ui->topView->layout()->removeWidget(ui->rightView);
 
     splitter->addWidget(ui->leftView);
-    ui->leftView->setMinimumWidth(450);
+    ui->leftView->setMinimumWidth(DPI::getScaleUI(450));
     splitter->addWidget(ui->rightView);
-    ui->rightView->setMaximumWidth(450);
+    ui->rightView->setMaximumWidth(DPI::getScaleUI(450));
     ui->topView->layout()->addWidget(splitter);
 
     player = new VideoPlayer;
@@ -218,7 +220,7 @@ void MainWindow::slot_importVideos()
                                                      );
     if(!fileName.isNull())
     {
-        player->setGeometry(100,100, 650, 400);
+        player->setGeometry(DPI::getScaleUI(100),DPI::getScaleUI(100), DPI::getScaleUI(650), DPI::getScaleUI(400));
         player->reset();
         player->setUrl(QUrl::fromLocalFile(fileName));
         Utils::MoveToCenterP(player, this);

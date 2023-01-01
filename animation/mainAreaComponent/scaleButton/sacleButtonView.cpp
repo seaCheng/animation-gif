@@ -1,4 +1,5 @@
 ﻿#include "sacleButtonView.h"
+#include "dpi.h"
 
 #include <QPushButton>
 #include <QLabel>
@@ -46,14 +47,14 @@ void ScaleButtonView::initial()
 {
     setObjectName("ScaleButtonView");
 
-    setFixedSize(50, 130);
+    setFixedSize(DPI::getScaleUI(50), DPI::getScaleUI(130));
     enlargeBtn = new QPushButton;
     enlargeBtn->setObjectName("enlargeBtn");
-    enlargeBtn->setFixedSize(40, 40);
+    enlargeBtn->setFixedSize(DPI::getScaleUI(40), DPI::getScaleUI(40));
 
     zoomOutBtn = new QPushButton;
     zoomOutBtn->setObjectName("zoomOutBtn");
-    zoomOutBtn->setFixedSize(40, 40);
+    zoomOutBtn->setFixedSize(DPI::getScaleUI(40), DPI::getScaleUI(40));
 
     QLabel *lScale = new QLabel;
     lScale->setObjectName("lScale");
@@ -65,11 +66,11 @@ void ScaleButtonView::initial()
 
     QVBoxLayout * lay = new QVBoxLayout;
     lay->setContentsMargins(0,0,0,0);
-    lay->setSpacing(2);
+    lay->setSpacing(DPI::getScaleUI(2));
 
     lay->addWidget(lNum);
     lay->addWidget(lScale);
-    lay->addStretch(5);
+    lay->addStretch(DPI::getScaleUI(5));
     lay->addWidget(enlargeBtn);
     lay->addWidget(zoomOutBtn);
 

@@ -92,6 +92,7 @@ SOURCES += \
     tabPropertyTable/whiteBoardProperty/diagramtextitem.cpp \
     tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.cpp \
     tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp \
+    utils/dpi.cpp \
     utils/utils.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
     viewComponent/picScaleComp.cpp \
@@ -118,6 +119,7 @@ HEADERS += \
     tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.h \
     titleBar/OSXHideTitleBar.h \
     titleBar/framelesswindow.h \
+    utils/dpi.h \
     utils/utils.h \
     viewComponent/aspectRatioPixmapLabel.h \
     viewComponent/picScaleComp.h \

@@ -3,6 +3,8 @@
 #include "diagramtextitem.h"
 #include "arrow.h"
 
+#include "dpi.h"
+
 #include "uiCanvasItemBase.h"
 
 #include "pictureItem.h"
@@ -77,7 +79,7 @@ void GraphicsViewComp::refreashSize()
             iSceneWidth = proInf->heigth;
             iSceneHeigth = proInf->width;
         }
-        qreal iViewheigth = wid->height() - 40;
+        qreal iViewheigth = wid->height() - DPI::getScaleUI(40);
         qreal iViewwidth = ((qreal)iSceneWidth * iViewheigth / iSceneHeigth);
         if(iSceneWidth > iViewwidth)
         {
@@ -456,14 +458,14 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }else if(item != nullptr && (iMode == InsertItem))
     {
         QSize size = item->getRectSize();
-        if(size.width() < 35)
+        if(size.width() < DPI::getScaleUI(35))
         {
-           size.setWidth(35);
+           size.setWidth(DPI::getScaleUI(35));
         }
 
-        if(size.height() < 35)
+        if(size.height() < DPI::getScaleUI(35))
         {
-           size.setHeight(35);
+           size.setHeight(DPI::getScaleUI(35));
         }
         item->setRectSize(size);
         item->sizeRefreash();
@@ -473,14 +475,14 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     {
         item->setSelected(true);
         QSize size = item->getRectSize();
-        if(size.width() < 35)
+        if(size.width() < DPI::getScaleUI(35))
         {
-           size.setWidth(35);
+           size.setWidth(DPI::getScaleUI(35));
         }
 
-        if(size.height() < 35)
+        if(size.height() < DPI::getScaleUI(35))
         {
-           size.setHeight(35);
+           size.setHeight(DPI::getScaleUI(35));
         }
         item->setRectSize(size);
         item->sizeRefreash();
@@ -505,8 +507,8 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
     }
     else if(m_currentShape != nullptr && iMode == InsertDrawLine && whiteBoardInf->pathInfmation.bHandWriting)
     {
-        if(m_currentShape->sceneBoundingRect().width() < 15 &&
-                m_currentShape->sceneBoundingRect().height() < 15)
+        if(m_currentShape->sceneBoundingRect().width() < DPI::getScaleUI(15) &&
+                m_currentShape->sceneBoundingRect().height() < DPI::getScaleUI(15))
         {
             removeItem(m_currentShape);
             delete m_currentShape;

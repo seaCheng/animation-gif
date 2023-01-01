@@ -1,6 +1,8 @@
 ﻿#include "propertyAreaView.h"
 #include "commonPropertyView.h"
 
+#include "dpi.h"
+
 #include "whiteBoardPropertyView.h"
 
 #include<QDebug>
@@ -49,7 +51,7 @@ void PropertyAreaView::initial()
     whiteBoardView = new WhiteBoardPropertyView(whBoardProInf);
     addTab(whiteBoardView, QStringLiteral("whiteboard"));
 
-    setMinimumWidth(320);
-    setMinimumHeight(780);
+    setMinimumWidth(DPI::getScaleUI(320));
+    setMinimumHeight(DPI::getScaleUI(780));
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 }

@@ -1,6 +1,7 @@
 ﻿
 #include "arrow.h"
 #include "diagramitem.h"
+#include "dpi.h"
 
 #include <QPainter>
 #include <QPen>
@@ -18,7 +19,7 @@ Arrow::Arrow(DiagramItem *startItem, DiagramItem *endItem, QGraphicsItem *parent
 //! [1]
 QRectF Arrow::boundingRect() const
 {
-    qreal extra = (pen().width() + 20) / 2.0;
+    qreal extra = (pen().width() + DPI::getScaleUI(20)) / 2.0;
 
     return QRectF(line().p1(), QSizeF(line().p2().x() - line().p1().x(),
                                       line().p2().y() - line().p1().y()))
@@ -55,7 +56,7 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     myPen.setColor(arrorInformation.arrowColor);
     myPen.setWidth(arrorInformation.penWidth);
     myPen.setStyle(arrorInformation.penStyle);
-    qreal arrowSize = 20 + arrorInformation.penWidth;
+    qreal arrowSize = DPI::getScaleUI(20) + arrorInformation.penWidth;
     painter->setPen(myPen);
     painter->setBrush(arrorInformation.arrowColor);
 //! [4] //! [5]

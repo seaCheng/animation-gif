@@ -4,6 +4,7 @@
 #include "AWLogger.h"
 #include "AWLoggerFactory.h"
 #include "utils.h"
+#include "dpi.h"
 
 #include <iostream>
 
@@ -47,8 +48,8 @@ int main(int argc, char *argv[])
     logger->info("bReg:{}, bRst:{}", bReg, bRst);
 
     MainWindow mainWindow;
-    mainWindow.setGeometry(Utils::getInstance()->autoW(100), Utils::getInstance()->autoH(100),
-                           Utils::getInstance()->autoW(950), Utils::getInstance()->autoH(600));
+    mainWindow.setGeometry(DPI::getScaleUI(100), DPI::getScaleUI(100),
+                           DPI::getScaleUI(950), DPI::getScaleUI(600));
     mainWindow.show();
 
     app.setActivationWindow(&mainWindow,1);

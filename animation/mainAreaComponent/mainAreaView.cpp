@@ -4,6 +4,7 @@
 #include "sacleButtonView.h"
 #include "diagramitem.h"
 #include "arrow.h"
+#include "dpi.h"
 #include "diagramtextitem.h"
 #include "pictureItem.h"
 
@@ -32,13 +33,13 @@ void GraphicFrame::showEvent(QShowEvent *event)
 {
     if(isVisible())
     {
-       scaleView->setGeometry(width() - 52, height() - 140, 50, 130);
+       scaleView->setGeometry(width() - DPI::getScaleUI(52), height() - DPI::getScaleUI(140), DPI::getScaleUI(50), DPI::getScaleUI(130));
     }
 }
 
 void GraphicFrame::resizeEvent(QResizeEvent *)
 {
-    scaleView->setGeometry(width() - 52, height() - 140, 50, 130);
+    scaleView->setGeometry(width() - DPI::getScaleUI(52), height() - DPI::getScaleUI(140), DPI::getScaleUI(50), DPI::getScaleUI(130));
 }
 
 /*----------GraphicFrame------------------*/

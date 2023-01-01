@@ -6,6 +6,7 @@
 #include "aspectRatioPixmapLabel.h"
 #include "pictureItem.h"
 #include "pictureItemcontroller.h"
+#include "dpi.h"
 
 PicScaleComp::PicScaleComp(QMenu * menu,PictureItem* item, QWidget *parent)
     :QFrame(parent),
@@ -40,10 +41,10 @@ void PicScaleComp::initial()
     m_frameBottom = new QFrame();
     m_frameBottom->setFrameShape(NoFrame);
     m_frameBottom->setLineWidth(0);
-    m_frameBottom->setFixedHeight(40);
+    m_frameBottom->setFixedHeight(DPI::getScaleUI(40));
 
     m_layout = new QVBoxLayout(this);
-    m_layout->setContentsMargins(12,12,12,5);
+    m_layout->setContentsMargins(DPI::getScaleUI(12),DPI::getScaleUI(12),DPI::getScaleUI(12),DPI::getScaleUI(5));
     m_layout->setSpacing(0);
 
     m_labelLeft = new QLabel();

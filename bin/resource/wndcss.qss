@@ -157,6 +157,47 @@ border-bottom-right-radius:2px;
 margin-top:2px;
 }
 
+/*tabbar style*/
+#CommonPropertyView QTabBar::tab
+{
+    border-color: black;
+border-width: 0px;
+border-bottom:none;
+border-top-left-radius: 6px;
+border-top-right-radius: 6px;
+background:transparent;
+color:black;
+min-width:100px;
+min-height:28px;
+
+}
+
+#CommonPropertyView QTabWidget::tab-bar {
+alignment:left;
+top:3px;
+left:5px;
+right:5px;
+}
+
+#CommonPropertyView QTabWidget>QTabBar::tab:!selected{
+background:none;
+color:black;
+border:none;
+}
+
+#CommonPropertyView QTabBar::tab:selected
+{
+    background:rgb(160,160,160);
+color:white;
+}
+
+#CommonPropertyView QTabBar::tab:hover:!selected
+{
+height:24px;
+border:1px solid rgb(140,140,140);
+background:rgb(255, 255, 255, 100);
+}
+
 /*-------------QTabWidget #PropertyAreaView-------------------------*/
 
 #topSplitter::handle{background:#FFFFFF}

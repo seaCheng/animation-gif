@@ -1,4 +1,5 @@
 ﻿#include "commonPropertyView.h"
+#include "dpi.h"
 
 #include<QDebug>
 #include<QHBoxLayout>
@@ -29,8 +30,8 @@ QColorFrame::QColorFrame()
 {
     setObjectName("QColorFrame");
 
-    setFixedSize(60,30);
-    setLineWidth(1);
+    setFixedSize(DPI::getScaleUI(60),DPI::getScaleUI(30));
+    setLineWidth(DPI::getScaleUI(1));
 
     setFrameShadow(QFrame::Plain);
     setFrameShape(QFrame::Box);
@@ -43,7 +44,7 @@ void QColorFrame::paintEvent(QPaintEvent *e)
     QFrame::paintEvent(e);
     QPainter p;
     p.setPen(gifColor);
-    QRectF rectangle(8, 8, width() - 8*2, height() - 8 * 2);
+    QRectF rectangle(DPI::getScaleUI(8), DPI::getScaleUI(8), width() - DPI::getScaleUI(16), height() - DPI::getScaleUI(16));
     QPainter painter(this);
     painter.setBrush(gifColor);
     painter.drawRect(rectangle);
@@ -261,7 +262,7 @@ void customSizeOp::initial()
     setObjectName("customSizeOp");
 
     view = new QListView;
-    view->setMinimumSize(350, 270);
+    view->setMinimumSize(DPI::getScaleUI(350), DPI::getScaleUI(270));
 
     stModel = new QStandardItemModel;
     QStringList lst;
@@ -270,11 +271,11 @@ void customSizeOp::initial()
 
     addBtn = new QPushButton;
     addBtn->setText(QStringLiteral("+"));
-    addBtn->setFixedSize(40,30);
+    addBtn->setFixedSize(DPI::getScaleUI(40),DPI::getScaleUI(30));
 
     subBtn = new QPushButton;
     subBtn->setText(QStringLiteral("-"));
-    subBtn->setFixedSize(40,30);
+    subBtn->setFixedSize(DPI::getScaleUI(40),DPI::getScaleUI(30));
 
     okBtn = new QPushButton;
     okBtn->setText(QStringLiteral("OK"));
@@ -283,66 +284,66 @@ void customSizeOp::initial()
     cancelBtn->setText(QStringLiteral("Cancel"));
 
     QHBoxLayout * hlBoxLayout = new QHBoxLayout;
-    hlBoxLayout->setContentsMargins(10,0,10,0);
-    hlBoxLayout->setSpacing(15);
+    hlBoxLayout->setContentsMargins(DPI::getScaleUI(10),0,DPI::getScaleUI(10),0);
+    hlBoxLayout->setSpacing(DPI::getScaleUI(15));
 
     hlBoxLayout->addWidget(addBtn);
     hlBoxLayout->addWidget(subBtn);
-    hlBoxLayout->addStretch(5);
+    hlBoxLayout->addStretch(DPI::getScaleUI(5));
     hlBoxLayout->addWidget(cancelBtn);
     hlBoxLayout->addWidget(okBtn);
 
     QVBoxLayout * hlVBoxLayout = new QVBoxLayout;
     hlVBoxLayout->setContentsMargins(0,0,0,0);
-    hlVBoxLayout->setSpacing(15);
+    hlVBoxLayout->setSpacing(DPI::getScaleUI(15));
 
     hlVBoxLayout->addWidget(view);
     hlVBoxLayout->addItem(hlBoxLayout);
 
     QHBoxLayout * hrwBoxLayout = new QHBoxLayout;
-    hrwBoxLayout->setContentsMargins(10,0,10,0);
-    hrwBoxLayout->setSpacing(15);
+    hrwBoxLayout->setContentsMargins(DPI::getScaleUI(10),0,DPI::getScaleUI(10),0);
+    hrwBoxLayout->setSpacing(DPI::getScaleUI(15));
 
     QLabel * lWidth = new QLabel;
     lWidth->setText(QStringLiteral("width:"));
     lWidth->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
-    lWidth->setFixedWidth(45);
+    lWidth->setFixedWidth(DPI::getScaleUI(45));
     hrwBoxLayout->addWidget(lWidth);
 
     QValidator *validator = new QIntValidator(10, 2000, this);
     edWidth = new QLineEdit;
-    edWidth->setFixedWidth(160);
+    edWidth->setFixedWidth(DPI::getScaleUI(160));
     edWidth->setValidator(validator);
     hrwBoxLayout->addWidget(edWidth);
 
     QHBoxLayout * hrhBoxLayout = new QHBoxLayout;
     hrhBoxLayout->setContentsMargins(0,0,0,0);
-    hrhBoxLayout->setSpacing(15);
+    hrhBoxLayout->setSpacing(DPI::getScaleUI(15));
 
     QLabel * lheigth = new QLabel;
     lheigth->setText(QStringLiteral("heigth:"));
     lheigth->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
-    lheigth->setFixedWidth(45);
+    lheigth->setFixedWidth(DPI::getScaleUI(45));
     hrhBoxLayout->addWidget(lheigth);
 
     edHeigth = new QLineEdit;
-    edHeigth->setFixedWidth(160);
+    edHeigth->setFixedWidth(DPI::getScaleUI(160));
     edHeigth->setValidator(validator);
 
     hrhBoxLayout->addWidget(edHeigth);
 
     QVBoxLayout * hRVBoxLayout = new QVBoxLayout;
-    hRVBoxLayout->setContentsMargins(0,20,0,0);
-    hRVBoxLayout->setSpacing(25);
+    hRVBoxLayout->setContentsMargins(0,DPI::getScaleUI(20),0,0);
+    hRVBoxLayout->setSpacing(DPI::getScaleUI(25));
 
     hRVBoxLayout->addItem(hrwBoxLayout);
     hRVBoxLayout->addItem(hrhBoxLayout);
 
-    hRVBoxLayout->addStretch(5);
+    hRVBoxLayout->addStretch(DPI::getScaleUI(5));
 
     QHBoxLayout * hLayout = new QHBoxLayout;
-    hLayout->setContentsMargins(0,0,0,10);
-    hLayout->setSpacing(15);
+    hLayout->setContentsMargins(0,0,0,DPI::getScaleUI(10));
+    hLayout->setSpacing(DPI::getScaleUI(15));
 
     hLayout->addItem(hlVBoxLayout);
     hLayout->addItem(hRVBoxLayout);
@@ -506,7 +507,7 @@ void CommonPropertyView::initial()
 
     //size
     comSize = new QComboBox;
-    comSize->setMinimumWidth(200);
+    comSize->setMinimumWidth(DPI::getScaleUI(200));
     GifSizeOp::getInstance()->readData();
     custOP = std::make_unique<customSizeOp>();
 
@@ -527,11 +528,11 @@ void CommonPropertyView::initial()
     QLabel *lSize = new QLabel;
     lSize->setText(QStringLiteral("size:"));
     lSize->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lSize->setFixedWidth(100);
+    lSize->setFixedWidth(DPI::getScaleUI(100));
 
     QHBoxLayout * sizeLay = new QHBoxLayout;
     sizeLay->setContentsMargins(0,0,0,0);
-    sizeLay->setSpacing(5);
+    sizeLay->setSpacing(DPI::getScaleUI(5));
 
     sizeLay->addWidget(lSize);
     sizeLay->addWidget(comSize);
@@ -542,7 +543,7 @@ void CommonPropertyView::initial()
     QLabel *lScreen = new QLabel;
     lScreen->setText(QStringLiteral("屏幕:"));
     lScreen->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lScreen->setFixedWidth(100);
+    lScreen->setFixedWidth(DPI::getScaleUI(100));
 
     gScreenrBtn = new QButtonGroup(this);
     gScreenrBtn->setExclusive(true);
@@ -560,7 +561,7 @@ void CommonPropertyView::initial()
 
     QHBoxLayout * hRadLay = new QHBoxLayout;
     hRadLay->setContentsMargins(0,0,0,0);
-    hRadLay->setSpacing(24);
+    hRadLay->setSpacing(DPI::getScaleUI(24));
     hRadLay->addWidget(lScreen);
     hRadLay->addWidget(hRadioBtn);
     hRadLay->addWidget(vRadioBtn);
@@ -571,19 +572,19 @@ void CommonPropertyView::initial()
     QLabel *lfill = new QLabel;
     lfill->setText(QStringLiteral("填充方式:"));
     lfill->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lfill->setFixedWidth(100);
+    lfill->setFixedWidth(DPI::getScaleUI(100));
 
     comFill = new QComboBox;
     comFill->addItem(QStringLiteral("充满"), fill_full);
     comFill->addItem(QStringLiteral("适应"), fill_adjust);
     comFill->addItem(QStringLiteral("拉伸"), fill_stretch);
-    comFill->setMinimumWidth(200);
+    comFill->setMinimumWidth(DPI::getScaleUI(200));
     comFill->setCurrentIndex(1);
     proInf->fMode = fill_adjust;
 
     QHBoxLayout * fillLay = new QHBoxLayout;
     fillLay->setContentsMargins(0,0,0,0);
-    fillLay->setSpacing(5);
+    fillLay->setSpacing(DPI::getScaleUI(5));
 
     fillLay->addWidget(lfill);
     fillLay->addWidget(comFill);
@@ -593,7 +594,7 @@ void CommonPropertyView::initial()
     QLabel *lColor = new QLabel;
     lColor->setText(QStringLiteral("颜色:"));
     lColor->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lColor->setFixedWidth(100);
+    lColor->setFixedWidth(DPI::getScaleUI(100));
 
     fColor = new QColorFrame;
     QHBoxLayout * colorLay = new QHBoxLayout;
@@ -610,9 +611,9 @@ void CommonPropertyView::initial()
     QLabel *lSpeedBar = new QLabel;
     lSpeedBar->setText(QStringLiteral("速度:"));
     lSpeedBar->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lSpeedBar->setFixedWidth(100);
+    lSpeedBar->setFixedWidth(DPI::getScaleUI(100));
 
-    speedBar = new QTabBar;
+    speedBar = new QTabBar(this);
     speedBar->setObjectName("speedBar");
     speedBar->addTab(QStringLiteral("常规"));
     speedBar->addTab(QStringLiteral("自动"));
@@ -627,7 +628,7 @@ void CommonPropertyView::initial()
     lSpeedTime = new QLabel;
     lSpeedTime->setText(QStringLiteral("帧延时(ms):"));
     lSpeedTime->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lSpeedTime->setFixedWidth(100);
+    lSpeedTime->setFixedWidth(DPI::getScaleUI(100));
 
     timeSpinBox = new QSpinBox;
     timeSpinBox->setRange(20, 10000);
@@ -643,7 +644,7 @@ void CommonPropertyView::initial()
     lSpeedSecond= new QLabel;
     lSpeedSecond->setText(QStringLiteral("帧数(p-s):"));
     lSpeedSecond->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lSpeedSecond->setFixedWidth(100);
+    lSpeedSecond->setFixedWidth(DPI::getScaleUI(100));
     lSpeedSecond->setVisible(false);
 
     secondSpinBox = new QSpinBox;
@@ -658,7 +659,7 @@ void CommonPropertyView::initial()
     secondLay->addWidget(secondSpinBox);
 
     QVBoxLayout * lay = new QVBoxLayout;
-    lay->setContentsMargins(25,25,25,25);
+    lay->setContentsMargins(DPI::getScaleUI(25),DPI::getScaleUI(25),DPI::getScaleUI(25),DPI::getScaleUI(25));
     lay->setSpacing(12);
     lay->addItem(sizeLay);
     lay->addItem(hRadLay);
@@ -684,7 +685,7 @@ void CommonPropertyView::initial()
     QLabel *lOrder = new QLabel;
     lOrder->setText(QStringLiteral("顺序:"));
     lOrder->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lOrder->setFixedWidth(100);
+    lOrder->setFixedWidth(DPI::getScaleUI(100));
 
     gOrderBtn = new QButtonGroup(this);
     gOrderBtn->setExclusive(true);
@@ -702,7 +703,7 @@ void CommonPropertyView::initial()
 
     QHBoxLayout * hOrderLay = new QHBoxLayout;
     hOrderLay->setContentsMargins(0,0,0,0);
-    hOrderLay->setSpacing(24);
+    hOrderLay->setSpacing(DPI::getScaleUI(24));
     hOrderLay->addWidget(lOrder);
     hOrderLay->addWidget(orderRadioBtn);
     hOrderLay->addWidget(revRadioBtn);
@@ -714,26 +715,26 @@ void CommonPropertyView::initial()
     QLabel *lQuality = new QLabel;
     lQuality->setText(QStringLiteral("质量:"));
     lQuality->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    lQuality->setFixedWidth(100);
+    lQuality->setFixedWidth(DPI::getScaleUI(100));
 
     comQuality = new QComboBox;
     comQuality->addItem(QStringLiteral("不优化"), quality_none);
     comQuality->addItem(QStringLiteral("自动优化"), quality_auto);
-    comQuality->setMinimumWidth(200);
+    comQuality->setMinimumWidth(DPI::getScaleUI(200));
     comQuality->setCurrentIndex(0);
 
     proInf->qMode = quality_none;
 
     QHBoxLayout * QualityLay = new QHBoxLayout;
     QualityLay->setContentsMargins(0,0,0,0);
-    QualityLay->setSpacing(5);
+    QualityLay->setSpacing(DPI::getScaleUI(5));
 
     QualityLay->addWidget(lQuality);
     QualityLay->addWidget(comQuality);
     QualityLay->addStretch(1);
     lay->addItem(QualityLay);
 
-    lay->addStretch(15);
+    lay->addStretch(DPI::getScaleUI(15));
 
     setLayout(lay);
 }

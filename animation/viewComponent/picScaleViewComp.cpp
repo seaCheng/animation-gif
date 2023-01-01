@@ -11,6 +11,7 @@
 #include "mvvm/model/modelutils.h"
 #include "picScaleComp.h"
 #include "pictureItem.h"
+#include "dpi.h"
 
 PicScaleViewComp::PicScaleViewComp(QWidget *parent)
     :QFrame(parent)
@@ -146,7 +147,7 @@ void PicScaleViewComp::insertItem(ModelView::SessionItem * item, ModelView::TagR
     PictureItem * pItem = (PictureItem *)item;
     PicScaleComp * picScale = new PicScaleComp(itemMenu,(PictureItem *)item);
     connect(picScale, &PicScaleComp::s_clicked, this, &PicScaleViewComp::refreashState);
-    picScale->setFixedSize(180,180);
+    picScale->setFixedSize(DPI::getScaleUI(180),DPI::getScaleUI(180));
     picScale->setPicIndexInterval(QString("%1").arg(row.row), QString("%1ms").arg(row.row * delay));
     picScale->setPic(pItem->pic());
     m_layout->insertWidget(row.row, picScale);
