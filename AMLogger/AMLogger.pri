@@ -6,6 +6,8 @@
 LIBS += -L$$PWD/lib  \
         -lspdlog
 
+TR_EXCLUDE += $$PWD/include/*
+
 INCLUDEPATH += \
 $$PWD/include
 

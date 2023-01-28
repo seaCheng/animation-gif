@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ch">
+<TS version="2.1" language="zh_CN" sourcelanguage="en_US">
 <context>
     <name>CommonPropertyView</name>
     <message>
@@ -213,6 +213,7 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="157"/>
+        <location filename="../mainwindow.cpp" line="465"/>
         <source>Export gif</source>
         <translation>导出动画</translation>
     </message>
@@ -227,6 +228,37 @@
         <translation>动画(*.gif)</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="387"/>
+        <source>Load project</source>
+        <translation>工程导入</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="393"/>
+        <source>Save project</source>
+        <translation>工程保存</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="400"/>
+        <source>Add picture</source>
+        <translation>添加照片</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="405"/>
+        <source>Insert empty</source>
+        <translation>插入空白</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="414"/>
+        <source>Remove picture</source>
+        <translation>删除照片</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="427"/>
+        <source>Clear pictures</source>
+        <translation>删除所有</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="433"/>
         <location filename="../mainwindow.cpp" line="438"/>
         <source>Run</source>
         <translation>运行</translation>
@@ -235,6 +267,16 @@
         <location filename="../mainwindow.cpp" line="442"/>
         <source>Stop</source>
         <translation>停止</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="451"/>
+        <source>Undo</source>
+        <translation>撤销</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="457"/>
+        <source>Redo</source>
+        <translation>重组</translation>
     </message>
 </context>
 <context>

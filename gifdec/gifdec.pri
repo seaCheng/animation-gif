@@ -7,6 +7,10 @@ INCLUDEPATH += \
 $$PWD/src \
 $$PWD/include
 
+TR_EXCLUDE += \
+$$PWD/src/* \
+$$PWD/include/*
+
 HEADERS += \
     $$PWD/gifLoad.h \
     $$PWD/gifdec.h

@@ -213,6 +213,7 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="157"/>
+        <location filename="../mainwindow.cpp" line="465"/>
         <source>Export gif</source>
         <translation>Export gif</translation>
     </message>
@@ -227,6 +228,37 @@
         <translation>Gif (*.gif)</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="387"/>
+        <source>Load project</source>
+        <translation>Load project</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="393"/>
+        <source>Save project</source>
+        <translation>Save project</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="400"/>
+        <source>Add picture</source>
+        <translation>Add picture</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="405"/>
+        <source>Insert empty</source>
+        <translation>Insert empty</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="414"/>
+        <source>Remove picture</source>
+        <translation>Remove picture</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="427"/>
+        <source>Clear pictures</source>
+        <translation>Clear pictures</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="433"/>
         <location filename="../mainwindow.cpp" line="438"/>
         <source>Run</source>
         <translation>Run</translation>
@@ -235,6 +267,16 @@
         <location filename="../mainwindow.cpp" line="442"/>
         <source>Stop</source>
         <translation>Stop</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="451"/>
+        <source>Undo</source>
+        <translation>Undo</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="457"/>
+        <source>Redo</source>
+        <translation>Redo</translation>
     </message>
 </context>
 <context>

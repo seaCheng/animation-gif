@@ -17,6 +17,15 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+TR_EXCLUDE += \
+$$PWD/source/libmvvm_model/* \
+$$PWD/source/libmvvm_view/* \
+$$PWD/source/libmvvm_viewmodel/* \
+$$PWD/mples/modelinqml/* \
+$$PWD/thirdparty/qcustomplot/* \
+$$PWD/thirdparty/gtest/googletest/googletest/include/*  \
+$$PWD/autogen/mvvm/*
+
 INCLUDEPATH += \
 $$PWD/source/libmvvm_model \
 $$PWD/source/libmvvm_view \

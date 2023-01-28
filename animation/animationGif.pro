@@ -22,6 +22,10 @@ include  (./../qt-mvvm/qt-mvvms.pri);
 include  (./../gifOpe/gifOpe.pri);
 include  (./../QtSingleApplication/qtsingleapplication.pri);
 
+TR_EXCLUDE += $$PWD/../qt-mvvm/source/libmvvm_model/*
+TR_EXCLUDE += $$PWD/../qt-mvvm/source/libmvvm_view/*
+TR_EXCLUDE += $$PWD/../qt-mvvm/source/libmvvm_viewmodel/*
+TR_EXCLUDE += $$PWD/../qt-mvvm/autogen/mvvm/*
 
 INCLUDEPATH += \
 $$PWD/../qt-mvvm/source/libmvvm_model \
@@ -52,6 +56,10 @@ LIBS += -L$$PWD/../lib/ImageMaick/Win/lib -lCORE_RL_Magick++_ -lCORE_RL_MagickCo
 INCLUDEPATH += \
 $$PWD/../lib/ImageMaick/Win/include
 }
+
+TR_EXCLUDE += $$PWD/../lib/ImageMaick/Win/include/*
+TR_EXCLUDE += $$PWD/../lib/SDL/include/*
+TR_EXCLUDE += $$PWD/../AMLogger/*
 
 INCLUDEPATH += \
 $$PWD/mainAreaComponent \
@@ -166,7 +174,7 @@ QMAKE_POST_LINK = \
 }
 
 TRANSLATIONS += \
-    language/animationGif_en_US.ts \
-    language/animationGif_ch.ts
+    $$PWD/language/animationGif_ch.ts \
+    $$PWD/language/animationGif_en_US.ts
 
 
