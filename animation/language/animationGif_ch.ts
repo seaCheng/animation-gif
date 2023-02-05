@@ -276,7 +276,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="457"/>
         <source>Redo</source>
-        <translation>重组</translation>
+        <translation>重做</translation>
     </message>
 </context>
 <context>
