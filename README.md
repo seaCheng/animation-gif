@@ -18,7 +18,8 @@ To build, you can just run these shell commands:
 Happy hacking!
 
 .you can import picture from gif,video,or directly picture or insert emptry picture
-<img width="1154" alt="截屏2022-10-25 下午7 35 02" src="https://user-images.githubusercontent.com/74600149/197763812-fcbc84d3-3a80-47f9-9b9c-1f60bec5fedd.png">
+<img width="1215" alt="WX20230211-141450" src="https://user-images.githubusercontent.com/74600149/218243669-c5a02244-d32d-4733-ae22-35e8b665dc88.png">
+
 
 .white board
 
@@ -33,3 +34,8 @@ Happy hacking!
 
 
 ![gif-Demo](https://user-images.githubusercontent.com/74600149/197771010-9584f978-c109-4b72-9de3-a25cac91d4be.gif)
+
+
+<img width="1265" alt="WX20230211-140609" src="https://user-images.githubusercontent.com/74600149/218243722-bacbd873-de8a-467e-9b62-c78c3417d09a.png">
+
+![robotAnimation](https://user-images.githubusercontent.com/74600149/218243865-62dc9705-e8b9-4286-8675-848e1d5798e8.gif)
