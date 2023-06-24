@@ -2,8 +2,7 @@
 #ifdef Q_OS_MAC
 #include <QDebug>
 #include <Cocoa/Cocoa.h>
-#include<QOperatingSystemVersion>
-#include<QWindowStateChangeEvent>
+
 CFramelessWindow::CFramelessWindow(QWidget *parent)
     : QMainWindow(parent),
       m_draggableHeight(0),
@@ -23,8 +22,8 @@ CFramelessWindow::CFramelessWindow(QWidget *parent)
 //this Objective-c class is used to override the action of sysytem close button and zoom button
 //https://stackoverflow.com/questions/27643659/setting-c-function-as-selector-for-nsbutton-produces-no-results
 @interface ButtonPasser : NSObject{
-                              }
-  @property(readwrite) CFramelessWindow* window;
+}
+@property(readwrite) CFramelessWindow* window;
 + (void)closeButtonAction:(id)sender;
 - (void)zoomButtonAction:(id)sender;
 @end
@@ -50,24 +49,13 @@ CFramelessWindow::CFramelessWindow(QWidget *parent)
 void CFramelessWindow::initUI()
 {
     m_bNativeSystemBtn = false;
-    auto version=  QOperatingSystemVersion::current();
-    auto majorVersion=version.majorVersion();
-    auto microVersion=version.microVersion();
-    auto minorVersion=version.minorVersion();
 
     //如果当前osx版本老于10.9，则后续代码不可用。转为使用定制的系统按钮，不支持自由缩放窗口及窗口阴影
-    if(majorVersion<10){setWindowFlags(Qt::FramelessWindowHint); return;}
-    if(majorVersion==10)
+    if (QSysInfo::MV_None == QSysInfo::macVersion())
     {
-        if(minorVersion<9){setWindowFlags(Qt::FramelessWindowHint); return;}
+        if (QSysInfo::MV_None == QSysInfo::MacintoshVersion) {setWindowFlags(Qt::FramelessWindowHint); return;}
     }
-
-    //    //如果当前osx版本老于10.9，则后续代码不可用。转为使用定制的系统按钮，不支持自由缩放窗口及窗口阴影
-    //    if (QSysInfo::MV_None == QSysInfo::macVersion())
-    //    {
-    //        if (QSysInfo::MV_None == QSysInfo::MacintoshVersion) {setWindowFlags(Qt::FramelessWindowHint); return;}
-    //    }
-    //    if (QSysInfo::MV_10_9 >= QSysInfo::MacintoshVersion) {setWindowFlags(Qt::FramelessWindowHint); return;}
+    if (QSysInfo::MV_10_9 >= QSysInfo::MacintoshVersion) {setWindowFlags(Qt::FramelessWindowHint); return;}
 
     NSView* view = (NSView*)winId();
     if (0 == view) {setWindowFlags(Qt::FramelessWindowHint); return;}
@@ -86,13 +74,13 @@ void CFramelessWindow::initUI()
 
     m_bNativeSystemBtn = true;
 
-    // ButtonPasser * passer = [[ButtonPasser alloc] init];
-    // passer.window = this;
+    ButtonPasser * passer = [[ButtonPasser alloc] init];
+    passer.window = this;
     //重载全屏按钮的行为
     //override the action of fullscreen button
-    //    NSButton *zoomButton = [window standardWindowButton:NSWindowZoomButton];
-    //    [zoomButton setTarget:passer];
-    //    [zoomButton setAction:@selector(zoomButtonAction:)];
+    NSButton *zoomButton = [window standardWindowButton:NSWindowZoomButton];
+    [zoomButton setTarget:passer];
+    [zoomButton setAction:@selector(zoomButtonAction:)];
 }
 
 void CFramelessWindow::setCloseBtnQuit(bool bQuit)
@@ -207,28 +195,13 @@ void CFramelessWindow::mouseMoveEvent(QMouseEvent *event)
 void CFramelessWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
-    setTitlebarVisible();
     //TODO
-    if (!isFullScreen())
-    {
-        // emit restoreFromFullScreen();
-    }
+//    if (!isFullScreen())
+//    {
+//        emit restoreFromFullScreen();
+//    }
 }
-void CFramelessWindow::changeEvent(QEvent *event)
-{
-    if(event->type()==QEvent::Type::WindowStateChange)
-    {
-        QWindowStateChangeEvent *event1=(QWindowStateChangeEvent*)event;
-        auto zzzz=event1->oldState();
-        if(zzzz==Qt::WindowState::WindowFullScreen || zzzz==Qt::WindowState::WindowMaximized)
-        {
-            setTitlebarVisible();
-        }
 
-    }
-
-    QMainWindow::changeEvent(event);
-}
 void CFramelessWindow::onRestoreFromFullScreen()
 {
     setTitlebarVisible(false);
@@ -250,5 +223,4 @@ void CFramelessWindow::setTitlebarVisible(bool bTitlebarVisible)
         window.styleMask |= NSWindowStyleMaskFullSizeContentView; //MAC_10_10及以上版本支持
     }
 }
-
-#endif
+#endif //Q_OS_MAC

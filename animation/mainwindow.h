@@ -17,8 +17,9 @@ class QSplitter;
 class ModelController;
 class VideoPlayer;
 class ModelWrape;
+class QTitleBar;
 
-class MainWindow : public QMainWindow
+class MainWindow : public CFramelessWindow
 {
     Q_OBJECT
 
@@ -59,5 +60,6 @@ private:
     ModelController * ctl = nullptr;
 
     QTimer * runTimer = nullptr;
+    QTitleBar *m_titleBar = nullptr;
 };
 #endif // MAINWINDOW_H

@@ -41,7 +41,7 @@ protected:
     //we can fix this by add "label1" to a ignorelist, just call addIgnoreWidget(label1)
     void addIgnoreWidget(QWidget* widget);
 
-    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
+    bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result);
 private slots:
     void onTitleBarDestroyed();
 public:
@@ -147,8 +147,7 @@ signals:
     void restoreFromFullScreen();
 protected:
     void resizeEvent(QResizeEvent *event);
-    void changeEvent(QEvent *event);
 };
-
 #endif
+
 #endif // CFRAMELESSWINDOW_H

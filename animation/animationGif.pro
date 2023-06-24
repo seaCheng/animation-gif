@@ -14,6 +14,7 @@ TEMPLATE = app
 
 CONFIG += c++17
 
+include (./../framelesswindow/projectinclude/common.pri)
 include  (./../AMLogger/AMLogger.pri);
 include  (./../gifdec/gifdec.pri);
 
@@ -32,6 +33,9 @@ $$PWD/../qt-mvvm/source/libmvvm_model \
 $$PWD/../qt-mvvm/source/libmvvm_view \
 $$PWD/../qt-mvvm/source/libmvvm_viewmodel \
 $$PWD/../qt-mvvm/autogen/mvvm
+
+INCLUDEPATH += $$PWD/../framelesswindow
+DEPENDPATH += $$PWD/../framelesswindow
 
 win32{
     LIBS+= -L"$$PWD/../lib/SDL/lib/x64" -lSDL2
@@ -100,6 +104,7 @@ SOURCES += \
     tabPropertyTable/whiteBoardProperty/diagramtextitem.cpp \
     tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.cpp \
     tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp \
+    titleBar/QTitleBar.cpp \
     utils/dpi.cpp \
     utils/utils.cpp \
     viewComponent/aspectRatioPixmapLabel.cpp \
@@ -124,9 +129,8 @@ HEADERS += \
     tabPropertyTable/whiteBoardProperty/diagramitem.h \
     tabPropertyTable/whiteBoardProperty/diagramtextitem.h \
     tabPropertyTable/whiteBoardProperty/uiCanvasItemBase.h \
-    tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.h \
-    titleBar/OSXHideTitleBar.h \
-    titleBar/framelesswindow.h \
+    tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.h \ 
+    titleBar/QTitleBar.h \
     utils/dpi.h \
     utils/utils.h \
     viewComponent/aspectRatioPixmapLabel.h \
@@ -134,7 +138,8 @@ HEADERS += \
     viewComponent/picScaleViewComp.h
 
 FORMS += \
-    ui/animationMW.ui
+    ui/animationMW.ui \
+    ui/titleBar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -144,19 +149,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RC_ICONS = $$PWD/resource/app.ico
 
-macx {
-    LIBS += -framework Cocoa
-
-    SOURCES += \
-    titleBar/OSXHideTitleBar.mm \
-    titleBar/framelesswindow.mm \
-
-}
-
-win32{
-    SOURCES += \
-    titleBar/framelesswindow.cpp
-}
 
 QMAKE_INFO_PLIST = $$PWD/macos/Info.plist
 
@@ -172,6 +164,8 @@ QMAKE_POST_LINK = \
         rm -rf ./../bin/animationGif.app/Contents/Frameworks/SDL2.framework && \
         cp -avf ./../lib/SDL/lib/SDL2.framework  ./../bin/animationGif.app/Contents/Frameworks
 }
+
+VERSION = 1.0.0
 
 TRANSLATIONS += \
     $$PWD/language/animationGif_ch.ts \

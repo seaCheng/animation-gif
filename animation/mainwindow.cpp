@@ -12,7 +12,6 @@
 #include "propertyAreaView.h"
 #include "gifLoad.h"
 #include "mvvm/model/sessionitem.h"
-#include "OSXHideTitleBar.h"
 
 #include "gifExport.h"
 #include "videoplayer.h"
@@ -33,43 +32,62 @@
 #include <QTimer>
 #include <QScrollBar>
 
+#include "QTitleBar.h"
+
 #include <vector>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+    : CFramelessWindow(parent)
     , ui(new Ui::animationMW)
 {
     //setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
+    //setWindowFlags(windowFlags() | Qt::Window | Qt::FramelessWindowHint | Qt::WindowSystemMenuHint);
     setWindowTitle(QStringLiteral("AnimationGif++"));
     setObjectName("MainWindow");
     ui->setupUi(this);
     ui->scrollAreaPicScal->setObjectName("scrollAreaPicScal");
     ui->scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
 
-    #ifdef Q_OS_MAC
+#ifdef Q_OS_MAC
     OSXHideTitleBar::HideTitleBar(winId());
-    #endif
+#endif
+
+    m_titleBar = new QTitleBar(this);
+    m_titleBar->setFixedHeight(80);
+    m_titleBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+#ifdef Q_OS_WIN32
+    setTitleBar(m_titleBar);
+    addIgnoreWidget(m_titleBar->getframeSystem());
+    addIgnoreWidget(m_titleBar->getframeCtrl());
+
+    setResizeableAreaWidth(8);
+#endif
 
     m_toolBar = new QToolBar(this);
     m_toolBar->setStyleSheet("background-color:rgba(255,255,255, 0);");
     m_toolBar->setFloatable(false);
     m_toolBar->setMovable(false);
 
-    #ifdef Q_OS_MAC
-    ui->titleBar->setFixedHeight(DPI::getScaleUI(65));
-    ui->titleLayout->addStretch(DPI::getScaleUI(1));
-    ui->titleLayout->addWidget(m_toolBar);
-    ui->titleLayout->setContentsMargins(DPI::getScaleUI(2),DPI::getScaleUI(35),DPI::getScaleUI(2),DPI::getScaleUI(2));
-    ui->titleLayout->addSpacing(DPI::getScaleUI(5));
-    #endif
+    m_titleBar->addToolButton(m_toolBar);
 
-    #ifdef Q_OS_WIN32
-    ui->titleLayout->addWidget(m_toolBar);
-    ui->titleLayout->addStretch(DPI::getScaleUI(1));
-    ui->titleBar->setFixedHeight(DPI::getScaleUI(45));
-    ui->titleLayout->setContentsMargins(DPI::getScaleUI(2),DPI::getScaleUI(10),DPI::getScaleUI(2),DPI::getScaleUI(2));
-    ui->titleLayout->setSpacing(DPI::getScaleUI(10));
-    #endif
+
+#ifdef Q_OS_MAC
+    ui->titleLayout->addWidget(m_titleBar);
+    //ui->titleBar->setFixedHeight(DPI::getScaleUI(65));
+    //ui->titleLayout->addStretch(DPI::getScaleUI(1));
+    //ui->titleLayout->addWidget(m_toolBar);
+    //ui->titleLayout->setContentsMargins(DPI::getScaleUI(2),DPI::getScaleUI(35),DPI::getScaleUI(2),DPI::getScaleUI(2));
+    //ui->titleLayout->addSpacing(DPI::getScaleUI(5));
+#endif
+
+#ifdef Q_OS_WIN32
+    ui->titleLayout->addWidget(m_titleBar);
+    //ui->titleLayout->addStretch(DPI::getScaleUI(1));
+    //ui->titleBar->setFixedHeight(DPI::getScaleUI(80));
+    //ui->titleLayout->setContentsMargins(DPI::getScaleUI(2),DPI::getScaleUI(10),DPI::getScaleUI(2),DPI::getScaleUI(2));
+    //ui->titleLayout->setSpacing(DPI::getScaleUI(10));
+#endif
 
     //添加页面显示
     mainArea = new MainAreaView;
@@ -131,20 +149,20 @@ void MainWindow::slot_show(const QString &message)
 void MainWindow::slot_save()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                QDir::homePath() + "/untitled.json",
-                                tr("Save ( *.json)"));
+                                                    QDir::homePath() + "/untitled.json",
+                                                    tr("Save ( *.json)"));
 
-        if(!fileName.isNull())
-        {
-            m_modelDeal->saveToFile(fileName.toStdString());
-        }
+    if(!fileName.isNull())
+    {
+        m_modelDeal->saveToFile(fileName.toStdString());
+    }
 }
 
 void MainWindow::slot_load()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                     QDir::homePath(),
-                                                     tr("Json (*.json)"));
+                                                    QDir::homePath(),
+                                                    tr("Json (*.json)"));
     if(!fileName.isNull())
     {
         slot_clear();
@@ -155,13 +173,13 @@ void MainWindow::slot_load()
 void MainWindow::slot_export()
 {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Export gif"),
-                                QDir::homePath() + "/untitled.gif",
-                                tr("Save ( *.gif)"));
+                                                    QDir::homePath() + "/untitled.gif",
+                                                    tr("Save ( *.gif)"));
 
-        if(fileName.isNull())
-        {
-            return;
-        }
+    if(fileName.isNull())
+    {
+        return;
+    }
 
     std::vector<ModelView::SessionItem*> vecSession = m_model->rootItem()->children();
     std::vector<QPixmap> vecPix;
@@ -182,26 +200,26 @@ void MainWindow::slot_import(type_import type)
     switch (type) {
 
     case type_import::import_pic:
-        {
-            slot_add();
-            break;
-        }
+    {
+        slot_add();
+        break;
+    }
 
-     case type_import::import_gif:
-        {
-            slot_importGif();
-            break;
-        }
+    case type_import::import_gif:
+    {
+        slot_importGif();
+        break;
+    }
     case type_import::import_video:
-       {
-           slot_importVideos();
-           break;
-       }
+    {
+        slot_importVideos();
+        break;
+    }
 
     default:
-        {
+    {
 
-        }
+    }
 
     }
 }
@@ -216,8 +234,8 @@ void MainWindow::slot_importVideos()
 {
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                     QDir::homePath()
-                                                     );
+                                                    QDir::homePath()
+                                                    );
     if(!fileName.isNull())
     {
         player->setGeometry(DPI::getScaleUI(100),DPI::getScaleUI(100), DPI::getScaleUI(650), DPI::getScaleUI(400));
@@ -232,8 +250,8 @@ void MainWindow::slot_importVideos()
 void MainWindow::slot_importGif()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                     QDir::homePath(),
-                                                     tr("Gif (*.gif)"));
+                                                    QDir::homePath(),
+                                                    tr("Gif (*.gif)"));
     if(!fileName.isNull())
     {
         GifLoad::instace()->startGifLoad(fileName);
@@ -256,10 +274,10 @@ void MainWindow::slot_add()
 {
     QFileDialog::Options options =  QFileDialog::ReadOnly;
     QStringList files = QFileDialog::getOpenFileNames(
-                             this,
-                             "Select one or more files to open",
-                             QDir::homePath()/*"/home"*/,
-                             "Images (*.bmp *.jpg *.png *.ico)", nullptr, options);
+                this,
+                "Select one or more files to open",
+                QDir::homePath()/*"/home"*/,
+                "Images (*.bmp *.jpg *.png *.ico)", nullptr, options);
 
     for(auto u: files)
     {
@@ -289,27 +307,27 @@ void MainWindow::setConnect()
     });
 
     connect(propertyArea, &PropertyAreaView::s_commproFresh, [&](){
-         mainArea->setGifCommpro(propertyArea->getGifCommpro());
-         ui->scrollAreaWidgetContents->refreashDelayTime(propertyArea->getGifCommpro()->delay);
-         GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
+        mainArea->setGifCommpro(propertyArea->getGifCommpro());
+        ui->scrollAreaWidgetContents->refreashDelayTime(propertyArea->getGifCommpro()->delay);
+        GifExport::instace()->setGifCommpro(propertyArea->getGifCommpro());
     });
 
     connect(propertyArea, &PropertyAreaView::s_whiteBoardProFresh, [&](refreashProType type){
-         mainArea->setWhiteBoardPro(propertyArea->getWhiteBoardInf(), type);
+        mainArea->setWhiteBoardPro(propertyArea->getWhiteBoardInf(), type);
 
     });
 
     connect(propertyArea, &PropertyAreaView::s_sceneItemInsert, [&](DiagramType type){
 
-         mainArea->start_insertSceneItem(type);
+        mainArea->start_insertSceneItem(type);
     });
 
     connect(propertyArea, &PropertyAreaView::s_saveToCurrentPicture, [&](){
-         mainArea->saveToCurrentPictire();
-         if(ui->scrollAreaWidgetContents->getSelItem())
-         {
-             mainArea->slot_selPicItem(ui->scrollAreaWidgetContents->getSelItem()->getPictureItem());
-         }
+        mainArea->saveToCurrentPictire();
+        if(ui->scrollAreaWidgetContents->getSelItem())
+        {
+            mainArea->slot_selPicItem(ui->scrollAreaWidgetContents->getSelItem()->getPictureItem());
+        }
 
     });
 
@@ -332,20 +350,20 @@ void MainWindow::setConnect()
     });
 
     connect(propertyArea, &PropertyAreaView::s_clearGraphicsItems, [&](){
-         mainArea->clearsSceneItems();
+        mainArea->clearsSceneItems();
     });
 
     connect(player, &VideoPlayer::s_insertImage, [&](const QImage& img){
-         if(img.isNull() == false)
-         {
-             QPixmap pix;
-             pix.convertFromImage(img);
-             m_modelDeal->insertConnectItemImg(pix);
+        if(img.isNull() == false)
+        {
+            QPixmap pix;
+            pix.convertFromImage(img);
+            m_modelDeal->insertConnectItemImg(pix);
 
-         }else
-         {
-             qDebug()<<"s_insertImage null image...";
-         }
+        }else
+        {
+            qDebug()<<"s_insertImage null image...";
+        }
 
     });
 
@@ -378,6 +396,27 @@ void MainWindow::setConnect()
     });
 
     connect(ui->scrollAreaPicScal->horizontalScrollBar(), &QScrollBar::sliderMoved, this, &MainWindow::slot_refreashPicItemView);
+
+    connect(m_titleBar, &QTitleBar::s_min, this, [&](){
+        showMinimized();
+    });
+
+    connect(m_titleBar, &QTitleBar::s_max, this, [&](){
+        if (isMaximized())
+        {
+           showNormal();
+           m_titleBar->setSysMaxBtnMax(false);
+        }
+        else
+        {
+           showMaximized();
+           m_titleBar->setSysMaxBtnMax(true);
+        }
+    });
+
+    connect(m_titleBar, &QTitleBar::s_close, this, [&](){
+        close();
+    });
 
 }
 
@@ -509,14 +548,14 @@ void MainWindow::slot_refreashPicItemView()
                 PicScaleComp * picComp = ui->scrollAreaWidgetContents->getSelPicByItem((PictureItem *)u);
                 if(picComp)
                 {
-                   picComp->setVisible(false);
+                    picComp->setVisible(false);
                 }
             }else
             {
                 PicScaleComp * picComp = ui->scrollAreaWidgetContents->getSelPicByItem((PictureItem *)u);
                 if(picComp)
                 {
-                   picComp->setVisible(true);
+                    picComp->setVisible(true);
                 }
             }
 
@@ -530,7 +569,7 @@ void MainWindow::slot_refreashPicItemView()
             PicScaleComp * picComp = ui->scrollAreaWidgetContents->getSelPicByItem((PictureItem *)u);
             if(picComp)
             {
-               picComp->setVisible(true);
+                picComp->setVisible(true);
             }
 
         }
