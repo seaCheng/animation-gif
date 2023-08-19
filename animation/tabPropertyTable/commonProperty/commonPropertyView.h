@@ -124,9 +124,13 @@ private:
     QRadioButton * vRadioBtn = nullptr;
     QButtonGroup * gScreenrBtn = nullptr;
 
+    QRadioButton * speedTimeRadioBtn = nullptr;
+    QRadioButton * speedSecondRadioBtn = nullptr;
+    QButtonGroup * gDelayBtn = nullptr;
+
     QComboBox * comFill = nullptr;
     QColorFrame * fColor = nullptr;
-    QTabBar * speedBar = nullptr;
+    //QTabBar * speedBar = nullptr;
 
     QComboBox * comQuality = nullptr;
 

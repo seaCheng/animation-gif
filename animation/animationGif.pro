@@ -99,6 +99,7 @@ SOURCES += \
     tabPropertyTable/commonProperty/commonPropertyView.cpp \
     tabPropertyTable/commonProperty/gifSizeOp.cpp \
     tabPropertyTable/propertyAreaView.cpp \
+    tabPropertyTable/tabbarpri.cpp \
     tabPropertyTable/whiteBoardProperty/arrow.cpp \
     tabPropertyTable/whiteBoardProperty/diagramitem.cpp \
     tabPropertyTable/whiteBoardProperty/diagramtextitem.cpp \
@@ -125,6 +126,7 @@ HEADERS += \
     tabPropertyTable/commonProperty/commonPropertyView.h \
     tabPropertyTable/commonProperty/gifSizeOp.h \
     tabPropertyTable/propertyAreaView.h \
+    tabPropertyTable/tabbarpri.h \
     tabPropertyTable/whiteBoardProperty/arrow.h \
     tabPropertyTable/whiteBoardProperty/diagramitem.h \
     tabPropertyTable/whiteBoardProperty/diagramtextitem.h \

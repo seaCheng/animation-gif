@@ -1,16 +1,16 @@
 ﻿#pragma once
 #include <QLabel> 
 #include<QPaintEvent>
-#include <QTabWidget>
 
 #include "commonPropertyView.h"
 #include "WhiteBoardPropertyView.h"
 
 class CommonPropertyView;
 class WhiteBoardPropertyView;
+class TabBarPri;
+class QStackedWidget;
 
-
-class PropertyAreaView : public QTabWidget
+class PropertyAreaView : public QWidget
 { 
     Q_OBJECT
 public:
@@ -53,5 +53,9 @@ private:
     std::shared_ptr<propertyInf> commproInf;
 
     std::shared_ptr<whiteBoardProInf> whBoardProInf;
+
+    TabBarPri * tabBar = nullptr;
+
+    QStackedWidget * tabWid = nullptr;
 
 };

@@ -409,6 +409,7 @@ void CommonPropertyView::setConnect()
 
     });
 
+    /*
     connect(speedBar, &QTabBar::currentChanged, this, [&](int index){
         if(index == 0)
         {
@@ -425,6 +426,31 @@ void CommonPropertyView::setConnect()
             lSpeedTime->setVisible(false);
             lSpeedSecond->setVisible(true);
         }
+    });
+    */
+
+
+    connect(gDelayBtn, &QButtonGroup::buttonClicked, this, [&](QAbstractButton *button){
+
+        QRadioButton * screenBtn = (QRadioButton *)button;
+
+        if(screenBtn == speedTimeRadioBtn)
+        {
+            timeSpinBox->setVisible(true);
+            secondSpinBox->setVisible(false);
+
+            lSpeedTime->setVisible(true);
+            lSpeedSecond->setVisible(false);
+        }else if(screenBtn == speedSecondRadioBtn)
+        {
+            timeSpinBox->setVisible(false);
+            secondSpinBox->setVisible(true);
+
+            lSpeedTime->setVisible(false);
+            lSpeedSecond->setVisible(true);
+        }
+
+
     });
 
     connect(comFill, &QComboBox::currentIndexChanged, this, [&](int index){
@@ -607,6 +633,7 @@ void CommonPropertyView::initial()
     colorLay->addWidget(fColor);
     colorLay->addStretch(1);
 
+    /*
     //速度
     QLabel *lSpeedBar = new QLabel;
     lSpeedBar->setText(tr("Speed:"));
@@ -657,6 +684,72 @@ void CommonPropertyView::initial()
     secondLay->setSpacing(5);
     secondLay->addWidget(lSpeedSecond);
     secondLay->addWidget(secondSpinBox);
+    */
+    //速度 帧延时
+    QLabel *lSpeedBar = new QLabel;
+    lSpeedBar->setText(tr("Speed:"));
+    lSpeedBar->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lSpeedBar->setFixedWidth(DPI::getScaleUI(100));
+
+    gDelayBtn = new QButtonGroup(this);
+    gDelayBtn->setExclusive(true);
+    speedTimeRadioBtn = new QRadioButton;
+    speedTimeRadioBtn->setChecked(true);
+
+    speedTimeRadioBtn->setText(tr("Frame delay(ms):"));
+    gDelayBtn->addButton(speedTimeRadioBtn);
+
+    speedSecondRadioBtn = new QRadioButton;
+    speedSecondRadioBtn->setText(tr("Frame count(p-s):"));
+    gDelayBtn->addButton(speedSecondRadioBtn);
+
+    QHBoxLayout * hDelayLay = new QHBoxLayout;
+    hDelayLay->setContentsMargins(0,0,0,0);
+    hDelayLay->setSpacing(DPI::getScaleUI(24));
+    hDelayLay->addWidget(lSpeedBar);
+    hDelayLay->addWidget(speedTimeRadioBtn);
+    hDelayLay->addWidget(speedSecondRadioBtn);
+
+    hDelayLay->addStretch(1);
+
+    //帧延时
+    lSpeedTime = new QLabel;
+    lSpeedTime->setText(tr("Frame delay(ms):"));
+    lSpeedTime->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lSpeedTime->setFixedWidth(DPI::getScaleUI(100));
+
+    timeSpinBox = new QSpinBox;
+    timeSpinBox->setRange(20, 10000);
+    timeSpinBox->setValue(40);
+    timeSpinBox->setMinimumWidth(DPI::getScaleUI(200));
+    proInf->delay = timeSpinBox->value();
+
+    QHBoxLayout * timerLay = new QHBoxLayout;
+    timerLay->setContentsMargins(0,0,0,0);
+    timerLay->setSpacing(5);
+    timerLay->addWidget(lSpeedTime);
+    timerLay->addWidget(timeSpinBox);
+    timerLay->addStretch(1);
+
+    lSpeedSecond= new QLabel;
+    lSpeedSecond->setText(tr("Frame count(p-s):"));
+    lSpeedSecond->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    lSpeedSecond->setFixedWidth(DPI::getScaleUI(100));
+    lSpeedSecond->setVisible(false);
+
+    secondSpinBox = new QSpinBox;
+    secondSpinBox->setRange(1, 30);
+    secondSpinBox->setVisible(false);
+    secondSpinBox->setValue(25);
+    secondSpinBox->setMinimumWidth(DPI::getScaleUI(200));
+
+    QHBoxLayout * secondLay = new QHBoxLayout;
+    secondLay->setContentsMargins(0,0,0,0);
+    secondLay->setSpacing(5);
+    secondLay->addWidget(lSpeedSecond);
+    secondLay->addWidget(secondSpinBox);
+    secondLay->addStretch(1);
+
 
     QVBoxLayout * lay = new QVBoxLayout;
     lay->setContentsMargins(DPI::getScaleUI(25),DPI::getScaleUI(25),DPI::getScaleUI(25),DPI::getScaleUI(25));
@@ -672,7 +765,7 @@ void CommonPropertyView::initial()
     fLineO->setFixedHeight(1);
     lay->addWidget(fLineO);
 
-    lay->addItem(speedbarLay);
+    lay->addItem(hDelayLay);
     lay->addItem(timerLay);
     lay->addItem(secondLay);
 

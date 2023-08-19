@@ -2,16 +2,18 @@
 #include "commonPropertyView.h"
 
 #include "dpi.h"
+#include "tabbarpri.h"
 
 #include "whiteBoardPropertyView.h"
 
 #include<QDebug>
 #include<QHBoxLayout>
 #include <QTabBar>
+#include <QStackedWidget>
 
 
 PropertyAreaView::PropertyAreaView(QWidget *parent)
-    : QTabWidget(parent)
+    : QWidget(parent)
 {
     initial();
     setConnect();
@@ -26,6 +28,11 @@ void PropertyAreaView::setConnect()
     connect(whiteBoardView, &WhiteBoardPropertyView::s_saveToCurrentPicture, this, &PropertyAreaView::s_saveToCurrentPicture);
     connect(whiteBoardView, &WhiteBoardPropertyView::s_saveToAllPictures, this, &PropertyAreaView::s_saveToAllPictures);
     connect(whiteBoardView, &WhiteBoardPropertyView::s_clearGraphicsItems, this, &PropertyAreaView::s_clearGraphicsItems);
+
+
+    connect(tabBar, &TabBarPri::sigCheckedChange, this, [&](int iIndex){
+        tabWid->setCurrentIndex(iIndex);
+    });
 }
 
 void PropertyAreaView::paintEvent(QPaintEvent *e)
@@ -35,22 +42,34 @@ void PropertyAreaView::paintEvent(QPaintEvent *e)
     {
         resize(QSize(wid->width(), height()));
     }
-    QTabWidget::paintEvent(e);
+    QWidget::paintEvent(e);
 }
 
 void PropertyAreaView::initial()
 {
     setObjectName("PropertyAreaView");
+    QVBoxLayout * lay = new QVBoxLayout(this);
+    lay->setContentsMargins(2,2,2,2);
+
+    tabWid = new QStackedWidget;
+    tabBar = new TabBarPri();
+    tabBar->setWidth(105);
+    lay->addWidget(tabBar);
+    lay->addWidget(tabWid);
 
     commproInf = std::make_shared<propertyInf>();
     commView = new CommonPropertyView(commproInf);
-
-    addTab(commView, tr("Common"));
+    tabWid->addWidget(commView);
+    tabBar->addTab(tr("Common"), tabStatus_checked);
+    //addTab(commView, tr("Common"));
 
     whBoardProInf = std::make_shared<whiteBoardProInf>();
     whiteBoardView = new WhiteBoardPropertyView(whBoardProInf);
-    addTab(whiteBoardView, tr("White board"));
-
+    tabWid->addWidget(whiteBoardView);
+    //addTab(whiteBoardView, tr("White board"));
+    tabBar->addTab(tr("White board"));
+    tabWid->setCurrentIndex(0);
+    tabBar->setCurrentIndex(0);
     setMinimumWidth(DPI::getScaleUI(320));
     setMinimumHeight(DPI::getScaleUI(780));
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
