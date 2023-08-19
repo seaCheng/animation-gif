@@ -2,6 +2,7 @@
 #define QTITLEBAR_H
 
 #include <QWidget>
+#include <QFrame>
 
 #include "framelesswindow.h"
 
@@ -16,6 +17,37 @@ enum btnCtrl_type{btn_switch = 0, btn_help, btn_setting, btn_login, btn_user, bt
 enum btnSys_type{btn_sys_min = 0, btn_sys_max, btn_sys_close};
 Q_DECLARE_METATYPE(btnCtrl_type)
 
+class QHBoxLayout;
+class QLabel;
+class frameBtn : public QFrame
+{
+    Q_OBJECT
+public:
+    explicit frameBtn(QWidget *parent = nullptr);
+    void initial();
+
+    void setContext(QString strPicNormal, QString strPicDis, QString strText);
+    void setText(QString strText);
+    void onRetranslateUi();
+    void setEnableWid(bool bEn);
+signals:
+
+    void s_click();
+
+protected:
+    void mouseReleaseEvent(QMouseEvent *ev);
+
+    void refreashText();
+private:
+    QHBoxLayout *m_layout;
+    QLabel *m_lPic = nullptr;
+    QLabel *m_lTxt = nullptr;
+
+    QString m_strPicNormal;
+    QString m_strPicDis;
+
+};
+//
 class QToolBar;
 class QTitleBar :public QWidget
 {
@@ -37,6 +69,8 @@ public:
     void setSysMaxBtnMax(bool bMax);
 
     void onRetranslateUi();
+
+    void addBtn(frameBtn * btn);
 signals:
     void s_min();
     void s_max();

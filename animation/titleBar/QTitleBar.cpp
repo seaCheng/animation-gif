@@ -7,6 +7,147 @@
 #include <QToolBar>
 
 
+frameBtn::frameBtn(QWidget *parent) : QFrame(parent)
+{
+   initial();
+}
+
+void frameBtn::onRetranslateUi()
+{
+    if(m_lTxt != nullptr)
+    {
+       //m_lTxt->setText(tr("Device Switch"));
+
+       refreashText();
+
+    }
+
+}
+
+void frameBtn::initial()
+{
+    setObjectName("frameBtn");
+
+    m_layout = new QHBoxLayout(this);
+    m_layout->setContentsMargins(0, 2, 0, 2);
+    m_layout->setSpacing(8);
+
+    m_lPic = new QLabel(this);
+    m_lPic->setObjectName("PicLabel");
+    m_lPic->setFixedSize(0,0);
+    m_lPic->setScaledContents(true);
+    m_lPic->setPixmap(QPixmap(":/icon/switch.png"));
+    m_layout->addWidget(m_lPic);
+
+    QFont font;
+    font.setPointSize(12);
+#if defined (_WIN32) || defined (WIN32)
+    font.setFamily("Microsoft YaHei");
+#else
+    font.setFamily("PingFangSC-Regular");
+#endif
+
+
+    m_lTxt = new QLabel(this);
+    m_lTxt->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+    m_lTxt->setText(tr("Device Switch"));
+    m_lTxt->setObjectName("TextLabel");
+    m_lTxt->setFont(font);
+
+    m_layout->addWidget(m_lTxt);
+
+    refreashText();
+
+    setStyleSheet("#frameBtn{ \
+    background-color:transparent; \
+    border-style:inset; \
+    border-width:0px; \
+    border-radius: 8px; \
+    border-color:rgba(0,0,0,0); \
+    color:rgb(255, 255, 255); \
+} \
+#frameBtn:hover{  \
+color:rgb(255,255,255); \
+background-color: #555; \
+border-radius: 8px; \
+} \
+#frameBtn:pressed{ \
+color:rgb(255,255,255); \
+border-radius: 8px; \
+background-color: #666; \
+} \
+#PicLabel,#TextLabel{ \
+color: rgb(255, 255, 255);  \
+background-color:transparent;\
+} \
+#PicLabel:disable,#TextLabel:disable{ \
+color: rgb(255, 255, 255);  \
+background-color:(255, 255, 255, 0.4);\
+}");
+
+}
+
+void frameBtn::setText(QString strText)
+{
+    m_lTxt->setText(strText);
+    refreashText();
+}
+
+void frameBtn::setEnableWid(bool bEn)
+{
+    if(bEn)
+    {
+        m_lPic->setPixmap(QPixmap(m_strPicNormal));
+
+    }else
+    {
+        m_lPic->setPixmap(QPixmap(m_strPicDis));
+    }
+    setEnabled(bEn);
+    update();
+}
+
+void frameBtn::mouseReleaseEvent(QMouseEvent *ev)
+{
+    emit s_click();
+    QFrame::mouseReleaseEvent(ev);
+}
+
+void frameBtn::refreashText()
+{
+     QFontMetrics fontMetri(m_lTxt->font());
+    if(m_lTxt->text().isEmpty() == false)
+    {
+        int iwidth = fontMetri.horizontalAdvance((m_lTxt->text()));
+        iwidth = iwidth + 4 + 8;
+        setFixedSize(iwidth, 32);
+        m_lTxt->setVisible(true);
+
+        m_layout->setContentsMargins(0, 0, 4, 0);
+        m_layout->setSpacing(4);
+    }else
+    {
+        setFixedSize(0, 0);
+        m_lTxt->setVisible(false);
+        m_layout->setContentsMargins(0, 0, 0, 0);
+        m_layout->setSpacing(0);
+    }
+}
+
+void frameBtn::setContext(QString strPicNormal, QString strPicDis, QString strText)
+{
+    m_strPicNormal = strPicNormal;
+    m_strPicDis = strPicDis;
+
+    m_lPic->setPixmap(QPixmap(m_strPicNormal));
+
+    m_lTxt->setText(strText);
+
+    refreashText();
+    update();
+}
+
+//////////////////////////////////////////////////////////////////////////////////
 QTitleBar::QTitleBar(QWidget * pWid)
 :QWidget(pWid),
          ui(new Ui::titleWid)
@@ -15,38 +156,7 @@ QTitleBar::QTitleBar(QWidget * pWid)
 
          setObjectName("QTitleBar");
 
-         onRetranslateUi();
-
-         /*
-         ui->frameSystem->layout()->removeWidget(ui->btnUserTop);
-         ui->frameSystem->layout()->removeItem(ui->horizontalSpacer);
-         ui->frameSystem->layout()->removeWidget(ui->minimizeButton);
-         ui->frameSystem->layout()->removeWidget(ui->maximizeButton);
-         ui->frameSystem->layout()->removeWidget(ui->closeButton);
-
-         m_switchBtn = new frameBtn(this);
-         m_switchBtn->setContext(":/icon/switch.png", ":/icon/switchDisable.png", "Device switch");
-         ui->frameSystem->layout()->addWidget(m_switchBtn);
-
-         m_helpBtn = new frameBtn(this);
-         m_helpBtn->setContext(":/icon/help.png", ":/icon/helpDis.png", "Help");
-         ui->frameSystem->layout()->addWidget(m_helpBtn);
-
-         m_settingBtn = new frameBtn(this);
-         m_settingBtn->setContext(":/icon/setting.png", ":/icon/settingDis.png", "Setting");
-         ui->frameSystem->layout()->addWidget(m_settingBtn);
-
-         m_loginBtn = new frameBtn(this);
-         m_loginBtn->setContext(":/icon/user.png", ":/icon/userDis.png", "Login");
-         ui->frameSystem->layout()->addWidget(m_loginBtn);
-
-
-         ui->frameSystem->layout()->addWidget(ui->btnUserTop);
-         ui->frameSystem->layout()->addItem(ui->horizontalSpacer);
-         ui->frameSystem->layout()->addWidget(ui->minimizeButton);
-         ui->frameSystem->layout()->addWidget(ui->maximizeButton);
-         ui->frameSystem->layout()->addWidget(ui->closeButton);
-         */
+         onRetranslateUi();         
 
          #ifdef Q_OS_MAC
          ui->minimizeButton->setVisible(false);
@@ -66,8 +176,22 @@ QTitleBar::QTitleBar(QWidget * pWid)
          #ifdef Q_OS_MAC
          ui->frameSystem->layout()->setContentsMargins(4,0,4,0);
          #endif
-         setConnect();
 
+
+
+         /*
+         m_settingBtn = new frameBtn();
+         m_settingBtn->setContext("", "", "菜单2");
+         ui->frameCtrl->layout()->addWidget(m_settingBtn);
+         */
+         setConnect();
+}
+
+void QTitleBar::addBtn(frameBtn * btn)
+{
+    ui->frameCtrl->layout()->removeItem(ui->horizontalSpacer);
+    ui->frameCtrl->layout()->addWidget(btn);
+    ui->frameCtrl->layout()->addItem(ui->horizontalSpacer);
 
 }
 

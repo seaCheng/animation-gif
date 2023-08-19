@@ -40,8 +40,6 @@ MainWindow::MainWindow(QWidget *parent)
     : CFramelessWindow(parent)
     , ui(new Ui::animationMW)
 {
-    //setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
-    //setWindowFlags(windowFlags() | Qt::Window | Qt::FramelessWindowHint | Qt::WindowSystemMenuHint);
     setWindowTitle(QStringLiteral("AnimationGif++"));
     setObjectName("MainWindow");
     ui->setupUi(this);
@@ -49,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
 
 #ifdef Q_OS_MAC
-    OSXHideTitleBar::HideTitleBar(winId());
+    //OSXHideTitleBar::HideTitleBar(winId());
 #endif
 
     m_titleBar = new QTitleBar(this);
@@ -64,12 +62,14 @@ MainWindow::MainWindow(QWidget *parent)
     setResizeableAreaWidth(8);
 #endif
 
+    /*
     m_toolBar = new QToolBar(this);
     m_toolBar->setStyleSheet("background-color:rgba(255,255,255, 0);");
     m_toolBar->setFloatable(false);
     m_toolBar->setMovable(false);
 
     m_titleBar->addToolButton(m_toolBar);
+    */
 
 
 #ifdef Q_OS_MAC
@@ -422,25 +422,48 @@ void MainWindow::setConnect()
 
 void MainWindow::setupUndoRedoActions()
 {
-
+    frameBtn * loadBtn = new frameBtn();
+    loadBtn->setText(tr("Load project"));
+    connect(loadBtn, &frameBtn::s_click, this, &MainWindow::slot_load
+            );
+    m_titleBar->addBtn(loadBtn);
+    /*
     auto loadAction = new QAction(tr("Load project"), this);
     connect(loadAction, &QAction::triggered, this, &MainWindow::slot_load
             );
     m_toolBar->addAction(loadAction);
+    */
 
     //save file
+    /*
     auto saveAction = new QAction(tr("Save project"), this);
     connect(saveAction, &QAction::triggered, this, &MainWindow::slot_save);
     m_toolBar->addAction(saveAction);
 
     m_toolBar->addSeparator();
+    */
+    frameBtn * saveBtn = new frameBtn();
+    saveBtn->setText(tr("Save project"));
+    connect(saveBtn, &frameBtn::s_click, this, &MainWindow::slot_save
+            );
+    m_titleBar->addBtn(saveBtn);
 
     //add pic
+    /*
     auto addAction = new QAction(tr("Add picture"), this);
     connect(addAction, &QAction::triggered, this, &MainWindow::slot_add);
     m_toolBar->addAction(addAction);
+    */
+
+
+    frameBtn * addBtn = new frameBtn();
+    addBtn->setText(tr("Add picture"));
+    connect(addBtn, &frameBtn::s_click, this, &MainWindow::slot_add
+            );
+    m_titleBar->addBtn(addBtn);
 
     // insert empty
+    /*
     auto insertAction = new QAction(tr("Insert empty"), this);
     connect(insertAction, &QAction::triggered,
             [this]()
@@ -448,8 +471,17 @@ void MainWindow::setupUndoRedoActions()
         m_modelDeal->insertEmptyPicture();
     });
     m_toolBar->addAction(insertAction);
+    */
+    frameBtn * insertBtn = new frameBtn();
+    insertBtn->setText(tr("Insert empty"));
+    connect(insertBtn, &frameBtn::s_click, [this]()
+    {
+        m_modelDeal->insertEmptyPicture();
+    });
+    m_titleBar->addBtn(insertBtn);
 
     // delete action
+    /*
     auto deleteAction = new QAction(tr("Remove picture"), this);
     connect(deleteAction, &QAction::triggered,
             [this]()
@@ -462,13 +494,33 @@ void MainWindow::setupUndoRedoActions()
         }
     });
     m_toolBar->addAction(deleteAction);
+    */
+    frameBtn * deleteBtn = new frameBtn();
+    deleteBtn->setText(tr("Remove picture"));
+    connect(deleteBtn, &frameBtn::s_click, [this]()
+    {
+        PicScaleComp * pic =  ui->scrollAreaWidgetContents->getSelItem();
+        if(pic)
+        {
+            m_modelDeal->eraseConnectItem(pic->getPictureItem());
 
+        }
+    });
+    m_titleBar->addBtn(deleteBtn);
+
+    /*
     auto clearAction = new QAction(tr("Clear pictures"), this);
     connect(clearAction, &QAction::triggered, this, &MainWindow::slot_clear);
     m_toolBar->addAction(clearAction);
 
-    m_toolBar->addSeparator();
+    m_toolBar->addSeparator();*/
+    frameBtn * clearBtn = new frameBtn();
+    clearBtn->setText(tr("Clear pictures"));
+    connect(clearBtn, &frameBtn::s_click, this, &MainWindow::slot_clear
+            );
+    m_titleBar->addBtn(clearBtn);
 
+    /*
     auto runAction = new QAction(tr("Run"), this);
     connect(runAction, &QAction::triggered, this, [=](){
 
@@ -485,37 +537,84 @@ void MainWindow::setupUndoRedoActions()
 
     });
     m_toolBar->addAction(runAction);
+    */
+
+    frameBtn * runBtn = new frameBtn();
+    runBtn->setText(tr("Run"));
+    connect(runBtn, &frameBtn::s_click, [this, runBtn]()
+    {
+        if(runTimer->isActive())
+        {
+            runBtn->setText(tr("Run"));
+            runTimer->stop();
+        }else
+        {
+            runBtn->setText(tr("Stop"));
+            runTimer->setInterval(propertyArea->getGifCommpro()->delay);
+            runTimer->start();
+        }
+    });
+    m_titleBar->addBtn(runBtn);
 
     // undo action
+    /*
     auto undoAction = new QAction(tr("Undo"), this);
     connect(undoAction, &QAction::triggered, [this]() { ModelView::Utils::Undo(*m_model); });
     undoAction->setDisabled(true);
     m_toolBar->addAction(undoAction);
+    */
+    frameBtn * undoBtn = new frameBtn();
+    undoBtn->setText(tr("Undo"));
+    connect(undoBtn, &frameBtn::s_click, [this]()
+    {
+       ModelView::Utils::Undo(*m_model);
+    });
+
+    undoBtn->setDisabled(true);
+    m_titleBar->addBtn(undoBtn);
 
     // redo action
+    /*
     auto redoAction = new QAction(tr("Redo"), this);
     connect(redoAction, &QAction::triggered, [this]() { ModelView::Utils::Redo(*m_model); });
     redoAction->setDisabled(true);
     m_toolBar->addAction(redoAction);
 
     m_toolBar->addSeparator();
+    */
+    frameBtn * redoBtn = new frameBtn();
+    redoBtn->setText(tr("Redo"));
+    connect(redoBtn, &frameBtn::s_click, [this]()
+    {
+       ModelView::Utils::Redo(*m_model);
+    });
+
+    redoBtn->setDisabled(true);
+    m_titleBar->addBtn(redoBtn);
 
     //export gif
+    /*
     auto exportAction = new QAction(tr("Export gif"), this);
     connect(exportAction, &QAction::triggered, this, &MainWindow::slot_export);
     m_toolBar->addAction(exportAction);
 
     m_toolBar->addSeparator();
+    */
+    frameBtn * exportBtn = new frameBtn();
+    exportBtn->setText(tr("Export gif"));
+    connect(exportBtn, &frameBtn::s_click, this, &MainWindow::slot_export
+            );
+    m_titleBar->addBtn(exportBtn);
 
     // enable/disable undo/redo actions when there is something to undo
     if (m_model && m_model->undoStack()) {
-        auto can_undo_changed = [undoAction, this]() {
-            undoAction->setEnabled(m_model->undoStack()->canUndo());
+        auto can_undo_changed = [undoBtn, this]() {
+            undoBtn->setEnabled(m_model->undoStack()->canUndo());
         };
         connect(ModelView::UndoStack::qtUndoStack(m_model->undoStack()), &QUndoStack::canUndoChanged,
                 can_undo_changed);
-        auto can_redo_changed = [this, redoAction]() {
-            redoAction->setEnabled(m_model->undoStack()->canRedo());
+        auto can_redo_changed = [this, redoBtn]() {
+            redoBtn->setEnabled(m_model->undoStack()->canRedo());
         };
 
         connect(ModelView::UndoStack::qtUndoStack(m_model->undoStack()), &QUndoStack::canUndoChanged,
