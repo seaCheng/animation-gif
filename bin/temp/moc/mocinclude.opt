@@ -1,0 +1,54 @@
+-ID:/Qt/6.3.2/msvc2019_64/mkspecs/win32-msvc
+-IE:/animationGif/animation
+-IE:/animationGif/AMLogger/include
+-IE:/animationGif/gifdec/src
+-IE:/animationGif/gifdec/include
+-IE:/animationGif/animation
+-IE:/animationGif/qt-mvvm/source/libmvvm_model
+-IE:/animationGif/qt-mvvm/source/libmvvm_view
+-IE:/animationGif/qt-mvvm/source/libmvvm_viewmodel
+-IE:/animationGif/qt-mvvm/mples/modelinqml
+-IE:/animationGif/qt-mvvm/thirdparty/qcustomplot
+-IE:/animationGif/qt-mvvm/thirdparty/gtest/googletest/googletest/include
+-IE:/animationGif/qt-mvvm/autogen/mvvm
+-IE:/animationGif/gifOpe/src
+-IE:/animationGif/gifOpe/include
+-IE:/animationGif/QtSingleApplication
+-IE:/animationGif/qt-mvvm/source/libmvvm_model
+-IE:/animationGif/qt-mvvm/source/libmvvm_view
+-IE:/animationGif/qt-mvvm/source/libmvvm_viewmodel
+-IE:/animationGif/qt-mvvm/autogen/mvvm
+-IE:/animationGif/framelesswindow
+-IE:/animationGif/lib/ImageMaick/Win/include
+-IE:/animationGif/animation/mainAreaComponent
+-IE:/animationGif/animation/mainAreaComponent/scaleButton
+-IE:/animationGif/AMLogger
+-IE:/animationGif/gifdec
+-IE:/animationGif/lib/SDL/include
+-IE:/animationGif/QtSingleApplication
+-IE:/animationGif/animation/tabPropertyTable
+-IE:/animationGif/animation/tabPropertyTable/commonProperty
+-IE:/animationGif/animation/tabPropertyTable/whiteBoardProperty
+-IE:/animationGif/animation/titleBar
+-IE:/animationGif/animation/utils
+-IE:/animationGif/animation/VideoLoad
+-IE:/animationGif/animation/viewComponent
+-ID:/Qt/6.3.2/msvc2019_64/include
+-ID:/Qt/6.3.2/msvc2019_64/include/QtOpenGLWidgets
+-ID:/Qt/6.3.2/msvc2019_64/include/QtOpenGL
+-ID:/Qt/6.3.2/msvc2019_64/include/QtMultimediaWidgets
+-ID:/Qt/6.3.2/msvc2019_64/include/QtPrintSupport
+-ID:/Qt/6.3.2/msvc2019_64/include/QtWidgets
+-ID:/Qt/6.3.2/msvc2019_64/include/QtMultimedia
+-ID:/Qt/6.3.2/msvc2019_64/include/QtGui
+-ID:/Qt/6.3.2/msvc2019_64/include/QtCore5Compat
+-ID:/Qt/6.3.2/msvc2019_64/include/QtNetwork
+-ID:/Qt/6.3.2/msvc2019_64/include/QtCore
+-IC:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include
+-IC:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include
+-IC:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um
+-ID:\Windows Kits\10\include\10.0.19041.0\ucrt
+-ID:\Windows Kits\10\include\10.0.19041.0\shared
+-ID:\Windows Kits\10\include\10.0.19041.0\um
+-ID:\Windows Kits\10\include\10.0.19041.0\winrt
+-ID:\Windows Kits\10\include\10.0.19041.0\cppwinrt

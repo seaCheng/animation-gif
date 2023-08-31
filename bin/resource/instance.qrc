@@ -28,5 +28,14 @@
 	 <file>../images/sendtoback.png</file>
 	 <file>../images/delItem.png</file>
 	 <file>../images/bt_pic.png</file>
+	 
+	 <file>../images/closeWin@3x.png</file>
+	 <file>../images/maximum@3x.png</file>
+	 <file>../images/maxOut@3x.png</file>
+	 <file>../images/minimum@3x.png</file>
+	 
+	 <file>../language/animationGif_en_US.qm</file>
+	 <file>../language/animationGif_ch.qm</file>
+	 
     </qresource>
 </RCC>

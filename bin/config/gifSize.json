@@ -1,0 +1,149 @@
+[
+    {
+        "bCustom": false,
+        "heigth": 31,
+        "name": "88 * 31 pixel",
+        "uuid": "{1260e50d-94e4-436f-b4bd-22ac0a7ed98d}",
+        "width": 88
+    },
+    {
+        "bCustom": false,
+        "heigth": 33,
+        "name": "230 * 33 pixel",
+        "uuid": "{2fb804c8-0072-4484-9f1c-7f2ea3054294}",
+        "width": 230
+    },
+    {
+        "bCustom": false,
+        "heigth": 60,
+        "name": "234 * 60 pixel",
+        "uuid": "{77c20430-b38f-4733-98c4-8b5d4e9ed86e}",
+        "width": 234
+    },
+    {
+        "bCustom": false,
+        "heigth": 280,
+        "name": "336 * 280 pixel",
+        "uuid": "{a8d808b1-3e34-438a-8f28-a7472f0fd446}",
+        "width": 336
+    },
+    {
+        "bCustom": false,
+        "heigth": 60,
+        "name": "468 * 60 pixel",
+        "uuid": "{e925de07-dfb8-4582-af9e-48644701725d}",
+        "width": 468
+    },
+    {
+        "bCustom": false,
+        "heigth": 60,
+        "name": "(1:1) 60 * 60 pixel",
+        "uuid": "{d1a2a80e-a5b3-4108-8295-1223fe1046ee}",
+        "width": 60
+    },
+    {
+        "bCustom": false,
+        "heigth": 75,
+        "name": "(1:1) 75 * 75 pixel",
+        "uuid": "{8df98194-4132-4b4e-9f18-d9796a3249c7}",
+        "width": 75
+    },
+    {
+        "bCustom": false,
+        "heigth": 120,
+        "name": "(1:1) 120 * 120 pixel",
+        "uuid": "{574fea45-d962-451d-b3c5-1a7055ee428e}",
+        "width": 120
+    },
+    {
+        "bCustom": false,
+        "heigth": 240,
+        "name": "(1:2) 120 * 240 pixel",
+        "uuid": "{60b0eedb-9f1e-4c85-a84f-7807cd371cfd}",
+        "width": 120
+    },
+    {
+        "bCustom": false,
+        "heigth": 240,
+        "name": "(3:2) 360 * 240 pixel",
+        "uuid": "{cd8cbd39-e133-49dd-8f57-41bdb20af19f}",
+        "width": 360
+    },
+    {
+        "bCustom": false,
+        "heigth": 960,
+        "name": "(2:3) 640 * 960 pixel",
+        "uuid": "{7fb4c375-9aa3-429c-9b27-99c05bee73db}",
+        "width": 640
+    },
+    {
+        "bCustom": false,
+        "heigth": 480,
+        "name": "(3:4) 360 * 480 pixel",
+        "uuid": "{330e5369-5a52-4841-9284-6f7e5e76b032}",
+        "width": 360
+    },
+    {
+        "bCustom": false,
+        "heigth": 90,
+        "name": "(4:3) 120 * 90 pixel",
+        "uuid": "{46a53c52-0a6d-4920-89ef-bedf567262cd}",
+        "width": 120
+    },
+    {
+        "bCustom": false,
+        "heigth": 480,
+        "name": "(4:3) 640 * 480 pixel",
+        "uuid": "{9655f22e-fc3d-4630-b99a-28be2ff3b41d}",
+        "width": 640
+    },
+    {
+        "bCustom": false,
+        "heigth": 150,
+        "name": "(6:5) 180 * 150 pixel",
+        "uuid": "{84c38c1d-9d4f-40dd-8627-fc2aac631e33}",
+        "width": 180
+    },
+    {
+        "bCustom": false,
+        "heigth": 250,
+        "name": "(6:5) 300 * 250 pixel",
+        "uuid": "{20809002-d6a2-47fa-837f-02d9169bb267}",
+        "width": 300
+    },
+    {
+        "bCustom": false,
+        "heigth": 400,
+        "name": "(8:5) 640 * 400 pixel",
+        "uuid": "{3d49f38e-d7d1-4327-9701-1c8998b364db}",
+        "width": 640
+    },
+    {
+        "bCustom": true,
+        "heigth": 134,
+        "name": "untitled_0",
+        "uuid": "{a76e4891-94fe-4a84-8eaa-c2455460efe0}",
+        "width": 320
+    },
+    {
+        "bCustom": true,
+        "heigth": 240,
+        "name": "untitled_1",
+        "uuid": "{2b9322ca-c54a-408d-b125-c26575303c2d}",
+        "width": 360
+    },
+    {
+        "bCustom": true,
+        "heigth": 240,
+        "name": "untitled_2",
+        "uuid": "{617cfd91-9a8c-4adc-8dd2-5e3303a1556d}",
+        "width": 360
+    },
+    {
+        "bCustom": true,
+        "heigth": 240,
+        "name": "untitled_3",
+        "uuid": "{892410de-1191-42c8-a289-789d6b74d450}",
+        "width": 800
+    }
+]

@@ -116,7 +116,7 @@ border-radius:5px;padding:2px 4px;
 
 
 #PropertyAreaView>QTabBar::tab {
-
+color:black;
 border-bottom-left-radius:2px;
 border-bottom-right-radius:2px;
 border:0px;
