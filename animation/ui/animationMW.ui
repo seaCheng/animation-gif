@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>525</width>
-    <height>404</height>
+    <width>767</width>
+    <height>520</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
      <number>0</number>
     </property>
     <property name="bottomMargin">
-     <number>0</number>
+     <number>5</number>
     </property>
     <item>
      <widget class="QFrame" name="titleBar">
@@ -192,7 +192,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>525</width>
+         <width>767</width>
          <height>180</height>
         </rect>
        </property>

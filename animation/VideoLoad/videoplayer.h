@@ -49,6 +49,107 @@ private:
     uint16_t m_handleLen; //滑块宽度
 };
 
+
+typedef enum {
+    MODE_NONE,
+    MODE_MOVE,
+    MODE_RESIZE_LEFT,
+    MODE_RESIZE_RIGHT,
+} ZOOM_CHANGE_MODE;
+
+class TimerThumbnailsItem : public  QWidget
+{
+    Q_OBJECT
+
+public:
+    TimerThumbnailsItem(QWidget *parent = nullptr);
+
+    Q_INVOKABLE void updateZoom(int zoomStart, int zoomStop);
+    //修改自原updateZoom，适配联动播放需求
+    Q_INVOKABLE void updateDuration(qint64 startTime, qint64 endTime);
+    //查看某个选区，小于minWidth参数则放大，配合标记拆分
+    Q_INVOKABLE void viewSelection(qint64 startTime, qint64 endTime, int minWidth);
+    //定位到某个时间点，配合时间联动
+    Q_INVOKABLE void viewIndex(qint64 indexTime);
+    Q_INVOKABLE qint64 zoomStartIndex();
+    Q_INVOKABLE qint64 zoomStopIndex();
+    Q_INVOKABLE  void thumbnailsRelatedMove(qreal posScale,ZOOM_CHANGE_MODE mode);
+    Q_INVOKABLE  void thumbnailsRelatedPressed(qint64 startIndex,qint64 stopIndex);
+    Q_INVOKABLE void setHandleBgColor(int r,int g,int b);
+    Q_INVOKABLE void setHandleLRBgColor(int r,int g,int b);
+    Q_INVOKABLE void setBgBorderColor(int r,int g,int b);
+
+    QString transfer(qint64 indexTime);
+    void setPos(qint64 ms)
+    {
+        m_indexPos = ms;
+        update();
+    }
+
+    void setPlayStatus(bool bPlay)
+    {
+        m_play = bPlay;
+        update();
+    }
+    Q_INVOKABLE virtual qint64 calcLineSampleIndexFromPosition(const QPoint &pos, bool isSelecting = false, bool isEnd = false);
+    qint64 calcLinePos(qint64 indexTime);
+protected:
+    void mousePressEvent(QMouseEvent *evt) override;
+    void mouseReleaseEvent(QMouseEvent *evt) override;
+    void mouseMoveEvent(QMouseEvent *evt) override;
+
+    void paintEvent(QPaintEvent *event) override;
+    //void paint(QPainter *painter) override;
+
+    ZOOM_CHANGE_MODE getHandShapeRect(const QPoint &pos, QRect &_rect);
+
+    QRectF lightRect();
+
+    int timeToX(qint64 ms);
+
+    QRectF mainRect() const
+    {
+        QRectF mainRect = this->rect();
+        return mainRect;
+    }
+
+
+
+signals:
+    void sigTimeSectionChange();
+
+private:
+    void _mouseMove(const QPoint &pos);
+
+protected:
+
+    //起始时间毫秒
+    qint64 m_startFrameIndex;
+    qint64 m_stopFrameIndex;
+
+    qint64 m_zoomStartIndex;
+    qint64 m_zoomStopIndex;
+
+    qint64 m_referenceZoomStartIndex;
+    qint64 m_referenceZoomStopIndex;
+
+    QPoint m_referencePos;
+
+    qint64 m_indexPos = 0;
+    bool m_play = false;
+
+    bool m_zoomShown = true;
+    bool m_lightRect;
+
+    QColor m_handleBgColor = QColor(204,204,204);
+    QColor m_handleLRBgColor = QColor(170,170,170);
+    QColor m_bgBorderColor = QColor("#404040");  //背景底色边框
+
+
+    ZOOM_CHANGE_MODE m_zoomChangeMode;
+
+};
+
 class VideoPlayer : public QDialog
 {
     Q_OBJECT
@@ -76,7 +177,8 @@ private slots:
 private:
     QMediaPlayer* m_mediaPlayer;
     QAbstractButton *m_playButton;
-    QSlider *m_positionSlider;
+    //QSlider *m_positionSlider;
+    TimerThumbnailsItem * m_positionSlider;
     QLabel *m_errorLabel;
     QToolButton * importBtn;
     QToolButton * importStopBtn;
