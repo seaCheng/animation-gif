@@ -5,107 +5,107 @@
     <name>CommonPropertyView</name>
     <message>
         <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="396"/>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="522"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="548"/>
         <source>Manage Customizations</source>
         <translation>Manage Customizations</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="529"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="555"/>
         <source>size:</source>
         <translation>size:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="544"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="570"/>
         <source>Screen:</source>
         <translation>Screen:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="555"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="581"/>
         <source>Landscape</source>
         <translation>Landscape</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="559"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="585"/>
         <source>Portrait</source>
         <translation>Portrait</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="573"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="599"/>
         <source>Filling mode:</source>
         <translation>Filling mode:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="578"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="604"/>
         <source>Full</source>
         <translation>Full</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="579"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="605"/>
         <source>Adjust</source>
         <translation>Adjust</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="580"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="606"/>
         <source>Stretch</source>
         <translation>Stretch</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="595"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="621"/>
         <source>Color:</source>
         <translation>Color:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="612"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="690"/>
         <source>Speed:</source>
         <translation>Speed:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="618"/>
         <source>Routine</source>
-        <translation>Routine</translation>
+        <translation type="vanished">Routine</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="619"/>
         <source>Automatic</source>
-        <translation>Automatic</translation>
+        <translation type="vanished">Automatic</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="629"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="699"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="717"/>
         <source>Frame delay(ms):</source>
         <translation>Frame delay(ms):</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="645"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="703"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="735"/>
         <source>Frame count(p-s):</source>
         <translation>Frame count(p-s):</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="686"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="779"/>
         <source>Sequence:</source>
         <translation>Sequence:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="693"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="786"/>
         <source>Order</source>
         <translation>Order</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="701"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="794"/>
         <source>Reverse</source>
         <translation>Reverse</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="716"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="809"/>
         <source>Quality:</source>
         <translation>Quality:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="721"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="814"/>
         <source>non-optimization</source>
         <translation>non-optimization</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="722"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="815"/>
         <source>Automatic optimization</source>
         <translation>Automatic optimization</translation>
     </message>
@@ -190,91 +190,91 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="133"/>
+        <location filename="../mainwindow.cpp" line="151"/>
         <source>Save File</source>
         <translation>Save File</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="135"/>
+        <location filename="../mainwindow.cpp" line="153"/>
         <source>Save ( *.json)</source>
         <translation>Save ( *.json)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="145"/>
-        <location filename="../mainwindow.cpp" line="218"/>
-        <location filename="../mainwindow.cpp" line="234"/>
+        <location filename="../mainwindow.cpp" line="163"/>
+        <location filename="../mainwindow.cpp" line="236"/>
+        <location filename="../mainwindow.cpp" line="254"/>
         <source>Open File</source>
         <translation>Open File</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="147"/>
+        <location filename="../mainwindow.cpp" line="165"/>
         <source>Json (*.json)</source>
         <translation>Json (*.json)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="157"/>
-        <location filename="../mainwindow.cpp" line="465"/>
+        <location filename="../mainwindow.cpp" line="175"/>
+        <location filename="../mainwindow.cpp" line="606"/>
         <source>Export gif</source>
         <translation>Export gif</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="159"/>
+        <location filename="../mainwindow.cpp" line="177"/>
         <source>Save ( *.gif)</source>
         <translation>Save ( *.gif)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="236"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>Gif (*.gif)</source>
         <translation>Gif (*.gif)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="387"/>
+        <location filename="../mainwindow.cpp" line="428"/>
         <source>Load project</source>
         <translation>Load project</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="393"/>
+        <location filename="../mainwindow.cpp" line="448"/>
         <source>Save project</source>
         <translation>Save project</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="400"/>
+        <location filename="../mainwindow.cpp" line="462"/>
         <source>Add picture</source>
         <translation>Add picture</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="405"/>
+        <location filename="../mainwindow.cpp" line="478"/>
         <source>Insert empty</source>
         <translation>Insert empty</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="414"/>
+        <location filename="../mainwindow.cpp" line="501"/>
         <source>Remove picture</source>
         <translation>Remove picture</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="427"/>
+        <location filename="../mainwindow.cpp" line="520"/>
         <source>Clear pictures</source>
         <translation>Clear pictures</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="433"/>
-        <location filename="../mainwindow.cpp" line="438"/>
+        <location filename="../mainwindow.cpp" line="545"/>
+        <location filename="../mainwindow.cpp" line="550"/>
         <source>Run</source>
         <translation>Run</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="442"/>
+        <location filename="../mainwindow.cpp" line="554"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="451"/>
+        <location filename="../mainwindow.cpp" line="569"/>
         <source>Undo</source>
         <translation>Undo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="457"/>
+        <location filename="../mainwindow.cpp" line="588"/>
         <source>Redo</source>
         <translation>Redo</translation>
     </message>
@@ -308,35 +308,73 @@
 <context>
     <name>PropertyAreaView</name>
     <message>
-        <location filename="../tabPropertyTable/propertyAreaView.cpp" line="48"/>
+        <location filename="../tabPropertyTable/propertyAreaView.cpp" line="63"/>
         <source>Common</source>
         <translation>Common</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/propertyAreaView.cpp" line="52"/>
+        <location filename="../tabPropertyTable/propertyAreaView.cpp" line="70"/>
         <source>White board</source>
         <translation>White board</translation>
     </message>
 </context>
 <context>
+    <name>QTitleBar</name>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="344"/>
+        <source>Log In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="346"/>
+        <source>Device Switch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="347"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="348"/>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>VideoPlayer</name>
     <message>
-        <location filename="../VideoLoad/videoplayer.cpp" line="143"/>
+        <location filename="../VideoLoad/videoplayer.cpp" line="626"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
     <message>
-        <location filename="../VideoLoad/videoplayer.cpp" line="148"/>
+        <location filename="../VideoLoad/videoplayer.cpp" line="631"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../VideoLoad/videoplayer.cpp" line="184"/>
+        <location filename="../VideoLoad/videoplayer.cpp" line="688"/>
         <source>Frame rate</source>
         <translation>Frame rate</translation>
     </message>
     <message>
-        <location filename="../VideoLoad/videoplayer.cpp" line="258"/>
+        <location filename="../VideoLoad/videoplayer.cpp" line="736"/>
+        <source>Total duration:</source>
+        <translation>Total duration:</translation>
+    </message>
+    <message>
+        <location filename="../VideoLoad/videoplayer.cpp" line="747"/>
+        <source>Start time:</source>
+        <translation>Start time:</translation>
+    </message>
+    <message>
+        <location filename="../VideoLoad/videoplayer.cpp" line="758"/>
+        <source>End Time:</source>
+        <translation>End Time:</translation>
+    </message>
+    <message>
+        <location filename="../VideoLoad/videoplayer.cpp" line="845"/>
         <source>Open Movie</source>
         <translation>Open Movie</translation>
     </message>
@@ -705,6 +743,27 @@
         <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="324"/>
         <source>heigth:</source>
         <translation>heigth:</translation>
+    </message>
+</context>
+<context>
+    <name>frameBtn</name>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="53"/>
+        <source>Device Switch</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>titleWid</name>
+    <message>
+        <location filename="../ui/titleBar.ui" line="26"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/titleBar.ui" line="180"/>
+        <source>AnimationGif</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

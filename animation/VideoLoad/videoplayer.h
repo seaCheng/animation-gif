@@ -73,6 +73,7 @@ public:
     Q_INVOKABLE void viewIndex(qint64 indexTime);
     Q_INVOKABLE qint64 zoomStartIndex();
     Q_INVOKABLE qint64 zoomStopIndex();
+    Q_INVOKABLE qint64 totalIndex();
     Q_INVOKABLE  void thumbnailsRelatedMove(qreal posScale,ZOOM_CHANGE_MODE mode);
     Q_INVOKABLE  void thumbnailsRelatedPressed(qint64 startIndex,qint64 stopIndex);
     Q_INVOKABLE void setHandleBgColor(int r,int g,int b);
@@ -160,6 +161,7 @@ public:
     void setUrl(const QUrl &url);
 
     void reset();
+    void initial();
 signals:
     void s_insertImage(const QImage& img);
 public slots:
@@ -167,6 +169,8 @@ public slots:
     void play();
     void stop();
 
+protected:
+    void showEvent(QShowEvent *event);
 private slots:
     void mediaStateChanged(QMediaPlayer::PlaybackState state);
     void positionChanged(qint64 position);
@@ -180,6 +184,10 @@ private:
     //QSlider *m_positionSlider;
     TimerThumbnailsItem * m_positionSlider;
     QLabel *m_errorLabel;
+
+    QLabel * totalTime;
+    QLabel * startTime;
+    QLabel * endTime;
     QToolButton * importBtn;
     QToolButton * importStopBtn;
     QVideoSink m_videoSink;

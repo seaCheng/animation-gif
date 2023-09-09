@@ -121,6 +121,7 @@ TimerThumbnailsItem::TimerThumbnailsItem(QWidget *parent) :
 
     m_zoomShown = true;
     //setAcceptHoverEvents(true);
+    setMouseTracking(true);
      m_startFrameIndex = 0;
      m_stopFrameIndex = 4 * 60 * 1000 - 1;
 
@@ -160,6 +161,10 @@ qint64 TimerThumbnailsItem::zoomStartIndex()
 qint64 TimerThumbnailsItem::zoomStopIndex()
 {
     return m_zoomStopIndex;
+}
+qint64 TimerThumbnailsItem::totalIndex()
+{
+    return m_stopFrameIndex;
 }
 
 void TimerThumbnailsItem::mousePressEvent(QMouseEvent *evt)
@@ -257,6 +262,9 @@ void TimerThumbnailsItem::mouseReleaseEvent(QMouseEvent *evt)
         this->setCursor(Qt::ArrowCursor);
         break;
     }
+
+    m_zoomChangeMode = MODE_NONE;
+    update();
 }
 
 qint64 TimerThumbnailsItem::calcLinePos(qint64 indexTime)
@@ -268,8 +276,9 @@ qint64 TimerThumbnailsItem::calcLinePos(qint64 indexTime)
 
 void TimerThumbnailsItem::mouseMoveEvent(QMouseEvent *evt)
 {
-    QWidget::mouseMoveEvent(evt);
+
     this->_mouseMove(evt->pos());
+    QWidget::mouseMoveEvent(evt);
 }
 
 void TimerThumbnailsItem::paintEvent(QPaintEvent *paint)
@@ -510,6 +519,7 @@ void TimerThumbnailsItem::_mouseMove(const QPoint &pos)
             }
             m_zoomStartIndex = m_referenceZoomStartIndex + dIndex;
             m_zoomStopIndex = m_referenceZoomStopIndex + dIndex;
+            emit sigTimeSectionChange();
 
         } else if (m_zoomChangeMode == MODE_RESIZE_LEFT) {
             auto latestIndex = m_referenceZoomStartIndex + dIndex;
@@ -519,6 +529,7 @@ void TimerThumbnailsItem::_mouseMove(const QPoint &pos)
                 latestIndex = m_zoomStopIndex - 25;
             }
             m_zoomStartIndex = latestIndex;
+            emit sigTimeSectionChange();
 
         } else if (m_zoomChangeMode == MODE_RESIZE_RIGHT) {
             auto latestIndex = m_referenceZoomStopIndex + dIndex;
@@ -528,9 +539,8 @@ void TimerThumbnailsItem::_mouseMove(const QPoint &pos)
                 latestIndex = m_stopFrameIndex - 1;
             }
             m_zoomStopIndex = latestIndex;
+            emit sigTimeSectionChange();
         }
-
-    emit sigTimeSectionChange();
 
     this->update();
 }
@@ -657,6 +667,10 @@ VideoPlayer::VideoPlayer(QWidget *parent)
             [this](){
 
          setPosition(m_positionSlider->zoomStartIndex());
+         totalTime->setText(m_positionSlider->transfer(m_positionSlider->totalIndex()));
+         startTime->setText(m_positionSlider->transfer(m_positionSlider->zoomStartIndex()));
+         endTime->setText(m_positionSlider->transfer(m_positionSlider->zoomStopIndex()));
+
 
     });
 
@@ -665,6 +679,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
     QBoxLayout *controlLayout = new QHBoxLayout;
     controlLayout->setContentsMargins(20, 0, 20, 0);
+    controlLayout->setSpacing(5);
     controlLayout->addWidget(m_playButton);
     controlLayout->addWidget(m_positionSlider);
 
@@ -683,14 +698,14 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     frameRateCombo->setCurrentIndex(9);
 
     QBoxLayout *controlImportLayout = new QHBoxLayout;
-    controlImportLayout->setContentsMargins(0, 0, 0, 0);
+    controlImportLayout->setContentsMargins(20, 0, 20, 0);
     controlImportLayout->setSpacing(5);
-    controlImportLayout->addStretch(1);
     controlImportLayout->addWidget(lFrameRate);
     controlImportLayout->addWidget(frameRateCombo);
+    controlImportLayout->addStretch(1);
     controlImportLayout->addWidget(importBtn);
     controlImportLayout->addWidget(importStopBtn);
-    controlImportLayout->addStretch(1);
+    //controlImportLayout->addStretch(1);
 
     connect(importBtn, &QToolButton::clicked,
             this, [&](){
@@ -710,10 +725,59 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
     });
 
+    QHBoxLayout *infoLayout = new QHBoxLayout;
+    infoLayout->setContentsMargins(20, 0, 20, 0);
+    infoLayout->setSpacing(5);
+
+    QLabel * total = new QLabel();
+    total->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    total->setFixedWidth(DPI::getScaleUI(100));
+    total->setFixedHeight(25);
+    total->setText(tr("Total duration:"));
+
+    totalTime = new QLabel();
+    totalTime->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    totalTime->setFixedWidth(DPI::getScaleUI(100));
+    totalTime->setFixedHeight(25);
+
+    QLabel * start = new QLabel();
+    start->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    start->setFixedWidth(DPI::getScaleUI(100));
+    start->setFixedHeight(25);
+    start->setText(tr("Start time:"));
+
+    startTime = new QLabel();
+    startTime->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    startTime->setFixedWidth(DPI::getScaleUI(100));
+    startTime->setFixedHeight(25);
+
+    QLabel * end = new QLabel();
+    end->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    end->setFixedWidth(DPI::getScaleUI(100));
+    end->setFixedHeight(25);
+    end->setText(tr("End Time:"));
+
+    endTime = new QLabel();
+    endTime->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    endTime->setFixedWidth(DPI::getScaleUI(100));
+    endTime->setFixedHeight(25);
+
+    infoLayout->addWidget(total);
+    infoLayout->addWidget(totalTime);
+    infoLayout->addWidget(start);
+    infoLayout->addWidget(startTime);
+    infoLayout->addWidget(end);
+    infoLayout->addWidget(endTime);
+    infoLayout->addStretch(1);
+
     QBoxLayout *layout = new QVBoxLayout;
+    //picLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     layout->addWidget(picLabel);
+
     layout->addLayout(controlLayout);
     layout->addLayout(controlImportLayout);
+    layout->addLayout(infoLayout);
+
     layout->addWidget(m_errorLabel);
 
     setLayout(layout);
@@ -739,20 +803,39 @@ VideoPlayer::~VideoPlayer()
 {
 }
 
+void VideoPlayer::showEvent(QShowEvent *event)
+{
+    QTimer::singleShot(1000, this, [&]()
+    {
+        initial();
+    });
+
+}
+
+void VideoPlayer::initial()
+{
+    //qDebug()<<"initial"<<m_positionSlider->transfer(m_mediaPlayer->duration());
+    setPosition(m_positionSlider->zoomStartIndex());
+    totalTime->setText(m_positionSlider->transfer(m_positionSlider->totalIndex()));
+    startTime->setText(m_positionSlider->transfer(m_positionSlider->zoomStartIndex()));
+    endTime->setText(m_positionSlider->transfer(m_positionSlider->zoomStopIndex()));
+}
+
 void VideoPlayer::reset()
 {
-    /*
+
     m_mediaPlayer->stop();
     m_positionSlider->setPlayStatus(false);
     m_mediaPlayer->setPosition(0);
+
     picLabel->setPixmapLabel(QPixmap());
     m_positionSlider->setEnabled(true);
     m_playButton->setEnabled(true);
     importBtn->setEnabled(true);
-    m_positionSlider->setPos(0);
+    //m_positionSlider->setPos(0);
     m_mediaPlayer->setPlaybackRate(1.0);
     bAdd = false;
-    */
+
 }
 
 void VideoPlayer::openFile()
@@ -770,6 +853,7 @@ void VideoPlayer::setUrl(const QUrl &url)
     m_errorLabel->setText(QString());
     setWindowFilePath(url.isLocalFile() ? url.toLocalFile() : QString());
     m_mediaPlayer->setSource(url);
+    setPosition(0);
     m_playButton->setEnabled(true);
 }
 
@@ -829,13 +913,7 @@ void VideoPlayer::positionChanged(qint64 position)
 void VideoPlayer::durationChanged(qint64 duration)
 {
     m_positionSlider->updateDuration(0, duration);
-    if(duration > 2000)
-    {
-        m_positionSlider->updateZoom(1000, duration-1000);
-    }else
-    {
-        m_positionSlider->updateZoom(0, duration);
-    }
+    m_positionSlider->updateZoom(duration * 0.1, duration*0.9);
 
 }
 

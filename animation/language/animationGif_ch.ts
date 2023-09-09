@@ -5,107 +5,107 @@
     <name>CommonPropertyView</name>
     <message>
         <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="396"/>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="522"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="548"/>
         <source>Manage Customizations</source>
         <translation>管理自定义</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="529"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="555"/>
         <source>size:</source>
         <translation>大小：</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="544"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="570"/>
         <source>Screen:</source>
         <translation>屏幕：</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="555"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="581"/>
         <source>Landscape</source>
         <translation>横屏</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="559"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="585"/>
         <source>Portrait</source>
         <translation>竖屏</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="573"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="599"/>
         <source>Filling mode:</source>
         <translation>填充方式：</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="578"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="604"/>
         <source>Full</source>
         <translation>充满</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="579"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="605"/>
         <source>Adjust</source>
         <translation>适应</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="580"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="606"/>
         <source>Stretch</source>
         <translation>拉伸</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="595"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="621"/>
         <source>Color:</source>
         <translation>颜色：</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="612"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="690"/>
         <source>Speed:</source>
         <translation>速度：</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="618"/>
         <source>Routine</source>
-        <translation>常规</translation>
+        <translation type="vanished">常规</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="619"/>
         <source>Automatic</source>
-        <translation>自动</translation>
+        <translation type="vanished">自动</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="629"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="699"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="717"/>
         <source>Frame delay(ms):</source>
         <translation>帧延时(ms)：</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="645"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="703"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="735"/>
         <source>Frame count(p-s):</source>
         <translation>帧数(p-s)：</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="686"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="779"/>
         <source>Sequence:</source>
         <translation>顺序：</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="693"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="786"/>
         <source>Order</source>
         <translation>顺序</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="701"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="794"/>
         <source>Reverse</source>
         <translation>反序</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="716"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="809"/>
         <source>Quality:</source>
         <translation>质量：</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="721"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="814"/>
         <source>non-optimization</source>
         <translation>不优化</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="722"/>
+        <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="815"/>
         <source>Automatic optimization</source>
         <translation>自动优化</translation>
     </message>
@@ -190,91 +190,91 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="133"/>
+        <location filename="../mainwindow.cpp" line="151"/>
         <source>Save File</source>
         <translation>保存文件</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="135"/>
+        <location filename="../mainwindow.cpp" line="153"/>
         <source>Save ( *.json)</source>
         <translation>保存(*.json)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="145"/>
-        <location filename="../mainwindow.cpp" line="218"/>
-        <location filename="../mainwindow.cpp" line="234"/>
+        <location filename="../mainwindow.cpp" line="163"/>
+        <location filename="../mainwindow.cpp" line="236"/>
+        <location filename="../mainwindow.cpp" line="254"/>
         <source>Open File</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="147"/>
+        <location filename="../mainwindow.cpp" line="165"/>
         <source>Json (*.json)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="157"/>
-        <location filename="../mainwindow.cpp" line="465"/>
+        <location filename="../mainwindow.cpp" line="175"/>
+        <location filename="../mainwindow.cpp" line="606"/>
         <source>Export gif</source>
         <translation>导出动画</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="159"/>
+        <location filename="../mainwindow.cpp" line="177"/>
         <source>Save ( *.gif)</source>
         <translation>保存( *.gif)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="236"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>Gif (*.gif)</source>
         <translation>动画(*.gif)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="387"/>
+        <location filename="../mainwindow.cpp" line="428"/>
         <source>Load project</source>
         <translation>工程导入</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="393"/>
+        <location filename="../mainwindow.cpp" line="448"/>
         <source>Save project</source>
         <translation>工程保存</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="400"/>
+        <location filename="../mainwindow.cpp" line="462"/>
         <source>Add picture</source>
         <translation>添加照片</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="405"/>
+        <location filename="../mainwindow.cpp" line="478"/>
         <source>Insert empty</source>
         <translation>插入空白</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="414"/>
+        <location filename="../mainwindow.cpp" line="501"/>
         <source>Remove picture</source>
         <translation>删除照片</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="427"/>
+        <location filename="../mainwindow.cpp" line="520"/>
         <source>Clear pictures</source>
         <translation>删除所有</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="433"/>
-        <location filename="../mainwindow.cpp" line="438"/>
+        <location filename="../mainwindow.cpp" line="545"/>
+        <location filename="../mainwindow.cpp" line="550"/>
         <source>Run</source>
         <translation>运行</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="442"/>
+        <location filename="../mainwindow.cpp" line="554"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="451"/>
+        <location filename="../mainwindow.cpp" line="569"/>
         <source>Undo</source>
         <translation>撤销</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="457"/>
+        <location filename="../mainwindow.cpp" line="588"/>
         <source>Redo</source>
         <translation>重做</translation>
     </message>
@@ -308,35 +308,73 @@
 <context>
     <name>PropertyAreaView</name>
     <message>
-        <location filename="../tabPropertyTable/propertyAreaView.cpp" line="48"/>
+        <location filename="../tabPropertyTable/propertyAreaView.cpp" line="63"/>
         <source>Common</source>
         <translation>通用</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/propertyAreaView.cpp" line="52"/>
+        <location filename="../tabPropertyTable/propertyAreaView.cpp" line="70"/>
         <source>White board</source>
         <translation>白板</translation>
     </message>
 </context>
 <context>
+    <name>QTitleBar</name>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="344"/>
+        <source>Log In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="346"/>
+        <source>Device Switch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="347"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="348"/>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>VideoPlayer</name>
     <message>
-        <location filename="../VideoLoad/videoplayer.cpp" line="143"/>
+        <location filename="../VideoLoad/videoplayer.cpp" line="626"/>
         <source>Import</source>
         <translation>导入</translation>
     </message>
     <message>
-        <location filename="../VideoLoad/videoplayer.cpp" line="148"/>
+        <location filename="../VideoLoad/videoplayer.cpp" line="631"/>
         <source>Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../VideoLoad/videoplayer.cpp" line="184"/>
+        <location filename="../VideoLoad/videoplayer.cpp" line="688"/>
         <source>Frame rate</source>
         <translation>帧率</translation>
     </message>
     <message>
-        <location filename="../VideoLoad/videoplayer.cpp" line="258"/>
+        <location filename="../VideoLoad/videoplayer.cpp" line="736"/>
+        <source>Total duration:</source>
+        <translation>总时长:</translation>
+    </message>
+    <message>
+        <location filename="../VideoLoad/videoplayer.cpp" line="747"/>
+        <source>Start time:</source>
+        <translation>开始时间:</translation>
+    </message>
+    <message>
+        <location filename="../VideoLoad/videoplayer.cpp" line="758"/>
+        <source>End Time:</source>
+        <translation>结束时间:</translation>
+    </message>
+    <message>
+        <location filename="../VideoLoad/videoplayer.cpp" line="845"/>
         <source>Open Movie</source>
         <translation>打开视频</translation>
     </message>
@@ -705,6 +743,27 @@
         <location filename="../tabPropertyTable/commonProperty/commonPropertyView.cpp" line="324"/>
         <source>heigth:</source>
         <translation>高度:</translation>
+    </message>
+</context>
+<context>
+    <name>frameBtn</name>
+    <message>
+        <location filename="../titleBar/QTitleBar.cpp" line="53"/>
+        <source>Device Switch</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>titleWid</name>
+    <message>
+        <location filename="../ui/titleBar.ui" line="26"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/titleBar.ui" line="180"/>
+        <source>AnimationGif</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
