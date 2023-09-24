@@ -5,7 +5,7 @@
 class QAbstractButton;
 class QButtonGroup;
 
-enum DiagramType { Diagram_Text, Diagram_Step, Diagram_Conditional,  \
+enum DiagramType { Diagram_Text,Diagram_ColorText, Diagram_Step, Diagram_Conditional,  \
                    Diagram_StartEnd, Diagram_Io, Diagram_Oval, Diagram_Triangle, Diagram_Pen, Diagram_Pic,Diagram_Sel,Diagram_Del };
 Q_DECLARE_METATYPE(DiagramType)
 

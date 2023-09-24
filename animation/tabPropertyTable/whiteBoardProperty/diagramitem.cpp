@@ -31,13 +31,10 @@ void SGraffiti::setText(QString str)
 {
     strText = str;
 
-
+    /*
     if(pathinformation.bHandWriting == false)
     {
         Textpath.clear();
-        /*
-        Textpath.addText(0,0,pathinformation.textFont,pathinformation.text);
-        */
 
         int fontWidth = pathinformation.penPathWidth > pathinformation.penPathcontourWidth ?  \
                         pathinformation.penPathWidth : pathinformation.penPathcontourWidth;
@@ -58,6 +55,7 @@ void SGraffiti::setText(QString str)
         m_rcBounding.adjust(-pathwidth, -pathwidth, pathwidth, pathwidth);
         m_topLeftInScene = m_rcBounding.topLeft();
     }
+    */
     update();
 }
 
@@ -70,11 +68,6 @@ void SGraffiti::setEndPoint(const QPointF &pos)
     m_rcBounding.moveTo(0, 0);
     setPos(m_topLeftInScene);
 
-    if(pathinformation.bHandWriting)
-    {
-        //Textpath = m_path.translated(-m_topLeftInScene);
-
-    }
     update();
 }
 
@@ -84,13 +77,7 @@ void SGraffiti::customPaint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->setPen(m_pen);
 
     QPainterPath path;
-    if(pathinformation.bHandWriting)
-    {
-        path = m_path.translated(-m_topLeftInScene);
-    }else
-    {
-        path = Textpath;
-    }
+    path = m_path.translated(-m_topLeftInScene);
 
     QPainterPathStroker stroker;
     stroker.setCapStyle(pathinformation.capStyle);  // 端点风格

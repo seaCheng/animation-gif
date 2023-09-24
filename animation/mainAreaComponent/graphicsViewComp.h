@@ -26,6 +26,7 @@ class PictureItem;
 class PicGraphicsScene;
 class DiagramItem;
 class DiagramTextItem;
+class DiagramColorTextItem;
 
 class SGraffiti;
 
@@ -50,7 +51,7 @@ private:
     PicGraphicsScene * pScene = nullptr;
 };
 
-enum InsertMode { InsertItem, InsertLine, InsertText,InsertDrawLine, InsertPic,MoveItem,DeleteItem };
+enum InsertMode { InsertItem, InsertLine, InsertText,InsertColorText,InsertDrawLine, InsertPic,MoveItem,DeleteItem };
 Q_DECLARE_METATYPE(InsertMode);
 
 class PicGraphicsScene : public QGraphicsScene
@@ -77,7 +78,7 @@ signals:
     void s_modeRef(InsertMode);
 
 public slots:
-    void editorLostFocus(DiagramTextItem *item);
+    void editorLostFocus(QGraphicsTextItem *item);
 
 protected:
     void drawBackground(QPainter *painter, const QRectF &rect) override;
@@ -105,6 +106,7 @@ private:
     DiagramItem *item = nullptr;
     QFont myFont;
     DiagramTextItem *textItem = nullptr;
+    DiagramColorTextItem *ctextItem = nullptr;
     QColor myTextColor;
     QColor myItemColor;
     QColor myLineColor;

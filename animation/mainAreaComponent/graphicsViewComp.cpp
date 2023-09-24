@@ -30,10 +30,10 @@ GraphicsViewComp::GraphicsViewComp(QGraphicsScene *scene, QWidget *parent)
     {
         if(MoveItem == mode)
         {
-           setDragMode(QGraphicsView::RubberBandDrag);
+            setDragMode(QGraphicsView::RubberBandDrag);
         }else
         {
-           setDragMode(QGraphicsView::NoDrag);
+            setDragMode(QGraphicsView::NoDrag);
         }
     });
     setStyleSheet("padding: 0px; border: 1px;");
@@ -160,8 +160,13 @@ void PicGraphicsScene::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf, r
             textItem->setFont(whiteBoardInf->font);
             textItem->setDefaultTextColor(whiteBoardInf->textColor);
 
+        }else if(item->type() == DiagramColorTextItem::Type && proType == pro_pen)
+        {
+            DiagramColorTextItem * ctextItem = (DiagramColorTextItem *)item;
+            ctextItem->setPathInf(whiteBoardInf->pathInfmation);
 
-        }else if(item->type() == SGraffiti::Type && proType == pro_pen)
+        }
+        else if(item->type() == SGraffiti::Type && proType == pro_pen)
         {
             SGraffiti * sgra = (SGraffiti *)item;
             if(whiteBoardInf->pathInfmation.bHandWriting == sgra->getHandWriteState())
@@ -171,12 +176,12 @@ void PicGraphicsScene::setWhiteBoardPro(std::shared_ptr<whiteBoardProInf> inf, r
 
         }else if(item->type() == DiagramItem::Type && proType == pro_item)
         {
-             DiagramItem * digItem = (DiagramItem *)item;
-             digItem->setItemInf(whiteBoardInf->itemInfmation);
+            DiagramItem * digItem = (DiagramItem *)item;
+            digItem->setItemInf(whiteBoardInf->itemInfmation);
         }else if(item->type() == Arrow::Type && proType == pro_arrow)
         {
-             Arrow * arrItem = (Arrow *)item;
-             arrItem->setArrowInf(whiteBoardInf->arrowInformation);
+            Arrow * arrItem = (Arrow *)item;
+            arrItem->setArrowInf(whiteBoardInf->arrowInformation);
         }
     }
     update();
@@ -207,7 +212,7 @@ void PicGraphicsScene::setItemType(DiagramType type)
     dType = type;
 }
 
-void PicGraphicsScene::editorLostFocus(DiagramTextItem *item)
+void PicGraphicsScene::editorLostFocus(QGraphicsTextItem *item)
 {
     QTextCursor cursor = item->textCursor();
     cursor.clearSelection();
@@ -222,10 +227,10 @@ void PicGraphicsScene::editorLostFocus(DiagramTextItem *item)
 void PicGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
     if(views().count()==0)
-           return;
+        return;
 
     if(mpItem == nullptr)
-          return;
+        return;
 
     painter->save();
     painter->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
@@ -297,29 +302,29 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
                 lstselectedItems = selectedItems();
                 for (QGraphicsItem *item : qAsConst(lstselectedItems)) {
-                     if (item->type() == DiagramItem::Type)
-                         qgraphicsitem_cast<DiagramItem *>(item)->removeArrows();
-                     removeItem(item);
-                     delete item;
-                 }
+                    if (item->type() == DiagramItem::Type)
+                        qgraphicsitem_cast<DiagramItem *>(item)->removeArrows();
+                    removeItem(item);
+                    delete item;
+                }
                 return;
             }else
             {
-               return  QGraphicsScene::mousePressEvent(mouseEvent);
+                return  QGraphicsScene::mousePressEvent(mouseEvent);
             }
 
         }
     }
 
     switch (iMode) {
-        case InsertItem:
-            item = new DiagramItem(dType, myItemMenu);
-            item->setItemInf(whiteBoardInf->itemInfmation);
-            addItem(item);
-            item->setPos(mouseEvent->scenePos());
-            item->setSelected(false);
+    case InsertItem:
+        item = new DiagramItem(dType, myItemMenu);
+        item->setItemInf(whiteBoardInf->itemInfmation);
+        addItem(item);
+        item->setPos(mouseEvent->scenePos());
+        item->setSelected(false);
 
-            break;
+        break;
 
     case InsertPic:
         item = new DiagramItem(dType, myItemMenu);
@@ -329,50 +334,65 @@ void PicGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         break;
 
-        case InsertLine:
-            line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
-                                        mouseEvent->scenePos()));
-            line->setPen(QPen(whiteBoardInf->arrowInformation.arrowColor, whiteBoardInf->arrowInformation.penWidth));
-            addItem(line);
-            QGraphicsScene::mousePressEvent(mouseEvent);
-            break;
+    case InsertLine:
+        line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
+                                            mouseEvent->scenePos()));
+        line->setPen(QPen(whiteBoardInf->arrowInformation.arrowColor, whiteBoardInf->arrowInformation.penWidth));
+        addItem(line);
+        QGraphicsScene::mousePressEvent(mouseEvent);
+        break;
     case InsertDrawLine:
         m_currentShape = new SGraffiti(myItemMenu);
         m_currentShape->setPathInf(whiteBoardInf->pathInfmation);
         m_currentShape->setStartPoint(mouseEvent->scenePos());
         if(whiteBoardInf->pathInfmation.bHandWriting == false)
         {
-            m_currentShape->setSelected(true);
+            //m_currentShape->setSelected(true);
         }
         addItem(m_currentShape);
 
         break;
 
-        case InsertText:
-            textItem = new DiagramTextItem(myItemMenu);
-            textItem->setFont(whiteBoardInf->font);
-            textItem->setDefaultTextColor(whiteBoardInf->textColor);
-            textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
-            textItem->setZValue(1000.0);
-            connect(textItem, &DiagramTextItem::lostFocus,
-                    this, &PicGraphicsScene::editorLostFocus);
-            connect(textItem, &DiagramTextItem::selectedChange,
-                    this, &PicGraphicsScene::itemSelected);
-            addItem(textItem);
-            textItem->setPos(mouseEvent->scenePos());
-            textItem->setSelected(true);
+    case InsertText:
+        textItem = new DiagramTextItem(myItemMenu);
+        textItem->setFont(whiteBoardInf->font);
+        textItem->setDefaultTextColor(whiteBoardInf->textColor);
+        textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+        textItem->setZValue(1000.0);
+        connect(textItem, &DiagramTextItem::lostFocus,
+                this, &PicGraphicsScene::editorLostFocus);
+        connect(textItem, &DiagramTextItem::selectedChange,
+                this, &PicGraphicsScene::itemSelected);
+        addItem(textItem);
+        textItem->setPos(mouseEvent->scenePos());
+        textItem->setSelected(true);
 
-            QGraphicsScene::mousePressEvent(mouseEvent);
-            break;
+        QGraphicsScene::mousePressEvent(mouseEvent);
+        break;
+    case InsertColorText:
+        ctextItem = new DiagramColorTextItem(myItemMenu);
+        ctextItem->setPathInf(whiteBoardInf->pathInfmation);
+        ctextItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+
+        connect(ctextItem, &DiagramColorTextItem::lostFocus,
+                this, &PicGraphicsScene::editorLostFocus);
+        connect(ctextItem, &DiagramColorTextItem::selectedChange,
+                this, &PicGraphicsScene::itemSelected);
+        addItem(ctextItem);
+        ctextItem->setPos(mouseEvent->scenePos());
+        ctextItem->setSelected(true);
+
+        QGraphicsScene::mousePressEvent(mouseEvent);
+        break;
     case DeleteItem:
         QGraphicsScene::mousePressEvent(mouseEvent);
 
         break;
-         default:
-         {
-             QGraphicsScene::mousePressEvent(mouseEvent);
-             break;
-         }
+    default:
+    {
+        QGraphicsScene::mousePressEvent(mouseEvent);
+        break;
+    }
     }
 }
 
@@ -389,14 +409,8 @@ void PicGraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     }else if(iMode == InsertDrawLine && m_currentShape != nullptr)
     {
-        if(whiteBoardInf->pathInfmation.bHandWriting)
-        {
-            m_currentShape->setEndPoint(mouseEvent->scenePos());
-            update();
-        }else
-        {
-            QGraphicsScene::mouseMoveEvent(mouseEvent);
-        }
+        m_currentShape->setEndPoint(mouseEvent->scenePos());
+        update();
 
     }
     else if((iMode == InsertItem || iMode == InsertPic ) && item != nullptr)
@@ -435,12 +449,12 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
         removeItem(line);
         delete line;
-//! [11] //! [12]
+        //! [11] //! [12]
 
         if (startItems.count() > 0 && endItems.count() > 0 &&
-            startItems.first()->type() == DiagramItem::Type &&
-            endItems.first()->type() == DiagramItem::Type &&
-            startItems.first() != endItems.first())
+                startItems.first()->type() == DiagramItem::Type &&
+                endItems.first()->type() == DiagramItem::Type &&
+                startItems.first() != endItems.first())
         {
             DiagramItem *startItem = qgraphicsitem_cast<DiagramItem *>(startItems.first());
             DiagramItem *endItem = qgraphicsitem_cast<DiagramItem *>(endItems.first());
@@ -460,12 +474,12 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         QSize size = item->getRectSize();
         if(size.width() < DPI::getScaleUI(35))
         {
-           size.setWidth(DPI::getScaleUI(35));
+            size.setWidth(DPI::getScaleUI(35));
         }
 
         if(size.height() < DPI::getScaleUI(35))
         {
-           size.setHeight(DPI::getScaleUI(35));
+            size.setHeight(DPI::getScaleUI(35));
         }
         item->setRectSize(size);
         item->sizeRefreash();
@@ -477,12 +491,12 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         QSize size = item->getRectSize();
         if(size.width() < DPI::getScaleUI(35))
         {
-           size.setWidth(DPI::getScaleUI(35));
+            size.setWidth(DPI::getScaleUI(35));
         }
 
         if(size.height() < DPI::getScaleUI(35))
         {
-           size.setHeight(DPI::getScaleUI(35));
+            size.setHeight(DPI::getScaleUI(35));
         }
         item->setRectSize(size);
         item->sizeRefreash();
@@ -505,7 +519,7 @@ void PicGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 
     }
-    else if(m_currentShape != nullptr && iMode == InsertDrawLine && whiteBoardInf->pathInfmation.bHandWriting)
+    else if(m_currentShape != nullptr && iMode == InsertDrawLine /*&& whiteBoardInf->pathInfmation.bHandWriting*/)
     {
         if(m_currentShape->sceneBoundingRect().width() < DPI::getScaleUI(15) &&
                 m_currentShape->sceneBoundingRect().height() < DPI::getScaleUI(15))

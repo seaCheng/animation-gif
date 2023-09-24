@@ -110,7 +110,7 @@ MainWindow::MainWindow(QWidget *parent)
     scrollArea->setWidget(propertyArea);
 
     QHBoxLayout *prolayout = new QHBoxLayout();
-    prolayout->setContentsMargins(0,0,0,0);
+    prolayout->setContentsMargins(0,0,5,0);
     prolayout->addWidget(scrollArea);
     ui->rightView->setLayout(prolayout);
 

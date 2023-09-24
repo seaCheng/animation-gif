@@ -220,6 +220,11 @@ void MainAreaView::start_insertSceneItem(DiagramType type)
           pScene->setMode(InsertText);
           break;
        }
+    case Diagram_ColorText:
+    {
+       pScene->setMode(InsertColorText);
+       break;
+    }
        case Diagram_Step:
        case Diagram_Triangle:
        case Diagram_Oval:

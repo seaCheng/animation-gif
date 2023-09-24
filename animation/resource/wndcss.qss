@@ -441,6 +441,12 @@ background-position:Center;
 
 }
 
+#WhiteBoardPropertyView #ColorText{
+qproperty-icon:url(:images/colorText.png);
+background-repeat:repeat-no;
+background-position:Center;
+
+}
 
 #WhiteBoardPropertyView #Conditional{
 qproperty-icon:url(:images/condition.png);

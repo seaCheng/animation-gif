@@ -124,11 +124,13 @@ void WhiteBoardPropertyView::setConnect()
             handleFontChangeHandWrite();
     });
 
+    /*
     connect(handWriteTextEdit, &QTextEdit::textChanged,
             this, [&](){
         proInf->pathInfmation.text = handWriteTextEdit->toPlainText();
         emit s_whiteBoardProFresh(pro_pen);
     });
+
 
     connect(handWritRad, &QRadioButton::toggled,
             this, [&](bool checked){
@@ -157,6 +159,7 @@ void WhiteBoardPropertyView::setConnect()
 
         update();
     });
+    */
 
     connect(withShadowRad, &QRadioButton::toggled,
             this, [&](bool checked){
@@ -277,21 +280,23 @@ void WhiteBoardPropertyView::initial()
     buttonGroup->setExclusive(false);
 
     QGridLayout *layout = new QGridLayout;
+    //第一个参数为按钮文本，第二参数为样式标记
     layout->addWidget(createCellWidget(tr("Text"),"Text", DiagramType::Diagram_Text), 0, 0);
-    layout->addWidget(createCellWidget(tr("pen"),"pen", DiagramType::Diagram_Pen), 0, 1);
-    layout->addWidget(createCellWidget(tr("Process"), "Process",DiagramType::Diagram_Step),0, 2);
+    layout->addWidget(createCellWidget(tr("ColorText"),"ColorText", DiagramType::Diagram_ColorText), 0, 1);
+    layout->addWidget(createCellWidget(tr("pen"),"pen", DiagramType::Diagram_Pen), 0, 2);
+    layout->addWidget(createCellWidget(tr("Process"), "Process",DiagramType::Diagram_Step),0, 3);
     layout->addWidget(createCellWidget(tr("Input"),"Input", DiagramType::Diagram_Io), 1, 0);
     layout->addWidget(createCellWidget(tr("oval"), "oval",DiagramType::Diagram_Oval), 1, 1);
     layout->addWidget(createCellWidget(tr("triangle"),"triangle", DiagramType::Diagram_Triangle), 1, 2);
 
-    layout->addWidget(createCellWidget(tr("Conditional"),"Conditional", DiagramType::Diagram_Conditional), 2, 0);
-    layout->addWidget(createCellWidget(tr("Line"), "Line",DiagramType::Diagram_StartEnd), 2, 1);
-    layout->addWidget(createCellWidget(tr("Picture"), "Picture",DiagramType::Diagram_Pic), 2, 2);
-    layout->addWidget(createCellWidget(tr("Select"),"Select", DiagramType::Diagram_Sel), 3, 0);
-    layout->addWidget(createCellWidget(tr("Delete"),"Delete", DiagramType::Diagram_Del), 3, 1);
+    layout->addWidget(createCellWidget(tr("Conditional"),"Conditional", DiagramType::Diagram_Conditional), 1, 3);
+    layout->addWidget(createCellWidget(tr("Line"), "Line",DiagramType::Diagram_StartEnd), 2, 0);
+    layout->addWidget(createCellWidget(tr("Picture"), "Picture",DiagramType::Diagram_Pic), 2, 1);
+    layout->addWidget(createCellWidget(tr("Select"),"Select", DiagramType::Diagram_Sel), 2, 2);
+    layout->addWidget(createCellWidget(tr("Delete"),"Delete", DiagramType::Diagram_Del), 2, 3);
 
-    layout->setRowStretch(4, DPI::getScaleUI(10));
-    layout->setColumnStretch(3, DPI::getScaleUI(10));
+    layout->setRowStretch(3, DPI::getScaleUI(10));
+    layout->setColumnStretch(4, DPI::getScaleUI(10));
 
     groupBoxItems->setLayout(layout);
 
@@ -409,9 +414,9 @@ void WhiteBoardPropertyView::initial()
 
     //画笔
     QLabel *lColoredPen = new QLabel;
-    lColoredPen->setText(tr("Paintbrush"));
+    lColoredPen->setText(tr("ColorText & HandWring"));
     lColoredPen->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    lColoredPen->setFixedWidth(DPI::getScaleUI(150));
+    lColoredPen->setFixedWidth(DPI::getScaleUI(200));
 
     vProlay->addWidget(lColoredPen);
     QFrame *fLineCP = new QFrame;
@@ -612,6 +617,7 @@ void WhiteBoardPropertyView::initial()
     vProlay->addItem(hShadowRadLay);
 
     //手写，或编辑
+    /*
     QLabel *lScreen = new QLabel;
     lScreen->setText(tr("Text editing:"));
     lScreen->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -639,6 +645,7 @@ void WhiteBoardPropertyView::initial()
 
     hRadLay->addStretch(1);
     vProlay->addItem(hRadLay);
+    */
 
     lFontHandWrite = new QLabel;
     lFontHandWrite->setText(tr("Font:"));
@@ -681,6 +688,7 @@ void WhiteBoardPropertyView::initial()
     FontSizeLayHandWrite->addStretch(1);
     vProlay->addItem(FontSizeLayHandWrite);
 
+    /*
     ltextHandWrite = new QLabel;
     ltextHandWrite->setText(tr("Text:"));
     ltextHandWrite->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -691,6 +699,7 @@ void WhiteBoardPropertyView::initial()
     handWriteTextEdit->setText("Edit text via text edit box");
     proInf->pathInfmation.text = "Edit text via text edit box";
 
+
     QHBoxLayout * textEditHandWriteLay = new QHBoxLayout;
     textEditHandWriteLay->setContentsMargins(0,0,0,0);
     textEditHandWriteLay->setSpacing(5);
@@ -699,13 +708,14 @@ void WhiteBoardPropertyView::initial()
     textEditHandWriteLay->addWidget(handWriteTextEdit);
     textEditHandWriteLay->addStretch(1);
     vProlay->addItem(textEditHandWriteLay);
+    */
 
-    lFontHandWrite->setEnabled(false);
-    lFontSizeHandWrite->setEnabled(false);
-    ltextHandWrite->setEnabled(false);
-    fontComboHandWrite->setEnabled(false);
-    fontSizeComboHandWrite->setEnabled(false);
-    handWriteTextEdit->setEnabled(false);
+    //lFontHandWrite->setEnabled(false);
+    //lFontSizeHandWrite->setEnabled(false);
+    //ltextHandWrite->setEnabled(false);
+    //fontComboHandWrite->setEnabled(false);
+    //fontSizeComboHandWrite->setEnabled(false);
+    //handWriteTextEdit->setEnabled(false);
 
     //图元
     QLabel *lGraphicItem = new QLabel;
