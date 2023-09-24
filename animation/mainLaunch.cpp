@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 
     MainWindow mainWindow;
     mainWindow.setGeometry(DPI::getScaleUI(100), DPI::getScaleUI(100),
-                           DPI::getScaleUI(950), DPI::getScaleUI(600));
+                           DPI::getScaleUI(1400), DPI::getScaleUI(900));
     mainWindow.show();
 
     app.setActivationWindow(&mainWindow,1);

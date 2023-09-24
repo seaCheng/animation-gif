@@ -282,7 +282,7 @@
 <context>
     <name>PicGraphicsScene</name>
     <message>
-        <location filename="../mainAreaComponent/graphicsViewComp.cpp" line="494"/>
+        <location filename="../mainAreaComponent/graphicsViewComp.cpp" line="506"/>
         <source>Open File</source>
         <translation>Open File</translation>
     </message>
@@ -321,22 +321,22 @@
 <context>
     <name>QTitleBar</name>
     <message>
-        <location filename="../titleBar/QTitleBar.cpp" line="344"/>
+        <location filename="../titleBar/QTitleBar.cpp" line="343"/>
         <source>Log In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../titleBar/QTitleBar.cpp" line="346"/>
+        <location filename="../titleBar/QTitleBar.cpp" line="345"/>
         <source>Device Switch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../titleBar/QTitleBar.cpp" line="347"/>
+        <location filename="../titleBar/QTitleBar.cpp" line="346"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../titleBar/QTitleBar.cpp" line="348"/>
+        <location filename="../titleBar/QTitleBar.cpp" line="347"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
@@ -382,339 +382,339 @@
 <context>
     <name>WhiteBoardPropertyView</name>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="270"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="273"/>
         <source>Items</source>
         <translation>Items</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="281"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="305"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="284"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="308"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="282"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="285"/>
         <source>ColorText</source>
         <translation>ColorText</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="283"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="286"/>
         <source>pen</source>
         <translation>pen</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="284"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="287"/>
         <source>Process</source>
         <translation>Process</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="285"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="288"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="286"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="289"/>
         <source>oval</source>
         <translation>oval</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="287"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="290"/>
         <source>triangle</source>
         <translation>triangle</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="289"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="292"/>
         <source>Conditional</source>
         <translation>Conditional</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="290"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="293"/>
         <source>Line</source>
         <translation>Line</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="291"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="294"/>
         <source>Picture</source>
         <translation>Picture</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="292"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="295"/>
         <source>Select</source>
         <translation>Select</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="293"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="296"/>
         <source>Delete</source>
         <translation>Delete</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="300"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="303"/>
         <source>Propertys</source>
         <translation>Propertys</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="316"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="646"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="319"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="651"/>
         <source>Font:</source>
         <translation>Font:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="335"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="665"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="338"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="670"/>
         <source>Font size:</source>
         <translation>Font size:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="357"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="854"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="360"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="862"/>
         <source>Color:</source>
         <translation>Color:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="385"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="388"/>
         <source>Style:</source>
         <translation>Style:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="390"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="393"/>
         <source>Bold</source>
         <translation>Bold</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="393"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="396"/>
         <source>Italic</source>
         <translation>Italic</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="396"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="399"/>
         <source>UnderLine</source>
         <translation>UnderLine</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="414"/>
         <source>Paintbrush</source>
-        <translation>Paintbrush</translation>
+        <translation type="vanished">Paintbrush</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="425"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="417"/>
+        <source>ColorText &amp; HandWring</source>
+        <translation>ColorText &amp; HandWring</translation>
+    </message>
+    <message>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="428"/>
         <source>Pen cap:</source>
         <translation>Pen cap:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="432"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="435"/>
         <source>FlatCap</source>
         <translation>FlatCap</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="433"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="436"/>
         <source>SquareCap</source>
         <translation>SquareCap</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="434"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="437"/>
         <source>RoundCap</source>
         <translation>RoundCap</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="448"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="451"/>
         <source>Link:</source>
         <translation>Link:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="455"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="458"/>
         <source>MiterJoin</source>
         <translation>MiterJoin</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="456"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="459"/>
         <source>BevelJoin</source>
         <translation>BevelJoin</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="457"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="460"/>
         <source>RoundJoin</source>
         <translation>RoundJoin</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="458"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="461"/>
         <source>SvgMiterJoin</source>
         <translation>SvgMiterJoin</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="473"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="726"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="476"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="734"/>
         <source>Dotted line:</source>
         <translation>Dotted line:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="480"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="733"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="483"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="741"/>
         <source>NoPen</source>
         <translation>NoPen</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="481"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="734"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="484"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="742"/>
         <source>SolidLine</source>
         <translation>SolidLine</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="482"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="735"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="485"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="743"/>
         <source>DashLine</source>
         <translation>DashLine</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="483"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="736"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="486"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="744"/>
         <source>DotLine</source>
         <translation>DotLine</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="484"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="737"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="487"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="745"/>
         <source>DashDotLine</source>
         <translation>DashDotLine</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="485"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="738"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="488"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="746"/>
         <source>DashDotDotLine</source>
         <translation>DashDotDotLine</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="486"/>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="739"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="489"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="747"/>
         <source>CustomDashLine</source>
         <translation>CustomDashLine</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="501"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="504"/>
         <source>Path width:</source>
         <translation>Path width:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="525"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="528"/>
         <source>Path color:</source>
         <translation>Path color:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="545"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="548"/>
         <source>Contour width:</source>
         <translation>Contour width:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="569"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="572"/>
         <source>Contour color:</source>
         <translation>Contour color:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="589"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="592"/>
         <source>Shadow:</source>
         <translation>Shadow:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="599"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="602"/>
         <source>None</source>
         <translation>None</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="603"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="606"/>
         <source>Yes</source>
         <translation>Yes</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="618"/>
         <source>Text editing:</source>
-        <translation>Text editing:</translation>
+        <translation type="vanished">Text editing:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="628"/>
         <source>Hand write</source>
-        <translation>Hand write</translation>
+        <translation type="vanished">Hand write</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="632"/>
         <source>Edit</source>
-        <translation>Edit</translation>
+        <translation type="vanished">Edit</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="687"/>
         <source>Text:</source>
-        <translation>Text:</translation>
+        <translation type="vanished">Text:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="714"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="722"/>
         <source>Graph element</source>
         <translation>Graph element</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="754"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="762"/>
         <source>Border width:</source>
         <translation>Border width:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="778"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="786"/>
         <source>Border color:</source>
         <translation>Border color:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="798"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="806"/>
         <source>Element color:</source>
         <translation>Element color:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="818"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="826"/>
         <source>Arrow</source>
         <translation>Arrow</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="830"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="838"/>
         <source>Width:</source>
         <translation>Width:</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="875"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="883"/>
         <source>Operation</source>
         <translation>Operation</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="891"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="899"/>
         <source>save to current picture</source>
         <translation>save to current picture</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="899"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="907"/>
         <source>save to all pictures</source>
         <translation>save to all pictures</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="907"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="915"/>
         <source>clear white board</source>
         <translation>clear white board</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="931"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="939"/>
         <source>black</source>
         <translation>black</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="931"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="939"/>
         <source>white</source>
         <translation>white</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="931"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="939"/>
         <source>red</source>
         <translation>red</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="931"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="939"/>
         <source>blue</source>
         <translation>blue</translation>
     </message>
     <message>
-        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="932"/>
+        <location filename="../tabPropertyTable/whiteBoardProperty/whiteBoardPropertyView.cpp" line="940"/>
         <source>yellow</source>
         <translation>yellow</translation>
     </message>

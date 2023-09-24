@@ -731,35 +731,35 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
     QLabel * total = new QLabel();
     total->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    total->setFixedWidth(DPI::getScaleUI(100));
+    total->setFixedWidth(DPI::getScaleUI(150));
     total->setFixedHeight(25);
     total->setText(tr("Total duration:"));
 
     totalTime = new QLabel();
     totalTime->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    totalTime->setFixedWidth(DPI::getScaleUI(100));
+    totalTime->setFixedWidth(DPI::getScaleUI(120));
     totalTime->setFixedHeight(25);
 
     QLabel * start = new QLabel();
     start->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    start->setFixedWidth(DPI::getScaleUI(100));
+    start->setFixedWidth(DPI::getScaleUI(150));
     start->setFixedHeight(25);
     start->setText(tr("Start time:"));
 
     startTime = new QLabel();
     startTime->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    startTime->setFixedWidth(DPI::getScaleUI(100));
+    startTime->setFixedWidth(DPI::getScaleUI(120));
     startTime->setFixedHeight(25);
 
     QLabel * end = new QLabel();
     end->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    end->setFixedWidth(DPI::getScaleUI(100));
+    end->setFixedWidth(DPI::getScaleUI(150));
     end->setFixedHeight(25);
     end->setText(tr("End Time:"));
 
     endTime = new QLabel();
     endTime->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    endTime->setFixedWidth(DPI::getScaleUI(100));
+    endTime->setFixedWidth(DPI::getScaleUI(120));
     endTime->setFixedHeight(25);
 
     infoLayout->addWidget(total);

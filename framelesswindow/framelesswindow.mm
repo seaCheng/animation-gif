@@ -28,7 +28,7 @@ CFramelessWindow::CFramelessWindow(QWidget *parent)
 - (void)zoomButtonAction:(id)sender;
 @end
 
-@implementation ButtonPasser{   
+@implementation ButtonPasser{
 }
 + (void)closeButtonAction:(id)sender
 {
@@ -51,11 +51,14 @@ void CFramelessWindow::initUI()
     m_bNativeSystemBtn = false;
 
     //如果当前osx版本老于10.9，则后续代码不可用。转为使用定制的系统按钮，不支持自由缩放窗口及窗口阴影
+    /*
     if (QSysInfo::MV_None == QSysInfo::macVersion())
     {
         if (QSysInfo::MV_None == QSysInfo::MacintoshVersion) {setWindowFlags(Qt::FramelessWindowHint); return;}
     }
-    if (QSysInfo::MV_10_9 >= QSysInfo::MacintoshVersion) {setWindowFlags(Qt::FramelessWindowHint); return;}
+    */
+    //if (QSysInfo::MV_10_9 >= QSysInfo::MacintoshVersion) {setWindowFlags(Qt::FramelessWindowHint); return;}
+
 
     NSView* view = (NSView*)winId();
     if (0 == view) {setWindowFlags(Qt::FramelessWindowHint); return;}
@@ -72,6 +75,11 @@ void CFramelessWindow::initUI()
     //设置view扩展到标题栏
     window.styleMask |=  NSWindowStyleMaskFullSizeContentView; //MAC_10_10及以上版本支持
 
+    //window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+    //window.titlebarAppearsTransparent = YES;
+    window.tabbingMode = NSWindowTabbingModeAutomatic;
+
+
     m_bNativeSystemBtn = true;
 
     ButtonPasser * passer = [[ButtonPasser alloc] init];
@@ -81,6 +89,10 @@ void CFramelessWindow::initUI()
     NSButton *zoomButton = [window standardWindowButton:NSWindowZoomButton];
     [zoomButton setTarget:passer];
     [zoomButton setAction:@selector(zoomButtonAction:)];
+
+
+
+
 }
 
 void CFramelessWindow::setCloseBtnQuit(bool bQuit)

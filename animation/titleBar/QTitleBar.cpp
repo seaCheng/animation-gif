@@ -177,21 +177,20 @@ QTitleBar::QTitleBar(QWidget * pWid)
          ui->frameSystem->layout()->setContentsMargins(4,0,4,0);
          #endif
 
-
-
-         /*
-         m_settingBtn = new frameBtn();
-         m_settingBtn->setContext("", "", "菜单2");
-         ui->frameCtrl->layout()->addWidget(m_settingBtn);
-         */
          setConnect();
 }
 
 void QTitleBar::addBtn(frameBtn * btn)
 {
+    #ifdef Q_OS_WIN32
     ui->frameCtrl->layout()->removeItem(ui->horizontalSpacer);
     ui->frameCtrl->layout()->addWidget(btn);
     ui->frameCtrl->layout()->addItem(ui->horizontalSpacer);
+    #endif
+
+    #ifdef Q_OS_MAC
+    ui->frameCtrl->layout()->addWidget(btn);
+    #endif
 
 }
 
